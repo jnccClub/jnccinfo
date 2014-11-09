@@ -1,0 +1,46 @@
+.logo {
+	margin-left: 10px;
+	display: inline-block;
+	width: 720px;
+	height: 120px;
+	float:left;
+}
+.logo IMG{
+	margin-left: 0px;
+	display: inline-block;
+	width: 710px;
+	height: 119px;
+}
+
+.ctt {
+	margin: 0px;
+	display: inline-block;
+	vertical-align: center;
+	float: right;
+	width: 215px;
+	padding: 30px 5px 10px 10px;
+	font-weight: bold;
+	font-color: #FFE5FF;
+	text-align: left;
+}
+
+.navbarFont
+{
+	  font-family: "Arial Black", Arial, sans-serif; /*"Helvetica Neue", Helvetica, */
+	  font-size: 20px;
+	  line-height: 25px;
+	  color: #666666;
+	  margin-left: 15 px;
+}
+
+.sidebar-nav {
+	padding: 9px 0;
+}
+.tdLabel .label, .wwlbl  .label {
+	background-color: #ffffff;
+	color: #000000;
+	text-shadow: none;
+}
+.alert li {
+	list-style: none;
+}

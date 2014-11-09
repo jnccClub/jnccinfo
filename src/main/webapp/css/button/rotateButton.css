@@ -1,0 +1,211 @@
+*,*:before,*:after {
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.btn-fold-1 {
+	position: relative;
+	display: inline-block;
+	width: 12rem;
+	z-index: 1;
+	font-family: 'Varela Round', sans-serif;
+	text-decoration: none;
+	font-size: 0.3rem;
+	color: black;
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-perspective: 800px;
+	perspective: 800px;
+	-webkit-perspective-origin: 50% 200%;
+	perspective-origin: 50% 200%;
+	-webkit-transform: translateX(-25%) translateZ(0);
+	transform: translateX(-25%) translateZ(0);
+	-webkit-transition: -webkit-transform 0.8s;
+	transition: transform 0.8s;
+}
+
+.btn-fold-1 span {
+	position: relative;
+	display: block;
+	width: 50%;
+	float: left;
+	padding-top: 1rem;
+	padding-bottom: .7rem;
+	text-align: right;
+}
+
+.btn-fold-1 span:last-child {
+	z-index: 2;
+	padding-right: 1rem;
+	padding-left: .6rem;
+	text-align: left;
+	background-color: #fae900;
+}
+
+.btn-fold-1 span:first-child {
+	z-index: 3;
+	padding-right: .6rem;
+	padding-left: 1rem;
+	pointer-events: none;
+	background-color: #fae900;
+	-webkit-backface-visibility: visible;
+	backface-visibility: visible;
+	-webkit-transform-origin: 100% 50%;
+	-ms-transform-origin: 100% 50%;
+	transform-origin: 100% 50%;
+	-webkit-transform: rotateY(179.9deg);
+	transform: rotateY(179.9deg);
+	-webkit-transition: -webkit-transform 0.4s ease-in-out;
+	transition: transform 0.4s ease-in-out;
+}
+
+.btn-fold-1 span:first-child:before {
+	content: '确认';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding-top: 1rem;
+	z-index: 4;
+	color: white;
+	text-align: center;
+	background-color: #0079c2;
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+	-webkit-transition: color 0s 0.2s, background-color 0s 0.2s;
+	transition: color 0s 0.2s, background-color 0s 0.2s;
+	-webkit-transition-timing-function: ease-in-out;
+	transition-timing-function: ease-in-out;
+}
+
+.btn-fold-1:hover {
+	-webkit-transform: translateX(0) translateZ(0);
+	transform: translateX(0) translateZ(0);
+}
+
+.btn-fold-1:hover>span:first-child {
+	-webkit-transform: rotateY(0);
+	transform: rotateY(0);
+}
+
+.btn-fold-1:hover>span:first-child:before {
+	color: transparent;
+	background-color: transparent;
+}
+
+.btn-fold-2 {
+	position: relative;
+	display: inline-block;
+	width: 5rem;
+	z-index: 1;
+	font-family: 'Varela Round', sans-serif;
+	color: white;
+	text-decoration: none;
+	font-size: 0.3rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	background-color: #0079c2;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transform: translateX(0.5rem);
+	-ms-transform: translateX(0.5rem);
+	transform: translateX(0.5rem);
+	-webkit-transition: background-color 0s 0.2s ease-in-out;
+	transition: background-color 0s 0.2s ease-in-out;
+}
+
+.btn-fold-2 span {
+	position: relative;
+	width: 50%;
+	float: left;
+	padding-top: 1rem;
+	padding-bottom: .7rem;
+	pointer-events: none;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-perspective: 400px;
+	perspective: 400px;
+	-webkit-perspective-origin: 50% 200%;
+	perspective-origin: 50% 200%;
+}
+
+.btn-fold-2 span:after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	-webkit-transition: -webkit-transform 0.4s, opacity 0s 0.2s ease-in-out;
+	transition: transform 0.4s, opacity 0s 0.2s ease-in-out;
+}
+
+.btn-fold-2 span:first-child {
+	z-index: 3;
+	opacity: 1;
+	text-align: right;
+	background-color: #0079c2;
+	box-shadow: -1rem 0 0 #0079c2;
+	-webkit-transition: opacity 0s;
+	transition: opacity 0s;
+}
+
+.btn-fold-2 span:first-child:after {
+	content: '置';
+	opacity: 1;
+	padding-top: 1rem;
+	text-align: left;
+	background-color: #0079c2;
+	-webkit-transform-origin: 0 50%;
+	-ms-transform-origin: 0 50%;
+	transform-origin: 0 50%;
+	-webkit-transform: translateX(100%) rotateY(0);
+	transform: translateX(100%) rotateY(0);
+}
+
+.btn-fold-2 span:last-child {
+	z-index: 2;
+	text-align: left;
+	color: black;
+	background-color: #fae900;
+}
+
+.btn-fold-2 span:last-child:after {
+	content: '清空';
+	opacity: 0;
+	padding-top: 1rem;
+	text-align: right;
+	background-color: #fae900;
+	box-shadow: -1rem 0 0 #fae900;
+	-webkit-transform-origin: 100% 50%;
+	-ms-transform-origin: 100% 50%;
+	transform-origin: 100% 50%;
+	-webkit-transform: translateX(-100%) rotateY(180deg);
+	transform: translateX(-100%) rotateY(180deg);
+}
+
+.btn-fold-2:hover {
+	background-color: #fae900;
+}
+
+.btn-fold-2:hover>span:first-child {
+	opacity: 0;
+	-webkit-transition: opacity 0s 0.4s;
+	transition: opacity 0s 0.4s;
+}
+
+.btn-fold-2:hover>span:first-child:after {
+	opacity: 0;
+	-webkit-transform: translateX(100%) rotateY(-180deg);
+	transform: translateX(100%) rotateY(-180deg);
+}
+
+.btn-fold-2:hover>span:last-child:after {
+	opacity: 1;
+	-webkit-transform: translateX(-100%) rotateY(0.1deg);
+	transform: translateX(-100%) rotateY(0.1deg);
+}
