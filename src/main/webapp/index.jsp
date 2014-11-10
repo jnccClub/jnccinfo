@@ -17,16 +17,21 @@
 <meta name="author" content="huangpengfei" />
 <link rel="shortcut icon" href="../favicon.ico">
 
-<script src="js/nav/modernizr.custom.js"></script>
-<script src="js/nav/classie.js"></script>
-<script src="js/nav/gnmenu.js"></script>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/Calendar4.js"></script>
-
-<title>旺旺网</title>
 <link
 	href="<s:url value='/css/main.css' encode='false' includeParams='none'/>"
 	rel="stylesheet" type="text/css" media="all" />
+
+<script src="js/common/jquery.min.js"></script>
+<script src="js/common/bootstrap.min.js"></script>
+<script src="js/common/site.js"></script>
+<script type="text/javascript" src="js/Calendar4.js"></script>
+<script type="text/javascript" src='js/common/jquery.js'></script>
+<script type="text/javascript" src='js/datepick/datepick.js'></script>
+
+
+
+<title>JNCC booking</title>
+
 </head>
 <body>
 	<script>
@@ -43,7 +48,6 @@
 				$("#loginEntry").html('<a href="javarscript:(0)" >登录/注册</a>');
 				$("#logOutEntry").hide();
 			});
-			new gnMenu(document.getElementById('gn-menu'));
 		});
 		function renewMainId(newId) {
 			$(currentShowID).hide();
@@ -51,8 +55,27 @@
 			$(currentShowID).show();
 		}
 	</script>
-	<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
 
+	<div id='wrapper'>
+		<form>
+			<select class='custom-date' name='select'>
+				<option value='7'>7 Days</option>
+				<option value='30'>30 Days</option>
+				<option selected='selected' value='90'>90 Days</option>
+				<option value='180'>180 Days</option>
+				<option value='365'>365 Days</option>
+				<option value='custom'>Custom</option>
+			</select>
+		</form>
+	</div>
+
+	<div class="container">
+
+
+
+		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
+		<jsp:include page="bodyContent/mainFrame_Body.jsp"></jsp:include>
+	</div>
 
 </body>
 </html>

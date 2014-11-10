@@ -8,11 +8,37 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<div id="mainFrame_Body">
-	<header id="containerHead">
-	<h1>
-		讨论首页 <span>什么事是重要的 <a href="#">项目顺利</a>完成
-		</span>
-	</h1>
-	</header>
+<div class="row" id="mainFrame_Body">
+	<jsp:include page="personalNav.jsp"></jsp:include>
+	<jsp:include page="welcomeContent.jsp"></jsp:include>
+	<jsp:include page="createApplication.jsp"></jsp:include>
 </div>
+
+
+<script>
+	var currentBodyID = "#Body_Welcome";
+	var currentBodyNavActive = "#welcome_body";
+	
+	$(document).ready(function() {
+		$("#welcome_body").click(function() {
+			renewBodyId("#Body_Welcome",$(this));
+		});
+		
+		$("#create_Application").click(function() {
+			renewBodyId("#Body_CreateApp",$(this));
+		});
+		
+
+	});
+	function renewBodyId(newBodyId,newActiveId) {
+		$(currentBodyNavActive).removeClass("active");
+		currentBodyNavActive = newActiveId;
+		$(currentBodyNavActive).addClass("active");
+		
+		$(currentBodyID).hide();		
+		currentBodyID = newBodyId;
+		$(currentBodyID).show();
+	}
+
+	
+</script>

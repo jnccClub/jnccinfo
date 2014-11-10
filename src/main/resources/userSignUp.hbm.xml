@@ -16,7 +16,8 @@
   <property column="email" generated="never" lazy="false" name="email"/>
   <property column="qq" generated="never" lazy="false" name="qq"/>
   <property column="preference" generated="never" lazy="false" name="preference"/>
-  <property column="role" generated="never" lazy="false" name="role"/>
   <property column="selfIntroduce" generated="never" lazy="false" name="selfIntroduce"/>
+    <property column="role" generated="never" lazy="false" name="role"/>
+  <property column="status" generated="never" lazy="false" name="status"/>
  </class>
 </hibernate-mapping>
