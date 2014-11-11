@@ -29,9 +29,10 @@
 
 	<div class="span9">
 		<h1 id="create_application_title">创建申请</h1>
+		<form id="elementry_form" class="form-inline">
 		<jsp:include page="apply_steps/elementryInfo.jsp"></jsp:include>
 		<jsp:include page="apply_steps/detailInfo.jsp"></jsp:include>
-
+		</form>
 	</div>
 
 

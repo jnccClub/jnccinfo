@@ -7,8 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
-<form id="elementry_form" class="form-inline">
-	<fieldset>
+
+	<fieldset id="elementry_field">
 		<legend>请认真填写申请基本事项！</legend>
 		<div class="control-group">
 			<label class="control-label">课程名称：</label> <input type="text"
@@ -21,12 +21,13 @@
 			<div class="radio">
 				<label class="control-label">联系方式：</label> <input type="text"
 					name="applicationInfo.contactNo" placeholder="02552112897" /> <label
-					class="control-label">&nbsp;&nbsp;&nbsp;预定类型：</label> <label> <input
+					class="control-label">&nbsp;&nbsp;&nbsp;预定类型：&nbsp;</label> <label> <input
 					type="radio" name="courseType" id="optionsRadios1" value="1"
-					checked> 上机
-				</label> <label> <input type="radio" name="courseType" value="2">上课
+					checked> 上机&nbsp;&nbsp;&nbsp;
+				</label> <label> <input type="radio" name="courseType" value="2">上课&nbsp;&nbsp;&nbsp;
 				</label>
-
+				 <label> <input type="radio" name="courseType" value="3">考试
+				</label>
 			</div>
 		</div>
 		<!-- 
@@ -48,45 +49,55 @@
 			</select>
 			<script src="js/datepick/datepick.js"></script>
 
-			<label class="control-label">&nbsp;&nbsp;&nbsp;课程时间：</label> <select
-				class="span2">
-				<option value='1'>1小时</option>
-				<option selected='selected' value='2'>2小时</option>
-				<option value='3'>3小时</option>
-				<option value='4'>4小时</option>
+			<label class="control-label">&nbsp;&nbsp;&nbsp;开始时间：</label>
+			<div id="datetimepicker" class="input-append date">
+				<input type="text" style="width:50px;height:28px;"></input> <span class="add-on"> <i
+					data-time-icon="icon-time"></i>
+				</span>
+			</div>
+
+			<script type="text/javascript">
+				$('#datetimepicker').datetimepicker({
+					format : 'hh:mm',
+					language : 'ch',
+					pickDate : false,
+					pickTime : true,
+					hourStep : 1,
+					minuteStep : 15,
+					secondStep : 30,
+					inputMask : true
+				});
+			</script>
+
+
+			<label class="control-label">&nbsp;&nbsp;&nbsp;课时：</label>
+			<select
+				class="span1">
+				<option value='1'>1学时</option>
+				<option selected='selected' value='2'>2学时</option>
+				<option value='3'>3学时</option>
+				<option value='4'>4学时</option>
 			</select>
 		</div>
-
-
-		<div class="control-group">
-			<label class="control-label" for="input01">电子邮箱：</label>
-			<div class="controls">
-				<input type="text" class="input-xlarge" id="input01"
-					placeholder="john.smith@example.org" />
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="fileInput">附加文件：</label>
-			<div class="controls">
-				<input class="input-file" id="fileInput" type="file" />
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="textarea">其他说明：</label>
-			<div class="controls">
-				<textarea class="input-xlarge" id="textarea" rows="4"
-					placeholder="计算中心的8楼E区键盘不好用！"></textarea>
-			</div>
-		</div>
-		<div class="control-group">
-			<div class="controls">
-				<input type="checkbox" id="optionsCheckbox" value="option1"
-					checked="checked" />&nbsp;&nbsp;&nbsp;同意南京航空航天大学将军路校区计算中心所有服务条款
-			</div>
+		<div class="control-group bordline">
+			<label class="control-label">星期：</label> <label
+				class="checkbox-inline"> <input type="checkbox"
+				id="inlineCheckbox1" value="1"> 星期一&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="checkbox"
+				id="inlineCheckbox2" value="2"> 星期二&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="checkbox"
+				id="inlineCheckbox3" value="3"> 星期三&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="checkbox"
+				id="inlineCheckbox3" value="4"> 星期四&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="checkbox"
+				id="inlineCheckbox3" value="5"> 星期五&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="checkbox"
+				id="inlineCheckbox3" value="6"> 星期六&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="checkbox"
+				id="inlineCheckbox3" value="7"> 星期日&nbsp;&nbsp;&nbsp;&nbsp;
+			</label>
 		</div>
 		<div class="form-actions">
-			<button class="btn btn-primary">下一步</button>
-			<button class="btn">取消</button>
 		</div>
 	</fieldset>
 </form>

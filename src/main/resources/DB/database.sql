@@ -21,24 +21,23 @@ USE `test`;
 DROP TABLE IF EXISTS `e_application`;
 
 CREATE TABLE `e_application` (
-  `applicationID` varchar(32) CHARACTER SET utf8 NOT NULL,
-  `createUser` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `approver` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `curentHandler` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `courseName` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
-  `seats` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
+  `applicationID` varchar(32) NOT NULL,
+  `createUser` varchar(32) DEFAULT NULL,
+  `approver` varchar(32) DEFAULT NULL,
+  `curentHandler` varchar(32) DEFAULT NULL,
+  `courseName` varchar(128) DEFAULT NULL,
+  `seats` varchar(15) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `begintime` time DEFAULT NULL,
   `endtime` time DEFAULT NULL,
-  `weekday` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
+  `weekday` varchar(5) DEFAULT NULL,
   `createdatetime` datetime DEFAULT NULL,
-  `floor` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
-  `zone` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `status` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
-  `approveremark` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
-  `comment` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
+  `zone` varchar(32) DEFAULT NULL,
+  `status` varchar(5) DEFAULT NULL,
+  `approveremark` varchar(1024) DEFAULT NULL,
+  `comment` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`applicationID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `e_application` */
 
@@ -47,21 +46,21 @@ CREATE TABLE `e_application` (
 DROP TABLE IF EXISTS `e_member`;
 
 CREATE TABLE `e_member` (
-  `username` varchar(32) CHARACTER SET utf8 NOT NULL,
-  `realname` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
-  `password` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `sex` varchar(11) CHARACTER SET utf8 DEFAULT '0',
+  `username` varchar(32) NOT NULL,
+  `realname` varchar(64) DEFAULT NULL,
+  `password` varchar(32) DEFAULT NULL,
+  `sex` varchar(11) DEFAULT '0',
   `birth` date DEFAULT '1990-01-01',
-  `schoolno` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `phoneno` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `email` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `qq` varchar(16) CHARACTER SET utf8 DEFAULT NULL,
-  `preference` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `selfIntroduce` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `Role` varchar(5) CHARACTER SET utf8 DEFAULT '1',
-  `State` varchar(5) CHARACTER SET utf8 DEFAULT '00000',
+  `schoolno` varchar(32) DEFAULT NULL,
+  `phoneno` varchar(32) DEFAULT NULL,
+  `email` varchar(32) DEFAULT NULL,
+  `qq` varchar(16) DEFAULT NULL,
+  `preference` varchar(256) DEFAULT NULL,
+  `selfIntroduce` varchar(256) DEFAULT NULL,
+  `Role` varchar(5) DEFAULT '1',
+  `State` varchar(5) DEFAULT '00000',
   PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `e_member` */
 
@@ -75,7 +74,7 @@ CREATE TABLE `hibernatetest` (
   `id` int(11) NOT NULL,
   `username` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `hibernatetest` */
 
@@ -90,7 +89,7 @@ CREATE TABLE `homepageinfo` (
   `caption` varchar(512) DEFAULT NULL,
   `content` longblob,
   PRIMARY KEY (`homepageid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `homepageinfo` */
 
@@ -102,12 +101,12 @@ DROP TABLE IF EXISTS `news`;
 
 CREATE TABLE `news` (
   `NO` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'sequence',
-  `NewsTitle` varchar(500) NOT NULL DEFAULT 'Welcome',
+  `NewsTitle` varchar(100) NOT NULL DEFAULT 'Welcome',
   `Modifytime` timestamp NOT NULL DEFAULT '2013-11-24 19:42:28',
   `Createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `NewsContent` longtext,
   PRIMARY KEY (`NO`,`NewsTitle`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `news` */
 
@@ -122,9 +121,26 @@ CREATE TABLE `processtype` (
   `processType` varchar(32) DEFAULT NULL,
   `processContent` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`processID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `processtype` */
+
+/*Table structure for table `software_list` */
+
+DROP TABLE IF EXISTS `software_list`;
+
+CREATE TABLE `software_list` (
+  `name` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `version` varchar(12) CHARACTER SET utf8 NOT NULL,
+  `zone` varchar(512) CHARACTER SET utf8 DEFAULT NULL,
+  `createdate` date DEFAULT NULL,
+  `os` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
+  `operator` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `comment` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`name`,`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `software_list` */
 
 /*Table structure for table `student` */
 
@@ -137,7 +153,7 @@ CREATE TABLE `student` (
   `age` char(1) DEFAULT NULL,
   `sex` char(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `student` */
 
@@ -146,9 +162,9 @@ CREATE TABLE `student` (
 DROP TABLE IF EXISTS `tablename1`;
 
 CREATE TABLE `tablename1` (
-  `t` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `t` varchar(32) NOT NULL,
   PRIMARY KEY (`t`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `tablename1` */
 
@@ -160,7 +176,7 @@ CREATE TABLE `test` (
   `id` int(11) NOT NULL,
   `username` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `test` */
 
@@ -172,9 +188,28 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` char(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
+
+/*Table structure for table `zone_os` */
+
+DROP TABLE IF EXISTS `zone_os`;
+
+CREATE TABLE `zone_os` (
+  `zone` varchar(18) CHARACTER SET utf8 NOT NULL,
+  `osname` varchar(64) CHARACTER SET utf8 NOT NULL,
+  `displayname` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
+  `createDate` date DEFAULT NULL,
+  `usage` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
+  `operator` varchar(18) CHARACTER SET utf8 DEFAULT '张磊',
+  `commnet` varchar(512) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`zone`,`osname`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `zone_os` */
+
+insert  into `zone_os`(`zone`,`osname`,`displayname`,`createDate`,`usage`,`operator`,`commnet`) values ('7E','windows 7','WIN7',NULL,NULL,'张磊',NULL),('7F','windows 7','WIN7',NULL,NULL,'张磊',NULL),('7F','windows XP','WIN XP',NULL,NULL,'张磊',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
