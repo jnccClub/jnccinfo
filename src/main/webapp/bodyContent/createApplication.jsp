@@ -8,10 +8,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
+
+
+
+
 <div class="span9" id="Body_CreateApp" style="display:none">
 	<div class="hero-unit">
 		<h1>欢迎!</h1>
 		<p>如果不清楚如何创建申请，请选择帮助</p>
+		<ul>
+		<li>填写基本信息</li>
+		<li>选择必备软件资源或实验室资源</li>
+		<li>选择符合条件的区域</li>
+		</ul>
 		<p>
 			<a href="javascript:(0)" class="btn btn-primary btn-large">创建申请</a> <a
 				class="btn btn-large">帮助</a>
@@ -19,74 +28,14 @@
 	</div>
 
 	<div class="span9">
-		<h1>创建申请</h1>
-		<form id="edit-profile" class="form-inline">
-			<fieldset>
-				<legend>请认真填写申请事项！</legend>
-				<div class="control-group">
-					<label class="control-label">课程名称</label> <input type="text"
-						name="applicationInfo.course" placeholder="课程名称" />&nbsp;&nbsp;&nbsp;
-					<label class="control-label">课程人数</label> <input type="text"
-						name="applicationInfo.seats" placeholder="50" />
-					&nbsp;&nbsp;&nbsp; <label class="control-label">联系方式</label> <input
-						type="text" name="applicationInfo.contactNo"
-						placeholder="02552112897" />
-				</div>
+		<h1 id="create_application_title">创建申请</h1>
+		<jsp:include page="apply_steps/elementryInfo.jsp"></jsp:include>
+		<jsp:include page="apply_steps/detailInfo.jsp"></jsp:include>
 
-				<div class="control-group">
-					<label class="control-label">开始日期</label><input type="text" name="userInfo.birth" id="timeBirth"
-					onclick="MyCalendar.SetDate(this)" value="1990-01-01" />
-
-				</div>
-				<select style="width:3.5em;height:1.7em">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-				</select>时
-				<select style="width:3.5em;height:1.7em">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-				</select>分
-
-				<div class="control-group">
-					<label class="control-label" for="input01">Email</label>
-					<div class="controls">
-						<input type="text" class="input-xlarge" id="input01"
-							value="john.smith@example.org" />
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="fileInput">Photo</label>
-					<div class="controls">
-						<input class="input-file" id="fileInput" type="file" />
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="textarea">Biography</label>
-					<div class="controls">
-						<textarea class="input-xlarge" id="textarea" rows="4">Web technology junkie who writes innovative and bestselling technical books. Also enjoys Sunday bicycle rides and all "good" comedy.</textarea>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="optionsCheckbox">Public
-						Profile</label>
-					<div class="controls">
-						<input type="checkbox" id="optionsCheckbox" value="option1"
-							checked="checked" />
-					</div>
-				</div>
-				<div class="form-actions">
-					<button type="submit" class="btn btn-primary">Save</button>
-					<button class="btn">Cancel</button>
-				</div>
-			</fieldset>
-		</form>
 	</div>
+
+
+
 
 	<h2>历史申请</h2>
 	<table class="table table-bordered table-striped">

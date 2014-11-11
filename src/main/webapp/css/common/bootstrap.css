@@ -1153,6 +1153,7 @@ textarea::-webkit-input-placeholder {
 .checkbox {
   min-height: 20px;
   padding-left: 20px;
+  vertical-align:middle;
 }
 
 .radio input[type="radio"],

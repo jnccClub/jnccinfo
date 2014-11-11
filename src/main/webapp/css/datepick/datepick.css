@@ -10,7 +10,7 @@ html, body {
 
 select {
   -webkit-appearance: menulist-button;
-  width: 200px;
+  width: 205px;
   height: 25px;
 }
 
@@ -28,7 +28,7 @@ select {
   font-size: 12px;
   color: #444444;
   background-color: white;
-  margin: 15px 0;
+  margin: 13px 0 0 50px;
   padding: 18px 18px 38px;
   text-transform: uppercase;
   border: 1px solid #d6d6d6;
@@ -38,6 +38,7 @@ select {
   -webkit-box-shadow: 0px 4px 10px 0 #828282;
   -moz-box-shadow: 0px 4px 10px 0 #828282;
   box-shadow: 0px 4px 10px 0 #828282;
+  display:none;
 }
 .drp-popup *, .drp-popup *:before, .drp-popup *:after {
   -moz-box-sizing: border-box;

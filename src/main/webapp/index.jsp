@@ -13,7 +13,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="jncc booking" />
-<meta name="keywords"   content="jncc,booking,huangpengfei" />
+<meta name="keywords" content="jncc,booking,huangpengfei" />
 <meta name="author" content="huangpengfei" />
 <link rel="shortcut icon" href="../favicon.ico">
 
@@ -32,50 +32,14 @@
 
 <title>JNCC booking</title>
 
+<link rel="stylesheet" href="css/datepick/datepick.css" media="screen"
+	type="text/css" />
 </head>
 <body>
-	<script>
-		var currentShowID = "#mainFrame_Body";
-		var userName = "test";
-		$(document).ready(function() {
-			$("#loginEntry").click(function() {
-				renewMainId("#mainFrame_Login");
-			});
-
-			$("#logOutEntry").click(function() {
-				alert("come to relogin");
-				username = "";
-				$("#loginEntry").html('<a href="javarscript:(0)" >登录/注册</a>');
-				$("#logOutEntry").hide();
-			});
-		});
-		function renewMainId(newId) {
-			$(currentShowID).hide();
-			currentShowID = newId;
-			$(currentShowID).show();
-		}
-	</script>
-
-	<div id='wrapper'>
-		<form>
-			<select class='custom-date' name='select'>
-				<option value='7'>7 Days</option>
-				<option value='30'>30 Days</option>
-				<option selected='selected' value='90'>90 Days</option>
-				<option value='180'>180 Days</option>
-				<option value='365'>365 Days</option>
-				<option value='custom'>Custom</option>
-			</select>
-		</form>
-	</div>
 
 	<div class="container">
-
-
-
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
 		<jsp:include page="bodyContent/mainFrame_Body.jsp"></jsp:include>
 	</div>
-
 </body>
 </html>

@@ -21,10 +21,22 @@ USE `test`;
 DROP TABLE IF EXISTS `e_application`;
 
 CREATE TABLE `e_application` (
-  `applicationID` varchar(32) NOT NULL,
-  `curentHandler` varchar(32) NOT NULL,
-  `processIDList` varchar(512) NOT NULL,
-  `title` varchar(512) DEFAULT NULL,
+  `applicationID` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `createUser` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `approver` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `curentHandler` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `courseName` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  `seats` varchar(15) CHARACTER SET utf8 DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `begintime` time DEFAULT NULL,
+  `endtime` time DEFAULT NULL,
+  `weekday` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
+  `createdatetime` datetime DEFAULT NULL,
+  `floor` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
+  `zone` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `status` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
+  `approveremark` varchar(1024) CHARACTER SET utf8 DEFAULT NULL,
+  `comment` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`applicationID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -45,14 +57,15 @@ CREATE TABLE `e_member` (
   `email` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
   `qq` varchar(16) CHARACTER SET utf8 DEFAULT NULL,
   `preference` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `hobby` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `selfIntroduce` varchar(2048) CHARACTER SET utf8 DEFAULT NULL,
+  `selfIntroduce` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+  `Role` varchar(5) CHARACTER SET utf8 DEFAULT '1',
+  `State` varchar(5) CHARACTER SET utf8 DEFAULT '00000',
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `e_member` */
 
-insert  into `e_member`(`username`,`realname`,`password`,`sex`,`birth`,`schoolno`,`phoneno`,`email`,`qq`,`preference`,`hobby`,`selfIntroduce`) values ('1111','','','male','1990-01-01',NULL,'','','','HTML, CSS, UCD','javaDev',''),('70206317','计算中心俱乐部','shenghuo','male','1990-01-01',NULL,'','','','HTML, CSS, UCD','javaDev',''),('7020631711','计算中心俱乐部','shenghuo','female','1990-01-01',NULL,'','','','HTML, CSS, UCD','javaDev',''),('jncc','计算中心俱乐部','shenghuo','male','1990-01-01','161210327','13888888888','zhuhaohan@nuaa.edu.cn','825857104','HTML, CSS, UCD','javaDev',''),('test','计算中心俱乐部','jncc','male','1990-01-01','161210327','13888888888','zhuhaohan@nuaa.edu.cn','825857104','HTML, CSS, UCD','javaDev','');
+insert  into `e_member`(`username`,`realname`,`password`,`sex`,`birth`,`schoolno`,`phoneno`,`email`,`qq`,`preference`,`selfIntroduce`,`Role`,`State`) values ('1111','','','male','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000'),('70206317','计算中心俱乐部','shenghuo','male','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000'),('7020631711','计算中心俱乐部','shenghuo','female','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000'),('jncc','计算中心俱乐部','shenghuo','male','1990-01-01','161210327','13888888888','zhuhaohan@nuaa.edu.cn','825857104','HTML, CSS, UCD','','1','00000'),('test','计算中心俱乐部','jncc','male','1990-01-01','161210327','13888888888','zhuhaohan@nuaa.edu.cn','825857104','HTML, CSS, UCD','','1','00000'),('计算中心俱乐部','计算中心俱乐部','shenghuo','male','1990-01-01',NULL,'','','','HTML, CSS','','1','00000');
 
 /*Table structure for table `hibernatetest` */
 

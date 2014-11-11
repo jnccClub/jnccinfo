@@ -86,9 +86,9 @@
       daysAgo -= 1;
       endDate = new Date();
       startDate = new Date();
-      endDate.setDate(startDate.getDate() + daysAgo);
-      this.startCalendar = new Calendar(this, this.$dateRangePicker.find('.drp-calendar:first-child'), startDate, false);
-      this.endCalendar = new Calendar(this, this.$dateRangePicker.find('.drp-calendar:last-child'), endDate, true);
+      startDate.setDate(endDate.getDate() - daysAgo);
+      this.startCalendar = new Calendar(this, this.$dateRangePicker.find('.drp-calendar:first-child'), startDate, true);
+      this.endCalendar = new Calendar(this, this.$dateRangePicker.find('.drp-calendar:last-child'), endDate, false);
       return this.draw();
     };
 
@@ -196,7 +196,7 @@
           classes += ' drp-day-last-in-range';
         }
       } else if (this.isStartCalendar) {
-        if (date > this.dateRangePicker.endDate()+365) {
+        if (date > this.dateRangePicker.endDate()) {
           classes += ' drp-day-disabled';
         }
       } else if (date < this.dateRangePicker.startDate()) {

@@ -3,23 +3,7 @@ package org.jncc.base.application;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Application {
-	private String createUser;
-	private String curentHandler;
-	private String courseName;
-	private String seats;
-	private Date begindate;
-	private Date enddate;
-	private Time begintime;
-	private Time endtime;
-	private String weekday;
-	private String createdatetime;
-	private String floor;
-	private String zone;
-	private String comment;
-
-	private String applicationID;
-
+public class EApplication {
 	public String getApplicationID() {
 		return applicationID;
 	}
@@ -28,12 +12,12 @@ public class Application {
 		this.applicationID = applicationID;
 	}
 
-	public String getCreateUser() {
-		return createUser;
+	public String getApprover() {
+		return approver;
 	}
 
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
+	public void setApprover(String approver) {
+		this.approver = approver;
 	}
 
 	public String getCurentHandler() {
@@ -60,20 +44,12 @@ public class Application {
 		this.seats = seats;
 	}
 
-	public Date getBegindate() {
-		return begindate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setBegindate(Date begindate) {
-		this.begindate = begindate;
-	}
-
-	public Date getEnddate() {
-		return enddate;
-	}
-
-	public void setEnddate(Date enddate) {
-		this.enddate = enddate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Time getBegintime() {
@@ -124,6 +100,22 @@ public class Application {
 		this.zone = zone;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getApproveremark() {
+		return approveremark;
+	}
+
+	public void setApproveremark(String approveremark) {
+		this.approveremark = approveremark;
+	}
+
 	public String getComment() {
 		return comment;
 	}
@@ -132,4 +124,46 @@ public class Application {
 		this.comment = comment;
 	}
 
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public int getHours() {
+		return hours;
+	}
+
+	public void setHours(int hours) {
+		this.hours = hours;
+	}
+
+	private String applicationID;
+	private String approver;
+	private String curentHandler;
+	private String courseName;
+	private String seats;
+	private Date date;
+	private Date beginDate;
+	private Date endDate;
+	private int hours;
+	private Time begintime;
+	private Time endtime;
+	private String weekday;
+	private String createdatetime;
+	private String floor;
+	private String zone;
+	private String status;
+	private String approveremark;
+	private String comment;
 }
