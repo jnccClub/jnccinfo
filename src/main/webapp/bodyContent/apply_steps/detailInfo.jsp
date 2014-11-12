@@ -7,24 +7,35 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <script>
-	function showSoftwareHint()	{
+	function showSoftwareHint() {
 		alert("come here");
 	}
 </script>
 
 <style>
-#matchWindow{
-		overflow:auto;
-		display:none;
-		width:191px;
-		border:1px solid #aaa;
-		
-		
-		/* IE6以上和FF3样式 */
-		background:#fff;
-		position:relative;
-		max-height:100px;
-		*width:192px;
+.matchSoftwareWindow a {
+	display: block;
+	width: 100%;
+	text-decoration: none;
+	color: #000;
+}
+
+.focused,.matchSoftwareWindow a:hover {
+	background: #1173CC;
+	color: #fff;
+}
+
+.matchSoftwareWindow {
+	overflow: auto;
+	display: none;
+	width: 204px;
+	top: 15px; border : 1px solid #aaa;
+	/* IE6以上和FF3样式 */
+	background: #fff;
+	position: absolute;
+	max-height: 100px;
+	*width: 192px;
+	border: 1px solid #aaa;
 }
 </style>
 
@@ -47,14 +58,18 @@
 	<div class="control-group">
 		<label class="control-label">必备软件：</label>
 		<div class="controls">
-			<input type="text" placeholder="软件名称" onkeyup="showSoftwareHint(this.value)" />与
-			<input type="text" placeholder="软件名称" onkeyup="showSoftwareHint(this.value)" />与<input
-				type="text" placeholder="软件名称" onkeyup="showSoftwareHint(this.value)" />
-		</div>
-		<div class="controls">
-			<div id='matchWindow'>匹配框</div>
-			<div id='matchWindow'>匹配框</div>
-			<div id='matchWindow' style="display:block">匹配框</div>
+			<span style="position:relative"><input
+				type="text" placeholder="软件名称"
+				onkeyup='showHint(this.value,arguments[0])' name="softwareRequired" id="soft_input_1"/>
+			<div class="matchSoftwareWindow" id="matchwindow_1">匹配框</div></span>
+			<span style="position:relative"><input
+				type="text" placeholder="软件名称"
+				onkeyup='showHint(this.value,arguments[0])' name="softwareRequired" id="soft_input_2"/>
+			<div class="matchSoftwareWindow" id="matchwindow_2">匹配框</div></span>
+			<span style="position:relative"><input
+				type="text" placeholder="软件名称"
+				onkeyup='showHint(this.value,arguments[0])' name="softwareRequired" id="soft_input_3"/>
+			<div class="matchSoftwareWindow" id="matchwindow_3">匹配框</div></span>
 		</div>
 	</div>
 
@@ -94,14 +109,14 @@
 
 <script>
 	//验证用户名
-	
+
 	/********** 定义匹配数据 ***********/
 	//网易邮箱
 	var software_list = '@163.com @126.com @129.com @yeah.net ';
 	/** 全局变量 **/
-	var matchWindow = document.getElementById('matchWindow');
-	var email = document.getElementById('email');
-	
+	var matchWindow = $("#matchwindow_1");
+	var input = $("#soft_input_1");
+
 	//按键上
 	var KEY_UP = 38;
 	//按键下
@@ -109,138 +124,142 @@
 	//按键回车
 	var KEY_ENTER = 13;
 	
+	//按TAB键
+	var KEY_TAB = 9;
+
 	//进行匹配的对象
 	var focusTip;
 	//匹配项个数
 	var matchSize;
-	
-	function match(keyword,e){
-	//	alert(matchWindow.style.height+":"+matchWindow.scrollHeight)
+
+	function showHint(keyword, e) {
+		//	alert(matchWindow.style.height+":"+matchWindow.scrollHeight)
 		e = e || event;
+		
 		//按上下键的时候不进行刷新
-		if(e.keyCode == KEY_ENTER){
-			email.value = email.value.replace(/@.*/,focusTip.innerHTML).replace(/\s/,'');
-			matchWindow.style.display='none';
-			email.blur();
-		}else if(e.keyCode == KEY_UP){
-			if(matchWindow.style.display == 'none')return;
+		if (e.keyCode == KEY_ENTER) {
+			input.val(focusTip.html());
+			matchWindow.hide();
+			input.blur();
+		} else if (e.keyCode == KEY_UP) {
+			if (matchWindow.css('display') == 'none')
+				return;
 			//状态复原
-			if(!focusTip.previousSibling){
-				focusTip.className = '';
+			if (focusTip.prev().is("a")) {
+				focusTip.prev().addClass("focused");
+				focusTip.removeClass("focused");
+				focusTip = focusTip.prev();
+				matchWindow.scrollTop -= matchWindow.scrollHeight / matchSize;
+			} else {
 				matchWindow.scrollTop = matchWindow.scrollHeight;
-				focusTip = matchWindow.lastChild;
-				focusTip.className = 'focused';
-			}else{
-				focusTip.previousSibling.className = 'focused';
-				focusTip.className = '';
-				focusTip = focusTip.previousSibling;
-				matchWindow.scrollTop -= matchWindow.scrollHeight/matchSize;
+				focusTip.removeClass("focused");
+				focusTip = matchWindow.children().last();
+				focusTip.addClass("focused");
 			}
-		}else if(e.keyCode == KEY_DOWN){
+		} else if (e.keyCode == KEY_DOWN) {
 			//防止在未显示匹配框前而导致的错误
-			if(matchWindow.style.display == 'none')return;
+			if (matchWindow.css('display') == 'none')
+				return;
 			//状态复原
-			if(!focusTip.nextSibling){
-				focusTip.className = '';
+			if (focusTip.next().is("a")) {
+				matchWindow.scrollTop += matchWindow.scrollHeight / matchSize;
+				focusTip.next().addClass("focused");
+				focusTip.removeClass("focused");
+				focusTip = focusTip.next();
+			} else {
 				matchWindow.scrollTop = 0;
-				focusTip = matchWindow.firstChild;
-				focusTip.className = 'focused';
-			}else{
-				matchWindow.scrollTop += matchWindow.scrollHeight/matchSize;
-				focusTip.nextSibling.className = 'focused';
-				focusTip.className = '';
-				focusTip = focusTip.nextSibling;
+				focusTip.removeClass("focused");
+				focusTip = matchWindow.children().first();
+				focusTip.addClass("focused");
 			}
-		}else{
+		} else {
 			//清除已有信息
-			matchWindow.innerHTML ='';
+			matchWindow.empty();
 			//隐藏窗口
-			matchWindow.style.display='none';
+			matchWindow.hide();
 			//保证邮箱格式的正确性
-			if(!keyword)return;
-			if(!keyword.match(/^[\w\.\-]+@\w*[\.]?\w*/))return;
+			if (!keyword)
+				return;
+			if (!keyword.match(/^[\w\.\-]+@\w*[\.]?\w*/))
+				return;
 			//获取匹配字符串,只取@符号后面的内容
 			keyword = keyword.match(/@\w*[\.]?\w*/);
 			//进行匹配
-			var matchs = mailBoxs.match(new RegExp(keyword+"[^ ]* ","gm"));
+			var matchs = software_list.match(new RegExp(keyword + "[^ ]* ", "gm"));
 			//输出匹配结果
-			if(matchs){
-				matchs = matchs.join('').replace(/ $/,'').split(' ');
+			if (matchs) {
+				matchs = matchs.join('').replace(/ $/, '').split(' ');
 				matchSize = matchs.length;
-				matchWindow.style.display='block';
-				for(var i=0,l=matchs.length;i<l;i++){
-					matchWindow.innerHTML += '<a href="javascript:void(0)">'+matchs[i]+'</a>';
+				matchWindow.show();
+				var htmlshow= "";
+				for (var i = 0, l = matchs.length; i < l; i++) {
+					htmlshow += '<a href="javascript:void(0)">'
+							+ matchs[i] + '</a>';
 				}
+				matchWindow.html(htmlshow);
 			}
 			//为IE设置max-height
-			if(matchWindow.style.maxHeight == undefined)
-				if(matchWindow.scrollHeight >= 100)
-					matchWindow.style.height="100px";
+			if (matchWindow.css('maxHeight') == undefined)
+				if (matchWindow.scrollHeight >= 100)
+					matchWindow.height(100);
 				else
-					matchWindow.style.height="0px";
+					matchWindow.style.height = "0px";
 			//初始化匹配焦点
-			focusTip = matchWindow.firstChild;
-			focusTip.className = 'focused';
+			focusTip = matchWindow.children().first();
+			focusTip.addClass("focused");
 		}
 	}
-	
-	//鼠标更新焦点新焦点
-	matchWindow.onmouseover =	function (e){
-		e = e || event; 
-		var target = e.srcElement||e.target;
-		focusTip.className = '';
-		target.className = 'focused';
-		focusTip = target;
-	}
 
-		
-	//鼠标点击获取选取匹配项
-	matchWindow.onclick =	function (e){
-		e = e || event; 
-		var target = e.srcElement||e.target;
-		email.value = email.value.replace(/@.*/,target.innerHTML);
-	}
-	
+
 	/*
 		隐藏匹配框，用于鼠标点击非匹配框的任何地方后，
 		匹配框都隐藏
-	*/
-	document.onclick=function(e){
-		e = e || event; 
-		var target = e.srcElement||e.target;
-		if(target.id != 'matchWindow'){
-			matchWindow.style.display='none';
+	 */
+	$(document).click(function(e){  
+		e = e || event;
+		var target = e.srcElement || e.target;
+		if (target.id != $(matchWindow).attr("id")) {
+			matchWindow.hide();
 			focusTip = null;
+		}else if(target.id.indexOf("soft_input")== 0){
+			input = $("#"+target.id);
+			matchWindow = input.next();
 		}
-	}
+    });  
+	
+	$(function(){
+		$("#soft_input_1").focus(function() {
+			input = $("#soft_input_1");
+			matchWindow = input.next();
+		});
+		$("#soft_input_2").focus(function() {
+			input = $("#soft_input_2");
+			matchWindow = input.next();
+		});
+		$("#soft_input_3").focus(function() {
+			input = $("#soft_input_3");
+			matchWindow = input.next();
+		});
 		
-		//获取输入框引用
-		var pwd = document.getElementById('pwd');
-		//监听获取焦点事件
-		pwd.onfocus=function(){
-			this.className='border2';
-		}
-		//追加焦点丢失事件
-		if(pwd.attachEvent)
-			pwd.attachEvent('onblur',function(){
-				pwd.className='border1';
-			});
-		else
-			pwd.addEventListener('blur',function(){
-				pwd.className='border1';
-			},false);
+		$(".matchSoftwareWindow").click(function(e) {
+			e = e || event;
+			var target = e.srcElement || e.target;
+			input.text(target.innerHTML);
+			var itest = target.innerHTML;
+			input.html(itest);
+			input.html("test");
+			
+			input.val("i love this ");
+		});
+		
+		$(".matchSoftwareWindow").mouseover(function(e) {
+			e = e || event;
+			var target = e.srcElement || e.target;
+			focusTip.removeClass("focused");
+			focusTip = $(target);
+			$(target).addClass("focused");
+		});
+	});
 
-		var pwdver = document.getElementById('pwdver');
-		pwdver.onfocus=function(){
-			this.className='border2';
-		}
-		
-		if(pwdver.attachEvent)
-			pwdver.attachEvent('onblur',function(){
-				pwdver.className='border1';
-			});
-		else
-			pwdver.addEventListener('blur',function(){
-				pwdver.className='border1';
-			},false);
+	
 </script>
