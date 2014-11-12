@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//Dtd HTML 4.0 transitional//EN">
+<html>
+	<style type=text/css>
+		table{
+			margin-top:1em;	
+		}
+input,textarea{
+			border:1px solid black;	
+}
+.border1{
+	border:1px solid black;	
+}
+.border2{
+	border:1px solid #5ac4e2;	
+}
+.item {
+	margin-top: 0px; font-size: 12px; padding-top: 0px; text-align: left
+}
+.item_title {
+	font-weight: bold
+}
+.item_desc {
+	margin-top: 1px; color: #666
+}
+.item_error {
+	margin-top: 1px; display: none; color: #ff0000; height: 14px
+}
+.item_green {
+	color: #008000
+}
+.item_input {
+	vertical-align: top; height: 20px
+}
+#ft {
+	clear: both; background: #e6e6e6; margin: auto; width: 650px; line-height: 20px; text-align: center;font-size: 12px; color: #77c; font-family: arial;
+}
+body {
+	margin: 0px; font-family: 宋体; text-align: center
+}
+td {
+	font-size: 12px; line-height: 18px
+}
+.bgl {
+	padding-left: 10px; 
+	background-color: #d9f0f0;
+	font-weight:bold;
+	font-size: 14px;
+}
+
+a{
+	display:block;
+	width:100%;
+	text-decoration:none;
+	color:#000;
+}
+.focused,a:hover{
+	background:#1173CC;
+	color:#fff;
+}
+
+#matchWindow{
+		overflow:auto;
+		display:none;
+		width:191px;
+		border:1px solid #aaa;
+		
+		
+		/* IE6以上和FF3样式 */
+		background:#fff;
+		position:relative;
+		max-height:100px;
+		*width:192px;
+}
+</style>
+
+	<body ondragstart="return false">
+		<table cellspacing=0 cellpadding=0 width=650 align=center border=0>
+			<tr>
+				<td align='right'>
+					<div class="bgl" align=left style="width:80%;">
+							用户注册
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class=item id=system>
+						<div class=item_error></div>
+					</div>
+				</td>
+			</tr>
+			<form id='aaaa' name=reg onsubmit="return checkform(this);" action=https://passport.baidu.com/?reg method=get>
+			<tr>
+				<td height=8>
+					<p>&nbsp;</p>&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td valign=top height=72>
+					<div class=item id=username>
+						<div class=item_title>
+							用户名：
+						</div>
+						<div class=item_input>
+							<input id=usernameforload maxLength=14 onblur='checkName(this.value)' name=username>
+							&nbsp;&nbsp;&nbsp;
+						</div>
+						<div class=item_error id='username_error'>
+							用户名只能包含数字，字母和下划线
+						</div>
+						<div class=item_desc>
+							不超过14个字节(数字，字母和下划线)
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td vAlign=top height=88>
+					<div class=item id=loginpass>
+						<div class=item_title>
+							<b>密码：</b><span style="margin-left: 75px"><b>确认密码：</b></span>
+						</div>
+						<div class=item_input>
+							<input id='pwd' style="width: 96px"  maxlength=14 type=password onblur='checkPwd(this.value)'  name=loginpass>
+							&nbsp;&nbsp;&nbsp;
+							<input id='pwdver' style="width: 96px" type=password  maxlength=14 onblur='verifyPwd(this.value)'  name=verifypass>
+						</div>
+						<div class=item_error id=pwd_error>
+							密码最少6个字符，并只能包含数字，字母和下划线
+						</div>
+						<div class=item_error id=verifypwd_error >
+							密码与确认密码不一致。
+						</div>
+						<div class=item_desc>
+							最少6个字符，不超过14个字符(数字，字母和下划线)
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td vAlign=top height=80>
+					<div class=item>
+						<div class=item_title>
+							电子邮件地址：
+						</div>
+						<div class=item_input>
+							<!--	<input id='email' autocomplete='off' name='email' style='width:192px;' onkeyup='match(this.value)'/>
+						-->
+							<textarea id='email' name='email' rows='1' style='width:192px;overflow:hidden' onkeyup='match(this.value,arguments[0])'></textarea>
+							<div id='matchWindow'>
+									匹配框
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type='submit' value='注册'>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id=ft>&copy;2009 xxx</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+<script>
+	//验证用户名
+	function checkName(userName){
+		if(!/^\w+$/.test(userName)){
+			document.getElementById('username_error').style.display='block';
+		}else
+			document.getElementById('username_error').style.display='none';
+	}
+	
+	//验证密码格式
+	function checkPwd(pwd){
+		if(!/^\w{6,14}$/.test(pwd)){
+			document.getElementById('pwd_error').style.display='block';
+		}else
+			document.getElementById('pwd_error').style.display='none';
+	}
+	
+	//验证两次密码是否相同
+	function verifyPwd(pwd){
+		if(document.getElementById('pwd').value != pwd){
+			document.getElementById('verifypwd_error').style.display='block';
+		}else
+			document.getElementById('verifypwd_error').style.display='none';
+	}
+	
+	/********** 定义匹配数据 ***********/
+	//网易邮箱
+	var mailBoxs = '@163.com @126.com @129.com @yeah.net ';
+	//qq邮箱
+	mailBoxs += '@qq.com @vip.qq.com @foxmail.com ';
+	//hotmail
+	mailBoxs += '@live.cn @hotmail.com ';
+	//gmail
+	mailBoxs += '@gmail.com ';
+	//yahoo
+	mailBoxs += '@yahoo.com.cn @yahoo.cn ';
+	//sina
+	mailBoxs += '@sina.com @sina.cn @vip.sina.com ';
+	
+	/** 全局变量 **/
+	var matchWindow = document.getElementById('matchWindow');
+	var email = document.getElementById('email');
+	
+	//按键上
+	var KEY_UP = 38;
+	//按键下
+	var KEY_DOWN = 40;
+	//按键回车
+	var KEY_ENTER = 13;
+	
+	//进行匹配的对象
+	var focusTip;
+	//匹配项个数
+	var matchSize;
+	
+	function match(keyword,e){
+	//	alert(matchWindow.style.height+":"+matchWindow.scrollHeight)
+		e = e || event;
+		//按上下键的时候不进行刷新
+		if(e.keyCode == KEY_ENTER){
+			email.value = email.value.replace(/@.*/,focusTip.innerHTML).replace(/\s/,'');
+			matchWindow.style.display='none';
+			email.blur();
+		}else if(e.keyCode == KEY_UP){
+			if(matchWindow.style.display == 'none')return;
+			//状态复原
+			if(!focusTip.previousSibling){
+				focusTip.className = '';
+				matchWindow.scrollTop = matchWindow.scrollHeight;
+				focusTip = matchWindow.lastChild;
+				focusTip.className = 'focused';
+			}else{
+				focusTip.previousSibling.className = 'focused';
+				focusTip.className = '';
+				focusTip = focusTip.previousSibling;
+				matchWindow.scrollTop -= matchWindow.scrollHeight/matchSize;
+			}
+		}else if(e.keyCode == KEY_DOWN){
+			//防止在未显示匹配框前而导致的错误
+			if(matchWindow.style.display == 'none')return;
+			//状态复原
+			if(!focusTip.nextSibling){
+				focusTip.className = '';
+				matchWindow.scrollTop = 0;
+				focusTip = matchWindow.firstChild;
+				focusTip.className = 'focused';
+			}else{
+				matchWindow.scrollTop += matchWindow.scrollHeight/matchSize;
+				focusTip.nextSibling.className = 'focused';
+				focusTip.className = '';
+				focusTip = focusTip.nextSibling;
+			}
+		}else{
+			//清除已有信息
+			matchWindow.innerHTML ='';
+			//隐藏窗口
+			matchWindow.style.display='none';
+			//保证邮箱格式的正确性
+			if(!keyword)return;
+			if(!keyword.match(/^[\w\.\-]+@\w*[\.]?\w*/))return;
+			//获取匹配字符串,只取@符号后面的内容
+			keyword = keyword.match(/@\w*[\.]?\w*/);
+			//进行匹配
+			var matchs = mailBoxs.match(new RegExp(keyword+"[^ ]* ","gm"));
+			//输出匹配结果
+			if(matchs){
+				matchs = matchs.join('').replace(/ $/,'').split(' ');
+				matchSize = matchs.length;
+				matchWindow.style.display='block';
+				for(var i=0,l=matchs.length;i<l;i++){
+					matchWindow.innerHTML += '<a href="javascript:void(0)">'+matchs[i]+'</a>';
+				}
+			}
+			//为IE设置max-height
+			if(matchWindow.style.maxHeight == undefined)
+				if(matchWindow.scrollHeight >= 100)
+					matchWindow.style.height="100px";
+				else
+					matchWindow.style.height="0px";
+			//初始化匹配焦点
+			focusTip = matchWindow.firstChild;
+			focusTip.className = 'focused';
+		}
+	}
+	
+	//鼠标更新焦点新焦点
+	matchWindow.onmouseover =	function (e){
+		e = e || event; 
+		var target = e.srcElement||e.target;
+		focusTip.className = '';
+		target.className = 'focused';
+		focusTip = target;
+	}
+
+		
+	//鼠标点击获取选取匹配项
+	matchWindow.onclick =	function (e){
+		e = e || event; 
+		var target = e.srcElement||e.target;
+		email.value = email.value.replace(/@.*/,target.innerHTML);
+	}
+	
+	/*
+		隐藏匹配框，用于鼠标点击非匹配框的任何地方后，
+		匹配框都隐藏
+	*/
+	document.onclick=function(e){
+		e = e || event; 
+		var target = e.srcElement||e.target;
+		if(target.id != 'matchWindow'){
+			matchWindow.style.display='none';
+			focusTip = null;
+		}
+	}
+		
+		//获取输入框引用
+		var pwd = document.getElementById('pwd');
+		//监听获取焦点事件
+		pwd.onfocus=function(){
+			this.className='border2';
+		}
+		//追加焦点丢失事件
+		if(pwd.attachEvent)
+			pwd.attachEvent('onblur',function(){
+				pwd.className='border1';
+			});
+		else
+			pwd.addEventListener('blur',function(){
+				pwd.className='border1';
+			},false);
+
+		var pwdver = document.getElementById('pwdver');
+		pwdver.onfocus=function(){
+			this.className='border2';
+		}
+		
+		if(pwdver.attachEvent)
+			pwdver.attachEvent('onblur',function(){
+				pwdver.className='border1';
+			});
+		else
+			pwdver.addEventListener('blur',function(){
+				pwdver.className='border1';
+			},false);
+</script>
