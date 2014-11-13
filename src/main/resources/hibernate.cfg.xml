@@ -16,7 +16,8 @@
 		<property name="connection.password">fj</property>
 		<mapping resource="user.hbm.xml" />
 		<mapping resource="userSignUp.hbm.xml" />
-		<mapping resource="EApplication.hbm.xml" />
+		<mapping resource="SoftwareList.hbm.xml" />
+		
     </session-factory>
 
 </hibernate-configuration>

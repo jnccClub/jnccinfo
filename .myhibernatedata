@@ -1,11 +1,11 @@
 #MyEclipse Hibernate Properties
-#Tue Nov 11 11:14:36 CST 2014
+#Thu Nov 13 09:27:50 CST 2014
 genBasicCompId=false
 sessionFactoryName=org.jncc.base.application.HibernateSessionFactory
 profile=
 daoSFId=
 jndiPath=
-detectM2M=false
+detectM2M=true
 reStrategyClass=
 detectO2O=false
 springDaoFile=
@@ -15,7 +15,6 @@ genVersionTag=false
 sessionFactoryId=
 basePersistenceClass=
 genAnnotations=false
-reSettingsFile=
+reSettingsFile=/jnccinfo/src/main/resources/hibernate.reveng.xml
 configFile=/jncc/src/main/resources/hibernate.cfg.xml
 createConfigFile=true
-baseDaoClass=BaseHibernateDAO
