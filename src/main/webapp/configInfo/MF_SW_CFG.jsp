@@ -30,7 +30,9 @@
 			url : 'file_upload.action',
 			secureuri : false,
 			fileElementId : 'fileupload',
-			data:{"fileFileName":filename},
+			data : {
+				"fileFileName" : filename
+			},
 			dataType : 'json',
 			success : function(data, status) {
 				if (typeof (data.error) != 'undefined') {
@@ -47,14 +49,15 @@
 		});
 		return false;
 	}
-	
-	$(function(){
-		$("#buttonUpload").click(function(){
-			var filename = $("#fileupload").val();
-			return ajaxFileUpload(filename);
-		});
+
+	$(function() {
+		$("#buttonUpload").click(
+				function() {
+					var filename = $("#fileupload").val();
+					return ajaxFileUpload(filename.substring(filename
+							.lastIndexOf('\\') + 1));
+				});
 	});
-	
 </script>
 
 
@@ -66,10 +69,9 @@
 		<div>
 			<label class="control-label">&nbsp;&nbsp;&nbsp;软件清单(<a
 				href="configInfo/template.xls">软件清单模板.xls</a>)：&nbsp; <img
-				id="loading" src="loading.gif" style="display:none;"> 
-				<input id="fileupload" type="file" size="45" name="fileupload">
-				<button class="btn btn-success" id="buttonUpload" >上
-					传</button>
+				id="loading" src="loading.gif" style="display:none;"> <input
+				id="fileupload" type="file" size="45" name="fileupload">
+				<button class="btn btn-success" id="buttonUpload">上 传</button>
 			</label>
 
 		</div>
