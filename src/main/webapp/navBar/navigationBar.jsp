@@ -29,9 +29,10 @@
 							<li><a href="help.htm">Task Assignment</a></li>
 							<li><a href="help.htm">Access Permissions</a></li>
 							<li class="divider"></li>
-							<li class="nav-header">Files</li>
-							<li><a href="help.htm">How to upload multiple files</a></li>
-							<li><a href="help.htm">Using file version</a></li>
+							<li class="nav-header">信息配置</li>
+							<li><a href="help.htm">软件信息</a></li>
+							<li><a href="help.htm">硬件信息配置</a></li>
+							<li><a href="help.htm">区域信息配置</a></li>
 						</ul></li>
 				</ul>
 				<!-- <form class="navbar-search pull-left" action="">

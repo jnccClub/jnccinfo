@@ -32,6 +32,9 @@ public class QQClient {
                         "留言内容3",
                 }; 
         private static String SID=null;
+        public static String getSID(){
+			return SID;
+        }
         static Random random=new Random();
         public QQClient(){
                 
@@ -73,9 +76,9 @@ public class QQClient {
 			params.put("i_p_w", "qq|pwd|");
 			try {
 				String response = WebUtils.doPost(QQ_LOGIN_URL, params, 0, 0);
-				System.out.println(response);
 				int sidIndex = response.indexOf("sid");
 				SID = response.substring(sidIndex + 4, sidIndex + 28);
+				System.out.println(SID);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -154,11 +157,9 @@ public class QQClient {
             String test = "test";
             try {
                     String response=WebUtils.doPost(postUrl, params, 0, 0);
-                    test = response;
             } catch (IOException e) {
                     e.printStackTrace();
             }
-            System.out.println(test);
         }
         
         /**

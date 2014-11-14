@@ -26,21 +26,29 @@
 <script src="js/common/site.js"></script>
 <script type="text/javascript" src="js/Calendar4.js"></script>
 <script type="text/javascript" src='js/common/jquery.js'></script>
+<script type="text/javascript" src='js/common/ajaxfileupload.js'></script>
 <script type="text/javascript" src='js/datepick/datepick.js'></script>
 <script type="text/javascript" src='js/common/bootstrap-datetimepicker.min.js'></script>
+<script type="text/javascript" src='js/file/ajaxfileupload.js'></script>
 
 
 
 <title>JNCC booking</title>
 
-<link rel="stylesheet" href="css/datepick/datepick.css" media="screen"
-	type="text/css" />
 </head>
 <body>
-
+<script>
+	$(function(){
+		$("#testdiv_test").removeClass();
+		$("#testdiv_test label").removeClass();
+		$("#testdiv_test label input").removeClass().addClass("option-input-radio radioround");
+		
+	});
+</script>
 	<div class="container">
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
-		<jsp:include page="bodyContent/mainFrame_Body.jsp"></jsp:include>
+		
+		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
 	</div>
 </body>
 </html>

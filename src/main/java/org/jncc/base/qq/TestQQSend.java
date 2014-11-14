@@ -13,9 +13,16 @@ public class TestQQSend {
         static OutputStream out = null;
 
         public static void main(String[] args) {
+        		String sid = "";
                 try {
-                String sid=QQClient.login("249465011", "Hey,huang");
-                QQClient.sendMsg("34638768", "congratulations you've done your jobs!",sid);
+				if (QQClient.getSID() == null || QQClient.getSID().isEmpty()) {
+					sid = QQClient.login("34638768", "Hey,huang");
+					System.out.println("sid is: " + sid + ";");
+				} else {
+					sid = QQClient.getSID();
+				}
+				
+                QQClient.sendMsg("249465011", "测试范式例句",sid);
 //                List<Group> groupInfoList=QQClient.getFrendGroup(sid);
 //                List<String> firendList=QQClient.getFriendsFromGroup(groupInfoList);
 //                for(String qq:firendList){
@@ -39,6 +46,9 @@ public class TestQQSend {
 //              while(true){
 //                      QQClient.deleteByIdS();
 //              }
+                
+                
+                
                 } catch (Exception e) {
                         e.printStackTrace();
                 } 

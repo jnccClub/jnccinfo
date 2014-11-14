@@ -2,15 +2,20 @@
 
 @import url(datepick/datepick.css);
 
-@import url(common/bootstrap.min.css);
-
 @import url(common/bootstrap-responsive.min.css);
 
 @import url(common/bootstrap-combined.min.css);
 
 @import url(common/bootstrap-datetimepicker.min.css);
 
+
 .bordline {
 	border: solid 1px blue;
 	display: inline;
+}
+
+.option-inline-radio label {
+	display: inline-block;
+	*display: inline;
+	*zoom: 18
 }
