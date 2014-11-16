@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <script>
-	function ajaxFileUpload(filename) {
+	function ajaxFileUpload(param) {
 		//starting setting some animation when the ajax starts and completes
 
 		$("#loading").ajaxStart(function() {
@@ -27,12 +27,10 @@
 		    
 		 */
 		$.ajaxFileUpload({
-			url : 'file_upload.action',
+			url : 'file_uploadSWList.action',
 			secureuri : false,
 			fileElementId : 'fileupload',
-			data : {
-				"fileFileName" : filename
-			},
+			data : param,
 			dataType : 'json',
 			success : function(data, status) {
 				if (typeof (data.error) != 'undefined') {
@@ -54,8 +52,10 @@
 		$("#buttonUpload").click(
 				function() {
 					var filename = $("#fileupload").val();
-					return ajaxFileUpload(filename.substring(filename
-							.lastIndexOf('\\') + 1));
+					filename = filename.substring(filename.lastIndexOf('\\') + 1);
+					var sw_option = $("input[name='sw_option']").val();
+					var param = {"fileFileName":filename,"sw_option":sw_option};
+					return ajaxFileUpload(param);
 				});
 	});
 </script>
@@ -78,11 +78,11 @@
 
 		<div class="option-inline-radio">
 			<label class="control-label">&nbsp;&nbsp;&nbsp;软件配置类型：&nbsp;</label>
-			<label> <input type="radio" name="courseType"
-				id="optionsRadios1" value="1" checked> 更新&nbsp;&nbsp;&nbsp;
-			</label> <label> <input type="radio" name="courseType" value="2">增加&nbsp;&nbsp;&nbsp;
-			</label> <label> <input type="radio" name="courseType" value="3">覆盖&nbsp;&nbsp;&nbsp;
-			</label> <label> <input type="radio" name="courseType" value="4">删除
+			<label> <input type="radio" name="SW_option"
+				id="optionsRadios1" value="901" checked> 更新&nbsp;&nbsp;&nbsp;
+			</label> <label> <input type="radio" name="sw_option" value="902">增加&nbsp;&nbsp;&nbsp;
+			</label> <label> <input type="radio" name="sw_option" value="903">覆盖&nbsp;&nbsp;&nbsp;
+			</label> <label> <input type="radio" name="sw_option" value="904">删除
 			</label>
 		</div>
 	</div>

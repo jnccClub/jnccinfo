@@ -59,12 +59,31 @@ CREATE TABLE `e_member` (
   `selfIntroduce` varchar(256) DEFAULT NULL,
   `Role` varchar(5) DEFAULT '1',
   `State` varchar(5) DEFAULT '00000',
+  `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `e_member` */
 
-insert  into `e_member`(`username`,`realname`,`password`,`sex`,`birth`,`schoolno`,`phoneno`,`email`,`qq`,`preference`,`selfIntroduce`,`Role`,`State`) values ('1111','','','male','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000'),('70206317','计算中心俱乐部','shenghuo','male','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000'),('7020631711','计算中心俱乐部','shenghuo','female','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000'),('jncc','计算中心俱乐部','shenghuo','male','1990-01-01','161210327','13888888888','zhuhaohan@nuaa.edu.cn','825857104','HTML, CSS, UCD','','1','00000'),('test','计算中心俱乐部','jncc','male','1990-01-01','161210327','13888888888','zhuhaohan@nuaa.edu.cn','825857104','HTML, CSS, UCD','','1','00000'),('计算中心俱乐部','计算中心俱乐部','shenghuo','male','1990-01-01',NULL,'','','','HTML, CSS','','1','00000');
+insert  into `e_member`(`username`,`realname`,`password`,`sex`,`birth`,`schoolno`,`phoneno`,`email`,`qq`,`preference`,`selfIntroduce`,`Role`,`State`,`status`) values ('1111','','','male','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000',NULL),('70206317','计算中心俱乐部','shenghuo','male','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000',NULL),('7020631711','计算中心俱乐部','shenghuo','female','1990-01-01',NULL,'','','','HTML, CSS, UCD','','1','00000',NULL),('jncc','计算中心俱乐部','shenghuo','male','1990-01-01','161210327','13888888888','zhuhaohan@nuaa.edu.cn','825857104','HTML, CSS, UCD','','1','00000',NULL),('test','计算中心俱乐部','jncc','male','1990-01-01','161210327','13888888888','zhuhaohan@nuaa.edu.cn','825857104','HTML, CSS, UCD','','1','00000',NULL),('计算中心俱乐部','计算中心俱乐部','shenghuo','male','1990-01-01',NULL,'','','','HTML, CSS','','1','00000',NULL);
+
+/*Table structure for table `e_software` */
+
+DROP TABLE IF EXISTS `e_software`;
+
+CREATE TABLE `e_software` (
+  `name` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `zone` varchar(16) CHARACTER SET utf8 NOT NULL,
+  `createdate` date DEFAULT NULL,
+  `os` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
+  `operator` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  `comment` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`name`,`zone`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `e_software` */
+
+insert  into `e_software`(`name`,`zone`,`createdate`,`os`,`operator`,`comment`) values ('word','7F',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `hibernatetest` */
 
@@ -124,23 +143,6 @@ CREATE TABLE `processtype` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `processtype` */
-
-/*Table structure for table `software_list` */
-
-DROP TABLE IF EXISTS `software_list`;
-
-CREATE TABLE `software_list` (
-  `name` varchar(128) CHARACTER SET utf8 NOT NULL,
-  `version` varchar(12) CHARACTER SET utf8 NOT NULL,
-  `zone` varchar(512) CHARACTER SET utf8 DEFAULT NULL,
-  `createdate` date DEFAULT NULL,
-  `os` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
-  `operator` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `comment` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`name`,`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `software_list` */
 
 /*Table structure for table `student` */
 

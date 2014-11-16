@@ -4,29 +4,29 @@ package org.jncc.base.software;
 
 
 /**
- * SoftwareListId entity. @author MyEclipse Persistence Tools
+ * ESoftwareId entity. @author MyEclipse Persistence Tools
  */
 
-public class SoftwareListId  implements java.io.Serializable {
+public class ESoftwareId  implements java.io.Serializable {
 
 
     // Fields    
 
      private String name;
-     private String version;
+     private String zone;
 
 
     // Constructors
 
     /** default constructor */
-    public SoftwareListId() {
+    public ESoftwareId() {
     }
 
     
     /** full constructor */
-    public SoftwareListId(String name, String version) {
+    public ESoftwareId(String name, String zone) {
         this.name = name;
-        this.version = version;
+        this.zone = zone;
     }
 
    
@@ -40,12 +40,12 @@ public class SoftwareListId  implements java.io.Serializable {
         this.name = name;
     }
 
-    public String getVersion() {
-        return this.version;
+    public String getZone() {
+        return this.zone;
     }
     
-    public void setVersion(String version) {
-        this.version = version;
+    public void setZone(String zone) {
+        this.zone = zone;
     }
    
 
@@ -54,19 +54,23 @@ public class SoftwareListId  implements java.io.Serializable {
    public boolean equals(Object other) {
          if ( (this == other ) ) return true;
 		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof SoftwareListId) ) return false;
-		 SoftwareListId castOther = ( SoftwareListId ) other; 
+		 if ( !(other instanceof ESoftwareId) ) return false;
+		 ESoftwareId castOther = ( ESoftwareId ) other; 
          
 		 return ( (this.getName()==castOther.getName()) || ( this.getName()!=null && castOther.getName()!=null && this.getName().equals(castOther.getName()) ) )
- && ( (this.getVersion()==castOther.getVersion()) || ( this.getVersion()!=null && castOther.getVersion()!=null && this.getVersion().equals(castOther.getVersion()) ) );
+ && ( (this.getZone()==castOther.getZone()) || ( this.getZone()!=null && castOther.getZone()!=null && this.getZone().equals(castOther.getZone()) ) );
    }
    
    public int hashCode() {
          int result = 17;
          
          result = 37 * result + ( getName() == null ? 0 : this.getName().hashCode() );
-         result = 37 * result + ( getVersion() == null ? 0 : this.getVersion().hashCode() );
+         result = 37 * result + ( getZone() == null ? 0 : this.getZone().hashCode() );
          return result;
    }   
+
+
+
+
 
 }

@@ -2,5 +2,9 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-	<table name="software_list" catalog="test" class="SoftwareList"></table>
+<table name="e_software" catalog="test" class="ESoftware">
+	<primary-key>
+		<generator class="assigned"></generator>
+	</primary-key>
+</table>
 </hibernate-reverse-engineering>

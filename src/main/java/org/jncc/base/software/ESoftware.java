@@ -2,40 +2,41 @@ package org.jncc.base.software;
 // default package
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
- * SoftwareList entity. @author MyEclipse Persistence Tools
+ * ESoftware entity. @author MyEclipse Persistence Tools
  */
 
-public class SoftwareList  implements java.io.Serializable {
+public class ESoftware  implements java.io.Serializable {
 
 
     // Fields    
 
-     private SoftwareListId id;
-     private String zone;
+     private ESoftwareId id;
      private Date createdate;
      private String os;
      private String operator;
      private String comment;
+     
+     private static List<ESoftware> eswList;
 
 
     // Constructors
 
     /** default constructor */
-    public SoftwareList() {
+    public ESoftware() {
     }
 
 	/** minimal constructor */
-    public SoftwareList(SoftwareListId id) {
+    public ESoftware(ESoftwareId id) {
         this.id = id;
     }
     
     /** full constructor */
-    public SoftwareList(SoftwareListId id, String zone, Date createdate, String os, String operator, String comment) {
+    public ESoftware(ESoftwareId id, Date createdate, String os, String operator, String comment) {
         this.id = id;
-        this.zone = zone;
         this.createdate = createdate;
         this.os = os;
         this.operator = operator;
@@ -45,20 +46,12 @@ public class SoftwareList  implements java.io.Serializable {
    
     // Property accessors
 
-    public SoftwareListId getId() {
+    public ESoftwareId getId() {
         return this.id;
     }
     
-    public void setId(SoftwareListId id) {
+    public void setId(ESoftwareId id) {
         this.id = id;
-    }
-
-    public String getZone() {
-        return this.zone;
-    }
-    
-    public void setZone(String zone) {
-        this.zone = zone;
     }
 
     public Date getCreatedate() {
@@ -94,10 +87,19 @@ public class SoftwareList  implements java.io.Serializable {
     }
    
 
+	public static List<ESoftware> getEswList() {
+		return eswList;
+	}
 
 
+	public static void setEswList(List<ESoftware> eswList) {
+		ESoftware.eswList = eswList;
+	}
 
-
+	
+	public static void addEswList(ESoftware esw) {
+		ESoftware.eswList.add(esw);
+	}
 
 
 

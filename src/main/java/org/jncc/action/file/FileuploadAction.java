@@ -21,11 +21,12 @@
 package org.jncc.action.file;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.jncc.base.cause.resultCause;
+import org.jncc.base.software.ESoftwareService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -40,42 +41,63 @@ public class FileuploadAction extends ActionSupport {
 	private File fileupload; // 文件
 	private String fileFileName; // 文件名
 	private String filePath; // 文件路径
-	private resultCause resultcasue;
+	private String sw_option;
 
-	public String upload() {
-		String path = ServletActionContext.getServletContext().getRealPath("/upload");
+
+
+	public String getSw_option() {
+		return sw_option;
+	}
+
+
+	public void setSw_option(String sw_option) {
+		this.sw_option = sw_option;
+	}
+
+	private resultCause resultcasue;
+	
+
+
+	public String uploadSWList() {
+		String path = ServletActionContext.getServletContext().getRealPath(
+				"/uploadSWList");
 		File file = new File(path); // 判断文件夹是否存在,如果不存在则创建文件夹
 		if (!file.exists()) {
 			file.mkdir();
 		}
 		try {
-		  if (this.fileupload != null) {
-			  
-			  
-			File f = this.getFileupload();
-			String fileName = java.util.UUID.randomUUID().toString(); // 采用时间+UUID的方式随即命名
-			String name = fileName+ fileFileName.substring(fileFileName.lastIndexOf(".")); // 保存在硬盘中的文件名
+			if (this.fileupload != null) {
 
-			FileInputStream inputStream = new FileInputStream(f);
-			FileOutputStream outputStream = new FileOutputStream(path+ "\\" + name);
-			byte[] buf = new byte[1024];
-			int length = 0;
-			while ((length = inputStream.read(buf)) != -1) {
-				outputStream.write(buf, 0, length);
+				// String fileName = java.util.UUID.randomUUID().toString(); //
+				// 采用时间+UUID的方式随即命名
+				java.text.DateFormat formatStr = new java.text.SimpleDateFormat("yyMMddhhmmss");
+				String fileName = formatStr.format(new Date());
+				File saveFile = new File(path, fileName	+ this.getFileFileName());
+				
+				// upload.renameTo(saveFile);
+				if (saveFile.exists()) {
+					saveFile.setWritable(true, false);
+					saveFile.delete();
+				}
+				FileUtils.moveFile(fileupload, saveFile);
+				if(sw_option.startsWith("9"))
+				{
+					ESoftwareService.addSWFromXLS(saveFile.getAbsolutePath());
+				}
 			}
-			inputStream.close();
-			outputStream.flush();
-			//文件保存的完整路径  比如：D:\tomcat6\webapps\eserver\\upload\a0be14a1-f99e-4239-b54c-b37c3083134a.png
-			filePath = path+"\\"+name;
-
-		  }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		resultcasue = new resultCause();
 		resultcasue.setCause("200", "upload successfully!");
 		return "UPLOAD_SUCCESS";
+	}
+	
+	
+	public static boolean refreshSWList() {
+		
+		return true;
 	}
 
 	@Override
@@ -114,6 +136,14 @@ public class FileuploadAction extends ActionSupport {
 
 	public void setFileupload(File fileupload) {
 		this.fileupload = fileupload;
+	}
+
+	public String getPath() {
+		String filePath = "";
+		String absolutePath = ServletActionContext.getServletContext()
+				.getRealPath(""); //
+		filePath = absolutePath;
+		return filePath;
 	}
 
 }
