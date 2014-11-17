@@ -31,6 +31,8 @@
 <script type="text/javascript" src='js/common/bootstrap-datetimepicker.min.js'></script>
 <script type="text/javascript" src='js/file/ajaxfileupload.js'></script>
 
+<script type="text/javascript" src='js/table/EdTable.js'></script>
+
 
 
 <title>JNCC booking</title>

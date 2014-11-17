@@ -12,22 +12,13 @@
 		var tbodyContent = "";
 		$(eswList).each(
 				function(i, esw) {
-					tbodyContent = tbodyContent
-							+ "<tr><td class='editable simpleInput'>"
-							+ esw.id.name
-							+ "</td><td class='editable simpleInput'>"
-							+ esw.id.zone
-							+ "</td><td class='editable simpleInput'>"
-							+ esw.createdate
-							+ "</td><td class='editable simpleInput'>" + esw.os
-							+ "</td><td class='editable simpleInput'>"
-							+ esw.operator
-							+ "</td><td class='editable simpleInput'>"
-							+ esw.comment + "</td></tr>";
+					tbodyContent = tbodyContent+"<tr><td>" + esw.id.name + "<td></td>"
+									+ esw.id.zone + "<td></td>" + esw.createdate
+									+ "<td></td>" + esw.os + "<td></td>"
+									+ esw.operator + "<td></td>" + esw.comment
+									+ "</td></tr>";
 				});
-		$("#swList_table tbody").html(tbodyContent);
-
-		EdTable.initBindGridEvent();
+				$("#swList_table tbody").html(tbodyContent);
 	}
 
 	function ajaxFileUpload(param) {
@@ -78,27 +69,6 @@
 			};
 			return ajaxFileUpload(param);
 		});
-		
-		$("#btnSWRefresh").click(function() {
-			$.ajax({
-				url : 'user/sw_refresh.action',
-				type : 'post',
-				data : '',
-				dataType : 'json',
-				success : function(data,status) {
-					if (status == "success") {
-						displaySW(data);
-					}
-				},
-				error: function(data, status, e) {
-					alert(e);
-				}
-			});
-		});
-		
-		
-
-		EdTable.initBindGridEvent();
 	});
 </script>
 
@@ -130,16 +100,10 @@
 		</div>
 	</div>
 
-	<h2>
-		软件列表:&nbsp;&nbsp;
-		<button class="btn btn-success" id="btnSWRefresh">刷  新</button>
-		&nbsp;&nbsp;
-		<button class="btn btn-success" id="btnSWSave">保  存</button>
-	</h2>
+	<h2>软件列表</h2>
 
 	<table id='swList_table' cellspacing="0" cellpadding="0"
 		class="table table-bordered table-striped">
-		<thead>
 			<tr>
 				<th><font class="resizeDivClass" id='dragBlock1'>&nbsp;</font>
 					软件名称</th>
@@ -227,4 +191,76 @@
 		changeWidth(dragBlock5);
 		changeWidth(dragBlock6);
 	</script>
+
+
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr class="sortTableHead">
+				<th>课程名1称<i class="icon-folder-open"></i></th>
+				<th>人数</th>
+				<th>状态</th>
+				<th>申请时间</th>
+				<th>查看</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Nike.com Redesign</td>
+				<td>Monsters Inc</td>
+				<td>New Task</td>
+				<td>4 days ago</td>
+				<td><a href="#" class="view-link">View</a></td>
+			</tr>
+			<tr>
+				<td>Nike.com Redesign</td>
+				<td>Monsters Inc</td>
+				<td>New Message</td>
+				<td>5 days ago</td>
+				<td><a href="#" class="view-link">View</a></td>
+			</tr>
+			<tr>
+				<td>Nike.com Redesign</td>
+				<td>Monsters Inc</td>
+				<td>New Project</td>
+				<td>5 days ago</td>
+				<td><a href="#" class="view-link">View</a></td>
+			</tr>
+			<tr>
+				<td>Twitter Server Consulting</td>
+				<td>Bad Robot</td>
+				<td>New Task</td>
+				<td>6 days ago</td>
+				<td><a href="#" class="view-link">View</a></td>
+			</tr>
+			<tr>
+				<td>Childrens Book Illustration</td>
+				<td>Evil Genius</td>
+				<td>New Message</td>
+				<td>9 days ago</td>
+				<td><a href="#" class="view-link">View</a></td>
+			</tr>
+			<tr>
+				<td>Twitter Server Consulting</td>
+				<td>Bad Robot</td>
+				<td>New Task</td>
+				<td>16 days ago</td>
+				<td><a href="#" class="view-link">View</a></td>
+			</tr>
+			<tr>
+				<td>Twitter Server Consulting</td>
+				<td>Bad Robot</td>
+				<td>New Project</td>
+				<td>16 days ago</td>
+				<td><a href="#" class="view-link">View</a></td>
+			</tr>
+			<tr>
+				<td>Twitter Server Proposal</td>
+				<td>Bad Robot</td>
+				<td>Completed Project</td>
+				<td>20 days ago</td>
+				<td><a href="#" class="view-link">View</a></td>
+			</tr>
+		</tbody>
+	</table>
 </div>

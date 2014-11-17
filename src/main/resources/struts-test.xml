@@ -40,8 +40,17 @@
 
 		<action name="file_*" class="org.jncc.action.file.FileuploadAction"
 			method="{1}">
-			<result name="UPLOAD_SUCCESS" type="json">
-				<param name="root">resultCause</param>
+			<result name="UPLOAD_SW_SUCCESS" type="json">
+				<param name="root">eswList</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+		</action>
+		
+		<action name="sw_*" class="org.jncc.action.software.SoftwareAction"
+			method="{1}">
+			<result name="REFRESH_SW_SUCCESS" type="json">
+				<param name="root">eswList</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>

@@ -1,0 +1,27 @@
+.hiddenLongChar {
+	width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 拖动块样式 */
+.resizeDivClass {
+	/* 绿色背景色 */
+	/* background:#00FF00; 删除*/
+	width: 18px;
+	z-index: 999;
+	position: relative;
+	float: right;
+	left: 15px;
+	cursor: e-resize;
+	height: 100%;
+}
+/* 定义页面整体样式 */
+body {
+	overflow: auto;
+}
+
+.selectCell{
+	background:#6699FF;
+}

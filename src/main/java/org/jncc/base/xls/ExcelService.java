@@ -1,6 +1,7 @@
 package org.jncc.base.xls;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,19 +59,22 @@ public class ExcelService {
 	public static ESoftware cell2Esw(Cell[] cells) {
 		ESoftware esw = null;
 		if (cells.length >= 6) {
-			ESoftwareId id = new ESoftwareId(cells[0].toString(),cells[1].toString());
+			ESoftwareId id = new ESoftwareId(cells[0].getContents(),cells[1].getContents());
 			Date date = null;
 			try  
 			{  
-			    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");  
-			    date = sdf.parse(cells[2].toString());  
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd "); 
+			    String tt = cells[2].getContents();
+			    Date d1 = df.parse("2000-01-01");  
+			    Date d2 = df.parse("1999-12-31");  
+			    date = df.parse(tt);
 			}  
 			catch (ParseException e)  
 			{  
 			    System.out.println(e.getMessage());
 			    date = new Date();
 			} 
-			esw = new ESoftware(id,date,cells[3].toString(),cells[4].toString(),cells[5].toString());
+			esw = new ESoftware(id,date,cells[3].getContents(),cells[4].getContents(),cells[5].getContents());
 		}
 
 		return esw;

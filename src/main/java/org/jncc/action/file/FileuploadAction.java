@@ -22,10 +22,12 @@ package org.jncc.action.file;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.jncc.base.cause.resultCause;
+import org.jncc.base.software.ESoftware;
 import org.jncc.base.software.ESoftwareService;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -43,6 +45,16 @@ public class FileuploadAction extends ActionSupport {
 	private String filePath; // 文件路径
 	private String sw_option;
 
+	private List<ESoftware> eswList;
+
+	public List<ESoftware> getEswList() {
+		return eswList;
+	}
+
+
+	public void setEswList(List<ESoftware> eswList) {
+		this.eswList = eswList;
+	}
 
 
 	public String getSw_option() {
@@ -54,7 +66,7 @@ public class FileuploadAction extends ActionSupport {
 		this.sw_option = sw_option;
 	}
 
-	private resultCause resultcasue;
+	private resultCause resultCause;
 	
 
 
@@ -83,15 +95,16 @@ public class FileuploadAction extends ActionSupport {
 				if(sw_option.startsWith("9"))
 				{
 					ESoftwareService.addSWFromXLS(saveFile.getAbsolutePath());
+					this.setEswList(ESoftware.getEswList());
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		resultcasue = new resultCause();
-		resultcasue.setCause("200", "upload successfully!");
-		return "UPLOAD_SUCCESS";
+		resultCause = new resultCause();
+		resultCause.setCause("200", "upload successfully!");
+		return "UPLOAD_SW_SUCCESS";
 	}
 	
 	
@@ -106,12 +119,12 @@ public class FileuploadAction extends ActionSupport {
 		return null;
 	}
 
-	public resultCause getResultcasue() {
-		return resultcasue;
+	public resultCause getResultCause() {
+		return resultCause;
 	}
 
-	public void setResultcasue(resultCause resultcasue) {
-		this.resultcasue = resultcasue;
+	public void setResultCause(resultCause resultCause) {
+		this.resultCause = resultCause;
 	}
 
 	public String getFileFileName() {

@@ -9,7 +9,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
-import org.jncc.base.user.UserInfo;
 
 @SuppressWarnings("deprecation")
 public class dbSession {
@@ -32,7 +31,23 @@ public class dbSession {
 			System.out.println(id + " " + name);
 		}
 	}
-
+	
+	public static List select(String sql) {
+		init();
+		Query q = session.createQuery(sql);
+		List l = q.list();
+		return l;
+//		for (int i = 0; i < l.size(); i++) {
+//
+//			// TestDb user = (TestDb)l.get(i);
+//			// System.out.println(user.getUsername());
+//
+//			Object[] row = (Object[]) l.get(i);
+//
+//		}
+	}
+	
+	
 	// 读取
 //	public static Object select(Object obj,String keyword) {
 //		init();
@@ -62,9 +77,9 @@ public class dbSession {
 	// 插入
 	public static void insert(Object obj) {
 		init();
-		session.save(obj);
+		session.save(obj);		
 	}
-
+	
 	static SessionFactory sessionFactory;
 	static Session session;
 	static Transaction tx;
@@ -85,11 +100,28 @@ public class dbSession {
 		tx = session.beginTransaction();
 	}
 
-	public static void close() {
-		tx.commit();
-		session.close();
+	public static void close(boolean isCloseSession) {
+		try {
+			if (tx.isActive()) {
+				tx.commit();
+			}
+			if (isCloseSession) {
+				session.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
+	
+	public static void close() {
+		try {
+			tx.commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public static void main(String[] args) {
 		init();
 		// update();

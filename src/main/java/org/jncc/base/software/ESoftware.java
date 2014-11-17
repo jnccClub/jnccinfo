@@ -25,7 +25,18 @@ public class ESoftware  implements java.io.Serializable {
 
     // Constructors
 
-    /** default constructor */
+	
+	
+
+	public static List<ESoftware> getEswList() {
+		return eswList;
+	}
+
+	public static void setEswList(List<ESoftware> eswList) {
+		ESoftware.eswList = eswList;
+	}
+
+	/** default constructor */
     public ESoftware() {
     }
 
@@ -86,21 +97,5 @@ public class ESoftware  implements java.io.Serializable {
         this.comment = comment;
     }
    
-
-	public static List<ESoftware> getEswList() {
-		return eswList;
-	}
-
-
-	public static void setEswList(List<ESoftware> eswList) {
-		ESoftware.eswList = eswList;
-	}
-
-	
-	public static void addEswList(ESoftware esw) {
-		ESoftware.eswList.add(esw);
-	}
-
-
 
 }
