@@ -46,7 +46,7 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 		</action>
-		
+
 		<action name="sw_*" class="org.jncc.action.software.SoftwareAction"
 			method="{1}">
 			<result name="REFRESH_SW_SUCCESS" type="json">
@@ -54,10 +54,20 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
+			<result name="ADD_SW_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="DELETE_SW_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
 		</action>
 	</package>
-	
-	
+
+
 </struts>
 
 <!-- END SNIPPET: xworkSample -->

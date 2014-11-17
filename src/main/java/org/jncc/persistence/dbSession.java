@@ -12,7 +12,13 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 @SuppressWarnings("deprecation")
 public class dbSession {
-
+	//删除
+	public static void delete(Object obj){
+		init();
+		session.delete(obj);
+	}
+	
+	
 	// 遍历
 	public static void all() {
 		Query q = session

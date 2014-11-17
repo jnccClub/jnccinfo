@@ -8,6 +8,22 @@ var EdTable = function(){
 		addGridDbClickEvent();
 		// 添加键盘事件
 		addGridKeyPressEvent();
+		
+		addGridContextMenu();
+	}
+	
+	//给单元格添加右键事件
+	function addGridContextMenu() {
+		$("td.simpleInput").contextMenu('myMenu1', {
+			bindings : {
+				'save' : function(t) {
+					addSW(getRowSW(t.parentElement.rowIndex));
+				},
+				'delete' : function(t) {
+					deleteSW(getRowSW(t.parentElement.rowIndex));
+				}
+			}
+		});
 	}
 	
 	// 给单元格添加单击事件
@@ -20,6 +36,7 @@ var EdTable = function(){
 			$(this).addClass("selectCell");
 		});
 	}
+	
 	
 	//给单元格添加双击事件
 	function addGridDbClickEvent(){
@@ -87,3 +104,6 @@ var EdTable = function(){
 		saveEdit : saveEdit
 	}
 }();
+
+
+// CUSTOMIZE JS

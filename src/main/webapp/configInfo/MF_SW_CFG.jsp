@@ -7,106 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<script>
-	function displaySW(eswList) {
-		var tbodyContent = "";
-		$(eswList).each(
-				function(i, esw) {
-					tbodyContent = tbodyContent
-							+ "<tr><td class='editable simpleInput'>"
-							+ esw.id.name
-							+ "</td><td class='editable simpleInput'>"
-							+ esw.id.zone
-							+ "</td><td class='editable simpleInput'>"
-							+ esw.createdate
-							+ "</td><td class='editable simpleInput'>" + esw.os
-							+ "</td><td class='editable simpleInput'>"
-							+ esw.operator
-							+ "</td><td class='editable simpleInput'>"
-							+ esw.comment + "</td></tr>";
-				});
-		$("#swList_table tbody").html(tbodyContent);
-
-		EdTable.initBindGridEvent();
-	}
-
-	function ajaxFileUpload(param) {
-		//starting setting some animation when the ajax starts and completes
-
-		$("#loading").ajaxStart(function() {
-			$(this).show();
-		}).ajaxComplete(function() {
-			$(this).hide();
-		});
-		/*
-		    prepareing ajax file upload
-		    url: the url of script file handling the uploaded files
-		                fileElementId: the file type of input element id and it will be the index of  $_FILES Array()
-		    dataType: it support json, xml
-		    secureuri:use secure protocol
-		    success: call back function when the ajax complete
-		    error: callback function when the ajax failed
-		    
-		 */
-		$.ajaxFileUpload({
-			url : 'file_uploadSWList.action',
-			secureuri : false,
-			fileElementId : 'fileupload',
-			data : param,
-			dataType : 'json',
-			success : function(data, status) {
-				if (status == "success") {
-					displaySW(data);
-				}
-
-			},
-			error : function(data, status, e) {
-				alert(e);
-			}
-		});
-		return false;
-	}
-
-	$(function() {
-		$("#buttonUpload").click(function() {
-			var filename = $("#fileupload").val();
-			filename = filename.substring(filename.lastIndexOf('\\') + 1);
-			var sw_option = $("input[name='sw_option']").val();
-			var param = {
-				"fileFileName" : filename,
-				"sw_option" : sw_option
-			};
-			return ajaxFileUpload(param);
-		});
-		
-		$("#btnSWRefresh").click(function() {
-			$.ajax({
-				url : 'user/sw_refresh.action',
-				type : 'post',
-				data : '',
-				dataType : 'json',
-				success : function(data,status) {
-					if (status == "success") {
-						displaySW(data);
-					}
-				},
-				error: function(data, status, e) {
-					alert(e);
-				}
-			});
-		});
-		
-		
-
-		EdTable.initBindGridEvent();
-	});
-</script>
-
+<style>
+.inline_div label,.inline_div input {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1
+}
+</style>
 
 
 <div class="row" id="MF_SW_CFG">
 	<div
-		style="border: dashed 1px blue;border-radius: 50px;TEXT-ALIGN: center;MARGIN-RIGHT: auto; MARGIN-LEFT: auto; background-color:#EEE;">
+		style="border-radius: 50px;TEXT-ALIGN: center;MARGIN-RIGHT: auto; MARGIN-LEFT: auto; background-color:#EEE;">
 		<h1>-----------软件清单更新-----------</h1>
 		<div>
 			<label class="control-label">&nbsp;&nbsp;&nbsp;软件清单(<a
@@ -129,13 +41,37 @@
 			</label>
 		</div>
 	</div>
-
+	<br>
+	<br>
 	<h2>
 		软件列表:&nbsp;&nbsp;
-		<button class="btn btn-success" id="btnSWRefresh">刷  新</button>
+		<button class="btn btn-success" id="btnSWRefresh">刷 新</button>
 		&nbsp;&nbsp;
-		<button class="btn btn-success" id="btnSWSave">保  存</button>
+		<button class="btn btn-success" id="btnSWSave">保 存</button>
 	</h2>
+	<form id="swaddForm" style="border: dashed 1px yellow;border-radius: 50px;MARGIN-RIGHT: auto; MARGIN-LEFT: auto; background-color:#EEE;">
+		<br>
+		<div class="inline_div">&nbsp;&nbsp;&nbsp;&nbsp;
+			<label>软件名称：</label> <input type="text" placeholder="软件名称"
+				name="esw.id.name"/> <label
+				class="control-label">区域：</label> <input type="text"
+				placeholder="区域" name="esw.id.zone"/> <label
+				class="control-label">安装时间：</label> <input type="text"
+				placeholder="安装时间" name="esw.createdate"/> <label
+				class="control-label">负责人：</label> <input type="text"
+				placeholder="负责人" name="esw.operator"/>
+		</div>
+		<div class="inline_div">&nbsp;&nbsp;&nbsp;&nbsp;
+			<label	class="control-label">操作系统：</label> <input type="text"
+				placeholder="操作系统" name="esw.os"/>
+				<label	class="control-label">备注：</label> <input type="text"
+				placeholder="备注" name="esw.comment"/>
+		</div>
+		<div style="TEXT-ALIGN: center;">
+			<button class="btn " id="btnSWAdd">增加</button>
+		</div>
+		
+	</form>
 
 	<table id='swList_table' cellspacing="0" cellpadding="0"
 		class="table table-bordered table-striped">
@@ -227,4 +163,13 @@
 		changeWidth(dragBlock5);
 		changeWidth(dragBlock6);
 	</script>
+</div>
+
+
+<div class="contextMenu" id="myMenu1">
+	<ul>
+		<li id="save"><img src="image/contextMenu/disk.png" /> 保存</li>
+		<li id="delete"><img src="image/contextMenu/cross.png" /> 删除</li>
+	</ul>
+
 </div>

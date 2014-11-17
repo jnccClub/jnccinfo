@@ -32,6 +32,8 @@
 <script type="text/javascript" src='js/file/ajaxfileupload.js'></script>
 
 <script type="text/javascript" src='js/table/EdTable.js'></script>
+<script type="text/javascript" src='js/common/jquery.contextmenu.r2.js'></script>
+<script type="text/javascript" src='js/table/softwareOperate.js'></script>
 
 
 

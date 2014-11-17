@@ -1,6 +1,9 @@
 package org.jncc.base.software;
 // default package
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -71,6 +74,20 @@ public class ESoftware  implements java.io.Serializable {
     
     public void setCreatedate(Date createdate) {
         this.createdate = createdate;
+    }
+    
+    public void setCreatedate(String str) {
+    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd "); 
+        this.createdate = new Date();
+		try  
+		{  
+		    this.createdate = df.parse(str);
+		}  
+		catch (ParseException e)  
+		{  
+		    System.out.println(e.getMessage());
+		    this.createdate = new Date();
+		} 
     }
 
     public String getOs() {

@@ -29,6 +29,7 @@ import org.apache.struts2.ServletActionContext;
 import org.jncc.base.cause.resultCause;
 import org.jncc.base.software.ESoftware;
 import org.jncc.base.software.ESoftwareService;
+import org.jncc.persistence.dbSession;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -43,7 +44,15 @@ public class SoftwareAction extends ActionSupport {
 
 	private resultCause resultCause;
 	private List<ESoftware> eswList;
+	private ESoftware esw;
 
+	public ESoftware getEsw() {
+		return esw;
+	}
+
+	public void setEsw(ESoftware esw) {
+		this.esw = esw;
+	}
 
 	public String refresh() {
 		ESoftwareService.updateEswList(ESoftwareService.getEswList());
@@ -52,7 +61,32 @@ public class SoftwareAction extends ActionSupport {
 		resultCause.setCause("200", "upload successfully!");
 		return "REFRESH_SW_SUCCESS";
 	}
+
+	public String addRecord() {
+		try {
+			dbSession.delete(esw);
+			dbSession.insert(esw);
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		resultCause = new resultCause();
+		resultCause.setCause("200", "恭喜您，添加成功！");
+		return "ADD_SW_SUCCESS";
+	}
 	
+	
+	public String deleteRecord() {
+		try {
+			dbSession.delete(esw);
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		resultCause = new resultCause();
+		resultCause.setCause("200", "恭喜您，删除成功！");
+		return "DELETE_SW_SUCCESS";
+	}
 	
 
 	@Override
@@ -68,16 +102,13 @@ public class SoftwareAction extends ActionSupport {
 	public void setResultCause(resultCause resultCause) {
 		this.resultCause = resultCause;
 	}
-	
-	
+
 	public List<ESoftware> getEswList() {
 		return eswList;
 	}
 
-
 	public void setEswList(List<ESoftware> eswList) {
 		this.eswList = eswList;
 	}
-
 
 }
