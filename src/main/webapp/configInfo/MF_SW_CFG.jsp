@@ -16,7 +16,8 @@
 </style>
 
 
-<div class="row" id="MF_SW_CFG">
+
+<div class="row" id="MF_SW_CFG" style="display:none">
 	<div
 		style="border-radius: 50px;TEXT-ALIGN: center;MARGIN-RIGHT: auto; MARGIN-LEFT: auto; background-color:#EEE;">
 		<h1>-----------软件清单更新-----------</h1>
@@ -89,6 +90,8 @@
 					维护人</th>
 				<th><font class="resizeDivClass" id='dragBlock6'>&nbsp;</font>
 					备注</th>
+				<th><font class="resizeDivClass" id='dragBlock7'>&nbsp;</font>
+					操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -103,6 +106,7 @@
 		var dragBlock4 = document.getElementById('dragBlock4');
 		var dragBlock5 = document.getElementById('dragBlock5');
 		var dragBlock6 = document.getElementById('dragBlock6');
+		var dragBlock6 = document.getElementById('dragBlock7');
 		var swListtable = document.getElementById('swList_table');
 
 		//设置表格拖动点
@@ -139,7 +143,7 @@
 							- obj.mouseDownX;
 
 					//更新隐藏样式
-					if (obj.id == 'dragBlock5')
+					if (obj.id == 'dragBlock6')
 						(document.styleSheets[0].rules || document.styleSheets[0].cssRules)[0].style.width = newWidth
 								+ 'px';
 				}
@@ -162,6 +166,7 @@
 		changeWidth(dragBlock4);
 		changeWidth(dragBlock5);
 		changeWidth(dragBlock6);
+		changeWidth(dragBlock7);
 	</script>
 </div>
 
@@ -173,3 +178,5 @@
 	</ul>
 
 </div>
+
+

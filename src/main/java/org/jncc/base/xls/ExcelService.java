@@ -60,21 +60,21 @@ public class ExcelService {
 		ESoftware esw = null;
 		if (cells.length >= 6) {
 			ESoftwareId id = new ESoftwareId(cells[0].getContents(),cells[1].getContents());
-			Date date = null;
-			try  
-			{  
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd "); 
-			    String tt = cells[2].getContents();
-			    Date d1 = df.parse("2000-01-01");  
-			    Date d2 = df.parse("1999-12-31");  
-			    date = df.parse(tt);
-			}  
-			catch (ParseException e)  
-			{  
-			    System.out.println(e.getMessage());
-			    date = new Date();
-			} 
-			esw = new ESoftware(id,date,cells[3].getContents(),cells[4].getContents(),cells[5].getContents());
+//			Date date = null;
+//			try  
+//			{  
+//				DateFormat df = new SimpleDateFormat("yyyy-MM-dd "); 
+//			    String tt = cells[2].getContents();
+//			    Date d1 = df.parse("2000-01-01");  
+//			    Date d2 = df.parse("1999-12-31");  
+//			    date = df.parse(tt);
+//			}  
+//			catch (ParseException e)  
+//			{  
+//			    System.out.println(e.getMessage());
+//			    date = new Date();
+//			} 
+			esw = new ESoftware(id,cells[2].getContents(),cells[3].getContents(),cells[4].getContents(),cells[5].getContents());
 		}
 
 		return esw;

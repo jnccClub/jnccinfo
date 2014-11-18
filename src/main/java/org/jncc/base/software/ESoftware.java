@@ -18,8 +18,16 @@ public class ESoftware  implements java.io.Serializable {
     // Fields    
 
      private ESoftwareId id;
-     private Date createdate;
-     private String os;
+     private String createdate;
+     public String getCreatedate() {
+		return createdate;
+	}
+
+	public void setCreatedate(String createdate) {
+		this.createdate = createdate;
+	}
+
+	private String os;
      private String operator;
      private String comment;
      
@@ -49,7 +57,7 @@ public class ESoftware  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public ESoftware(ESoftwareId id, Date createdate, String os, String operator, String comment) {
+    public ESoftware(ESoftwareId id, String createdate, String os, String operator, String comment) {
         this.id = id;
         this.createdate = createdate;
         this.os = os;
@@ -68,27 +76,6 @@ public class ESoftware  implements java.io.Serializable {
         this.id = id;
     }
 
-    public Date getCreatedate() {
-        return this.createdate;
-    }
-    
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
-    }
-    
-    public void setCreatedate(String str) {
-    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd "); 
-        this.createdate = new Date();
-		try  
-		{  
-		    this.createdate = df.parse(str);
-		}  
-		catch (ParseException e)  
-		{  
-		    System.out.println(e.getMessage());
-		    this.createdate = new Date();
-		} 
-    }
 
     public String getOs() {
         return this.os;

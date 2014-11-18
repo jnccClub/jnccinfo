@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<div class="row" id="mainFrame_Body">
+<div class="row" id="MF_Body">
 	<jsp:include page="personalNav.jsp"></jsp:include>
 	<jsp:include page="welcomeContent.jsp"></jsp:include>
 	<jsp:include page="createApplication.jsp"></jsp:include>

@@ -30,6 +30,7 @@ public class ESoftwareService implements java.io.Serializable {
 				String tt = eswVec.get(i).getId().getZone();
 				int j = tt.length();
 				System.out.println("Len of "+tt+" is: "+j);
+				dbSession.delete(eswVec.get(i));
 				dbSession.insert(eswVec.get(i));
 				dbSession.close(false);
 			}

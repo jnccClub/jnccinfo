@@ -42,17 +42,44 @@
 </head>
 <body>
 <script>
-	$(function(){
-		$("#testdiv_test").removeClass();
-		$("#testdiv_test label").removeClass();
-		$("#testdiv_test label input").removeClass().addClass("option-input-radio radioround");
-		
+	var currentShowID = "#MF_Body";
+	$(function() {
+		$("#loginEntry").click(function() {
+			renewMainId("#mainFrame_Login");
+		});
+
+		$("#logOutEntry").click(function() {
+			alert("come to relogin");
+			username = "";
+			$("#loginEntry").html('<a href="javarscript:(0)" >登录/注册</a>');
+			$("#logOutEntry").hide();
+		});
 	});
+	
+	function renewMainId(newId) {
+		$(currentShowID).hide();
+		currentShowID = newId;
+		$(currentShowID).show();
+	}
 </script>
+
+
 	<div class="container">
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
-		
+		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
+	</div>
+
+	<div id="circular">
+		<div id="circular_1" class="circular"></div>
+		<div id="circular_2" class="circular"></div>
+		<div id="circular_3" class="circular"></div>
+		<div id="circular_4" class="circular"></div>
+		<div id="circular_5" class="circular"></div>
+		<div id="circular_6" class="circular"></div>
+		<div id="circular_7" class="circular"></div>
+		<div id="circular_8" class="circular"></div>
+		<div class="clearfix"></div>
 	</div>
 </body>
 </html>

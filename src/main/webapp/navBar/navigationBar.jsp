@@ -24,13 +24,13 @@
 						class="dropdown-toggle" data-toggle="dropdown">引导 <b
 							class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="help.htm">Introduction Tour</a></li>
-							<li><a href="help.htm">Project Organisation</a></li>
-							<li><a href="help.htm">Task Assignment</a></li>
-							<li><a href="help.htm">Access Permissions</a></li>
+							<li><a href="help.htm">欢迎页面</a></li>
+							<li><a href="help.htm">预留页面</a></li>
+							<li><a href="help.htm">预留页面</a></li>
+							<li><a href="help.htm">预留页面</a></li>
 							<li class="divider"></li>
 							<li class="nav-header">信息配置</li>
-							<li><a href="help.htm">软件信息</a></li>
+							<li><a href="#" onclick="renewMainId('#MF_SW_CFG')">软件信息</a></li>
 							<li><a href="help.htm">硬件信息配置</a></li>
 							<li><a href="help.htm">区域信息配置</a></li>
 						</ul></li>

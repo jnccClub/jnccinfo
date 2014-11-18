@@ -12,20 +12,25 @@ function displaySW(eswList) {
 						+ "</td><td class='editable simpleInput'>"
 						+ esw.operator
 						+ "</td><td class='editable simpleInput'>"
-						+ esw.comment + "</td></tr>";
+						+ esw.comment + "</td><td><button class='btn' onclick='btnDeleteSW(this)'>删除</button>"
+						+ "&nbsp;&nbsp;<button class='btn' onclick='btnAddSW(this)' disabled='disabled'>保存</button>"+"</td></tr>";
 			});
 	$("#swList_table tbody").html(tbodyContent);
 	EdTable.initBindGridEvent();
 }
 
+
+function btnAddSW(t){
+	
+}
+
+function btnDeleteSW(t){
+	deleteSW(getRowSW(t.parentElement.parentElement.rowIndex));
+}
+
 function ajaxFileUpload(param) {
 	// starting setting some animation when the ajax starts and completes
 
-	$("#loading").ajaxStart(function() {
-		$(this).show();
-	}).ajaxComplete(function() {
-		$(this).hide();
-	});
 	/*
 	 * prepareing ajax file upload url: the url of script file handling the
 	 * uploaded files fileElementId: the file type of input element id and it
@@ -34,10 +39,14 @@ function ajaxFileUpload(param) {
 	 * complete error: callback function when the ajax failed
 	 * 
 	 */
+	if($("#circular").is(":hidden")){
+		$("#circular").show();
+	}
 	$.ajaxFileUpload({
 		url : 'file_uploadSWList.action',
 		secureuri : false,
 		fileElementId : 'fileupload',
+		beforeSend: function(){},
 		data : param,
 		dataType : 'json',
 		success : function(data, status) {
@@ -48,6 +57,9 @@ function ajaxFileUpload(param) {
 		},
 		error : function(data, status, e) {
 			alert(e);
+		},complete: function(){
+			// Handle the complete event
+			$("#circular").hide();
 		}
 	});
 	return false;
@@ -69,6 +81,9 @@ function getRowSW(rowIndex) {
 }
 
 function addSW(param) {
+	if($("#circular").is(":hidden")){
+		$("#circular").show();
+	}
 	$.ajax({
 		url : 'sw_addRecord.action',
 		type : 'post',
@@ -82,12 +97,16 @@ function addSW(param) {
 		},
 		error : function(data, status, e) {
 			alert(e);
+		},complete: function(){
+			$("#circular").hide();
 		}
 	});
 }
 
 function deleteSW(param) {
-	var tt = param;
+	if($("#circular").is(":hidden")){
+		$("#circular").show();
+	}
 	$.ajax({
 		url : 'sw_deleteRecord.action',
 		type : 'post',
@@ -101,6 +120,8 @@ function deleteSW(param) {
 		},
 		error : function(data, status, e) {
 			alert(e);
+		},complete: function(){
+			$("#circular").hide();
 		}
 	});
 }
@@ -118,6 +139,9 @@ $(function() {
 	});
 
 	$("#btnSWRefresh").click(function() {
+		if($("#circular").is(":hidden")){
+			$("#circular").show();
+		}
 		$.ajax({
 			url : 'sw_refresh.action',
 			type : 'post',
@@ -130,6 +154,8 @@ $(function() {
 			},
 			error : function(data, status, e) {
 				alert(e);
+			},complete: function(){
+				$("#circular").hide();
 			}
 		});
 	});

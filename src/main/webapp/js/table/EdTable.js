@@ -10,14 +10,19 @@ var EdTable = function(){
 		addGridKeyPressEvent();
 		
 		addGridContextMenu();
+		
+		//给单元格添加按钮事件
+		//addGridButtonClick();
 	}
+	
+	
 	
 	//给单元格添加右键事件
 	function addGridContextMenu() {
 		$("td.simpleInput").contextMenu('myMenu1', {
 			bindings : {
 				'save' : function(t) {
-					addSW(getRowSW(t.parentElement.rowIndex));
+					//addSW(getRowSW(t.parentElement.rowIndex));
 				},
 				'delete' : function(t) {
 					deleteSW(getRowSW(t.parentElement.rowIndex));

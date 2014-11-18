@@ -8,10 +8,15 @@
 
 @import url(common/bootstrap-datetimepicker.min.css);
 @import url(table/resize.css);
+@import url(loadingAnimation/loading.css);
 
 .bordline {
-	border: solid 1px blue;
-	display: inline;
+	border-radius: 50px;
+	TEXT-ALIGN: center;
+	MARGIN-RIGHT: auto;
+	MARGIN-LEFT: auto;
+	background-color: #CCCCFF;
+	
 }
 
 .option-inline-radio label {

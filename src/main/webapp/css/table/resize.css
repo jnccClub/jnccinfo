@@ -25,3 +25,10 @@ body {
 .selectCell{
 	background:#6699FF;
 }
+
+#swList_table th,#swList_table td{
+	text-align:center;
+}
+#swList_table th{
+	background:#99FF99;
+}

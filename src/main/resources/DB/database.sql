@@ -74,7 +74,7 @@ DROP TABLE IF EXISTS `e_software`;
 CREATE TABLE `e_software` (
   `name` varchar(128) CHARACTER SET utf8 NOT NULL,
   `zone` varchar(16) CHARACTER SET utf8 NOT NULL,
-  `createdate` date DEFAULT NULL,
+  `createdate` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
   `os` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
   `operator` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
   `comment` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `e_software` (
 
 /*Data for the table `e_software` */
 
-insert  into `e_software`(`name`,`zone`,`createdate`,`os`,`operator`,`comment`) values ('word','7F',NULL,NULL,NULL,NULL);
+insert  into `e_software`(`name`,`zone`,`createdate`,`os`,`operator`,`comment`) values ('AOTHEWERE','7F','2014-11-16','Windows XP','王玮',''),('AutoCAD','7F','2014-11-05','Windows XP','张磊',''),('C','7F','2014-10-29','Windows XP','张磊',''),('C++','7F','2014-10-16','Windows XP','张磊','程序编写'),('Catia','7F','2014-10-12','Windows XP','刘佳','航空类'),('CCS','7F','2014-10-20','Windows XP','张磊',''),('Cooledit','7F','2014-11-01','Windows XP','张磊',''),('Dreamwear','7F','2014-10-25','Windows XP','张磊','网页制作'),('EWB','7F','2014-10-13','Windows XP','张磊',''),('EXCEL','7F','2014-10-27','Windows XP','张磊',''),('FLASH','7F','2014-11-15','Windows XP','王玮',''),('Fortran','7F','2014-10-30','Windows XP','张磊',''),('FrontPage','7F','2014-10-08','Windows XP','张磊','网页制作'),('Iuastrator','7F','2014-11-04','Windows XP','张磊',''),('Java','7F','2014-10-22','Windows XP','张磊',''),('Masm','7F','2014-10-23','Windows XP','张磊',''),('Mathematica','7F','2014-11-14','Windows XP','王玮',''),('Matlab','7F','2014-10-10','Windows XP','张磊','数学计算'),('MaxpulsII','7F','2014-10-19','Windows XP','张磊',''),('Modelsim','7F','2014-10-11','Windows XP','张磊',''),('Multisimprotel','7F','2014-10-18','Windows XP','张磊',''),('office2003','7F','2014-10-07','Windows 7|Ubuntu','张磊','通用软件'),('Oracle','7F','2014-10-24','Windows XP','张磊','数据库'),('Photoshop','7F','2014-11-02','Windows XP','张磊',''),('qiuju','7F','2014-10-07','Windows 7|Ubuntu','张磊','通用软件'),('QuartusII','7F','2014-10-17','Windows XP','张磊',''),('Rhino','7F','2014-11-03','Windows XP','张磊',''),('SQL','7F','2014-10-14','Windows XP','张磊','数据库'),('TurboC','7F','2014-10-21','Windows XP','张磊',''),('VB','7F','2014-10-26','Windows XP','张磊',''),('VFP','7F','2014-10-15','Windows XP','张磊',''),('新时代交互','7F','2014-11-10','Windows XP','王玮',''),('新理念','7F','2014-11-12','Windows XP','王玮',''),('新视野','7F','2014-11-11','Windows XP','王玮',''),('民航英语听力','7F','2014-11-13','Windows XP','王玮','');
 
 /*Table structure for table `hibernatetest` */
 
@@ -143,6 +143,25 @@ CREATE TABLE `processtype` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `processtype` */
+
+/*Table structure for table `software_list` */
+
+DROP TABLE IF EXISTS `software_list`;
+
+CREATE TABLE `software_list` (
+  `name` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `version` varchar(12) CHARACTER SET utf8 NOT NULL,
+  `zone` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `createdate` date DEFAULT NULL,
+  `os` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
+  `operator` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `comment` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`name`,`version`,`zone`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `software_list` */
+
+insert  into `software_list`(`name`,`version`,`zone`,`createdate`,`os`,`operator`,`comment`) values ('auto Cad','7.5','',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `student` */
 

@@ -60,16 +60,16 @@
 		<div class="controls">
 			<span style="position:relative"><input
 				type="text" placeholder="软件名称"
-				onkeyup='showHint(this.value,arguments[0])' name="softwareRequired" id="soft_input_1"/>
-			<div class="matchSoftwareWindow" id="matchwindow_1">匹配框</div></span>
+				onkeyup='showHint(this.value,arguments[0])' name="softwareRequired" id="soft_input_1"/>&nbsp;&
+			<div class="matchSoftwareWindow" id="matchwindow_1">matchWin</div></span>
 			<span style="position:relative"><input
 				type="text" placeholder="软件名称"
-				onkeyup='showHint(this.value,arguments[0])' name="softwareRequired" id="soft_input_2"/>
-			<div class="matchSoftwareWindow" id="matchwindow_2">匹配框</div></span>
+				onkeyup='showHint(this.value,arguments[0])' name="softwareRequired" id="soft_input_2"/>&nbsp;&
+			<div class="matchSoftwareWindow" id="matchwindow_2">matchWin</div></span>
 			<span style="position:relative"><input
 				type="text" placeholder="软件名称"
 				onkeyup='showHint(this.value,arguments[0])' name="softwareRequired" id="soft_input_3"/>
-			<div class="matchSoftwareWindow" id="matchwindow_3">匹配框</div></span>
+			<div class="matchSoftwareWindow" id="matchwindow_3">matchWin</div></span>
 		</div>
 	</div>
 
