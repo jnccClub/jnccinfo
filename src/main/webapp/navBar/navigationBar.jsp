@@ -17,7 +17,7 @@
 			</a> <a class="brand" href="#">计算中心</a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class="active"><a href="#">首页</a></li>
+					<li class="active"><a href="#" onclick="renewMainId('#MF_Body')">首页</a></li>
 					<li><a href="#">机构介绍</a></li>
 					<li><a href="#">帮助</a></li>
 					<li class="dropdown"><a href="help.htm"

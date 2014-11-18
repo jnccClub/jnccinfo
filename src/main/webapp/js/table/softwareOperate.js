@@ -1,5 +1,6 @@
 function displaySW(eswList) {
 	var tbodyContent = "";
+	swList = '';
 	$(eswList).each(
 			function(i, esw) {
 				tbodyContent = tbodyContent
@@ -14,6 +15,25 @@ function displaySW(eswList) {
 						+ "</td><td class='editable simpleInput'>"
 						+ esw.comment + "</td><td><button class='btn' onclick='btnDeleteSW(this)'>删除</button>"
 						+ "&nbsp;&nbsp;<button class='btn' onclick='btnAddSW(this)' disabled='disabled'>保存</button>"+"</td></tr>";
+						var existSW = 0;
+						$(swList).each(function(key,value){
+							if(value == esw.id.name){
+								existSW = 1;
+							}else{
+								existSW = 0;
+							}
+								
+						});
+						// 如果不存在则增加到全局变量中
+						if(existSW ==0){
+							//swList.push(esw.id.name.toUpperCase());
+							if(swList == ''){
+								swList = swList+esw.id.name;
+							}else{
+								swList = swList+' '+esw.id.name;
+							}
+								
+						}
 			});
 	$("#swList_table tbody").html(tbodyContent);
 	EdTable.initBindGridEvent();

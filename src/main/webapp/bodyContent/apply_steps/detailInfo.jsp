@@ -33,7 +33,7 @@
 	/* IE6以上和FF3样式 */
 	background: #fff;
 	position: absolute;
-	max-height: 100px;
+	max-height: 150px;
 	*width: 192px;
 	border: 1px solid #aaa;
 }
@@ -180,12 +180,12 @@
 			//保证邮箱格式的正确性
 			if (!keyword)
 				return;
-			if (!keyword.match(/^[\w\.\-]+@\w*[\.]?\w*/))
-				return;
+			//if (!keyword.match(/^[\w\.\-]+@\w*[\.]?\w*/))
+				//return;
 			//获取匹配字符串,只取@符号后面的内容
-			keyword = keyword.match(/@\w*[\.]?\w*/);
+			//keyword = keyword.match(/@\w*[\.]?\w*/);
 			//进行匹配
-			var matchs = software_list.match(new RegExp(keyword + "[^ ]* ", "gm"));
+			var matchs = swList.match(new RegExp(keyword + "[^ ]* ", "gmi"));
 			//输出匹配结果
 			if (matchs) {
 				matchs = matchs.join('').replace(/ $/, '').split(' ');
@@ -244,12 +244,7 @@
 		$(".matchSoftwareWindow").click(function(e) {
 			e = e || event;
 			var target = e.srcElement || e.target;
-			input.text(target.innerHTML);
-			var itest = target.innerHTML;
-			input.html(itest);
-			input.html("test");
-			
-			input.val("i love this ");
+			input.val(target.innerHTML);
 		});
 		
 		$(".matchSoftwareWindow").mouseover(function(e) {

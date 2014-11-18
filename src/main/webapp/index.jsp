@@ -42,6 +42,8 @@
 </head>
 <body>
 <script>
+	// 软件列表
+	swList = '';
 	var currentShowID = "#MF_Body";
 	$(function() {
 		$("#loginEntry").click(function() {
