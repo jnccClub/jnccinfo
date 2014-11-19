@@ -1,6 +1,18 @@
 ﻿function appFirstNext(){
+	var curTime = new Date().FormatHPF("yyyyMMddhhmmssS");
+	var generatedAppID =  "CC"+curTime;
+	$("#generatedAppID").html(generatedAppID);
+	$("#generatedCourse").html($("#courseNameInput").val());
+	
 	var tt = $("#beginDatepick input").val() ;
 	var dd = $("#endDatepick input").val() ;
+	var t1 = new Date(tt);
+	var t2 = new Date(dd);
+	var t3 = new Date(t1 +90);
+	t2.setDate(t2.getDate()+3);
+	
+	
+	
 	var cc = getperiod(new Date(tt),new Date(dd));
 	return false;
 }

@@ -93,7 +93,6 @@
 	</div>
 	<div class="form-actions">
 		<button class="btn btn-primary" onclick="appFirstNext()">下一步</button>
-		<button class="btn">上一步</button>
 	</div>
 </fieldset>
 

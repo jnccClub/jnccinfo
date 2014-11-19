@@ -12,7 +12,7 @@
 		<legend>请认真填写申请基本事项！</legend>
 		<div class="control-group">
 			<label class="control-label">课程名称：</label> <input type="text"
-				name="applicationInfo.course" placeholder="课程名称" />&nbsp;&nbsp;&nbsp;
+				name="applicationInfo.course" placeholder="课程名称" id="courseNameInput"/>&nbsp;&nbsp;&nbsp;
 			<label class="control-label">课程人数：</label> <input type="text"
 				name="applicationInfo.seats" placeholder="50" />
 		</div>

@@ -30,6 +30,7 @@
 		$("#create_Application").click(function() {
 			renewBodyId("#Body_CreateApp", $(this));
 		});
+		renewBodyId("#Body_CreateApp","#create_Application");
 
 	});
 	function renewBodyId(newBodyId, newActiveId) {
