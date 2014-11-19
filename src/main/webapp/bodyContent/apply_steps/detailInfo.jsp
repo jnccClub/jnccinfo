@@ -75,8 +75,6 @@
 		<label class="control-label" for="input01">电子邮箱：</label>
 			<input type="text" class="input-xlarge" id="input01"
 				placeholder="john.smith@example.org" />
-					<label class="control-label">联系方式：</label> <input type="text"
-			name="applicationInfo.contactNo" placeholder="02552112897" />
 		</div>
 	</div>
 	<div class="control-group">

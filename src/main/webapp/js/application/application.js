@@ -1,5 +1,7 @@
 ﻿function appFirstNext(){
-	getperiod();
+	var tt = $("#beginDatepick input").val() ;
+	var dd = $("#endDatepick input").val() ;
+	var cc = getperiod(new Date(tt),new Date(dd));
 	return false;
 }
 function getperiod(beginDate,endDate){
@@ -26,4 +28,27 @@ function daysBetween(DateOne,DateTwo)
   
     var cha=((Date.parse(OneMonth+'/'+OneDay+'/'+OneYear)- Date.parse(TwoMonth+'/'+TwoDay+'/'+TwoYear))/86400000);   
     return Math.abs(cha);  
-}  
+}
+
+$(function(){
+	var today = new Date().FormatHPF("yyyy-MM-dd");
+	$("#beginDatepick input").val(today);
+	$("#endDatepick input").val(today);
+});
+
+
+Date.prototype.FormatHPF = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
