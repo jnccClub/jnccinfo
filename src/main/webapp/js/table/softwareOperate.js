@@ -1,6 +1,6 @@
 function displaySW(eswList) {
 	var tbodyContent = "";
-	swList = '';
+	swList = new Array();
 	$(eswList).each(
 			function(i, esw) {
 				tbodyContent = tbodyContent
@@ -27,12 +27,7 @@ function displaySW(eswList) {
 						// 如果不存在则增加到全局变量中
 						if(existSW ==0){
 							//swList.push(esw.id.name.toUpperCase());
-							if(swList == ''){
-								swList = swList+esw.id.name;
-							}else{
-								swList = swList+' '+esw.id.name;
-							}
-								
+							swList.push(esw);
 						}
 			});
 	$("#swList_table tbody").html(tbodyContent);

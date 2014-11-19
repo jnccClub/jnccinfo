@@ -34,6 +34,7 @@
 <script type="text/javascript" src='js/table/EdTable.js'></script>
 <script type="text/javascript" src='js/common/jquery.contextmenu.r2.js'></script>
 <script type="text/javascript" src='js/table/softwareOperate.js'></script>
+<script type="text/javascript" src='js/application/application.js'></script>
 
 
 
@@ -43,7 +44,7 @@
 <body>
 <script>
 	// 软件列表
-	swList = '';
+	swList = new Array();
 	var currentShowID = "#MF_Body";
 	$(function() {
 		$("#loginEntry").click(function() {

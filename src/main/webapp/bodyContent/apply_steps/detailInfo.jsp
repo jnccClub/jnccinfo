@@ -50,10 +50,6 @@
 			<option value='4'>Windows 2003</option>
 		</select>
 	</div>
-	<div class="control-group">
-		<label class="control-label">联系方式：</label> <input type="text"
-			name="applicationInfo.contactNo" placeholder="02552112897" />
-	</div>
 
 	<div class="control-group">
 		<label class="control-label">必备软件：</label>
@@ -74,16 +70,13 @@
 	</div>
 
 	<div class="control-group">
-		<label class="control-label" for="input01">电子邮箱：</label>
+		
 		<div class="controls">
+		<label class="control-label" for="input01">电子邮箱：</label>
 			<input type="text" class="input-xlarge" id="input01"
 				placeholder="john.smith@example.org" />
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label" for="fileInput">附加文件：</label>
-		<div class="controls">
-			<input class="input-file" id="fileInput" type="file" />
+					<label class="control-label">联系方式：</label> <input type="text"
+			name="applicationInfo.contactNo" placeholder="02552112897" />
 		</div>
 	</div>
 	<div class="control-group">
@@ -101,7 +94,7 @@
 		</div>
 	</div>
 	<div class="form-actions">
-		<button class="btn btn-primary">下一步</button>
+		<button class="btn btn-primary" onclick="appFirstNext()">下一步</button>
 		<button class="btn">上一步</button>
 	</div>
 </fieldset>
@@ -185,9 +178,9 @@
 			//获取匹配字符串,只取@符号后面的内容
 			//keyword = keyword.match(/@\w*[\.]?\w*/);
 			//进行匹配
-			var matchs = swList.match(new RegExp(keyword + "[^ ]* ", "gmi"));
+			//var matchs = swList.match(new RegExp(keyword + "[^ ]* ", "gmi"));
 			//输出匹配结果
-			if (matchs) {
+			/*if (matchs) {
 				matchs = matchs.join('').replace(/ $/, '').split(' ');
 				matchSize = matchs.length;
 				matchWindow.show();
@@ -196,8 +189,22 @@
 					htmlshow += '<a href="javascript:void(0)">'
 							+ matchs[i] + '</a>';
 				}
-				matchWindow.html(htmlshow);
-			}
+			}*/
+				var htmlshow= "";
+				matchSize = 0;
+                $.each(swList,function(id, sw){
+                    //如果包含则为table赋值
+                    if(sw.id.name.toUpperCase().indexOf(keyword.toUpperCase())!=-1){
+                    	htmlshow += '<a href="javascript:void(0)">'
+							+ sw.id.name + '</a>';
+                    	matchSize = matchSize+1;
+                    }
+                 });
+                if(matchSize>0){
+					matchWindow.show();
+					matchWindow.html(htmlshow);
+                }
+			
 			//为IE设置max-height
 			if (matchWindow.css('maxHeight') == undefined)
 				if (matchWindow.scrollHeight >= 100)
