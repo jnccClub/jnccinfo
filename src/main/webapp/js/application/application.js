@@ -9,7 +9,10 @@
 	var t1 = new Date(tt);
 	var t2 = new Date(dd);
 	var t3 = new Date(t1 +90);
-	t2.setDate(t2.getDate()+3);
+	var t4 = t2.getDay();
+	t2.setDate(t2.getDate()+50);
+	var t5 = t2.getDay();
+	
 	
 	
 	

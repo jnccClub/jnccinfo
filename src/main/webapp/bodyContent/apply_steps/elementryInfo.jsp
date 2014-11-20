@@ -126,26 +126,27 @@
 
 
 
-
-
+<!-- <label class="checkbox-inline"> <input type="checkbox"
+				id="inlineCheckbox3" value="7"> 星期日&nbsp;&nbsp;&nbsp;&nbsp;
+			</label> -->
 
 
 	<div class="control-group bordline">
-			<label class="control-label">课程安排星期(尽量单天)：</label> <label
-				class="checkbox-inline"> <input type="checkbox"
-				id="inlineCheckbox1" value="1"> 星期一&nbsp;&nbsp;&nbsp;
-			</label> <label class="checkbox-inline"> <input type="checkbox"
-				id="inlineCheckbox2" value="2"> 星期二&nbsp;&nbsp;&nbsp;
-			</label> <label class="checkbox-inline"> <input type="checkbox"
-				id="inlineCheckbox3" value="3"> 星期三&nbsp;&nbsp;&nbsp;
-			</label> <label class="checkbox-inline"> <input type="checkbox"
-				id="inlineCheckbox3" value="4"> 星期四&nbsp;&nbsp;&nbsp;
-			</label> <label class="checkbox-inline"> <input type="checkbox"
-				id="inlineCheckbox3" value="5"> 星期五&nbsp;&nbsp;&nbsp;
-			</label> <label class="checkbox-inline"> <input type="checkbox"
-				id="inlineCheckbox3" value="6"> 星期六&nbsp;&nbsp;&nbsp;
-			</label> <label class="checkbox-inline"> <input type="checkbox"
-				id="inlineCheckbox3" value="7"> 星期日&nbsp;&nbsp;&nbsp;&nbsp;
+			<label class="control-label">课程安排星期：</label> <label
+				class="checkbox-inline"> <input type="radio"
+				 name="weekChoosen" value="1"> 星期一&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="radio"
+				 name="weekChoosen" value="2"> 星期二&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="radio"
+				name="weekChoosen" value="3"> 星期三&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="radio"
+				name="weekChoosen" value="4"> 星期四&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="radio"
+				name="weekChoosen" value="5"> 星期五&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="radio"
+				name="weekChoosen" value="6"> 星期六&nbsp;&nbsp;&nbsp;
+			</label> <label class="checkbox-inline"> <input type="radio"
+				name="weekChoosen" value="7"> 星期日&nbsp;&nbsp;&nbsp;&nbsp;
 			</label>
 		</div>
 		<div class="form-actions">
