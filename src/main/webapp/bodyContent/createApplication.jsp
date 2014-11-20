@@ -35,7 +35,7 @@
 	</div>
 </div>
 <div  id="APP_SECONDSTEP">
-	<h1 id="create_application_title">确认申请</h1>
+	<h1 id="create_application_title">申请确认</h1>
 	<form id="elementry_form" class="form-inline">
 		<jsp:include page="apply_steps/confirmInfo.jsp"></jsp:include>
 	</form>

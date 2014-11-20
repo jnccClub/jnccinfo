@@ -35,6 +35,7 @@
 <script type="text/javascript" src='js/common/jquery.contextmenu.r2.js'></script>
 <script type="text/javascript" src='js/table/softwareOperate.js'></script>
 <script type="text/javascript" src='js/application/application.js'></script>
+<script type="text/javascript" src='js/gloableDefine.js'></script>
 
 
 
@@ -45,6 +46,8 @@
 <script>
 	// 软件列表
 	swList = new Array();
+	schoolBeginDate = new Date("2014-09-01");
+	schoolBeginMon = new Date();
 	var currentShowID = "#MF_Body";
 	$(function() {
 		$("#loginEntry").click(function() {

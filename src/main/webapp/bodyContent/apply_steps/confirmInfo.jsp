@@ -6,36 +6,51 @@
   To change this template use File | Settings | File Templates.  
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<style>
+.div_p_inline p {
+	display: inline-block;
+	*display: inline;
+	*zoom: 18;
+	width: 255px;
+}
+</style>
 
+<div class="hero-unit">
+		<h1>申请单号：<a href="#" id="generatedAppID"></a></h1>
+		<div class="div_p_inline"><p >课程名称：<a href="#" id="generatedCourse"></a></p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>联系方式：<a href="#" id="generatedContact"></a></p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>课程人数：<a href="#" id="generatedCourseSeats"></a></p>
+		</div>
+		<div class="div_p_inline"><p>预定类型：<a href="#" id="generatedCourseType"></a></p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>操作系统：<a href="#" id="generatedOS"></a></p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>电子邮箱：<a href="#" id="generatedEmail"></a></p></div>
+		<p>学生班级：<a href="#" id="generatedClass"></a></p>
+		<p>必备软件：<a href="#" id="generatedSW"></a></p>
+		<p>其他说明：<a href="#" id="generatedCommnet"></a></p>
+	</div>
 <fieldset>
 	<legend>
-		预约课程：<a href="#" id="generatedCourse"></a>&nbsp;&nbsp;申请单号：<a href="#"
-			id="generatedAppID"></a><br>请确认申请信息：
+		课程时间信息：
 	</legend>
 	<table id='confirm_table' cellspacing="0" cellpadding="0"
 		class="table table-bordered table-striped">
 		<thead>
 			<tr>
 				<th><font class="resizeDivClass" id='dragConfirm1'>&nbsp;</font>
-					上课日期</th>
+					课程日期</th>
 				<th><font class="resizeDivClass" id='dragConfirm2'>&nbsp;</font>
-					星期</th>
+					学期周</th>
 				<th><font class="resizeDivClass" id='dragConfirm3'>&nbsp;</font>
-				预约类型</th>
+					星期</th>
 				<th><font class="resizeDivClass" id='dragConfirm4'>&nbsp;</font>
 					开始时间</th>
 				<th><font class="resizeDivClass" id='dragConfirm5'>&nbsp;</font>
 					结束时间</th>
 				<th><font class="resizeDivClass" id='dragConfirm6'>&nbsp;</font>
-					操作系统</th>
-				<th><font class="resizeDivClass" id='dragConfirm7'>&nbsp;</font>
-					必备软件</th><th><font class="resizeDivClass" id='dragConfirm8'>&nbsp;</font>
-					其他说明</th>
-				<th><font class="resizeDivClass" id='dragConfirm8'>&nbsp;</font>
 					操作</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody style="text-align:center">
 		</tbody>
 	</table>
 
@@ -56,7 +71,6 @@
 	var dragConfirm4 = document.getElementById('dragConfirm4');
 	var dragConfirm5 = document.getElementById('dragConfirm5');
 	var dragConfirm6 = document.getElementById('dragConfirm6');
-	var dragConfirm6 = document.getElementById('dragConfirm7');
 	var swListtable = document.getElementById('swList_table');
 
 	//设置表格拖动点
@@ -93,7 +107,7 @@
 						- obj.mouseDownX;
 
 				//更新隐藏样式
-				if (obj.id == 'dragConfirm6')
+				if (obj.id == 'dragConfirm4')
 					(document.styleSheets[0].rules || document.styleSheets[0].cssRules)[0].style.width = newWidth
 							+ 'px';
 			}
@@ -116,6 +130,5 @@
 	changeWidth(dragConfirm4);
 	changeWidth(dragConfirm5);
 	changeWidth(dragConfirm6);
-	changeWidth(dragConfirm7);
 </script>
 </div>
