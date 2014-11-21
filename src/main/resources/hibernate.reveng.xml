@@ -2,7 +2,12 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-<table name="e_software" catalog="test" class="ESoftware">
+	<table name="e_software" catalog="test" class="ESoftware">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+<table name="e_zonecfg" catalog="test" class="EZone">
 	<primary-key>
 		<generator class="assigned"></generator>
 	</primary-key>

@@ -22,7 +22,7 @@
 			<li><a href="files.htm"><i class="icon-file"></i> 已审批申请</a></li>
 			<li><a href="activity.htm"><i class="icon-list-alt"></i>
 					实验室资源维护</a></li>
-			<li class="nav-header">您的账户</li>
+			<li class="nav-header">我的账户</li>
 			<li><a href="profile.htm"><i class="icon-user"></i> 个人信息</a></li>
 			<li><a href="settings.htm"><i class="icon-cog"></i> 设置</a></li>
 			<li class="divider"></li>

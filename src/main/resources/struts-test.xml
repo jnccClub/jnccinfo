@@ -65,9 +65,27 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 		</action>
+
+
+	<action name="zone_*" class="org.jncc.action.zone.ZoneAction"
+		method="{1}">
+		<result name="REFRESH_ZONE_SUCCESS" type="json">
+			<param name="root">zoneList</param>
+			<param name="excludeNullProperties">true</param>
+			<param name="excludeProperties">SUCCESS</param>
+		</result>
+		<result name="ADD_ZONE_SUCCESS" type="json">
+			<param name="root">resultCause</param>
+			<param name="excludeNullProperties">true</param>
+			<param name="excludeProperties">SUCCESS</param>
+		</result>
+		<result name="DELETE_ZONE_SUCCESS" type="json">
+			<param name="root">resultCause</param>
+			<param name="excludeNullProperties">true</param>
+			<param name="excludeProperties">SUCCESS</param>
+		</result>
+	</action>
 	</package>
-
-
 </struts>
 
 <!-- END SNIPPET: xworkSample -->

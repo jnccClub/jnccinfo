@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.10 
-MySQL - 5.1.71 : Database - test
+MySQL - 5.6.15 : Database - test
 *********************************************************************
 */
 
@@ -26,13 +26,8 @@ CREATE TABLE `e_application` (
   `approver` varchar(32) DEFAULT NULL,
   `curentHandler` varchar(32) DEFAULT NULL,
   `courseName` varchar(128) DEFAULT NULL,
-  `seats` varchar(15) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `begintime` time DEFAULT NULL,
-  `endtime` time DEFAULT NULL,
-  `weekday` varchar(5) DEFAULT NULL,
+  `seats` int(11) DEFAULT NULL,
   `createdatetime` datetime DEFAULT NULL,
-  `zone` varchar(32) DEFAULT NULL,
   `status` varchar(5) DEFAULT NULL,
   `approveremark` varchar(1024) DEFAULT NULL,
   `comment` varchar(64) DEFAULT NULL,
@@ -40,6 +35,36 @@ CREATE TABLE `e_application` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `e_application` */
+
+/*Table structure for table `e_arrangement` */
+
+DROP TABLE IF EXISTS `e_arrangement`;
+
+CREATE TABLE `e_arrangement` (
+  `zone` varchar(16) CHARACTER SET utf8 NOT NULL,
+  `floor` varchar(16) CHARACTER SET utf8 DEFAULT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `course` int(11) NOT NULL,
+  `appID` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `comment` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`zone`,`date`,`course`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `e_arrangement` */
+
+/*Table structure for table `e_coursemap` */
+
+DROP TABLE IF EXISTS `e_coursemap`;
+
+CREATE TABLE `e_coursemap` (
+  `course` int(11) NOT NULL,
+  `beginTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `endTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `commnet` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`course`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `e_coursemap` */
 
 /*Table structure for table `e_member` */
 
@@ -83,7 +108,24 @@ CREATE TABLE `e_software` (
 
 /*Data for the table `e_software` */
 
-insert  into `e_software`(`name`,`zone`,`createdate`,`os`,`operator`,`comment`) values ('3ds max 7','9F','2012-10-06','Windows XP','张磊|王玮',''),('ACD Systems','9F/BC','2011-09-14','Windows XP','张磊|王玮',''),('Adobe Photoshop CS3 ','9F','2013-03-04','Windows XP','张磊|王玮',''),('Adobe Reader ','9F/AEF','2012-12-24','Windows XP','张磊|王玮',''),('Alcohol 120','9F','2013-03-04','Windows XP','张磊|王玮',''),('AutoCAD 2007 ','9F','2013-03-04','Windows XP','张磊|王玮',''),('CH Control Manager','9F/F','2014-11-16','Windows XP','张磊|王玮',''),('C_C++ LDRA Testbed','9F/AEF','2012-10-22','Windows XP','张磊|王玮',''),('DivX','9F/AEF','2010-04-13','Windows XP','张磊|王玮',''),('EXCEL','7F','2014-10-27','Windows XP','张磊',''),('FrontPage','7F','2014-10-08','Windows XP','张磊','网页制作'),('Internet Explorer 8.0','9F','2011-09-14','Windows XP','张磊|王玮',''),('Java','7F','2014-10-22','Windows XP','张磊',''),('Macromedia Authorware 7.02 ','9F','2013-03-04','Windows XP','张磊|王玮',''),('Macromedia Dreamweaver 8','9F','2012-10-06','Windows XP','张磊|王玮',''),('Matlab','7F','2014-10-10','Windows XP','张磊','数学计算'),('MATLAB 6.5','9F','2013-03-04','Windows XP','张磊|王玮',''),('Microsoft Office 2003','9F','2013-03-04','Windows XP','张磊|王玮',''),('Microsoft SQL Server','9F','2013-03-04','Windows XP','张磊|王玮',''),('Microsoft Visual Basic 6.0','9F','2013-03-04','Windows XP','张磊|王玮',''),('Microsoft Visual C++ 6.0','9F','2013-03-04','Windows XP','张磊|王玮',''),('Microsoft Visual FoxPro 6.0','9F/BC','2013-03-04','Windows XP','张磊|王玮',''),('Microsoft Visual SourceSafe','9F/BC','2013-03-04','Windows XP','张磊|王玮',''),('Microsoft Web Publishing','9F','2013-03-04','Windows XP','张磊|王玮',''),('Multisimprotel','7F','2014-10-18','Windows XP','张磊',''),('NEIE全新版视听说分级测试','9F/AEF','2011-08-29','Windows XP','张磊|王玮',''),('office2003','7F','2014-10-07','Windows 7|Ubuntu','张磊','通用软件'),('Oracle','7F','2014-10-24','Windows XP','张磊','数据库'),('Photoshop','7F','2014-11-02','Windows XP','张磊',''),('PPStream','9F','2013-03-04','Windows XP','张磊|王玮',''),('qiuju','7F','2014-10-07','Windows 7|Ubuntu','张磊','通用软件'),('QuartusII','7F','2014-10-17','Windows XP','张磊',''),('Rhino','7F','2014-11-03','Windows XP','张磊',''),('Rhinoceros 4.0','9F','2013-03-04','Windows XP','张磊|王玮',''),('SQL','7F','2014-10-14','Windows XP','张磊','数据库'),('TurboC','7F','2014-10-21','Windows XP','张磊',''),('VB','7F','2014-10-26','Windows XP','张磊',''),('VFP','7F','2014-10-15','Windows XP','张磊',''),('WinRAR','9F','2011-09-14','Windows XP','张磊|王玮',''),('万维全自动网络考试系统','9F/AEF','2012-10-06','Windows XP','张磊|王玮',''),('新时代交互','7F','2014-11-10','Windows XP','王玮',''),('新理念','7F','2014-11-12','Windows XP','王玮',''),('新理念大学英语5.0 ','9F/AEF','2013-01-16','Windows XP','张磊|王玮',''),('新视野','7F','2014-11-11','Windows XP','王玮',''),('民航英语听力','7F','2014-11-13','Windows XP','王玮',''),('福昕阅读器','9F','2013-03-04','Windows XP','张磊|王玮',''),('金山打字通 2010','9F','2013-03-04','Windows XP','张磊|王玮','');
+insert  into `e_software`(`name`,`zone`,`createdate`,`os`,`operator`,`comment`) values ('3DMax','','2014-11-07','','张磊',''),('a sffsf','','','','',''),('a sffsf','dd','','','',''),('a sffsfttt','dd','','','',''),('Access','','2014-10-09','','张磊',''),('AOTHEWERE','','2014-11-16','','张磊',''),('AOTHEWERE 1','7F','2014-11-16','Windows XP','王玮',''),('AutoCAD','','2014-11-05','','张磊',''),('C','','2014-10-29','','张磊',''),('C++','','2014-10-16','','张磊',''),('Catia','','2014-10-12','','张磊',''),('CCS','','2014-10-20','','张磊',''),('Cooledit','','2014-11-01','','张磊',''),('Dreamwear','','2014-10-25','','张磊',''),('EWB','','2014-10-13','','张磊',''),('EXCEL','','2014-10-27','','张磊',''),('FLASH','','2014-11-15','','张磊',''),('Fortran','','2014-10-30','','张磊',''),('FrontPage','','2014-10-08','','张磊',''),('Iuastrator','','2014-11-04','','张磊',''),('Java','','2014-10-22','','张磊',''),('Masm','','2014-10-23','','张磊',''),('Mathematica','','2014-11-14','','张磊',''),('Matlab','','2014-10-10','','张磊',''),('MaxpulsII','','2014-10-19','','张磊',''),('Modelsim','','2014-10-11','','张磊',''),('Multisimprotel','','2014-10-18','','张磊',''),('office2003','','2014-10-07','Windows 7|Ubuntu','张磊',''),('Oracle','','2014-10-24','','张磊',''),('Photoshop','','2014-11-02','','张磊',''),('QuartusII','','2014-10-17','','张磊',''),('Rhino','','2014-11-03','','张磊',''),('SQL','','2014-10-14','','张磊',''),('TurboC','','2014-10-21','','张磊',''),('VB','','2014-10-26','','张磊',''),('VFP','','2014-10-15','','张磊',''),('新时代交互','','2014-11-10','','张磊',''),('新理念','','2014-11-12','','张磊',''),('新视野','','2014-11-11','','张磊',''),('民航英语听力','','2014-11-13','','张磊','');
+
+/*Table structure for table `e_zonecfg` */
+
+DROP TABLE IF EXISTS `e_zonecfg`;
+
+CREATE TABLE `e_zonecfg` (
+  `zone` varchar(16) CHARACTER SET utf8 NOT NULL,
+  `floor` varchar(16) CHARACTER SET utf8 DEFAULT NULL,
+  `seats` int(11) DEFAULT NULL,
+  `mic` tinyint(1) DEFAULT NULL,
+  `projector` tinyint(1) DEFAULT NULL,
+  `teachermanage` tinyint(1) DEFAULT NULL,
+  `commnet` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`zone`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `e_zonecfg` */
 
 /*Table structure for table `hibernatetest` */
 
@@ -130,38 +172,6 @@ CREATE TABLE `news` (
 /*Data for the table `news` */
 
 insert  into `news`(`NO`,`NewsTitle`,`Modifytime`,`Createtime`,`NewsContent`) values (3,'test1','2013-11-24 19:37:17','2013-11-24 19:37:17','<p>&#27861;&#24072;&#25171;&#21457;&#22763;&#22823;&#22827;</p>'),(4,'test2','2013-11-24 19:42:28','2013-11-24 19:42:28','<ol class=\" list-paddingleft-2\" style=\"list-style-type: decimal;\">\r\n    <li>\r\n        <p>\r\n            <span style=\"color: rgb(255, 0, 0);\"><strong><em><span style=\"border: 1px solid rgb(0, 0, 0); text-decoration: underline;\">i love china so much</span></em></strong></span>\r\n        </p>\r\n    </li>\r\n</ol>'),(5,'test3','2013-11-24 19:42:28','2013-11-24 19:45:36','Nothing3'),(7,'test520','2013-11-24 19:42:28','2013-11-24 19:53:33','Nothing');
-
-/*Table structure for table `processtype` */
-
-DROP TABLE IF EXISTS `processtype`;
-
-CREATE TABLE `processtype` (
-  `processID` varchar(32) NOT NULL,
-  `processType` varchar(32) DEFAULT NULL,
-  `processContent` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`processID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `processtype` */
-
-/*Table structure for table `software_list` */
-
-DROP TABLE IF EXISTS `software_list`;
-
-CREATE TABLE `software_list` (
-  `name` varchar(128) CHARACTER SET utf8 NOT NULL,
-  `version` varchar(12) CHARACTER SET utf8 NOT NULL,
-  `zone` varchar(32) CHARACTER SET utf8 NOT NULL,
-  `createdate` date DEFAULT NULL,
-  `os` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
-  `operator` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
-  `comment` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`name`,`version`,`zone`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `software_list` */
-
-insert  into `software_list`(`name`,`version`,`zone`,`createdate`,`os`,`operator`,`comment`) values ('auto Cad','7.5','',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `student` */
 

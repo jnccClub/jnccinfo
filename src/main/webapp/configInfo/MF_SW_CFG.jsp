@@ -16,7 +16,6 @@
 </style>
 
 
-
 <div class="row" id="MF_SW_CFG" style="display:none">
 	<div
 		style="border-radius: 50px;TEXT-ALIGN: center;MARGIN-RIGHT: auto; MARGIN-LEFT: auto; background-color:#EEE;">

@@ -36,6 +36,7 @@
 <script type="text/javascript" src='js/table/softwareOperate.js'></script>
 <script type="text/javascript" src='js/application/application.js'></script>
 <script type="text/javascript" src='js/gloableDefine.js'></script>
+<script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
 
 
 
@@ -72,8 +73,9 @@
 
 	<div class="container">
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
-		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
+		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
 	</div>
 
 	<div id="circular">

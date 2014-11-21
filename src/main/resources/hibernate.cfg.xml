@@ -16,6 +16,7 @@
 		<mapping resource="user.hbm.xml" />
 		<mapping resource="userSignUp.hbm.xml" />
 		<mapping resource="ESoftware.hbm.xml" />
+		<mapping resource="EZone.hbm.xml" />
     </session-factory>
 
 </hibernate-configuration>
