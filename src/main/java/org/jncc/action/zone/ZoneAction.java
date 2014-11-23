@@ -55,6 +55,7 @@ public class ZoneAction extends ActionSupport {
 	public String addRecord() {
 		try {
 			dbSession.delete(zoneCfg);
+			dbSession.close(false);
 			dbSession.insert(zoneCfg);
 			dbSession.close();
 		} catch (Exception e) {

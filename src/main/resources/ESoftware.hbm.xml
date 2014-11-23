@@ -16,13 +16,13 @@
    </key-property>
   </composite-id>
   <property generated="never" lazy="false" name="createdate" type="java.lang.String">
-   <column length="10" name="createdate"/>
+   <column length="32" name="createdate"/>
   </property>
   <property generated="never" lazy="false" name="os" type="java.lang.String">
    <column length="64" name="os"/>
   </property>
   <property generated="never" lazy="false" name="operator" type="java.lang.String">
-   <column length="32" name="operator"/>
+   <column length="128" name="operator"/>
   </property>
   <property generated="never" lazy="false" name="comment" type="java.lang.String">
    <column length="128" name="comment"/>

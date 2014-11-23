@@ -8,8 +8,6 @@ package org.jncc.base.zone;
  */
 
 public class EZone  implements java.io.Serializable {
-
-
     // Fields    
 
      private String zone;
@@ -18,12 +16,11 @@ public class EZone  implements java.io.Serializable {
      private Boolean mic;
      private Boolean projector;
      private Boolean teachermanage;
-     private String commnet;
+     private String comment;
 
 
     // Constructors
-
-    /** default constructor */
+	/** default constructor */
     public EZone() {
     }
 
@@ -33,14 +30,14 @@ public class EZone  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public EZone(String zone, String floor, Integer seats, Boolean mic, Boolean projector, Boolean teachermanage, String commnet) {
+    public EZone(String zone, String floor, Integer seats, Boolean mic, Boolean projector, Boolean teachermanage, String comment) {
         this.zone = zone;
         this.floor = floor;
         this.seats = seats;
         this.mic = mic;
         this.projector = projector;
         this.teachermanage = teachermanage;
-        this.commnet = commnet;
+        this.comment = comment;
     }
 
    
@@ -93,13 +90,12 @@ public class EZone  implements java.io.Serializable {
     public void setTeachermanage(Boolean teachermanage) {
         this.teachermanage = teachermanage;
     }
+    public String getComment() {
+		return comment;
+	}
 
-    public String getCommnet() {
-        return this.commnet;
-    }
-    
-    public void setCommnet(String commnet) {
-        this.commnet = commnet;
-    }
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
 }

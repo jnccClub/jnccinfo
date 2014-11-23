@@ -23,6 +23,32 @@ function btnAddZone(t){
 	
 }
 
+function IsInvalidZonefield(){
+	if($.trim($("input[name='zoneCfg.zone']").val()).length == 0){
+		alert("区域不能为空");
+		return true;
+	}else if($.trim($("input[name='zoneCfg.floor']").val()).length == 0){
+		alert("楼层不能为空");
+		return true;
+	}else if(!IsPositiveIntegra($("input[name='zoneCfg.seats']").val())){
+		alert("座位数必须为数字");
+		return true;
+	}
+	return false;
+}
+
+function IsPositiveIntegra(val) {
+	var reg_hfpInt_com = /^[-+]?\d+$/;
+	if (reg_hfpInt_com.test(val)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+
+
 function btnDeleteZone(t){
 	deleteZone(getRowZone(t.parentElement.parentElement.rowIndex));
 }
@@ -33,9 +59,13 @@ function getRowZone(rowIndex) {
 	 * for(var i = 0;i<tbody.rows.length;i++){ for(var j= 0;j<tbody.rows[i].cells.length;j++)
 	 * alert(tbody.rows[i].cells[j].innerHTML) //每一行 每个单元格的内容 }
 	 */
+	var rowSeats = 50;
+	if(IsPositiveIntegra(tbody.rows[rowIndex].cells[2].innerHTML)){
+		rowSeats = tbody.rows[rowIndex].cells[2].innerHTML;
+	}
 	var param = [{name:"zoneCfg.zone",value:tbody.rows[rowIndex].cells[0].innerHTML},
 	             {name:"zoneCfg.floor" ,value:tbody.rows[rowIndex].cells[1].innerHTML},
-	             {name:"zoneCfg.seats",value:tbody.rows[rowIndex].cells[2].innerHTML},
+	             {name:"zoneCfg.seats",value:rowSeats},
 	             {name:"zoneCfg.mic" ,value: tbody.rows[rowIndex].cells[3].innerHTML},
 	             {name:"zoneCfg.projector" ,value: tbody.rows[rowIndex].cells[4].innerHTML},
 	             {name:"zoneCfg.teachermanage" ,value: tbody.rows[rowIndex].cells[5].innerHTML},
@@ -44,9 +74,13 @@ function getRowZone(rowIndex) {
 }
 
 function addZone(param) {
+	if(IsInvalidZonefield()){
+		return;
+	}
 	if($("#circular").is(":hidden")){
 		$("#circular").show();
 	}
+	
 	$.ajax({
 		url : 'zone_addRecord.action',
 		type : 'post',

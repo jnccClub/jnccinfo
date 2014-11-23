@@ -20,12 +20,8 @@
  */
 package org.jncc.action.software;
 
-import java.io.File;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
 import org.jncc.base.cause.resultCause;
 import org.jncc.base.software.ESoftware;
 import org.jncc.base.software.ESoftwareService;
@@ -65,6 +61,7 @@ public class SoftwareAction extends ActionSupport {
 	public String addRecord() {
 		try {
 			dbSession.delete(esw);
+			dbSession.close(false);
 			dbSession.insert(esw);
 			dbSession.close();
 		} catch (Exception e) {
