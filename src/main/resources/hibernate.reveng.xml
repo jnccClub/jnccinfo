@@ -7,7 +7,22 @@
 			<generator class="assigned"></generator>
 		</primary-key>
 	</table>
-<table name="e_zonecfg" catalog="test" class="EZone">
+	<table name="e_zonecfg" catalog="test" class="EZone">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="e_coursemap" catalog="test" class="ECourseMap">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="e_application" catalog="test" class="EApplication">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+<table name="e_arrangement" catalog="test" class="EArrangement">
 	<primary-key>
 		<generator class="assigned"></generator>
 	</primary-key>

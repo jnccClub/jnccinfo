@@ -1,0 +1,59 @@
+package org.jncc.base.coursemap;
+
+import java.util.List;
+import java.util.Vector;
+
+import org.jncc.base.xls.ExcelService;
+// default package
+import org.jncc.persistence.dbSession;
+
+
+/**
+ * SoftwareList entity. @author MyEclipse Persistence Tools
+ */
+
+public class ECourseMapService implements java.io.Serializable {
+	private static List<ECourseMap> ecml = setECourseMapList();
+	@SuppressWarnings("unchecked")
+	public static List<ECourseMap> setECourseMapList() {
+		// TODO Auto-generated method stub
+		String sql = "from ECourseMap";
+		ecml = dbSession.select(sql);
+		return ecml;
+	}
+	
+	public static List<ECourseMap> getEcml() {
+		return ecml;
+	}
+	
+	public static int getBeginCourse(String beginTime) {
+		for(int i=0;i<ecml.size();i++){
+			if(beginTime == ecml.get(i).getBeginTime()){
+				return ecml.get(i).getCourse();
+			}
+		}
+		return 0;
+	}
+	public static int getEndCourse(String endTime) {
+		for(int i=0;i<ecml.size();i++){
+			if(endTime == ecml.get(i).getEndTime()){
+				return ecml.get(i).getCourse();
+			}
+		}
+		return 0;
+	}
+	
+	public static ECourseMap getCourse(Integer course){
+		for(int i=0;i<ecml.size();i++){
+			if(course == ecml.get(i).getCourse()){
+				return ecml.get(i);
+			}
+		}
+		return null;
+	}
+	public static void setEcml(List<ECourseMap> ecml) {
+		ECourseMapService.ecml = ecml;
+	}
+	public static void main(String[] args) {
+	}
+}

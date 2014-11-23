@@ -26,11 +26,18 @@ CREATE TABLE `e_application` (
   `approver` varchar(32) DEFAULT NULL,
   `curentHandler` varchar(32) DEFAULT NULL,
   `courseName` varchar(128) DEFAULT NULL,
+  `className` varchar(32) DEFAULT NULL,
   `seats` int(11) DEFAULT NULL,
-  `createdatetime` datetime DEFAULT NULL,
+  `os` varchar(16) DEFAULT NULL,
+  `software` varchar(128) DEFAULT NULL,
+  `booktype` int(11) DEFAULT NULL,
+  `createdatetime` timestamp NULL DEFAULT NULL,
   `status` varchar(5) DEFAULT NULL,
+  `approvedtime` timestamp NULL DEFAULT NULL,
   `approveremark` varchar(1024) DEFAULT NULL,
   `comment` varchar(64) DEFAULT NULL,
+  `contactNO` varchar(32) DEFAULT NULL,
+  `Email` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`applicationID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -58,13 +65,15 @@ DROP TABLE IF EXISTS `e_coursemap`;
 
 CREATE TABLE `e_coursemap` (
   `course` int(11) NOT NULL,
-  `beginTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `endTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `commnet` varchar(256) DEFAULT NULL,
+  `beginTime` varchar(16) NOT NULL,
+  `endTime` varchar(16) NOT NULL,
+  `commnet` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`course`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `e_coursemap` */
+
+insert  into `e_coursemap`(`course`,`beginTime`,`endTime`,`commnet`) values (1,'08:00','10:00',NULL),(2,'10:00','12:00',NULL),(3,'12:00','14:00',NULL),(4,'14:00','16:00',NULL);
 
 /*Table structure for table `e_member` */
 
@@ -121,11 +130,13 @@ CREATE TABLE `e_zonecfg` (
   `mic` tinyint(1) DEFAULT NULL,
   `projector` tinyint(1) DEFAULT NULL,
   `teachermanage` tinyint(1) DEFAULT NULL,
-  `commnet` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+  `comment` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`zone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `e_zonecfg` */
+
+insert  into `e_zonecfg`(`zone`,`floor`,`seats`,`mic`,`projector`,`teachermanage`,`comment`) values ('10A','10',50,0,0,0,'软件备份'),('10B','10',50,0,0,0,'软件备份'),('10C','10',50,0,0,0,'软件备份'),('10E','10',50,0,0,0,'软件备份'),('10F','10',50,0,0,0,'软件备份'),('7A','7',50,0,0,0,'软件备份'),('7B','7',50,0,0,0,'软件备份'),('7C','7',50,0,0,0,'软件备份'),('7D','7',50,0,0,0,'软件备份'),('7E','7',50,0,0,0,'软件备份'),('7F','7',50,0,0,0,'软件备份'),('8A','8',50,0,0,0,'软件备份'),('8B','8',50,0,0,0,'软件备份'),('8C','8',50,0,0,0,'软件备份'),('9A','9',50,0,0,0,'软件备份'),('9B','9',50,0,0,0,'软件备份'),('9C','9',50,0,0,0,'软件备份');
 
 /*Table structure for table `hibernatetest` */
 
@@ -172,6 +183,38 @@ CREATE TABLE `news` (
 /*Data for the table `news` */
 
 insert  into `news`(`NO`,`NewsTitle`,`Modifytime`,`Createtime`,`NewsContent`) values (3,'test1','2013-11-24 19:37:17','2013-11-24 19:37:17','<p>&#27861;&#24072;&#25171;&#21457;&#22763;&#22823;&#22827;</p>'),(4,'test2','2013-11-24 19:42:28','2013-11-24 19:42:28','<ol class=\" list-paddingleft-2\" style=\"list-style-type: decimal;\">\r\n    <li>\r\n        <p>\r\n            <span style=\"color: rgb(255, 0, 0);\"><strong><em><span style=\"border: 1px solid rgb(0, 0, 0); text-decoration: underline;\">i love china so much</span></em></strong></span>\r\n        </p>\r\n    </li>\r\n</ol>'),(5,'test3','2013-11-24 19:42:28','2013-11-24 19:45:36','Nothing3'),(7,'test520','2013-11-24 19:42:28','2013-11-24 19:53:33','Nothing');
+
+/*Table structure for table `processtype` */
+
+DROP TABLE IF EXISTS `processtype`;
+
+CREATE TABLE `processtype` (
+  `processID` varchar(32) NOT NULL,
+  `processType` varchar(32) DEFAULT NULL,
+  `processContent` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`processID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `processtype` */
+
+/*Table structure for table `software_list` */
+
+DROP TABLE IF EXISTS `software_list`;
+
+CREATE TABLE `software_list` (
+  `name` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `version` varchar(12) CHARACTER SET utf8 NOT NULL,
+  `zone` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `createdate` date DEFAULT NULL,
+  `os` varchar(64) CHARACTER SET utf8 DEFAULT NULL,
+  `operator` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `comment` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`name`,`version`,`zone`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `software_list` */
+
+insert  into `software_list`(`name`,`version`,`zone`,`createdate`,`os`,`operator`,`comment`) values ('auto Cad','7.5','',NULL,NULL,NULL,NULL);
 
 /*Table structure for table `student` */
 

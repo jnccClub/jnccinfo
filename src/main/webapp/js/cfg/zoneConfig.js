@@ -8,15 +8,23 @@ function displayZone(zoneList) {
 						+ zoneCfg.floor
 						+ "</td><td>"
 						+ zoneCfg.seats
-						+ "</td><td>" + zoneCfg.mic
+						+ "</td><td>" + transeBoolen(zoneCfg.mic)
 						+ "</td><td>"
-						+ zoneCfg.projector
+						+ transeBoolen(zoneCfg.projector)
 						+ "</td><td>"
-						+ zoneCfg.teachermanage + "</td><td>"
+						+ transeBoolen(zoneCfg.teachermanage) + "</td><td>"
 						+ zoneCfg.comment+ "</td><td><button class='btn' onclick='btnDeleteZone(this)'>删除</button>"
 						+ "&nbsp;&nbsp;<button class='btn' onclick='btnAddZone(this)' disabled='disabled'>保存</button>"+"</td></tr>";
 			});
 	$("#zone_table tbody").html(tbodyContent);
+}
+
+function transeBoolen(b){
+	if(b){
+		return "有";
+	}else{
+		return "无";
+	}
 }
 
 function btnAddZone(t){

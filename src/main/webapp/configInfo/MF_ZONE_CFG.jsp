@@ -72,7 +72,7 @@
 				<th><font>&nbsp;</font> 操作</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody style="text-align:center">
 		</tbody>
 	</table>
 </div>

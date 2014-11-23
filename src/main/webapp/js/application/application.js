@@ -2,7 +2,6 @@
 	var today = new Date().FormatHPF("yyyy-MM-dd");
 	$("#beginDatepick input").val(today);
 	$("#endDatepick input").val(today);
-	
 	//根据起始时间决定结束时间范围
 	$("select[name='applicationInfo.beginTime'] option:disabled").css('color', '#CCC'); 
 	$("select[name='applicationInfo.endTime'] option:disabled").css('color', '#CCC');
@@ -19,8 +18,71 @@
 			}
 		});
 	});
+	$("#btnConfirmAppInfo").click(function(){
+		confirmApplication();});
 });
 
+function confirmApplication(exceptionRows){
+	var dateinfo = "";
+	var exceptionRowList = new Array();
+	if(exceptionRows!=null || exceptionRows!="" ){
+//		exceptionRowList = exceptionRows.split(" ");
+	}
+	$("#confirm_table tbody tr").each(function(trindex,tritem){
+		dateinfo = dateinfo+$(this).children().eq(0).text()+" ";
+	});
+	
+	var param = [{name:"ea.applicationId",value:$("#generatedAppID").text()},
+	             {name:"ea.courseName" ,value:$("#generatedCourse").text()},
+	             {name:"ea.className",value:$("#generatedClass").text()},
+	             {name:"ea.seats" ,value: $("#generatedCourseSeats").text()},
+	             {name:"ea.os" ,value:$("#generatedOS").text()},
+	             {name:"ea.software",value:$("#generatedSW").text()},
+	             {name:"ea.booktype",value:getBookingType($("#generatedCourseType").text())},
+	             {name:"ea.comment" ,value: $("#generatedCommnet").text()},
+	             {name:"ea.contactNo" ,value:$("#generatedContact").text()},
+	             {name:"ea.email" ,value: $("#generatedEmail").text()},
+	             {name:"ea.beginTime" ,value:$("select[name='applicationInfo.beginTime']").val()},
+	             {name:"ea.endTime" ,value:$("select[name='applicationInfo.endTime']").val()},
+	             {name:"ea.dateInfo" ,value: dateinfo}];
+	if($("#circular").is(":hidden")){
+		$("#circular").show();
+	}
+	$.ajax({
+		url : 'app_addRecord.action',
+		type : 'post',
+		data : param,
+		dataType : 'json',
+		success : function(data, status) {
+			if (status == "success") {
+				alert("预约申请提交成功");
+			}
+		},
+		error : function(data, status, e) {
+			alert(e);
+		},complete: function(){
+			$("#circular").hide();
+		}
+	});
+	
+	
+	return false;
+}
+
+function getBookingType(courseType){
+	switch (courseType) {
+	case "上机":
+		return 1;
+		break;
+	case "上课":
+		return 2;
+		break;
+	case "考试":
+		return 3;
+		break;
+	}
+	return 1;
+}
 
 function appFirstNext(){
 	var curTime = new Date().FormatHPF("yyyyMMddhhmmssS");
@@ -78,7 +140,6 @@ function appFirstNext(){
 
 
 function btnDeleteApp(t){
-	var rowIndex = t.parentElement.parentElement.rowIndex;
 	t.parentElement.parentElement.remove();
 }
 
