@@ -14,7 +14,7 @@ public class EArrangementId  implements java.io.Serializable {
     // Fields    
 
      private String zone;
-     private Timestamp date;
+     private String date;
      private Integer course;
 
 
@@ -26,7 +26,7 @@ public class EArrangementId  implements java.io.Serializable {
 
     
     /** full constructor */
-    public EArrangementId(String zone, Timestamp date, Integer course) {
+    public EArrangementId(String zone, String date, Integer course) {
         this.zone = zone;
         this.date = date;
         this.course = course;
@@ -43,11 +43,11 @@ public class EArrangementId  implements java.io.Serializable {
         this.zone = zone;
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return this.date;
     }
     
-    public void setDate(Timestamp date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

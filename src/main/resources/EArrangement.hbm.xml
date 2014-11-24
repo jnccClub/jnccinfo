@@ -11,8 +11,8 @@
    <key-property name="zone" type="java.lang.String">
     <column length="16" name="zone"/>
    </key-property>
-   <key-property name="date" type="java.sql.Timestamp">
-    <column length="19" name="date"/>
+   <key-property name="date" type="java.lang.String">
+    <column length="16" name="date"/>
    </key-property>
    <key-property name="course" type="java.lang.Integer">
     <column name="course"/>

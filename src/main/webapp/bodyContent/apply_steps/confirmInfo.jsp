@@ -57,7 +57,7 @@
 
 
 	<div class="form-actions">
-		<button class="btn btn-primary" id="btnConfirmAppInfo">确 认</button>
+		<button class="btn btn-primary" id="btnConfirmAppInfo" onclick="return confirmApplication()">确 认</button>
 		<button class="btn">上一步</button>
 	</div>
 </fieldset>

@@ -2,6 +2,7 @@ package org.jncc.persistence;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,7 +19,11 @@ public class dbSession {
 		session.delete(obj);
 	}
 	
-	
+	public static Criteria getCriteria(Class clazz){
+		init();
+		Criteria crit = session.createCriteria(clazz);
+		return crit;
+	}
 	// 遍历
 	public static void all() {
 		Query q = session

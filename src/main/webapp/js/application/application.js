@@ -18,8 +18,6 @@
 			}
 		});
 	});
-	$("#btnConfirmAppInfo").click(function(){
-		confirmApplication();});
 });
 
 function confirmApplication(exceptionRows){

@@ -19,6 +19,7 @@
 		<mapping resource="EZone.hbm.xml" />
 		<mapping resource="ECourseMap.hbm.xml" />
 		<mapping resource="EArrangement.hbm.xml" />
+		<mapping resource="EApplication.hbm.xml" />
 		
 		
 		

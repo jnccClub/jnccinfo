@@ -100,7 +100,7 @@
 		<label class="control-label">开始时间：</label>
 		<select
 			class="span1" style="width:206px;height:29.5px;" name="applicationInfo.beginTime">
-			<option selected='selected'  value='8:00'>08:00</option>
+			<option selected='selected'  value='08:00'>08:00</option>
 			<option value='10:00'>10:00</option>
 			<option value='12:00'>12:00</option>
 			<option value='14:00'>14:00</option>

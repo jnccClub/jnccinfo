@@ -1,11 +1,12 @@
 package org.jncc.action.application;
 
-import java.util.List;
-
 import org.jncc.base.application.EApplication;
+import org.jncc.base.application.EApplicationService;
 import org.jncc.base.arrangement.EArrangement;
+import org.jncc.base.arrangement.EArrangementId;
 import org.jncc.base.arrangement.EArrangementService;
 import org.jncc.base.cause.resultCause;
+import org.jncc.base.coursemap.ECourseMapService;
 import org.jncc.persistence.dbSession;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -16,22 +17,35 @@ public class ApplicationAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 	private resultCause resultCause = new resultCause();
-	
 	private EApplication ea;
-
-
 	public String addRecord() {
-		try {
-			dbSession.delete(ea);
-			dbSession.close(false);
-			dbSession.insert(ea);
-			dbSession.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String dInfo = ea.getDateInfo();
+		String[] dInfos = dInfo.split("\\s+");
 		resultCause = new resultCause();
-		resultCause.setCause("200", "恭喜您，添加成功！");
-		return "ADD_ZONE_SUCCESS";
+		int beginCourse = ECourseMapService.getBeginCourse(ea.getBeginTime());
+		int endCourse = ECourseMapService.getEndCourse(ea.getEndTime());
+		EArrangement eArr = new EArrangement();
+		EArrangementId eArrId = new EArrangementId();
+		eArrId.setZone("7F");
+		eArr.setComment("test");
+		eArr.setAppId(ea.getApplicationId());
+		for(String bookDate : dInfos){  
+		    System.out.println(bookDate);
+		    eArrId.setDate(bookDate);
+		    EArrangementService.queryFreezone(bookDate, beginCourse, endCourse);
+		    for(int i = beginCourse;i<=endCourse;i++){
+		    	eArrId.setCourse(i);
+		    	eArr.setId(eArrId);
+		    	EArrangementService.addArrangement(eArr);
+		    }
+		}
+		if(EApplicationService.addApplication(ea)){
+			resultCause.setCause("200", "恭喜，添加成功");
+		}else{
+			resultCause.setCause("503", "添加失败");
+		}
+		
+		return "ADD_APP_SUCCESS";
 	}
 	
 	
@@ -44,7 +58,7 @@ public class ApplicationAction extends ActionSupport {
 		}
 		resultCause = new resultCause();
 		resultCause.setCause("200", "恭喜您，删除成功！");
-		return "DELETE_ZONE_SUCCESS";
+		return "DELETE_APP_SUCCESS";
 	}
 	
 	
