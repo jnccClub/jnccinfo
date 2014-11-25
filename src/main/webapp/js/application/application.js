@@ -20,7 +20,50 @@
 	});
 });
 
+function findzone(){
+	var dateinfo = "";
+	$("#confirm_table tbody tr").each(function(trindex,tritem){
+		dateinfo = dateinfo+$(this).children().eq(0).text()+" ";
+	});
+	
+	var param = [{name:"ea.applicationId",value:$("#generatedAppID").text()},
+	             {name:"ea.courseName" ,value:$("#generatedCourse").text()},
+	             {name:"ea.className",value:$("#generatedClass").text()},
+	             {name:"ea.seats" ,value: $("#generatedCourseSeats").text()},
+	             {name:"ea.os" ,value:$("#generatedOS").text()},
+	             {name:"ea.software",value:$("#generatedSW").text()},
+	             {name:"ea.booktype",value:getBookingType($("#generatedCourseType").text())},
+	             {name:"ea.comment" ,value: $("#generatedCommnet").text()},
+	             {name:"ea.contactNo" ,value:$("#generatedContact").text()},
+	             {name:"ea.email" ,value: $("#generatedEmail").text()},
+	             {name:"ea.beginTime" ,value:$("select[name='applicationInfo.beginTime']").val()},
+	             {name:"ea.endTime" ,value:$("select[name='applicationInfo.endTime']").val()},
+	             {name:"ea.dateInfo" ,value: dateinfo}];
+	if($("#circular").is(":hidden")){
+		$("#circular").show();
+	}
+	$.ajax({
+		url : 'app_findzone.action',
+		type : 'post',
+		data : param,
+		dataType : 'json',
+		success : function(data, status) {
+			if (status == "success") {
+				alert("预约申请提交成功");
+			}
+		},
+		error : function(data, status, e) {
+			alert(e);
+		},complete: function(){
+			$("#circular").hide();
+		}
+	});
+}
+
+
+
 function confirmApplication(exceptionRows){
+	findzone();
 	var dateinfo = "";
 	var exceptionRowList = new Array();
 	if(exceptionRows!=null || exceptionRows!="" ){
@@ -62,8 +105,6 @@ function confirmApplication(exceptionRows){
 			$("#circular").hide();
 		}
 	});
-	
-	
 	return false;
 }
 

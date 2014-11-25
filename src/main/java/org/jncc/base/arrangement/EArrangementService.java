@@ -47,7 +47,7 @@ public class EArrangementService implements java.io.Serializable {
 		return true;
 	}
 	
-	public static List queryFreezone(String date,int beginCourse,int endCourse) {
+	public static List<EZone> queryFreezone(String date,int beginCourse,int endCourse) {
 		Criteria crit = dbSession.getCriteria(EArrangement.class);
 		List<EArrangement> lEArr = crit
 				.add(Expression.between("id.course", beginCourse, endCourse))
