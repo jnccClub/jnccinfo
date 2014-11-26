@@ -70,5 +70,7 @@ public class EArrangementService implements java.io.Serializable {
 	public static void main(String[] args) {
 		EArrangementService.queryIsCourseFree("7F", "2014-12-04", "08:00", "12:00");
 		EArrangementService.queryFreezone("2014-12-04", 1, 2);
+		
+		
 	}
 }

@@ -98,9 +98,20 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
+			<result name="FIND_APP_SUCCESS" type="json">
+				<param name="root">zList</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="FINDCONDATE_APP_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
 		</action>
 	</package>
 </struts>
+
 
 <!-- END SNIPPET: xworkSample -->
 
