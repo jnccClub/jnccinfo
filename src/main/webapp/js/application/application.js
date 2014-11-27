@@ -89,6 +89,14 @@ function findConfDate(){
 		dataType : 'json',
 		success : function(data, status) {
 			if (status == "success") {
+				if(data.resultCode == "480"){
+					var trRows = data.resultDesc.split(" ");
+					$.each(trRows,function(key, row){
+						if(row!=""){
+							$("#confirm_table tr:eq("+row+")").css("background-color", "#bbf");
+						}
+					});
+				}
 				alert("预约申请提交成功");
 			}
 		},

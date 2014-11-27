@@ -26,99 +26,72 @@
 <script src="js/common/site.js"></script>
 <script type="text/javascript" src="js/Calendar4.js"></script>
 <script type="text/javascript" src='js/common/jquery.js'></script>
+<script type="text/javascript" src='js/common/ajaxfileupload.js'></script>
 <script type="text/javascript" src='js/datepick/datepick.js'></script>
-<script type="text/javascript"
-	src='js/common/bootstrap-datetimepicker.min.js'></script>
+<script type="text/javascript" src='js/common/bootstrap-datetimepicker.min.js'></script>
 <script type="text/javascript" src='js/file/ajaxfileupload.js'></script>
+
+<script type="text/javascript" src='js/table/EdTable.js'></script>
+<script type="text/javascript" src='js/common/jquery.contextmenu.r2.js'></script>
+<script type="text/javascript" src='js/table/softwareOperate.js'></script>
+<script type="text/javascript" src='js/application/application.js'></script>
+<script type="text/javascript" src='js/gloableDefine.js'></script>
+<script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
+
+<script type="text/javascript" src='js/common/jquery.easyui.min.js'></script>
+
+
+
 
 
 <title>JNCC booking</title>
 
 </head>
 <body>
-	test
-	<div>
-		<script>
-			function ajaxFileUpload() {
-				//starting setting some animation when the ajax starts and completes
-				$("#loading").ajaxStart(function() {
-					$(this).show();
-				}).ajaxComplete(function() {
-					$(this).hide();
-				});
-				/*
-				    prepareing ajax file upload
-				    url: the url of script file handling the uploaded files
-				                fileElementId: the file type of input element id and it will be the index of  $_FILES Array()
-				    dataType: it support json, xml
-				    secureuri:use secure protocol
-				    success: call back function when the ajax complete
-				    error: callback function when the ajax failed
-				    
-				 */
-				$.ajaxFileUpload({
-					url : 'file_upload.action',
-					secureuri : false,
-					fileElementId : 'fileToUpload',
-					dataType : 'json',
-					success : function(data, status) {
-						if (typeof (data.error) != 'undefined') {
-							if (data.error != '') {
-								alert(data.error);
-							} else {
-								alert(data.msg);
-							}
-						}
-					},
-					error : function(data, status, e) {
-						alert(e);
-					}
-				});
-				return false;
-			}
-		</script>
+<script>
+	// 软件列表
+	swList = new Array();
+	schoolBeginDate = new Date("2014-09-01");
+	schoolBeginMon = new Date();
+	var currentShowID = "#MF_Body";
+	$(function() {
+		$("#loginEntry").click(function() {
+			renewMainId("#mainFrame_Login");
+		});
 
-		<div id="wrapper">
-			<div id="content">
-				<h1>Ajax File Upload Demo</h1>
-				<p>Jquery File Upload Plugin - upload your files with only one
-					input field</p>
-				<p>
-					need any Web-based Information System?<br> Please <a
-						href="http://www.phpletter.com/">Contact Us</a><br> We are
-					specialized in <br>
-				<ul>
-					<li>Website Design</li>
-					<li>Survey System Creation</li>
-					<li>E-commerce Site Development</li>
-				</ul>
-				<img id="loading" src="loading.gif" style="display:none;">
-				<form name="form" action="" method="POST"
-					enctype="multipart/form-data">
-					<table cellpadding="0" cellspacing="0" class="tableForm">
+		$("#logOutEntry").click(function() {
+			alert("come to relogin");
+			username = "";
+			$("#loginEntry").html('<a href="javarscript:(0)" >登录/注册</a>');
+			$("#logOutEntry").hide();
+		});
+	});
+	
+	function renewMainId(newId) {
+		$(currentShowID).hide();
+		currentShowID = newId;
+		$(currentShowID).show();
+	}
+</script>
 
-						<thead>
-							<tr>
-								<th>Please select a file and click Upload button</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><input id="fileToUpload" type="file" size="45"
-									name="fileToUpload" class="input"></td>
-							</tr>
 
-						</tbody>
-						<tfoot>
-							<tr>
-								<td><button class="button" id="buttonUpload"
-										onclick="return ajaxFileUpload();">Upload</button></td>
-							</tr>
-						</tfoot>
+	<div class="container">
+		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
+		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
+	</div>
 
-					</table>
-				</form>
-			</div>
-		</div>
+	<div id="circular">
+		<div id="circular_1" class="circular"></div>
+		<div id="circular_2" class="circular"></div>
+		<div id="circular_3" class="circular"></div>
+		<div id="circular_4" class="circular"></div>
+		<div id="circular_5" class="circular"></div>
+		<div id="circular_6" class="circular"></div>
+		<div id="circular_7" class="circular"></div>
+		<div id="circular_8" class="circular"></div>
+		<div class="clearfix"></div>
+	</div>
 </body>
 </html>

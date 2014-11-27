@@ -38,6 +38,10 @@
 <script type="text/javascript" src='js/gloableDefine.js'></script>
 <script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
 
+<script type="text/javascript" src='js/common/jquery.easyui.min.js'></script>
+
+
+
 
 
 <title>JNCC booking</title>

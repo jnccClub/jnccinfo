@@ -32,12 +32,14 @@ public class ApplicationAction extends ActionSupport {
 		int beginCourse = ECourseMapService.getBeginCourse(ea.getBeginTime());
 		int endCourse = ECourseMapService.getEndCourse(ea.getEndTime());
 		String conflictedDate = "";
+		int dateCounts = 0;
 		for (String bookDate : dInfos) {
 			System.out.println(bookDate);
 			List<EZone> freeZoneList = EArrangementService.queryFreezone(
 					bookDate, beginCourse, endCourse);
+			dateCounts++;
 			if (freeZoneList.size() <= 0) {
-				conflictedDate = conflictedDate + bookDate + " ";
+				conflictedDate = conflictedDate + dateCounts + " ";
 			}
 		}
 		if (conflictedDate.length() > 0) {
@@ -46,7 +48,7 @@ public class ApplicationAction extends ActionSupport {
 			resultCause.setCause("200", "恭喜，有可用区域");
 		}
 		
-		return "FINDCONDATE_APP_SUCCESS";
+		return "FINDCONFDATE_APP_SUCCESS";
 
 	}
 

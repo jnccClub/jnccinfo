@@ -103,7 +103,7 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-			<result name="FINDCONDATE_APP_SUCCESS" type="json">
+			<result name="FINDCONFDATE_APP_SUCCESS" type="json">
 				<param name="root">resultCause</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
