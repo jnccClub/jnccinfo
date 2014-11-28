@@ -26,7 +26,6 @@
 <script src="js/common/site.js"></script>
 <script type="text/javascript" src="js/Calendar4.js"></script>
 <script type="text/javascript" src='js/common/jquery.js'></script>
-<script type="text/javascript" src='js/common/ajaxfileupload.js'></script>
 <script type="text/javascript" src='js/datepick/datepick.js'></script>
 <script type="text/javascript" src='js/common/bootstrap-datetimepicker.min.js'></script>
 <script type="text/javascript" src='js/file/ajaxfileupload.js'></script>

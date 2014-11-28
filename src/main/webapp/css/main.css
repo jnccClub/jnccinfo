@@ -1,13 +1,13 @@
 @import url(nav/site.css);
-
 @import url(datepick/datepick.css);
-
 @import url(common/bootstrap-responsive.min.css);
-
 @import url(common/bootstrap-combined.min.css);
-
 @import url(common/bootstrap-datetimepicker.min.css);
 @import url(table/resize.css);
+@import url(jqueryUI/color.css);
+@import url(jqueryUI/demo.css);
+@import url(jqueryUI/easyui.css);
+@import url(jqueryUI/icon.css);
 @import url(loadingAnimation/loading.css);
 
 .bordline {
