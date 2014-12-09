@@ -10,6 +10,8 @@
 @import url(jqueryUI/icon.css);
 @import url(loadingAnimation/loading.css);
 
+@import url(common/jquery.seat-charts.css)
+
 .bordline {
 	border-radius: 50px;
 	TEXT-ALIGN: center;

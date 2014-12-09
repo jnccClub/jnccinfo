@@ -45,9 +45,9 @@
 	<p>Click the buttons on datagrid toolbar to do crud actions.</p>
 
 	<table id="dg" title="My Users" class="easyui-datagrid"
-		style="width:700px;height:250px" url="get_users.php"
-		toolbar="#toolbar" pagination="true" rownumbers="true"
-		fitColumns="true" singleSelect="true">
+		style="width:900px;height:550px" url="users.jsp" toolbar="#toolbar"
+		pagination="true" rownumbers="true" fitColumns="true"
+		singleSelect="true">
 		<thead>
 			<tr>
 				<th field="firstname" width="50">First Name</th>
@@ -56,6 +56,7 @@
 				<th field="email" width="50">Email</th>
 			</tr>
 		</thead>
+		<!-- 
 		<tbody>
 			<tr datagrid-row-index="0" class="datagrid-row" style="height: 25px;">
 				<td field="firstname"><div style="height:auto;"
@@ -77,85 +78,8 @@
 				<td field="email"><div style="height:auto;"
 						class="datagrid-cell datagrid-cell-c1-email">鹅13@163.com</div></td>
 			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td field="firstname">11111</td>
-				<td field="lastname">kao</td>
-				<td field="phone">+86-010-110</td>
-				<td field="email">testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>11111</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>11111</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>11111</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>11111</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>11111</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>11111</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>55555</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>55555</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>55555</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>55555</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>55555</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
-			<tr class="datagrid-row" style="height: 25px;">
-				<td>666666</td>
-				<td>kao</td>
-				<td>+86-010-110</td>
-				<td>testssf</td>
-			</tr>
 		</tbody>
+		 -->
 	</table>
 	<div id="toolbar">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
@@ -168,7 +92,7 @@
 	</div>
 
 	<div id="dlg" class="easyui-dialog"
-		style="width:400px;height:280px;padding:10px 20px" closed="true"
+		style="width:480px;height:380px;padding:10px 20px" closed="true"
 		buttons="#dlg-buttons">
 		<div class="ftitle">User Information</div>
 		<form id="fm" method="post" novalidate>
@@ -234,24 +158,22 @@
 		function destroyUser() {
 			var row = $('#dg').datagrid('getSelected');
 			if (row) {
-				$.messager.confirm('Confirm',
-						'Are you sure you want to destroy this user?',
-						function(r) {
-							if (r) {
-								$.post('destroy_user.php', {
-									id : row.id
-								}, function(result) {
-									if (result.success) {
-										$('#dg').datagrid('reload'); // reload the user data
-									} else {
-										$.messager.show({ // show error message
-											title : 'Error',
-											msg : result.errorMsg
-										});
-									}
-								}, 'json');
+				$.messager.confirm('确认信息', '请确认是否此条记录?', function(r) {
+					if (r) {
+						$.post('destroy_user.php', {
+							id : row.id
+						}, function(result) {
+							if (result.success) {
+								$('#dg').datagrid('reload'); // reload the user data
+							} else {
+								$.messager.show({ // show error message
+									title : 'Error',
+									msg : result.errorMsg
+								});
 							}
-						});
+						}, 'json');
+					}
+				});
 			}
 		}
 	</script>
