@@ -173,9 +173,15 @@ function getBookingType(courseType){
 }
 
 function appFirstNext(){
-	var curTime = new Date().FormatHPF("yyyyMMddhhmmssS");
-	var generatedAppID =  "CC"+curTime;
-	$("#generatedAppID").html(generatedAppID);
+	var appid = $("input[name='applicationInfo.applicationId']").val();
+	if(appid == ""){
+		var curTime = new Date().FormatHPF("yyyyMMddhhmmssS");
+		var generatedAppID =  "CC"+curTime;
+		$("#generatedAppID").html(generatedAppID);
+	}else{
+		$("#generatedAppID").html(appid);
+	}
+	$("#generatedAppID").html($("input[name='applicationInfo.applicationId']").val());
 	$("#generatedCourse").html($("input[name='applicationInfo.course']").val());
 	$("#generatedContact").html($("input[name='applicationInfo.contact']").val());
 	$("#generatedCourseSeats").html($("input[name='applicationInfo.seats']").val());
@@ -188,10 +194,8 @@ function appFirstNext(){
 		swList = swList +$(this).val()+",";
 	});
 	$("#generatedSW").html(swList);
-	$("#generatedEmail").html($("input[name='applicationInfo.Email']").val());
 	$("#generatedClass").html($("input[name='applicationInfo.class']").val());
 	$("#generatedCommnet").html($("textarea[name='applicationInfo.OtherComment']").val());
-	
 	
 	
 	var beginCourseDate = $("input[name='applicationInfo.beginDate']").val();

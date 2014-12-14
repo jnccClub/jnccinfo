@@ -20,7 +20,12 @@
  */
 package org.jncc.action.software;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.jncc.base.cause.resultCause;
 import org.jncc.base.software.ESoftware;
@@ -41,6 +46,15 @@ public class SoftwareAction extends ActionSupport {
 	private resultCause resultCause;
 	private List<ESoftware> eswList;
 	private ESoftware esw;
+	private JSONArray swJsonArray;
+	
+	public JSONArray getSwJsonArray() {
+		return swJsonArray;
+	}
+
+	public void setSwJsonArray(JSONArray swJsonArray) {
+		this.swJsonArray = swJsonArray;
+	}
 
 	public ESoftware getEsw() {
 		return esw;
@@ -48,6 +62,25 @@ public class SoftwareAction extends ActionSupport {
 
 	public void setEsw(ESoftware esw) {
 		this.esw = esw;
+	}
+
+	public String getSW() {
+		if (ESoftware.getEswList() == null
+				|| ESoftware.getEswList().size() != 0) {
+			ESoftwareService.updateEswList(ESoftwareService.getEswList());
+		}
+		Set<String> swSet = new HashSet<String>();
+		for (int i = 0; i < ESoftware.getEswList().size(); i++) {
+			swSet.add(ESoftware.getEswList().get(i).getId().getName());
+		}
+		swJsonArray = new JSONArray();
+		for (String swStr : swSet) {
+			JSONObject obj = new JSONObject();
+			obj.put("id", swStr);
+			obj.put("text", swStr);
+			swJsonArray.add(obj);
+		}
+		return "GET_SWJSON_SUCCESS";
 	}
 
 	public String refresh() {
@@ -71,8 +104,7 @@ public class SoftwareAction extends ActionSupport {
 		resultCause.setCause("200", "恭喜您，添加成功！");
 		return "ADD_SW_SUCCESS";
 	}
-	
-	
+
 	public String deleteRecord() {
 		try {
 			dbSession.delete(esw);
@@ -84,7 +116,6 @@ public class SoftwareAction extends ActionSupport {
 		resultCause.setCause("200", "恭喜您，删除成功！");
 		return "DELETE_SW_SUCCESS";
 	}
-	
 
 	@Override
 	public String execute() throws Exception {

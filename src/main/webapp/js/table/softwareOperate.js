@@ -1,6 +1,7 @@
 function displaySW(eswList) {
 	var tbodyContent = "";
 	swList = new Array();
+	var swOptions = "";
 	$(eswList).each(
 			function(i, esw) {
 				tbodyContent = tbodyContent
@@ -28,8 +29,12 @@ function displaySW(eswList) {
 						if(existSW ==0){
 							//swList.push(esw.id.name.toUpperCase());
 							swList.push(esw);
+				            swOptions = swOptions +"<option value='"+esw.id.name+"'>"+esw.id.name+"</option>" ;
 						}
 			});
+	//$("select [name='applicationInfo.SW']").html(swOptions);
+
+	
 	$("#swList_table tbody").html(tbodyContent);
 	EdTable.initBindGridEvent();
 }

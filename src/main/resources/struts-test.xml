@@ -64,6 +64,11 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
+			<result name="GET_SWJSON_SUCCESS" type="json">
+				<param name="root">swJsonArray</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
 		</action>
 
 
@@ -109,6 +114,14 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 		</action>
+		
+        <action name="res_*" class="org.jncc.action.resource.resouceAction" method="list">  
+			<result name="RES_LIST_SUCCESS" type="json">
+					<param name="root">result</param>
+					<param name="excludeNullProperties">true</param>
+					<param name="excludeProperties">SUCCESS</param>
+			</result>
+        </action>  
 	</package>
 </struts>
 
