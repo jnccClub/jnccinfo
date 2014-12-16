@@ -63,8 +63,9 @@ public class ApplicationAction extends ActionSupport {
 					bookDate, beginCourse, endCourse);
 			if (zList.size() > 0) {
 				freeZoneList.retainAll(zList);
+			}else{
+				zList = freeZoneList;
 			}
-			zList = freeZoneList;
 		}
 		return "FIND_APP_SUCCESS";
 	}
@@ -138,11 +139,11 @@ public class ApplicationAction extends ActionSupport {
 		this.ea = ea;
 	}
 
-	public List<EZone> getzList() {
+	public List<EZone> getZList() {
 		return zList;
 	}
 
-	public void setzList(List<EZone> zList) {
+	public void setZList(List<EZone> zList) {
 		this.zList = zList;
 	}
 }

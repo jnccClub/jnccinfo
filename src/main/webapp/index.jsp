@@ -47,6 +47,8 @@
 
 </head>
 <body>
+
+
 <script>
 	// 软件列表
 	swList = new Array();
@@ -76,6 +78,7 @@
 
 	<div class="container">
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
+		<jsp:include page="bodyContent/apply_steps/zoneChoosen.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
 		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>

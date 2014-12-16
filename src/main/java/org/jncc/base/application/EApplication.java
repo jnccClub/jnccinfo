@@ -32,6 +32,8 @@ public class EApplication implements java.io.Serializable {
 	private String dateInfo;
 	private String beginTime;
 	private String endTime;
+	private String floor;
+	private String zone;
 
 	// Constructors
 
@@ -230,6 +232,22 @@ public class EApplication implements java.io.Serializable {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getFloor() {
+		return floor;
+	}
+
+	public void setFloor(String floor) {
+		this.floor = floor;
+	}
+
+	public String getZone() {
+		return zone;
+	}
+
+	public void setZone(String zone) {
+		this.zone = zone;
 	}
 
 }
