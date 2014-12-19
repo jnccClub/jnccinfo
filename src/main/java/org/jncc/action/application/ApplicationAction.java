@@ -57,7 +57,7 @@ public class ApplicationAction extends ActionSupport {
 		String[] dInfos = dInfo.split("\\s+");
 		int beginCourse = ECourseMapService.getBeginCourse(ea.getBeginTime());
 		int endCourse = ECourseMapService.getEndCourse(ea.getEndTime());
-		zList = new ArrayList();
+		zList = new ArrayList<EZone>();
 		for (String bookDate : dInfos) {
 			List<EZone> freeZoneList = EArrangementService.queryFreezone(
 					bookDate, beginCourse, endCourse);
@@ -80,7 +80,7 @@ public class ApplicationAction extends ActionSupport {
 		EArrangementId eArrId = new EArrangementId();
 		String conflictedDate = "";
 
-		eArr.setAppId(ea.getApplicationId());
+		eArr.setAppId(ea.getId().getApplicationId());
 		for (String bookDate : dInfos) {
 			System.out.println(bookDate);
 			List<EZone> freeZoneList = EArrangementService.queryFreezone(

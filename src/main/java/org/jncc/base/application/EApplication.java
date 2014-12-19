@@ -4,6 +4,8 @@ package org.jncc.base.application;
 
 import java.sql.Timestamp;
 
+import org.jncc.base.arrangement.EArrangementId;
+
 /**
  * EApplication entity. @author MyEclipse Persistence Tools
  */
@@ -12,7 +14,8 @@ public class EApplication implements java.io.Serializable {
 
 	// Fields
 
-	private String applicationId;
+	private EApplicationID id;
+
 	private String createUser;
 	private String approver;
 	private String curentHandler;
@@ -22,7 +25,6 @@ public class EApplication implements java.io.Serializable {
 	private String os;
 	private String software;
 	private Integer booktype;
-	private Timestamp createdatetime;
 	private String status;
 	private Timestamp approvedtime;
 	private String approveremark;
@@ -42,18 +44,19 @@ public class EApplication implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public EApplication(String applicationId) {
-		this.applicationId = applicationId;
+	public EApplication(EApplicationID id) {
+		this.id = id;
 	}
 
+	
 	/** full constructor */
-	public EApplication(String applicationId, String createUser,
+	public EApplication(EApplicationID id, String createUser,
 			String approver, String curentHandler, String courseName,
 			String className, Integer seats, String os, String software,
 			Integer booktype, Timestamp createdatetime, String status,
 			Timestamp approvedtime, String approveremark, String comment,
 			String contactNo, String email) {
-		this.applicationId = applicationId;
+		this.id = id;
 		this.createUser = createUser;
 		this.approver = approver;
 		this.curentHandler = curentHandler;
@@ -63,7 +66,6 @@ public class EApplication implements java.io.Serializable {
 		this.os = os;
 		this.software = software;
 		this.booktype = booktype;
-		this.createdatetime = createdatetime;
 		this.status = status;
 		this.approvedtime = approvedtime;
 		this.approveremark = approveremark;
@@ -73,13 +75,12 @@ public class EApplication implements java.io.Serializable {
 	}
 
 	// Property accessors
-
-	public String getApplicationId() {
-		return this.applicationId;
+	public EApplicationID getId() {
+		return id;
 	}
 
-	public void setApplicationId(String applicationId) {
-		this.applicationId = applicationId;
+	public void setId(EApplicationID id) {
+		this.id = id;
 	}
 
 	public String getCreateUser() {
@@ -154,13 +155,6 @@ public class EApplication implements java.io.Serializable {
 		this.booktype = booktype;
 	}
 
-	public Timestamp getCreatedatetime() {
-		return this.createdatetime;
-	}
-
-	public void setCreatedatetime(Timestamp createdatetime) {
-		this.createdatetime = createdatetime;
-	}
 
 	public String getStatus() {
 		return this.status;
