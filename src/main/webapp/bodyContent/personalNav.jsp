@@ -16,7 +16,7 @@
 					class="icon-white icon-home"></i> 首页</a></li>
 			<li id="create_Application"><a href="#" ><i class="icon-folder-open"></i>
 					创建申请</a></li>
-			<li><a href="tasks.htm"><i class="icon-check"></i> 审批申请</a></li>
+			<li id="audit_Application"><a href="javascript:(0)"><i class="icon-check"></i> 审批申请</a></li>
 			<li><a href="messages.htm"><i class="icon-envelope"></i>
 					消息</a></li>
 			<li><a href="files.htm"><i class="icon-file"></i> 已审批申请</a></li>

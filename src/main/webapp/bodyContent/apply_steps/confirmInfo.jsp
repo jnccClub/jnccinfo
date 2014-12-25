@@ -16,14 +16,14 @@
 </style>
 
 <div class="hero-unit">
-		<h1>课程编号：<a href="#" id="generatedAppID"></a></h1>
+		<h2>课程编号：<a href="#" id="generatedAppID"></a></h2>
 		<div class="div_p_inline"><p >课程名称：<a href="#" id="generatedCourse"></a></p>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>联系方式：<a href="#" id="generatedContact"></a></p>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>课程人数：<a href="#" id="generatedCourseSeats"></a></p>
 		</div>
-		<div class="div_p_inline"><p>预定类型：<a href="#" id="generatedCourseType"></a></p>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>操作系统：<a href="#" id="generatedOS"></a></p>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>学生班级：<a href="#" id="generatedClass"></a></p></div>
+		<div class="div_p_inline"><p>课程人数：<a href="#" id="generatedCourseSeats"></a></p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>预定类型：<a href="#" id="generatedCourseType"></a></p>
+		<p>操作系统：<a href="#" id="generatedOS"></a></p>
+		</div><div><p>学生班级：<a href="#" id="generatedClass"></a></p></div>
 		<p>必备软件：<a href="#" id="generatedSW"></a></p>
 		<p>其他说明：<a href="#" id="generatedCommnet"></a></p>
 	</div>
@@ -57,7 +57,7 @@
 
 	<div class="form-actions">
 		<button class="btn btn-primary" id="btnConfirmAppInfo" onclick="return confirmApplication()">确 认</button>
-		<button class="btn">上一步</button>
+		<button class="btn" onclick="appSecondBack()">上一步</button>
 	</div>
 </fieldset>
 

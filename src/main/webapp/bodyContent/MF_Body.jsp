@@ -30,7 +30,12 @@
 		$("#create_Application").click(function() {
 			renewBodyId("#Body_CreateApp", $(this));
 		});
-		renewBodyId("#Body_CreateApp","#create_Application");
+		
+		$("#audit_Application").click(function(){
+			genAppInfos();
+			renewMainId("#DIV_BODY_AUDIT");
+		});
+		//renewBodyId("#Body_CreateApp","#create_Application");
 
 	});
 	function renewBodyId(newBodyId, newActiveId) {

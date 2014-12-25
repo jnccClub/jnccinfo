@@ -113,15 +113,28 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-		</action>
-		
-        <action name="res_*" class="org.jncc.action.resource.resouceAction" method="list">  
-			<result name="RES_LIST_SUCCESS" type="json">
-					<param name="root">result</param>
-					<param name="excludeNullProperties">true</param>
-					<param name="excludeProperties">SUCCESS</param>
+			<result name="AUDIT_APP_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
 			</result>
-        </action>  
+
+
+		</action>
+
+		<action name="res_*" class="org.jncc.action.resource.resouceAction"
+			method="{1}">
+			<result name="RES_LIST_SUCCESS" type="json">
+				<param name="root">result</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="RES_QUEYRDATES_SUCCESS" type="json">
+				<param name="root">result</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+		</action>
 	</package>
 </struts>
 

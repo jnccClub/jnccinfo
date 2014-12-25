@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.  
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<div class="hero-unit">
+
 	<h2>
 		您期望选择座位数是：<a id="a_chooseSeats"></a><br> 已选择资源：<a href="#"
 			id="choosenSeats"></a><br> <a href="#" id="choosenRes">&nbsp;</a>
@@ -22,7 +22,9 @@
 			</form>
 			<div style="text-align:center;padding:5px">
 				<a href="javascript:void(0)" class="easyui-linkbutton"
-					onclick="submitFinalForm()">确认</a>
+					onclick="submitFinalForm()" id="submitFinalForm" >提交申请</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					onclick="appZoneBack()">上一步</a>	
 			</div>
 		</div>
 	</div>
@@ -31,7 +33,6 @@
 		<p>楼层区域示意图(提示：A区与F区相邻)</p>
 		<img src="image/zoneDis/zoneDis.png" style="width:550px">
 	</div>
-</div>
 
 
 

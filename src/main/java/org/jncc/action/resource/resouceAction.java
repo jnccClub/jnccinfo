@@ -2,16 +2,46 @@ package org.jncc.action.resource;
 
 import net.sf.json.JSONObject;
 
+import org.jncc.base.application.EApplicationService;
+import org.jncc.base.arrangement.EArrangementService;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 public class resouceAction extends ActionSupport {
 	/**
 	 * 
 	 */
-
 	private JSONObject result;// 返回的json
+	
 	private String rows;// 每页显示的记录数
 	private String page;// 当前第几页
+	private String appID; // 课程编号
+	private String createTime; // 创建时间
+
+	/**
+	 * 查询应用系统
+	 * 
+	 * @return
+	 */
+	public String list() {
+		System.out.println("---------------");
+		// 当前页
+		int intPage = Integer.parseInt((page == null || page == "0") ? "1"
+				: page);
+		// 每页显示条数
+		int number = Integer.parseInt((rows == null || rows == "0") ? "10"
+				: rows);
+		// 每页的开始记录 第一页为1 第二页为number +1
+		int start = (intPage - 1) * number;
+		result = JSONObject.fromObject(EApplicationService.toMapObject());
+		return "RES_LIST_SUCCESS";
+	}
+
+	public String queryDates() {
+		result = JSONObject.fromObject(EArrangementService.toMapObject(
+				appID, createTime));
+		return "RES_QUEYRDATES_SUCCESS";
+	}
 
 	public JSONObject getResult() {
 		return result;
@@ -37,29 +67,30 @@ public class resouceAction extends ActionSupport {
 		this.page = page;
 	}
 
-	/**
-	 * 查询应用系统
-	 * 
-	 * @return
-	 */
-	public String list() {
-		System.out.println("---------------");
-		// 当前页
-		int intPage = Integer.parseInt((page == null || page == "0") ? "1"
-				: page);
-		// 每页显示条数
-		int number = Integer.parseInt((rows == null || rows == "0") ? "10"
-				: rows);
-		// 每页的开始记录 第一页为1 第二页为number +1
-		int start = (intPage - 1) * number;
+	public String getAppID() {
+		return appID;
+	}
 
-//		List<TblApp> list = appService.findByPageApp(start, number);// 每页的数据，放入list
-//		Map<String, Object> jsonMap = new HashMap<String, Object>();// 定义map
-//		jsonMap.put("total", appService.getCountApp());// total键 存放总记录数，必须的
-//		jsonMap.put("rows", list);// rows键 存放每页记录 list
-//		result = JSONObject.fromObject(jsonMap);// 格式化result 一定要是JSONObject
+	public void setAppID(String appID) {
+		this.appID = trimQuotation(appID);
+	}
 
-		// result = JSONArray.fromObject(jsonMap);
-		return "RES_LIST_SUCCESS";
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = trimQuotation(createTime);
+	}
+	
+	public String trimQuotation(String str){
+		String tmpStr = str;
+		if(tmpStr.indexOf("\"") == 0){
+			tmpStr = tmpStr.substring(1);
+		}
+		if(tmpStr.indexOf("\"") == (tmpStr.length()-1)){
+			tmpStr = tmpStr.substring(0,tmpStr.length()-1);
+		}
+		return tmpStr;
 	}
 }

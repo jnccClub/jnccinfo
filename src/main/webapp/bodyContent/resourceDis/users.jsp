@@ -25,14 +25,16 @@ user2.put("部门", "name1");
 user2.put("网站", "name2");  
 user2.put("名称", "1234");  
 user2.put("管理员", "281446888@qq.com");  
-list.add(user2);  
+list.add(user2);
+
+
   
 JSONArray jsonArray  = JSONArray.fromObject(list);  
 System.out.println(jsonArray.toString());  
 Map<String,Object> map = new HashMap<String,Object>();  
 map.put("total", 20);  
 map.put("rows", jsonArray);  
-  
+
 ObjectMapper objMap = new ObjectMapper();  
 objMap.writeValue(response.getWriter(), map); 
 //System.out.println(json);  

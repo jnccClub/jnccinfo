@@ -1,9 +1,11 @@
 package org.jncc.action.application;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jncc.base.application.EApplication;
+import org.jncc.base.application.EApplicationID;
 import org.jncc.base.application.EApplicationService;
 import org.jncc.base.arrangement.EArrangement;
 import org.jncc.base.arrangement.EArrangementId;
@@ -24,6 +26,22 @@ public class ApplicationAction extends ActionSupport {
 	private resultCause resultCause = new resultCause();
 	private EApplication ea;
 	private List<EZone> zList;
+
+	private String isApproved;
+	private String approveComment;
+	private String eaIDs;
+
+		
+
+	public String auditRecord() {
+		
+		if (isApproved.equals("1")) {
+			EApplicationService.approveApplications(eaIDs, approveComment);
+		} else {
+			EApplicationService.rejectApplications(eaIDs, approveComment);
+		}
+		return "AUDIT_APP_SUCCESS";
+	}
 
 	public String findConfDate() {
 		String dInfo = ea.getDateInfo();
@@ -47,7 +65,7 @@ public class ApplicationAction extends ActionSupport {
 		} else {
 			resultCause.setCause("200", "恭喜，有可用区域");
 		}
-		
+
 		return "FINDCONFDATE_APP_SUCCESS";
 
 	}
@@ -63,7 +81,7 @@ public class ApplicationAction extends ActionSupport {
 					bookDate, beginCourse, endCourse);
 			if (zList.size() > 0) {
 				freeZoneList.retainAll(zList);
-			}else{
+			} else {
 				zList = freeZoneList;
 			}
 		}
@@ -71,43 +89,45 @@ public class ApplicationAction extends ActionSupport {
 	}
 
 	public String addRecord() {
+		// 设置为未审核状态
+		ea.setStatus("0");
+		Timestamp curTime = new Timestamp(System.currentTimeMillis());
+		EApplicationID eaID = ea.getId();
+		eaID.setCreatedatetime(curTime);
+		ea.setId(eaID);
+		ea.setCreateUser("hpf");
+		ea.setSeats(55);
+
 		String dInfo = ea.getDateInfo();
 		String[] dInfos = dInfo.split("\\s+");
+		String zInfo = ea.getZone();
+		String[] zInfos = zInfo.split("\\s+");
 		resultCause = new resultCause();
 		int beginCourse = ECourseMapService.getBeginCourse(ea.getBeginTime());
 		int endCourse = ECourseMapService.getEndCourse(ea.getEndTime());
 		EArrangement eArr = new EArrangement();
 		EArrangementId eArrId = new EArrangementId();
-		String conflictedDate = "";
-
 		eArr.setAppId(ea.getId().getApplicationId());
+		eArr.setCreatetime(ea.getId().getCreatedatetime());
 		for (String bookDate : dInfos) {
 			System.out.println(bookDate);
-			List<EZone> freeZoneList = EArrangementService.queryFreezone(
-					bookDate, beginCourse, endCourse);
-			if (freeZoneList.size() > 0) {
-				eArrId.setDate(bookDate);
+			eArrId.setDate(bookDate);
+			for (String zBookinfo : zInfos) {
+				eArrId.setZone(zBookinfo);
+				eArr.setFloor(ea.getFloor());
 				for (int i = beginCourse; i <= endCourse; i++) {
 					eArrId.setCourse(i);
 					eArr.setId(eArrId);
 					EArrangementService.addArrangement(eArr);
 				}
-			} else {
-				conflictedDate = conflictedDate + bookDate + " ";
 			}
+
 		}
 		if (EApplicationService.addApplication(ea)) {
 			resultCause.setCause("200", "恭喜，添加成功");
 		} else {
 			resultCause.setCause("503", "添加失败");
 		}
-
-		if (conflictedDate.length() > 0) {
-			resultCause.setCause("493", conflictedDate);
-		} else {
-			resultCause.setCause("200", "恭喜，有可用区域");
-		}
-
 		return "ADD_APP_SUCCESS";
 	}
 
@@ -146,4 +166,29 @@ public class ApplicationAction extends ActionSupport {
 	public void setZList(List<EZone> zList) {
 		this.zList = zList;
 	}
+
+	public String getApproveComment() {
+		return approveComment;
+	}
+
+	public void setApproveComment(String approveComment) {
+		this.approveComment = approveComment;
+	}
+
+	public String getIsApproved() {
+		return isApproved;
+	}
+
+	public void setIsApproved(String isApproved) {
+		this.isApproved = isApproved;
+	}
+	public void setEaIDs(String eaIDs) {
+		this.eaIDs = eaIDs;
+	}
+
+
+	public String getEaIDs() {
+		return eaIDs;
+	}
+
 }

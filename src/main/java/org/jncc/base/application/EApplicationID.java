@@ -15,6 +15,9 @@ public class EApplicationID implements java.io.Serializable {
 	// Fields
 
 	   private String applicationId;
+		private Timestamp createdatetime;
+		
+		
 	     public String getApplicationId() {
 		return applicationId;
 	}
@@ -34,7 +37,7 @@ public class EApplicationID implements java.io.Serializable {
 		this.createdatetime = createdatetime;
 	}
 
-		private Timestamp createdatetime;
+	
 
 
 	    // Constructors

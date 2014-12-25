@@ -1,4 +1,7 @@
 package org.jncc.base.arrangement;
+
+import java.sql.Timestamp;
+
 // default package
 
 
@@ -16,11 +19,15 @@ public class EArrangement  implements java.io.Serializable {
      private String floor;
      private String appId;
      private String comment;
+     private Timestamp createtime;
 
 
     // Constructors
 
-    /** default constructor */
+
+
+
+	/** default constructor */
     public EArrangement() {
     }
 
@@ -30,10 +37,11 @@ public class EArrangement  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public EArrangement(EArrangementId id, String floor, String appId, String comment) {
+    public EArrangement(EArrangementId id, String floor, String appId, Timestamp createtime,String comment) {
         this.id = id;
         this.floor = floor;
         this.appId = appId;
+        this.createtime = createtime;
         this.comment = comment;
     }
 
@@ -73,7 +81,13 @@ public class EArrangement  implements java.io.Serializable {
     }
    
 
+    public Timestamp getCreatetime() {
+		return createtime;
+	}
 
+	public void setCreatetime(Timestamp createtime) {
+		this.createtime = createtime;
+	}
 
 
 

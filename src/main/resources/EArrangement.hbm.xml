@@ -24,6 +24,9 @@
   <property generated="never" lazy="false" name="appId" type="java.lang.String">
    <column length="32" name="appID"/>
   </property>
+  <property name="createtime">
+   <column name="createtime"/>
+  </property>
   <property generated="never" lazy="false" name="comment" type="java.lang.String">
    <column length="256" name="comment"/>
   </property>
