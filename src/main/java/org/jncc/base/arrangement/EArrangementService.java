@@ -23,8 +23,7 @@ import org.jncc.persistence.dbSession;
 public class EArrangementService implements java.io.Serializable {
 
 	private List<EArrangement> earrList;
-	
-	
+
 	public static boolean addArrangement(EArrangement eArr) {
 		try {
 			dbSession.delete(eArr);
@@ -39,85 +38,83 @@ public class EArrangementService implements java.io.Serializable {
 		return false;
 	}
 
-	public static boolean queryIsCourseFree(String zone, String date,String beginTime, String endTime
-			) {
+	public static boolean queryIsCourseFree(String zone, String date,
+			String beginTime, String endTime) {
 		int beginCourse = ECourseMapService.getBeginCourse(beginTime);
 		int endCourse = ECourseMapService.getBeginCourse(endTime);
 		Criteria crit = dbSession.getCriteria(EArrangement.class);
 		List l = crit
 				.add(Expression.between("id.course", beginCourse, endCourse))
 				.add(Expression.eq("id.zone", zone))
-				.add(Expression.eq("id.date", date))
-				.list();
+				.add(Expression.eq("id.date", date)).list();
 		if (l.size() > 0) {
 			return false;
 		}
 		return true;
 	}
-	
-	public static List<EZone> queryFreezone(String date,int beginCourse,int endCourse) {
+
+	public static List<EZone> queryFreezone(String date, int beginCourse,
+			int endCourse) {
 		Criteria crit = dbSession.getCriteria(EArrangement.class);
 		List<EArrangement> lEArr = crit
 				.add(Expression.between("id.course", beginCourse, endCourse))
-				.add(Expression.eq("id.date", date))
-				.list();
-		
+				.add(Expression.eq("id.date", date)).list();
+
 		List<EZone> lEZone = EZoneService.getEZoneList();
-		for(int i=0;i<lEArr.size();i++){
-			for(int j=0;j<lEZone.size();j++){
-				if(lEArr.get(i).getId().getZone().equals(lEZone.get(j).getZone())){
+		for (int i = 0; i < lEArr.size(); i++) {
+			for (int j = 0; j < lEZone.size(); j++) {
+				if (lEArr.get(i).getId().getZone()
+						.equals(lEZone.get(j).getZone())) {
 					lEZone.remove(j);
 				}
 			}
 		}
 		return lEZone;
 	}
-	
-	
-	
+
 	public static Map<String, String> toMap(EArrangement earr) {
-		Map<String,String> appMap = new HashMap<String,String>();
-		appMap.put("fld_CNO",earr.getAppId());
-		
+		Map<String, String> appMap = new HashMap<String, String>();
+		appMap.put("fld_CNO", earr.getAppId());
+
 		String tmpTime = earr.getCreatetime().toString();
-		if(null !=tmpTime && tmpTime.length() >19){
-			tmpTime = tmpTime.substring(0,19);
+		if (null != tmpTime && tmpTime.length() > 19) {
+			tmpTime = tmpTime.substring(0, 19);
 		}
-		appMap.put("fld_CTIME",tmpTime);
-		appMap.put("fld_ZONE",earr.getId().getZone());
-		appMap.put("fld_FLOOR",earr.getFloor());
-		appMap.put("fld_COUREDATE",earr.getId().getDate());
-		appMap.put("fld_COURSE","第"+String.valueOf(earr.getId().getCourse())+"节");
+		appMap.put("fld_CTIME", tmpTime);
+		appMap.put("fld_ZONE", earr.getId().getZone());
+		appMap.put("fld_FLOOR", earr.getFloor());
+		appMap.put("fld_COUREDATE", earr.getId().getDate());
+		appMap.put("fld_COURSE", "第" + String.valueOf(earr.getId().getCourse())
+				+ "节");
 		return appMap;
 	}
-	
-	
-	
-	
-	public static Map<String, Object> toMapObject(String appId,String createTime) {
-		List<EArrangement> earrList = queryAppDates(appId,createTime);
-		List<Map<String,String>> mapList = new ArrayList();
-		if(earrList !=null){
-		for(int i=0;i<earrList.size();i++){
-			mapList.add(toMap(earrList.get(i)));
-		}
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put("total", mapList.size());
-		jsonMap.put("rows", mapList);
-		return jsonMap;
-		}
-		else{
+
+
+
+	public static Map<String, Object> toMapObject(String appId,
+			String createTime) {
+		List<EArrangement> earrList = queryAppDates(appId, createTime);
+		List<Map<String, String>> mapList = new ArrayList();
+		if (earrList != null) {
+			for (int i = 0; i < earrList.size(); i++) {
+				mapList.add(toMap(earrList.get(i)));
+			}
+			Map<String, Object> jsonMap = new HashMap<String, Object>();
+			jsonMap.put("total", mapList.size());
+			jsonMap.put("rows", mapList);
+			return jsonMap;
+		} else {
 			return null;
 		}
 	}
-	
-	
-	public static List<EArrangement> queryAppDates(String appId,String createTime) {
+
+	public static List<EArrangement> queryAppDates(String appId,
+			String createTime) {
 		List<EArrangement> earrList;
 		try {
 			Timestamp ts = Timestamp.valueOf(createTime);
 			String sql = "from EArrangement earr where earr.appId='" + appId
-					+ "' and earr.createtime='" + ts+"'";
+					+ "' and earr.createtime='" + ts + "'";
 			earrList = dbSession.select(sql);
 			dbSession.close();
 			return earrList;
@@ -126,25 +123,34 @@ public class EArrangementService implements java.io.Serializable {
 		}
 		return null;
 	}
-	
-	
-	
+
+	public static List<EArrangement> queryCurCourse(String date) {
+		List<EArrangement> earrList;
+		try {
+			String sql = "from EArrangement earr where earr.id.date='" + date
+					+ "'";
+			earrList = dbSession.select(sql);
+			dbSession.close();
+			return earrList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	// Fields
 	public static void main(String[] args) {
-//		Map<String, Object> jsonMap = EArrangementService.toMapObject("102030_70206097_1","2014-12-24 08:47:18");
-//		
-//		
-//		EArrangementService.queryIsCourseFree("7F", "2014-12-04", "08:00", "12:00");
-//		EArrangementService.queryFreezone("2014-12-04", 1, 2);
-//		
-		try {String createTime="2014-12-24 15:04:50";
-		Timestamp ts = Timestamp.valueOf(createTime);
-		System.out.println(ts);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
+		// Map<String, Object> jsonMap =
+		// EArrangementService.toMapObject("102030_70206097_1","2014-12-24 08:47:18");
+		//
+		//
+		// EArrangementService.queryIsCourseFree("7F", "2014-12-04", "08:00",
+		// "12:00");
+		// EArrangementService.queryFreezone("2014-12-04", 1, 2);
+		//
+		List<EArrangement> earrList = EArrangementService
+				.queryCurCourse("2014-12-26");
+		int i = 33;
+
 	}
 }

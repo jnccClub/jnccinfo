@@ -4,6 +4,7 @@ import net.sf.json.JSONObject;
 
 import org.jncc.base.application.EApplicationService;
 import org.jncc.base.arrangement.EArrangementService;
+import org.jncc.base.arrangement.ZoneArrangement;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -17,6 +18,7 @@ public class resouceAction extends ActionSupport {
 	private String page;// 当前第几页
 	private String appID; // 课程编号
 	private String createTime; // 创建时间
+	private String queryDate;
 
 	/**
 	 * 查询应用系统
@@ -43,6 +45,12 @@ public class resouceAction extends ActionSupport {
 		return "RES_QUEYRDATES_SUCCESS";
 	}
 
+	public String queryCourseArr(){
+		result = JSONObject.fromObject(ZoneArrangement.toMapObject(
+				queryDate));
+		return "RES_QUERYCOURSEARR_SUCCESS";
+	}
+	
 	public JSONObject getResult() {
 		return result;
 	}
@@ -92,5 +100,12 @@ public class resouceAction extends ActionSupport {
 			tmpStr = tmpStr.substring(0,tmpStr.length()-1);
 		}
 		return tmpStr;
+	}
+	public String getQueryDate() {
+		return queryDate;
+	}
+
+	public void setQueryDate(String queryDate) {
+		this.queryDate = queryDate;
 	}
 }
