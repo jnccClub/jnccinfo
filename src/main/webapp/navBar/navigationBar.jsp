@@ -18,7 +18,7 @@
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li class="active"><a href="#" onclick="renewMainId('#MF_Body')">首页</a></li>
-					<li><a href="#">机构介绍</a></li>
+					<li><a href="#" onclick="queryMFDetailInof()">查看</a></li>
 					<li><a href="#">帮助</a></li>
 					<li class="dropdown"><a href="help.htm"
 						class="dropdown-toggle" data-toggle="dropdown">引导 <b
