@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div id="MF_Query">
-	<h2>待审批申请</h2>
-	<p>请认真查看申请，点击课程编号可查看具体日期、机房及课程</p>
+	<h2>计算中心实验资源预约明晰</h2>
+	<p>通过点击课程名可以查看详细信息</p>
 
 	<table id="tbl_query_data" cellspacing="0" cellpadding="0"
 		class="easyui-datagrid" toolbar="#tbl_query_toolbar">
@@ -20,15 +20,38 @@
 		</thead>
 	</table>
 	<div id="tbl_query_toolbar">
-		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-edit" plain="true" onclick="query_info()">审批申请</a>
+		<div class="easyui-panel" style="padding:5px;">
+			<div id="queryDatepick" class="input-append date" style="float:left">
+				<a id="btn_queryDate" href="#" class="easyui-menubutton"
+					data-options="iconCls:'icon-lock',plain:true">日期</a> <input
+					type="text" style="width:180px;height:29.5px;" name="queryDatepick"
+					value="不限"></input> <span class="add-on"> <i
+					data-time-icon="icon-time"></i>
+				</span>
+			</div>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="#" class="easyui-menubutton"
+				data-options="plain:true,iconCls:'icon-add'">楼层</a><input 	name="query_floor"></input>
+		</div>
+
+
+		<input class="easyui-searchbox"
+			data-options="prompt:'Please Input Value',menu:'#mm',searcher:doSearch"
+			style="width:500px"></input>
+		<div id="mm">
+			<div data-options="name:'TNAME',iconCls:'icon-tip'">教师姓名</div>
+			<div data-options="name:'CNAME',iconCls:'icon-ok'">课程名称</div>
+			<div data-options="name:'CLASS',iconCls:'icon-reload'">班         级</div>
+			<div data-options="name:'SNO',iconCls:'icon-save'">学         号</div>
+		</div>
+
+
 	</div>
 	<div id="query_dlg" class="easyui-dialog"
 		style="width:350px;height:380px;padding:10px 20px" closed="true"
 		buttons="#dlg_query_buttons">
 		<form id="fm_audit">
 			<div class="fitem">
-				<label>审批意见:</label><select name="isApproved"><option
+				<label>审批意见:</label><select name="testApprove"><option
 						value="0">驳回</option>
 					<option value="1" selected="selected">批准</option>
 				</select>

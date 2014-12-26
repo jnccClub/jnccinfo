@@ -41,7 +41,7 @@ public class ZoneArrangement implements java.io.Serializable {
 			e.printStackTrace();
 		}
 		if (eaList != null && eaList.size() > 0) {
-			courseInfo = eaList.get(0).getCourseName() + "("
+			courseInfo = eaList.get(0).getCourseName() + "<br/>("
 					+ eaList.get(0).getCreateUser() + ")";
 		}
 		return courseInfo;
@@ -60,11 +60,11 @@ public class ZoneArrangement implements java.io.Serializable {
 		return zaMap;
 	}
 
-	public static Map<String, Object> toMapObject(String date) {
+	public static Map<String, Object> toMapObject(String date,String floor,String queryFld,String queryVal) {
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		List<Map<String, String>> mapList = new ArrayList();
 		Map<String, ZoneArrangement> map = genZArrList(EArrangementService
-				.queryCurCourse(date));
+				.queryCurCourse(date,floor),queryFld,queryVal);
 		for (String key : map.keySet()) {
 			mapList.add(toMap(map.get(key)));
 		}
@@ -73,7 +73,7 @@ public class ZoneArrangement implements java.io.Serializable {
 		return jsonMap;
 	}
 
-	public static Map<String, ZoneArrangement> genZArrList(List<EArrangement> earrList) {
+	public static Map<String, ZoneArrangement> genZArrList(List<EArrangement> earrList,String queryFld,String queryVal) {
 		Map<String, ZoneArrangement> map = new HashMap<String, ZoneArrangement>();
 		for (int i = 0; i < earrList.size(); i++) {
 			String zone = earrList.get(i).getId().getZone();
@@ -84,30 +84,31 @@ public class ZoneArrangement implements java.io.Serializable {
 			}
 			int cTimeNum = earrList.get(i).getId().getCourse();
 			String courseNo = earrList.get(i).getAppId();
-			if (courseNo == null) {
-				courseNo = "";
+			
+			if (courseNo == null || !isFitQuery(queryFld,queryVal,courseNo)) {
+				continue;
 			}
 			switch (cTimeNum) {
 			case 1:
 				za.setC1Course(courseNo);
 				break;
 			case 2:
-				za.setC1Course(courseNo);
+				za.setC2Course(courseNo);
 				break;
 			case 3:
-				za.setC1Course(courseNo);
+				za.setC3Course(courseNo);
 				break;
 			case 4:
-				za.setC1Course(courseNo);
+				za.setC4Course(courseNo);
 				break;
 			case 5:
-				za.setC1Course(courseNo);
+				za.setC5Course(courseNo);
 				break;
 			case 6:
-				za.setC1Course(courseNo);
+				za.setC6Course(courseNo);
 				break;
 			case 7:
-				za.setC1Course(courseNo);
+				za.setC7Course(courseNo);
 				break;
 			default:
 				break;
@@ -117,6 +118,48 @@ public class ZoneArrangement implements java.io.Serializable {
 		return map;
 	}
 
+	public static boolean isFitQuery(String queryFld,String queryVal,String courseNo){
+		if(queryVal == null ||queryFld == null || queryVal.equals("") || queryFld.equals("")){
+			return true;
+		}
+		List<EApplication> eaList = null;
+		try {
+			String sql = "from EApplication ea where ea.id.applicationId='"
+					+ courseNo + "'";
+			eaList = dbSession.select(sql);
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (eaList != null && eaList.size() > 0) {
+			switch(queryFld){
+			case "TNAME":
+				if(eaList.get(0).getCreateUser().equals(queryVal)){
+					return true;
+				}
+				break;
+			case "CNAME":
+				if (eaList.get(0).getCourseName().equals(queryVal)) {
+					return true;
+				}
+				break;
+			case "CLASS":
+//				if (eaList.get(0).getCourseName().equals(queryVal)) {
+//					return true;
+//				}
+				break;
+			case "SNO":
+//				if (eaList.get(0).getCourseName().equals(queryVal)) {
+//					return true;
+//				}
+				break;
+			default:
+				break;
+			}
+		}
+		return false;
+	}
+	
 	public String getZone() {
 		return zone;
 	}

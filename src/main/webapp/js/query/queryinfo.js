@@ -1,4 +1,5 @@
-﻿$(function(){
+﻿function queryMFDetailInof (){
+	renewMainId('#MF_Query');
 	$('#tbl_query_data').datagrid({
 		title : '课程信息',
 		iconCls : 'icon-edit',// 图标
@@ -10,12 +11,12 @@
 		collapsible : false,// 是否可折叠的
 		fit : true,// 自动大小
 		url : 'res_queryCourseArr.action',
-		queryParams: {queryDate:"2014-12-26"},
+		queryParams: {queryDate:"2014-12-27"},
 		//sortName : 'fld_CTIME',
 		//sortOrder : 'asc',
 		remoteSort : false,
 		// idField : 'fld_CNO',
-		singleSelect : false,// 是否单选
+		singleSelect : true,// 是否单选
 		pagination : true,// 分页控件
 		rownumbers : true,// 行号
 		/*frozenColumns : [ [ {
@@ -45,10 +46,34 @@
 	 * refresh'); $(this).pagination('loaded'); }
 	 */
 	});
-
 	$('#tbl_query_data').resize();
-});
+}
 
+
+$(function(){
+	$('#queryDatepick').datetimepicker({
+		format : 'yyyy-MM-dd',
+		language : 'en',
+		pickDate : true,
+		pickTime : false,
+		inputMask : true
+	});
+	
+	$('input[name="query_floor"]').combobox({
+		//data : drows,
+		url:'res_getallfloor.action',
+		valueField : 'id',
+		textField : 'text',
+		onLoadSuccess : function() { //加载完成后,设置选中第一项
+			var val = $(this).combobox("getData");
+			for ( var item in val[0]) {
+				if (item == "id") {
+					$(this).combobox("select", val[0][item]);
+				}
+			}
+		}
+	});
+});
 
 
 function query_info() {
@@ -74,4 +99,19 @@ function queryDetailDate(createTime, appId) {
 	window.open('detailInfo.jsp?appID="' + appId + '"&createTime="'
 			+ createTime + '"');
 
+}
+function menuHandler(item){
+	alert('<p>Click Item: '+item.name+'</p>');
+}
+
+function doSearch(value,name){
+	alert('You input: ' + value+'('+name+')');
+	var queryParams = $('#tbl_query_data').datagrid('options').queryParams;  
+    queryParams.queryfloor = $("input[name='query_floor']").val();
+    queryParams.queryDate = $("input[name='queryDatepick']").val();
+    queryParams.queryfiled = name;
+    queryParams.queryfiledVal = value;
+    $('#tbl_query_data').datagrid('options').queryParams=queryParams;        
+    $("#tbl_query_data").datagrid('reload');
+	
 }

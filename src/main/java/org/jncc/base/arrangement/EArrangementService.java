@@ -124,11 +124,21 @@ public class EArrangementService implements java.io.Serializable {
 		return null;
 	}
 
-	public static List<EArrangement> queryCurCourse(String date) {
+	public static List<EArrangement> queryCurCourse(String date,String floor) {
 		List<EArrangement> earrList;
+		String conditionSql = "";
+		if(date == null ||date.equals("") || date.indexOf("-")<0){
+			conditionSql = "1=1";
+		}else{
+			conditionSql = "earr.id.date='" + date	+ "'";
+		}
+		if(floor != null && !floor.equals("") && floor.compareTo("1")>0){
+			
+			conditionSql = conditionSql + " and earr.floor='"+floor+"'";
+		}
+		
 		try {
-			String sql = "from EArrangement earr where earr.id.date='" + date
-					+ "'";
+			String sql = "from EArrangement earr where "+ conditionSql;
 			earrList = dbSession.select(sql);
 			dbSession.close();
 			return earrList;
@@ -148,8 +158,11 @@ public class EArrangementService implements java.io.Serializable {
 		// "12:00");
 		// EArrangementService.queryFreezone("2014-12-04", 1, 2);
 		//
+		
+		String date=null;
+		String floor = "";
 		List<EArrangement> earrList = EArrangementService
-				.queryCurCourse("2014-12-26");
+				.queryCurCourse(date,floor);
 		int i = 33;
 
 	}

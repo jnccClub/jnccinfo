@@ -16,11 +16,13 @@ public class EZoneService {
 		return true;
 	}
 
-	public static List getEZoneList() {
+	public static List<EZone> getEZoneList() {
 		String sql = "from EZone";
-		List l = dbSession.select(sql);
+		List<EZone> l = dbSession.select(sql);
 		return l;
 	}
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			
