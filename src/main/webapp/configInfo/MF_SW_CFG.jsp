@@ -24,7 +24,7 @@
 			<label class="control-label">&nbsp;&nbsp;&nbsp;软件清单(<a
 				href="configInfo/template.xls">软件清单模板.xls</a>)：&nbsp; <img
 				id="loading" src="loading.gif" style="display:none;"> <input
-				id="fileupload" type="file" size="45" name="fileupload">
+				id="fileupload" type="text" size="45" name="fileupload">
 				<button class="btn btn-success" id="buttonUpload">上 传</button>
 			</label>
 
@@ -41,36 +41,104 @@
 			</label>
 		</div>
 	</div>
-	<br>
-	<br>
+	<br> <br>
+
+
+	<table id="tbl_sw" cellspacing="0" cellpadding="0"
+		class="easyui-datagrid" toolbar="#tbl_sw_toolbar">
+		<thead>
+			<tr>
+				<th data-options="field:'fld_SWNAME',width:250">软件名称</th>
+				<th data-options="field:'fld_SWZONE',width:150">区域</th>
+				<th data-options="field:'fld_INTIME',width:150">安装日期</th>
+				<th data-options="field:'fld_INOS',width:150">操作系统</th>
+				<th data-options="field:'fld_MANAGER',width:150">维护人</th>
+				<th data-options="field:'fld_SWCOMMENT',width:250">备注</th>
+			</tr>
+		</thead>
+	</table>
+
+	<div id="tbl_sw_toolbar">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-add" plain="true" onclick="add_sw()">添加软件</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-edit" plain="true" onclick="edit_sw()">编辑软件</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-remove" plain="true" onclick="destroy_sw()">删除软件</a>
+	</div>
+
+	<div id="dlg_sw" class="easyui-dialog"
+		style="width:380px;height:480px;padding:10px 20px" closed="true"
+		buttons="#dlg_sw_buttons">
+		<form id="fm_sw" method="post" novalidate>
+			<div class="fitem">
+				<label>软件信息:</label> <input name="fld_SWNAME"
+					class="easyui-textbox" required="true">
+			</div>
+			<div class="fitem">
+				<label>区域:</label> <input name="fld_SWZONE" class="easyui-textbox"
+					required="true" id="input_zoneID">
+			</div>
+			<div >
+				<label sytle="float:left">安装日期:</label>
+					<div id="swInTime" class="input-append date" style="z-index:9999">
+			<input name="fld_INTIME"
+					class="easyui-textbox" value="2015-01-01" required="true"></input> <span class="add-on">
+				<i data-time-icon="icon-time"></i>
+			</span>
+		</div>
+					
+					
+				<label>操作系统:</label>
+				<input name="fld_INOS" class="easyui-textbox" required="true">
+				<label>维护人:</label>
+				<input name="fld_MANAGER" class="easyui-textbox" required="true">
+				<label>备注:</label>
+				<textarea class="input-xlarge"  rows="4" name="fld_SWCOMMENT">十六院申请的工程制图软件</textarea>
+			</div>
+		</form>
+	</div>
+	<div id="dlg_sw_buttons">
+		<a href="javascript:void(0)" class="easyui-linkbutton c6"
+			iconCls="icon-ok" onclick="save_sw()" style="width:90px">保存</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-cancel"
+			onclick="javascript:$('#dlg_sw').dialog('close')" style="width:90px">取消</a>
+	</div>
+
+
+
+
+
+
 	<h2>
 		软件列表:&nbsp;&nbsp;
 		<button class="btn btn-success" id="btnSWRefresh">刷 新</button>
 		&nbsp;&nbsp;
 		<button class="btn btn-success" id="btnSWSave">保 存</button>
 	</h2>
-	<form id="swaddForm" style="border: dashed 1px yellow;border-radius: 50px;MARGIN-RIGHT: auto; MARGIN-LEFT: auto; background-color:#EEE;">
+	<form id="swaddForm"
+		style="border: dashed 1px yellow;border-radius: 50px;MARGIN-RIGHT: auto; MARGIN-LEFT: auto; background-color:#EEE;">
 		<br>
-		<div class="inline_div">&nbsp;&nbsp;&nbsp;&nbsp;
-			<label>软件名称：</label> <input type="text" placeholder="软件名称"
-				name="esw.id.name"/> <label
+		<div class="inline_div">
+			&nbsp;&nbsp;&nbsp;&nbsp; <label>软件名称：</label> <input type="text"
+				placeholder="软件名称" name="esw.id.name" /> <label
 				class="control-label">区域：</label> <input type="text"
-				placeholder="区域" name="esw.id.zone"/> <label
-				class="control-label">安装时间：</label> <input type="text"
-				placeholder="安装时间" name="esw.createdate"/> <label
+				placeholder="区域" name="esw.id.zone" /> <label class="control-label">安装时间：</label>
+			<input type="text" placeholder="安装时间" name="esw.createdate" /> <label
 				class="control-label">负责人：</label> <input type="text"
-				placeholder="负责人" name="esw.operator"/>
+				placeholder="负责人" name="esw.operator" />
 		</div>
-		<div class="inline_div">&nbsp;&nbsp;&nbsp;&nbsp;
-			<label	class="control-label">操作系统：</label> <input type="text"
-				placeholder="操作系统" name="esw.os"/>
-				<label	class="control-label">备注：</label> <input type="text"
-				placeholder="备注" name="esw.comment"/>
+		<div class="inline_div">
+			&nbsp;&nbsp;&nbsp;&nbsp; <label class="control-label">操作系统：</label> <input
+				type="text" placeholder="操作系统" name="esw.os" /> <label
+				class="control-label">备注：</label> <input type="text"
+				placeholder="备注" name="esw.comment" />
 		</div>
 		<div style="TEXT-ALIGN: center;">
 			<button class="btn " id="btnSWAdd">增加</button>
 		</div>
-		
+
 	</form>
 
 	<table id='swList_table' cellspacing="0" cellpadding="0"

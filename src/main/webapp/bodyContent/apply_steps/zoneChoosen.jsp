@@ -16,7 +16,7 @@
 		<div style="padding:10px 60px 20px 60px">
 			<form id="Form_finalInfo" method="post">
 				<label class="control-label">可用楼层:</label> <select class="span3"
-					name="ea.floor" name="ea.floor">
+					name="ea.floor">
 				</select> <label class="control-label">可用区域:</label>
 				<div id="div_chooseZone"></div>
 			</form>

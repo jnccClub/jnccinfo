@@ -42,9 +42,6 @@
 <script type="text/javascript" src='js/common/jquery.easyui.min.js'></script>
 
 
-
-
-
 <title>JNCC booking</title>
 
 </head>
@@ -53,7 +50,6 @@
 
 <script>
 	// 软件列表
-	swList = new Array();
 	schoolBeginDate = new Date("2014-09-01");
 	schoolBeginMon = new Date();
 	var currentShowID = "#MF_Body";
@@ -68,6 +64,7 @@
 			$("#loginEntry").html('<a href="javarscript:(0)" >登录/注册</a>');
 			$("#logOutEntry").hide();
 		});
+		
 	});
 	
 	function renewMainId(newId) {
@@ -75,6 +72,7 @@
 		currentShowID = newId;
 		$(currentShowID).show();
 	}
+
 </script>
 
 

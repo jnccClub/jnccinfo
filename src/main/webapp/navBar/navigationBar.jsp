@@ -30,7 +30,7 @@
 							<li><a href="help.htm">预留页面</a></li>
 							<li class="divider"></li>
 							<li class="nav-header">信息配置</li>
-							<li><a href="#" onclick="renewMainId('#MF_SW_CFG')">软件信息</a></li>
+							<li><a href="#" onclick="displaySW()">软件信息</a></li>
 							<li><a href="help.htm">硬件信息配置</a></li>
 							<li><a href="#" onclick="renewMainId('#MF_ZONE_CFG')">区域信息配置</a></li>
 						</ul></li>

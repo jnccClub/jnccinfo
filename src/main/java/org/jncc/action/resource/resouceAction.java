@@ -27,21 +27,17 @@ public class resouceAction extends ActionSupport {
 	private String createTime; // 创建时间
 	private String queryDate;
 	private String queryfloor;
-
-
-
-
-
 	private String queryfiled;
 	private String queryfiledVal;
-	private JSONArray floorJsonArray;
+	private JSONArray resJsonArray;
 
-	public JSONArray getFloorJsonArray() {
-		return floorJsonArray;
+
+	public JSONArray getResJsonArray() {
+		return resJsonArray;
 	}
 
-	public void setFloorJsonArray(JSONArray floorJsonArray) {
-		this.floorJsonArray = floorJsonArray;
+	public void setResJsonArray(JSONArray resJsonArray) {
+		this.resJsonArray = resJsonArray;
 	}
 
 	/**
@@ -49,7 +45,19 @@ public class resouceAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-
+	public String getallzone(){
+		List<EZone> ezList = EZoneService.getEZoneList();
+		resJsonArray = new JSONArray();
+		for (int i = 0; i < ezList.size(); i++) {
+			JSONObject obj = new JSONObject();
+			String ezone = ezList.get(i).getZone();
+			obj.put("id", ezone);
+			obj.put("text", ezone);
+			resJsonArray.add(obj);
+		}
+		return "RES_GETZONE_SUCCESS";
+	}
+	
 	public String getallfloor() {
 
 		List<EZone> ezList = EZoneService.getEZoneList();
@@ -57,16 +65,16 @@ public class resouceAction extends ActionSupport {
 		for (int i = 0; i < ezList.size(); i++) {
 			floorSet.add(ezList.get(i).getFloor());
 		}
-		floorJsonArray = new JSONArray();
+		resJsonArray = new JSONArray();
 		JSONObject tmpobj = new JSONObject();
 		tmpobj.put("id", "0");
 		tmpobj.put("text", "全部");
-		floorJsonArray.add(tmpobj);
+		resJsonArray.add(tmpobj);
 		for (String floorStr : floorSet) {
 			JSONObject obj = new JSONObject();
 			obj.put("id", floorStr);
 			obj.put("text", floorStr + "楼");
-			floorJsonArray.add(obj);
+			resJsonArray.add(obj);
 		}
 		return "RES_GETFLOOR_SUCCESS";
 	}

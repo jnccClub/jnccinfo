@@ -1,8 +1,12 @@
 package org.jncc.base.software;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
+import org.jncc.base.arrangement.EArrangement;
 import org.jncc.base.xls.ExcelService;
 // default package
 import org.jncc.persistence.dbSession;
@@ -48,7 +52,34 @@ public class ESoftwareService implements java.io.Serializable {
 		List l = dbSession.select(sql);
 		return l;
 	}
-
+	
+	public static Map<String, Object> toMapObject(){
+		List<ESoftware> eswList = ESoftware.getEswList();
+		List<Map<String, String>> mapList = new ArrayList();
+		if (eswList != null) {
+			for (int i = 0; i < eswList.size(); i++) {
+				mapList.add(toMap(eswList.get(i)));
+			}
+			Map<String, Object> jsonMap = new HashMap<String, Object>();
+			jsonMap.put("total", mapList.size());
+			jsonMap.put("rows", mapList);
+			return jsonMap;
+		} else {
+			return null;
+		}
+	}
+	
+	public static Map<String, String> toMap(ESoftware esw) {
+		Map<String, String> swMap = new HashMap<String, String>();
+		swMap.put("fld_SWNAME",esw.getId().getName());
+		swMap.put("fld_SWZONE",esw.getId().getZone());
+		swMap.put("fld_INTIME",esw.getCreatedate());
+		swMap.put("fld_INOS",esw.getOs());
+		swMap.put("fld_MANAGER",esw.getOperator());
+		swMap.put("fld_SWCOMMENT",esw.getComment());
+		return swMap;
+	}
+	
 	public static boolean updateEswList(List l) {
 		ESoftware.setEswList(l);
 		return true;

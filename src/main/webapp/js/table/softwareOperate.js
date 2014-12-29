@@ -1,42 +1,126 @@
-function displaySW(eswList) {
-	var tbodyContent = "";
-	swList = new Array();
-	var swOptions = "";
-	$(eswList).each(
-			function(i, esw) {
-				tbodyContent = tbodyContent
-						+ "<tr><td class='editable simpleInput'>" + esw.id.name
-						+ "</td><td class='editable simpleInput'>"
-						+ esw.id.zone
-						+ "</td><td class='editable simpleInput'>"
-						+ esw.createdate
-						+ "</td><td class='editable simpleInput'>" + esw.os
-						+ "</td><td class='editable simpleInput'>"
-						+ esw.operator
-						+ "</td><td class='editable simpleInput'>"
-						+ esw.comment + "</td><td><button class='btn' onclick='btnDeleteSW(this)'>删除</button>"
-						+ "&nbsp;&nbsp;<button class='btn' onclick='btnAddSW(this)' disabled='disabled'>保存</button>"+"</td></tr>";
-						var existSW = 0;
-						$(swList).each(function(key,value){
-							if(value == esw.id.name){
-								existSW = 1;
-							}else{
-								existSW = 0;
-							}
-								
-						});
-						// 如果不存在则增加到全局变量中
-						if(existSW ==0){
-							//swList.push(esw.id.name.toUpperCase());
-							swList.push(esw);
-				            swOptions = swOptions +"<option value='"+esw.id.name+"'>"+esw.id.name+"</option>" ;
-						}
-			});
-	//$("select [name='applicationInfo.SW']").html(swOptions);
+function displaySW() {
+	renewMainId('#MF_SW_CFG');
+	$('#swInTime').datetimepicker({
+		format : 'yyyy-MM-dd',
+		language : 'en',
+		pickDate : true,
+		pickTime : false,
+		inputMask : true
+	});
+	tbl_sw_load();
+	$('#input_zoneID').combobox({
+		//data : drows,
+		url:'res_getallzone.action',
+		valueField : 'id',
+		textField : 'text',
+		onLoadSuccess : function() { //加载完成后,设置选中第一项
+			var val = $(this).combobox("getData");
+			for ( var item in val[0]) {
+				if (item == "id") {
+					$(this).combobox("select", val[0][item]);
+				}
+			}
+		}
+	});
+}
 
+function add_sw(){
+	isAddSW = true;
+	$('#dlg_sw').dialog('open').dialog('setTitle', '新增软件信息');
+	$('#fm_sw').form('clear');
+}
+
+function edit_sw(){
+	isAddSW = false;
+	var row = $('#tbl_sw').datagrid('getSelected');
+	if (row) {
+		$('#dlg_sw').dialog('open').dialog('setTitle', '修改软件信息');
+		$('#fm_sw').form('load', row);
+		
+	}else{
+		alert("请选择一条记录进行编辑！");
+	}
 	
-	$("#swList_table tbody").html(tbodyContent);
-	EdTable.initBindGridEvent();
+	
+}
+
+function save_sw(){
+	$("#circular").show();
+	var param = [{name:"esw.id.name",value:$("input[name='fld_SWNAME']").val()},{
+		name:"esw.id.zone",value:$("input[name='fld_SWZONE']").val()},{
+		name:"esw.createdate",value:$("input[name='fld_INTIME']").val()},{
+		name:"esw.os",value:$("input[name='fld_INTIME']").val()},{
+		name:"esw.operator",value:$("input[name='fld_MANAGER']").val()},{
+		name:"esw.comment",value:$("input[name='fld_SWZONE']").val()}];
+	if(!isAddSW){
+		var row = $('#tbl_sw').datagrid('getSelected');
+		if (row) {
+			param.push({name:"formerEsw.id.name",value:row.fld_SWNAME});
+			param.push({name:"formerEsw.id.zone",value:row.fld_SWZONE});
+		}
+	}
+	$.ajax({
+		url : 'sw_addRecord.action',
+		type : 'post',
+		data : param,
+		dataType : 'json',
+		success : function(data, status) {
+			if (status == "success") {
+				//$("#btnSWRefresh").trigger("click");
+				alert("软件信息增加成功");
+			}
+		},
+		error : function(data, status, e) {
+			alert(e);
+		},complete: function(){
+			$("#circular").hide();
+		}
+	});
+}
+
+
+function tbl_sw_load(){
+	$('#tbl_sw').datagrid({
+		title : '计算中心软件信息',
+		iconCls : 'icon-man',// 图标
+		width : '1000',
+		height : 'auto',
+		nowrap : false,
+		striped : true,
+		border : true,
+		collapsible : false,// 是否可折叠的
+		fit : true,// 自动大小
+		url : 'sw_loaddata.action',
+		queryParams: {queryDate:"2014-12-27"},
+		//sortName : 'fld_CTIME',
+		//sortOrder : 'asc',
+		remoteSort : false,
+		// idField : 'fld_CNO',
+		singleSelect : true,// 是否单选
+		pagination : true,// 分页控件
+		rownumbers : true,// 行号
+		frozenColumns : [ [ {
+			field : '',
+			checkbox : true
+		} ] ],
+		onLoadSuccess : function(data) {
+			// $('#tbl_query_data').datagrid('selectAll');
+		}
+	});
+	// 设置分页控件
+	var p = $('#tbl_sw').datagrid('getPager');
+	$(p).pagination({
+		pageSize : 10,// 每页显示的记录条数，默认为10
+		pageList : [ 5, 10, 15 ],// 可以设置每页记录条数的列表
+		beforePageText : '第',// 页数文本框前显示的汉字
+		afterPageText : '页    共 {pages} 页',
+		displayMsg : '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+	/*
+	 * onBeforeRefresh:function(){ $(this).pagination('loading'); alert('before
+	 * refresh'); $(this).pagination('loaded'); }
+	 */
+	});
+	$('#tbl_sw').resize();
 }
 
 
@@ -62,10 +146,12 @@ function ajaxFileUpload(param) {
 	if($("#circular").is(":hidden")){
 		$("#circular").show();
 	}
+	var fileId = $("input[name='fileupload']").attr('id');
+	
 	$.ajaxFileUpload({
 		url : 'file_uploadSWList.action',
 		secureuri : false,
-		fileElementId : 'fileupload',
+		fileElementId : fileId,
 		beforeSend: function(){},
 		data : param,
 		dataType : 'json',
@@ -147,6 +233,7 @@ function deleteSW(param) {
 }
 
 $(function() {
+	isAddSW = true;
 	$("#buttonUpload").click(function() {
 		var filename = $("#fileupload").val();
 		filename = filename.substring(filename.lastIndexOf('\\') + 1);
@@ -189,4 +276,10 @@ $(function() {
 	// 初始化表单内容！
 	$("#btnSWRefresh").trigger("click");
 	EdTable.initBindGridEvent();
+	
+	
+	$('#fileupload').filebox({ 
+		 buttonText: 'Choose File', 
+		 buttonAlign: 'left',
+		});
 });

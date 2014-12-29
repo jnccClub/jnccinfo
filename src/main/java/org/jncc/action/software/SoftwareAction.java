@@ -47,7 +47,18 @@ public class SoftwareAction extends ActionSupport {
 	private List<ESoftware> eswList;
 	private ESoftware esw;
 	private JSONArray swJsonArray;
+	private JSONObject swResult;// 返回的json
 	
+	private ESoftware formerEsw;
+	
+	public ESoftware getFormerEsw() {
+		return formerEsw;
+	}
+
+	public void setFormerEsw(ESoftware formerEsw) {
+		this.formerEsw = formerEsw;
+	}
+
 	public JSONArray getSwJsonArray() {
 		return swJsonArray;
 	}
@@ -83,13 +94,19 @@ public class SoftwareAction extends ActionSupport {
 		return "GET_SWJSON_SUCCESS";
 	}
 
-	public String refresh() {
-		ESoftwareService.updateEswList(ESoftwareService.getEswList());
-		this.setEswList(ESoftware.getEswList());
-		resultCause = new resultCause();
-		resultCause.setCause("200", "upload successfully!");
-		return "REFRESH_SW_SUCCESS";
+	public String loaddata()
+	{
+		swResult = JSONObject.fromObject(ESoftwareService.toMapObject());
+		return "LOAD_SW_SUCCESS";
 	}
+	
+//	public String refresh() {
+//		ESoftwareService.updateEswList(ESoftwareService.getEswList());
+//		this.setEswList(ESoftware.getEswList());
+//		resultCause = new resultCause();
+//		resultCause.setCause("200", "upload successfully!");
+//		return "REFRESH_SW_SUCCESS";
+//	}
 
 	public String addRecord() {
 		try {
@@ -137,6 +154,13 @@ public class SoftwareAction extends ActionSupport {
 
 	public void setEswList(List<ESoftware> eswList) {
 		this.eswList = eswList;
+	}
+	public JSONObject getSwResult() {
+		return swResult;
+	}
+
+	public void setSwResult(JSONObject swResult) {
+		this.swResult = swResult;
 	}
 
 }

@@ -49,11 +49,6 @@
 
 		<action name="sw_*" class="org.jncc.action.software.SoftwareAction"
 			method="{1}">
-			<result name="REFRESH_SW_SUCCESS" type="json">
-				<param name="root">eswList</param>
-				<param name="excludeNullProperties">true</param>
-				<param name="excludeProperties">SUCCESS</param>
-			</result>
 			<result name="ADD_SW_SUCCESS" type="json">
 				<param name="root">resultCause</param>
 				<param name="excludeNullProperties">true</param>
@@ -69,6 +64,12 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
+			<result name="LOAD_SW_SUCCESS" type="json">
+				<param name="root">swResult</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			
 		</action>
 
 
@@ -140,10 +141,18 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 			<result name="RES_GETFLOOR_SUCCESS" type="json">
-				<param name="root">floorJsonArray</param>
+				<param name="root">resJsonArray</param>
 				<param name="excludeNullProperties">false</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
+			<result name="RES_GETZONE_SUCCESS" type="json">
+				<param name="root">resJsonArray</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			
+			
+			
 			
 			
 		</action>
