@@ -50,15 +50,10 @@ public class dbSession {
 		init();
 		Query q = session.createQuery(sql);
 		List l = q.list();
+		close();
 		return l;
 	}
 
-	// 读取
-	// public static Object select(Object obj,String keyword) {
-	// init();
-	// obj = (Object) session.load(Object.class, keyword);
-	// return obj;
-	// }
 
 	// 根据主键获取唯一数据
 	public static Object load(Class clazz, String keyword) {
@@ -77,14 +72,18 @@ public class dbSession {
 		TestDb obj = (TestDb) session.load(dbSession.class, new Long(2));
 		obj.setUsername("cg");
 	}
-	
 
 	// 插入
 	public static void insert(Object obj) {
 		init();
-		session.save(obj);
+		
 	}
 
+	public static void replaceInsert(Object obj){
+		session.delete(obj);
+		session.save(obj);
+	}
+	
 	static SessionFactory sessionFactory;
 	static Session session;
 	static Transaction tx;
@@ -104,14 +103,20 @@ public class dbSession {
 				.openSession();
 		tx = session.beginTransaction();
 	}
+	
+	public static void flush(){
+			session.flush();
+			session.clear();
+	}
 
 	public static void close(boolean isCloseSession) {
 		try {
 			if (tx.isActive()) {
 				tx.commit();
+				session.flush();
 			}
 			if (isCloseSession) {
-				session.close();
+				close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,7 +126,9 @@ public class dbSession {
 	public static void close() {
 		if (session.isOpen()) {
 			try {
-				tx.commit();
+				if (tx.isActive()) {
+					tx.commit();
+				}
 				session.close();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -130,65 +137,58 @@ public class dbSession {
 	}
 	
 	
-	 @SuppressWarnings("unchecked")
-	    public static ArrayList executeQuery(String hql, String... params) {
-		 	init();
-	        ArrayList list = null;
-	        try {
-	            tx = session.beginTransaction();
-	            Query query = session.createQuery(hql);
 
-	            if (params != null && params.length > 0) {
-	                for (int i = 0; i < params.length; i++) {
-	                    query.setParameter(i, params[i]);
-	                }
-	            }
-	            list = (ArrayList) query.list();
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null)
-	                tx.rollback();
-	            throw new RuntimeException(e.getMessage());
-	        } finally {
-	            if (session != null && session.isOpen()) {
-	                session.close();
-	            }
-	        }
-	        return list;
-	    }
+	@SuppressWarnings("unchecked")
+	public static ArrayList executeQuery(String hql, String... params) {
+		init();
+		ArrayList list = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery(hql);
+			if (params != null && params.length > 0) {
+				for (int i = 0; i < params.length; i++) {
+					query.setParameter(i, params[i]);
+				}
+			}
+			list = (ArrayList) query.list();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+		return list;
+	}
 
-	    public static void executeUpdate(String hql, Object... params) {
-	    	init();
-	        try {
-	            Query query = session.createQuery(hql);
+	public static void executeUpdate(String hql, Object... params) {
+		init();
+		try {
+			Query query = session.createQuery(hql);
 
-	            if (params != null && params.length > 0) {
-	                for (int i = 0; i < params.length; i++) {
-	                    query.setParameter(i, params[i]);
-	                    // System.out.println("query influenced: "+params[i]);
-	                }
-	            }
-	            System.out.println("query influenced: " + query.getQueryString());
-	            int n = query.executeUpdate();
-	            System.out.println("query influence: " + n);
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null)
-	                tx.rollback();
-	            throw new RuntimeException(e.getMessage());
-	        } finally {
-	            if (session != null && session.isOpen()) {
-	                session.close();
-	            }
-	        }
-	    }
-	
-	
-	
-	
-	
-	
-	
+			if (params != null && params.length > 0) {
+				for (int i = 0; i < params.length; i++) {
+					query.setParameter(i, params[i]);
+					// System.out.println("query influenced: "+params[i]);
+				}
+			}
+			System.out.println("query influenced: " + query.getQueryString());
+			int n = query.executeUpdate();
+			System.out.println("query influence: " + n);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+	}
 
 	public static void main(String[] args) {
 		init();

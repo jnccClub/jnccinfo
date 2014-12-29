@@ -11,25 +11,15 @@
 <fieldset id="elementry_field">
 	<legend>请认真填写申请基本事项！</legend>
 	<div class="control-group">
-		<label class="control-label">课程名称：</label> <select
-			class="easyui-combobox" name="applicationInfo.course"><option
-				value="da">Danish</option>
-			<option value="nl">Dutch</option>
-			<option value="en" selected="selected">English</option>
-			<option value="et">Estonian</option>
-			<option value="fi">Finnish</option></select> <label class="control-label">&nbsp;&nbsp;&nbsp;课程人数：</label>
-		<input type="text" name="applicationInfo.seats" placeholder="50" />
+		<label class="control-label">课程名称：</label>
+		<input id="CApp_CName" name="applicationInfo.course" value="计算机网络基础"> 
+		<label class="control-label">&nbsp;&nbsp;&nbsp;课程人数：</label>
+		<input type="text" name="applicationInfo.seats" placeholder="50" disabled="disabled"/>
 	</div>
 
 	<div class="control-group">
 		<div class="radio">
-			<label class="control-label">学生班级：</label> <select
-				class="easyui-combobox" name="applicationInfo.class"><option
-					value="da">Danish</option>
-				<option value="nl" selected="selected">Dutch</option>
-				<option value="en">English</option>
-				<option value="et" >Estonian</option>
-				<option value="fi">Finnish</option></select> 
+			<label class="control-label">学生班级：</label>&nbsp;<input type="text" name="applicationInfo.class" disabled="disabled"></input> 
 				<label class="control-label">&nbsp;&nbsp;&nbsp;预定类型：&nbsp;</label>
 			<label> <input type="radio" name="applicationInfo.courseType"
 				id="optionsRadios1" value="上机" checked> 上机&nbsp;&nbsp;&nbsp;
@@ -44,7 +34,7 @@
 	<div class="control-group">
 		<div class="radio">
 			<label class="control-label">课程编号：</label> <input type="text"
-				name="applicationInfo.applicationId" placeholder="102030_70206097_1" value="102030_70206097_1"/>
+				name="applicationInfo.applicationId" placeholder="102030_70206097_1" disabled="disabled"/>
 			<label class="control-label">&nbsp;&nbsp;&nbsp;联系电话：</label> <input
 				type="text" name="applicationInfo.contact" placeholder="02552112897" />
 		</div>

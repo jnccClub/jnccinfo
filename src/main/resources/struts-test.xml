@@ -45,6 +45,13 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
+			<result name="UPLOAD_COURSE_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			
+			
 		</action>
 
 		<action name="sw_*" class="org.jncc.action.software.SoftwareAction"
@@ -150,11 +157,11 @@
 				<param name="excludeNullProperties">false</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-			
-			
-			
-			
-			
+			<result name="RES_GETCOURSE_SUCCESS" type="json">
+				<param name="root">result</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
 		</action>
 	</package>
 </struts>

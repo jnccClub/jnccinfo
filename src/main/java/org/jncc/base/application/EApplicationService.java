@@ -93,9 +93,8 @@ public class EApplicationService implements java.io.Serializable {
 	
 	public static boolean addApplication(EApplication ea) {
 		try {
-			dbSession.delete(ea);
-			dbSession.close(false);
-			dbSession.insert(ea);
+			dbSession.init();
+			dbSession.replaceInsert(ea);
 			dbSession.close();
 			return true;
 		} catch (Exception e) {

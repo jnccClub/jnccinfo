@@ -22,7 +22,17 @@
 			<generator class="assigned"></generator>
 		</primary-key>
 	</table>
-<table name="e_arrangement" catalog="test" class="EArrangement">
+	<table name="e_arrangement" catalog="test" class="EArrangement">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="e_course" catalog="test" class="ECourse">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+<table name="e_curriculum" catalog="test" class="ECurriculum">
 	<primary-key>
 		<generator class="assigned"></generator>
 	</primary-key>

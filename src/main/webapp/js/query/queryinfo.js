@@ -12,8 +12,8 @@
 		fit : true,// 自动大小
 		url : 'res_queryCourseArr.action',
 		//queryParams: {queryDate:"2014-12-27"},
-		//sortName : 'fld_CTIME',
-		//sortOrder : 'asc',
+		sortName : 'fld_ZONE',
+		sortOrder : 'asc',
 		remoteSort : false,
 		// idField : 'fld_CNO',
 		singleSelect : true,// 是否单选

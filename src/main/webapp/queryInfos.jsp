@@ -1,20 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="MF_Query" style="display:none">
+<div id="MF_Query" style="display:none" class="row">
 	<h2>计算中心实验资源预约明细</h2>
 	<p>通过点击课程名可以查看详细信息</p>
 	<table id="tbl_query_data" cellspacing="0" cellpadding="0"
 		class="easyui-datagrid" toolbar="#tbl_query_toolbar">
 		<thead>
 			<tr>
-				<th data-options="field:'fld_ZONE',width:80">区域</th>
-				<th data-options="field:'fld_C1',width:120,formatter:detailCInfo">08:00-10:00</th>
-				<th data-options="field:'fld_C2',width:120,formatter:detailCInfo">10:00-12:00</th>
-				<th data-options="field:'fld_C3',width:120,formatter:detailCInfo">12:00-14:00</th>
-				<th data-options="field:'fld_C4',width:120,formatter:detailCInfo">14:00-16:00</th>
-				<th data-options="field:'fld_C5',width:120,formatter:detailCInfo">16:00-18:00</th>
-				<th data-options="field:'fld_C6',width:120,formatter:detailCInfo">18:00-20:00</th>
-				<th data-options="field:'fld_C7',width:120,formatter:detailCInfo">20:00-22:00</th>
+				<th data-options="field:'fld_ZONE',width:50">区域</th>
+				<th data-options="field:'fld_C1',width:160,formatter:detailCInfo">08:00-10:00</th>
+				<th data-options="field:'fld_C2',width:160,formatter:detailCInfo">10:00-12:00</th>
+				<th data-options="field:'fld_C3',width:160,formatter:detailCInfo">12:00-14:00</th>
+				<th data-options="field:'fld_C4',width:160,formatter:detailCInfo">14:00-16:00</th>
+				<th data-options="field:'fld_C5',width:160,formatter:detailCInfo">16:00-18:00</th>
+				<th data-options="field:'fld_C6',width:160,formatter:detailCInfo">18:00-20:00</th>
+				<th data-options="field:'fld_C7',width:160,formatter:detailCInfo">20:00-22:00</th>
 			</tr>
 		</thead>
 	</table>

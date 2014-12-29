@@ -1,4 +1,77 @@
-﻿$(function() {
+﻿function createApplication(){
+	$('#CApp_CName').combogrid({ 
+		panelWidth:490, 
+		//value:'006', 
+		idField:'fld_C_SERIAL', 
+		textField:'fld_C_NAME', 
+		url:'res_getallCourse.action', 
+		columns:[[ 
+			{field:'fld_C_NAME',width:120,title:'课程名称'},
+			{field:'fld_C_SERIAL',width:180,title:'课程序号'},
+			{field:'fld_C_TEACHER',width:60,title:'教师姓名'},
+			{field:'fld_C_TNO',width:60,title:'教师工号'},
+			{field:'fld_C_CNUM',width:60,title:'学生人数'},
+			{field:'fld_C_CNO',width:60,title:'班级'},
+		]],
+		/* keyHandler: {  
+	            up: function () {               //【向上键】押下处理  
+	                //取得选中行  
+	                var selected = $('#CApp_CName').combogrid('grid').datagrid('getSelected');  
+	                if (selected) {  
+	                    //取得选中行的rowIndex  
+	                    var index = $('#CApp_CName').combogrid('grid').datagrid('getRowIndex', selected);  
+	                    //向上移动到第一行为止  
+	                    if (index > 0) {  
+	                        $('#CApp_CName').combogrid('grid').datagrid('selectRow', index - 1);  
+	                    }  
+	                } else {  
+	                    var rows = $('#CApp_CName').combogrid('grid').datagrid('getRows');  
+	                    $('#CApp_CName').combogrid('grid').datagrid('selectRow', rows.length - 1);  
+	                }  
+	            },  
+	            down: function () {             //【向下键】押下处理  
+	                //取得选中行  
+	                var selected = $('#CApp_CName').combogrid('grid').datagrid('getSelected');  
+	                if (selected) {  
+	                    //取得选中行的rowIndex  
+	                    var index = $('#CApp_CName').combogrid('grid').datagrid('getRowIndex', selected);  
+	                    //向下移动到当页最后一行为止  
+	                    if (index < $('#CApp_CName').combogrid('grid').datagrid('getData').rows.length - 1) {  
+	                        $('#CApp_CName').combogrid('grid').datagrid('selectRow', index + 1);  
+	                    }  
+	                } else {  
+	                    $('#CApp_CName').combogrid('grid').datagrid('selectRow', 0);  
+	                }  
+	            },  
+	            enter: function () {             //【回车键】押下处理  
+	                //设置【性别】文本框的内容为选中行的的性别字段内容  
+	                $('#txtGender').val($('#CApp_CName').combogrid('grid').datagrid('getSelected').Gender);  
+	                //选中后让下拉表格消失  
+	                $('#CApp_CName').combogrid('hidePanel');  
+	            },  
+	            query: function (keyword) {     //【动态搜索】处理  
+	                //设置查询参数  
+	                var queryParams = $('#CApp_CName').combogrid("grid").datagrid('options').queryParams;  
+	                queryParams.keyword = keyword;  
+	                $('#CApp_CName').combogrid("grid").datagrid('options').queryParams = queryParams;  
+	                //重新加载  
+	                $('#CApp_CName').combogrid("grid").datagrid("reload");  
+	                $('#CApp_CName').combogrid("setValue", keyword);  
+	                //将查询条件存入隐藏域  
+	                $('#hdKeyword').val(keyword);  
+	            }  
+	        },  */
+	        onSelect: function () {              //选中处理  
+	            $("input[name='applicationInfo.class']").val($('#CApp_CName').combogrid('grid').datagrid('getSelected').fld_C_CNO);
+	            $("input[name='applicationInfo.seats']").val($('#CApp_CName').combogrid('grid').datagrid('getSelected').fld_C_CNUM);
+	            $("input[name='applicationInfo.applicationId']").val($('#CApp_CName').combogrid('grid').datagrid('getSelected').fld_C_SERIAL);
+	            $("#CApp_CName").val($('#CApp_CName').combogrid('grid').datagrid('getSelected').fld_C_NAME);
+	        }  
+	}); 
+}
+
+
+$(function() {
 	var today = new Date().FormatHPF("yyyy-MM-dd");
 	$("#beginDatepick input").val(today);
 	$("#endDatepick input").val(today);
@@ -284,34 +357,6 @@ function confirmApplication(exceptionRows) {
 	if (findConfDate()) {
 		return false;
 	}
-	/*
-	 * findzone(); var dateinfo = ""; var exceptionRowList = new Array();
-	 * if(exceptionRows!=null || exceptionRows!="" ){ // exceptionRowList =
-	 * exceptionRows.split(" "); } $("#confirm_table tbody
-	 * tr").each(function(trindex,tritem){ dateinfo =
-	 * dateinfo+$(this).children().eq(0).text()+" "; });
-	 * 
-	 * var param = [{name:"ea.applicationId",value:$("#generatedAppID").text()},
-	 * {name:"ea.courseName" ,value:$("#generatedCourse").text()},
-	 * {name:"ea.className",value:$("#generatedClass").text()}, {name:"ea.seats"
-	 * ,value: $("#generatedCourseSeats").text()}, {name:"ea.os"
-	 * ,value:$("#generatedOS").text()},
-	 * {name:"ea.software",value:$("#generatedSW").text()},
-	 * {name:"ea.booktype",value:getBookingType($("#generatedCourseType").text())},
-	 * {name:"ea.comment" ,value: $("#generatedCommnet").text()},
-	 * {name:"ea.contactNo" ,value:$("#generatedContact").text()},
-	 * {name:"ea.email" ,value: $("#generatedEmail").text()},
-	 * {name:"ea.beginTime"
-	 * ,value:$("select[name='applicationInfo.beginTime']").val()},
-	 * {name:"ea.endTime"
-	 * ,value:$("select[name='applicationInfo.endTime']").val()},
-	 * {name:"ea.dateInfo" ,value: dateinfo}]; if($("#circular").is(":hidden")){
-	 * $("#circular").show(); } $.ajax({ url : 'app_addRecord.action', type :
-	 * 'post', data : param, dataType : 'json', success : function(data, status) {
-	 * if (status == "success") { alert("预约申请提交成功"); } }, error : function(data,
-	 * status, e) { alert(e); },complete: function(){ $("#circular").hide(); }
-	 * });
-	 */
 	return false;
 }
 
@@ -340,18 +385,27 @@ function appZoneBack() {
 	$("#APP_SECONDSTEP").show();
 }
 
-function appFirstNext() {
-	var appid = $("input[name='applicationInfo.applicationId']").val();
-	if (appid == "") {
-		var curTime = new Date().FormatHPF("yyyyMMddhhmmssS");
-		var generatedAppID = "CC" + curTime;
-		$("#generatedAppID").html(generatedAppID);
-	} else {
-		$("#generatedAppID").html(appid);
+function IsValidCourse(courseName,CourseID){
+	if(courseName=="" || CourseID==""){
+		return false;	
 	}
-	$("#generatedAppID").html(
-			$("input[name='applicationInfo.applicationId']").val());
-	$("#generatedCourse").html($("input[name='applicationInfo.course']").val());
+	return true;
+}
+
+function appFirstNext() {
+	var courseName =  $("#CApp_CName").val();
+	var CourseID = $("input[name='applicationInfo.applicationId']").val();
+	if(!IsValidCourse(courseName,CourseID)){
+		$.messager.confirm('课程名称或编号错误', '是否新上传课程信息！',function(r) {
+			if (r) {
+				disCourse();
+			}
+		});
+		return;
+	}
+//		var curTime = new Date().FormatHPF("yyyyMMddhhmmssS");
+	$("#generatedAppID").html(CourseID);
+	$("#generatedCourse").html(courseName);
 	$("#generatedContact").html(
 			$("input[name='applicationInfo.contact']").val());
 	$("#generatedCourseSeats").html(

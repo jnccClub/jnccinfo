@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 import org.jncc.base.application.EApplicationService;
 import org.jncc.base.arrangement.EArrangementService;
 import org.jncc.base.arrangement.ZoneArrangement;
+import org.jncc.base.course.ECourseService;
 import org.jncc.base.zone.EZone;
 import org.jncc.base.zone.EZoneService;
 
@@ -57,6 +58,12 @@ public class resouceAction extends ActionSupport {
 		}
 		return "RES_GETZONE_SUCCESS";
 	}
+	public String getallCourse() {
+		
+		result = JSONObject.fromObject(ECourseService.toMapObject());
+		return "RES_GETCOURSE_SUCCESS";
+	}
+	
 	
 	public String getallfloor() {
 

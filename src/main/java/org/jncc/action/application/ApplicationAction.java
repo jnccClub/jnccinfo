@@ -31,10 +31,8 @@ public class ApplicationAction extends ActionSupport {
 	private String approveComment;
 	private String eaIDs;
 
-		
-
 	public String auditRecord() {
-		
+
 		if (isApproved.equals("1")) {
 			EApplicationService.approveApplications(eaIDs, approveComment);
 		} else {
@@ -109,20 +107,30 @@ public class ApplicationAction extends ActionSupport {
 		EArrangementId eArrId = new EArrangementId();
 		eArr.setAppId(ea.getId().getApplicationId());
 		eArr.setCreatetime(ea.getId().getCreatedatetime());
-		for (String bookDate : dInfos) {
-			System.out.println(bookDate);
-			eArrId.setDate(bookDate);
-			for (String zBookinfo : zInfos) {
-				eArrId.setZone(zBookinfo);
-				eArr.setFloor(ea.getFloor());
-				for (int i = beginCourse; i <= endCourse; i++) {
-					eArrId.setCourse(i);
-					eArr.setId(eArrId);
-					EArrangementService.addArrangement(eArr);
+		try {
+			dbSession.init();
+			int txCount =0;
+			for (String bookDate : dInfos) {
+				System.out.println(bookDate);
+				eArrId.setDate(bookDate);
+				for (String zBookinfo : zInfos) {
+					eArrId.setZone(zBookinfo);
+					eArr.setFloor(ea.getFloor());
+					for (int i = beginCourse; i <= endCourse; i++) {
+						eArrId.setCourse(i);
+						eArr.setId(eArrId);
+						dbSession.replaceInsert(eArr);
+						if(txCount++ %30 == 29){
+							dbSession.flush();
+						}
+					}
 				}
 			}
-
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		if (EApplicationService.addApplication(ea)) {
 			resultCause.setCause("200", "恭喜，添加成功");
 		} else {
@@ -182,10 +190,10 @@ public class ApplicationAction extends ActionSupport {
 	public void setIsApproved(String isApproved) {
 		this.isApproved = isApproved;
 	}
+
 	public void setEaIDs(String eaIDs) {
 		this.eaIDs = eaIDs;
 	}
-
 
 	public String getEaIDs() {
 		return eaIDs;

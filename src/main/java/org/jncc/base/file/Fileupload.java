@@ -21,11 +21,14 @@
 package org.jncc.base.file;
 
 import java.io.File;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ApplicationAware;
+import org.jncc.base.software.ESoftware;
+import org.jncc.base.software.ESoftwareService;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -53,6 +56,37 @@ public class Fileupload{
 		}
 		return true;
 	}
+	
+	public static File file_Upload(String contextPath,File fileupload,String origFilename){
+		String path = ServletActionContext.getServletContext().getRealPath(contextPath);
+		File file = new File(path); // 判断文件夹是否存在,如果不存在则创建文件夹
+		if (!file.exists()) {
+			file.mkdir();
+		}
+		try {
+			if (fileupload != null) {
+				// String fileName = java.util.UUID.randomUUID().toString(); //
+				// 采用时间+UUID的方式随即命名
+				java.text.DateFormat formatStr = new java.text.SimpleDateFormat("yyMMddhhmmss");
+				String fileName = formatStr.format(new Date());
+				fileName = fileName	+ origFilename;
+				File saveFile = new File(path, fileName);
+				
+				// upload.renameTo(saveFile);
+				if (saveFile.exists()) {
+					saveFile.setWritable(true, false);
+					saveFile.delete();
+				}
+				FileUtils.moveFile(fileupload, saveFile);
+				return saveFile;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
 	public String getFileName() {
 		return fileName;
 	}

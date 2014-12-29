@@ -39,6 +39,7 @@
 <script type="text/javascript" src='js/query/queryinfo.js'></script>
 <script type="text/javascript" src='js/gloableDefine.js'></script>
 <script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
+<script type="text/javascript" src='js/cfg/course.js'></script>
 
 <script type="text/javascript" src='js/common/jquery.easyui.min.js'></script>
 <title>JNCC booking</title>
@@ -76,8 +77,12 @@
 		<jsp:include page="bodyContent/auditApp/auditApplication.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
-		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_COURSE_CFG.jsp"></jsp:include>
 		<jsp:include page="queryInfos.jsp"></jsp:include>
+		<div class="clearfix"></div>
+		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
+		<div class="clearfix"></div>
+		
 	</div>
 
 	<div id="circular">

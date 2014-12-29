@@ -29,6 +29,7 @@
 
 		$("#create_Application").click(function() {
 			renewBodyId("#Body_CreateApp", $(this));
+			createApplication();
 		});
 		
 		$("#audit_Application").click(function(){

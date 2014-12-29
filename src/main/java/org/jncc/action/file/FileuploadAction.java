@@ -27,6 +27,8 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.jncc.base.cause.resultCause;
+import org.jncc.base.course.ECourseService;
+import org.jncc.base.file.Fileupload;
 import org.jncc.base.software.ESoftware;
 import org.jncc.base.software.ESoftwareService;
 
@@ -44,6 +46,16 @@ public class FileuploadAction extends ActionSupport {
 	private String fileFileName; // 文件名
 	private String filePath; // 文件路径
 	private String sw_option;
+	private File coursefileUp;
+	
+	public File getCoursefileUp() {
+		return coursefileUp;
+	}
+
+
+	public void setCoursefileUp(File coursefileUp) {
+		this.coursefileUp = coursefileUp;
+	}
 
 	private List<ESoftware> eswList;
 
@@ -71,40 +83,31 @@ public class FileuploadAction extends ActionSupport {
 
 
 	public String uploadSWList() {
-		String path = ServletActionContext.getServletContext().getRealPath(
-				"/uploadSWList");
-		File file = new File(path); // 判断文件夹是否存在,如果不存在则创建文件夹
-		if (!file.exists()) {
-			file.mkdir();
-		}
-		try {
-			if (this.fileupload != null) {
-
-				// String fileName = java.util.UUID.randomUUID().toString(); //
-				// 采用时间+UUID的方式随即命名
-				java.text.DateFormat formatStr = new java.text.SimpleDateFormat("yyMMddhhmmss");
-				String fileName = formatStr.format(new Date());
-				File saveFile = new File(path, fileName	+ this.getFileFileName());
-				
-				// upload.renameTo(saveFile);
-				if (saveFile.exists()) {
-					saveFile.setWritable(true, false);
-					saveFile.delete();
-				}
-				FileUtils.moveFile(fileupload, saveFile);
-				if(sw_option.startsWith("9"))
-				{
-					ESoftwareService.addSWFromXLS(saveFile.getAbsolutePath());
-					this.setEswList(ESoftware.getEswList());
-				}
+		File saveFile = Fileupload.file_Upload("/uploadSWList",this.getFileupload(),this.getFileFileName());
+		if(saveFile !=null){
+			if(sw_option.startsWith("9"))
+			{
+				ESoftwareService.addSWFromXLS(saveFile.getAbsolutePath());
+				this.setEswList(ESoftware.getEswList());
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-
 		resultCause = new resultCause();
 		resultCause.setCause("200", "upload successfully!");
 		return "UPLOAD_SW_SUCCESS";
+	}
+	
+	
+	public String uploadCourse(){
+		File saveFile = Fileupload.file_Upload("/uploadCourse",this.getCoursefileUp(),this.getFileFileName());
+		if(saveFile !=null){
+			ECourseService.addCourseFromXLS(saveFile.getAbsolutePath());
+				this.setEswList(ESoftware.getEswList());
+		}
+		
+		resultCause = new resultCause();
+		resultCause.setCause("200", "upload successfully!");
+		return "UPLOAD_COURSE_SUCCESS";
+		
 	}
 	
 	

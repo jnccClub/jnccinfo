@@ -222,40 +222,6 @@ $(function() {
 		};
 		return ajaxFileUpload(param);
 	});
-
-	$("#btnSWRefresh").click(function() {
-		if($("#circular").is(":hidden")){
-			$("#circular").show();
-		}
-		$.ajax({
-			url : 'sw_refresh.action',
-			type : 'post',
-			data : '',
-			dataType : 'json',
-			success : function(data, status) {
-				if (status == "success") {
-					displaySW(data);
-				}
-			},
-			error : function(data, status, e) {
-				alert(e);
-			},complete: function(){
-				$("#circular").hide();
-			}
-		});
-	});
-
-	$("#btnSWAdd").click(function() {
-		var param = $("#swaddForm").serializeArray();
-		addSW(param);
-		return false;
-	});
-
-	// 初始化表单内容！
-	$("#btnSWRefresh").trigger("click");
-	EdTable.initBindGridEvent();
-	
-	
 	$('#fileupload').filebox({ 
 		 buttonText: 'Choose File', 
 		 buttonAlign: 'left',

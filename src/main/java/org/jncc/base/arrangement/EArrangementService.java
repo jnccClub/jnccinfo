@@ -24,20 +24,6 @@ public class EArrangementService implements java.io.Serializable {
 
 	private List<EArrangement> earrList;
 
-	public static boolean addArrangement(EArrangement eArr) {
-		try {
-			dbSession.delete(eArr);
-			dbSession.close(false);
-			dbSession.insert(eArr);
-			dbSession.close();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return false;
-	}
-
 	public static boolean queryIsCourseFree(String zone, String date,
 			String beginTime, String endTime) {
 		int beginCourse = ECourseMapService.getBeginCourse(beginTime);

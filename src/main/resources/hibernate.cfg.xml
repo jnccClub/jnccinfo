@@ -10,6 +10,8 @@
         <property name="show_sql">true</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		 <property name="hibernate.jdbc.batch_size">100</property>
+        <property name="hiberante.cache.use_second_level_cache">false</property>
 		<property name="connection.url">jdbc:mysql://localhost/test?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</property>
 		<property name="connection.username">flyerjune</property>
 		<property name="connection.password">fj</property>
@@ -20,9 +22,8 @@
 		<mapping resource="ECourseMap.hbm.xml" />
 		<mapping resource="EArrangement.hbm.xml" />
 		<mapping resource="EApplication.hbm.xml" />
-		
-		
-		
+		<mapping resource="ECourse.hbm.xml" />
+		<mapping resource="ECurriculum.hbm.xml" />
     </session-factory>
 
 </hibernate-configuration>

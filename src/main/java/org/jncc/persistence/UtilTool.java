@@ -7,4 +7,11 @@ public class UtilTool {
 		}
 		return true;
 	}
+	
+	public static String validStr(String str){
+		if(str==null){
+			return "";
+		}
+		return str;
+	}
 }

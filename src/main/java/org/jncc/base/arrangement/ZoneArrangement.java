@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.jncc.base.application.EApplication;
+import org.jncc.base.course.ECourse;
+import org.jncc.base.course.ECourseService;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
 
@@ -32,18 +34,13 @@ public class ZoneArrangement implements java.io.Serializable {
 		if(courseNo == null || courseNo.equals("")){
 			return courseInfo;
 		}
-		List<EApplication> eaList = null;
-		try {
-			String sql = "from EApplication ea where ea.id.applicationId='"
-					+ courseNo + "'";
-			eaList = dbSession.select(sql);
-			dbSession.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (eaList != null && eaList.size() > 0) {
-			courseInfo = eaList.get(0).getCourseName() + "<br>("
-					+ eaList.get(0).getCreateUser() + ")";
+		ECourse ec = null;
+		for(int i=0;i<ECourseService.getEcList().size();i++){
+			ec = ECourseService.getEcList().get(i);
+			if(ec.getSerial().equals(courseNo)){
+				courseInfo = ec.getName()+"("+ec.getTeacher()+")";
+				break;
+			}
 		}
 		return courseInfo;
 	}
