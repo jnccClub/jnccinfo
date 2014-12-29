@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.jncc.base.arrangement.EArrangement;
 import org.jncc.base.xls.ExcelService;
+import org.jncc.persistence.UtilTool;
 // default package
 import org.jncc.persistence.dbSession;
-
 
 /**
  * SoftwareList entity. @author MyEclipse Persistence Tools
@@ -26,35 +25,39 @@ public class ESoftwareService implements java.io.Serializable {
 		}
 		return true;
 	}
-	
+
 	public static boolean addSWFromXLS(String filename) {
 		Vector<ESoftware> eswVec = ExcelService.readExcel2ESWList(filename);
 		try {
-			for(int i=0;i<eswVec.size();i++){
+			for (int i = 0; i < eswVec.size(); i++) {
 				String tt = eswVec.get(i).getId().getZone();
 				int j = tt.length();
-				System.out.println("Len of "+tt+" is: "+j);
+				System.out.println("Len of " + tt + " is: " + j);
 				dbSession.delete(eswVec.get(i));
 				dbSession.insert(eswVec.get(i));
 				dbSession.close(false);
 			}
 			dbSession.close(true);
-			
+
 		} catch (Exception e) {
 			return false;
 		}
 		updateEswList(getEswList());
 		return true;
 	}
-	
+
 	public static List getEswList() {
+
 		String sql = "from ESoftware";
-		List l = dbSession.select(sql);
+		List<ESoftware> l = dbSession.select(sql);
 		return l;
+
 	}
-	
-	public static Map<String, Object> toMapObject(){
-		List<ESoftware> eswList = ESoftware.getEswList();
+
+	public static Map<String, Object> toMapObject(String queryfiled,
+			String queryfiledVal) {
+		List<ESoftware> eswList = ESoftware.getEswList(queryfiled,
+				queryfiledVal);
 		List<Map<String, String>> mapList = new ArrayList();
 		if (eswList != null) {
 			for (int i = 0; i < eswList.size(); i++) {
@@ -68,18 +71,18 @@ public class ESoftwareService implements java.io.Serializable {
 			return null;
 		}
 	}
-	
+
 	public static Map<String, String> toMap(ESoftware esw) {
 		Map<String, String> swMap = new HashMap<String, String>();
-		swMap.put("fld_SWNAME",esw.getId().getName());
-		swMap.put("fld_SWZONE",esw.getId().getZone());
-		swMap.put("fld_INTIME",esw.getCreatedate());
-		swMap.put("fld_INOS",esw.getOs());
-		swMap.put("fld_MANAGER",esw.getOperator());
-		swMap.put("fld_SWCOMMENT",esw.getComment());
+		swMap.put("fld_SWNAME", esw.getId().getName());
+		swMap.put("fld_SWZONE", esw.getId().getZone());
+		swMap.put("fld_INTIME", esw.getCreatedate());
+		swMap.put("fld_INOS", esw.getOs());
+		swMap.put("fld_MANAGER", esw.getOperator());
+		swMap.put("fld_SWCOMMENT", esw.getComment());
 		return swMap;
 	}
-	
+
 	public static boolean updateEswList(List l) {
 		ESoftware.setEswList(l);
 		return true;

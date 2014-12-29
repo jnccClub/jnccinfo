@@ -2,7 +2,10 @@ package org.jncc.base.software;
 
 // default package
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.jncc.persistence.UtilTool;
 
 /**
  * ESoftware entity. @author MyEclipse Persistence Tools
@@ -22,20 +25,54 @@ public class ESoftware implements java.io.Serializable {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-
 	private String os;
 	private String operator;
 	private String comment;
-
 	private static List<ESoftware> eswList;
 
 	// Constructors
 
 	@SuppressWarnings("unchecked")
-	public static List<ESoftware> getEswList() {
+	public static List<ESoftware> getEswList(String queryfiled,String queryfiledVal) {
 		if (eswList == null) {
 			eswList = ESoftwareService.getEswList();
 		}
+		List<ESoftware> eswl = new ArrayList();
+		if (UtilTool.IsValid(queryfiled) && UtilTool.IsValid(queryfiledVal)) {
+			for (int i = 0; i < eswList.size(); i++) {
+				ESoftware esw = eswList.get(i);
+				switch (queryfiled) {
+				case "SNAME":
+					if ((eswList.get(i).getId().getName().indexOf(queryfiledVal)>-1)) {
+						eswl.add(esw);
+					}
+					break;
+				case "SZONE":
+					if ((eswList.get(i).getId().getZone().indexOf(queryfiledVal)>-1)) {
+						eswl.add(esw);
+					}
+					break;
+				case "SMANAGER":
+					if ((eswList.get(i).getOperator().indexOf(queryfiledVal)>-1)) {
+						eswl.add(esw);
+					}
+					break;
+				case "SOS":
+					if (!(eswList.get(i).getOs().indexOf(queryfiledVal)>-1)) {
+						eswl.add(esw);
+					}
+					break;
+				default:
+					break;
+				}
+			}
+			return eswl;
+		}
+		return eswList;
+	}
+	
+	public static List<ESoftware> getEswList() {
+			eswList = getEswList(null,null);
 		return eswList;
 	}
 

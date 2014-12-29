@@ -49,9 +49,9 @@ function save_sw(){
 	var param = [{name:"esw.id.name",value:$("input[name='fld_SWNAME']").val()},{
 		name:"esw.id.zone",value:$("input[name='fld_SWZONE']").val()},{
 		name:"esw.createdate",value:$("input[name='fld_INTIME']").val()},{
-		name:"esw.os",value:$("input[name='fld_INTIME']").val()},{
+		name:"esw.os",value:$("input[name='fld_INOS']").val()},{
 		name:"esw.operator",value:$("input[name='fld_MANAGER']").val()},{
-		name:"esw.comment",value:$("input[name='fld_SWZONE']").val()}];
+		name:"esw.comment",value:$("textarea[name='fld_SWCOMMENT']").val()}];
 	if(!isAddSW){
 		var row = $('#tbl_sw').datagrid('getSelected');
 		if (row) {
@@ -67,7 +67,9 @@ function save_sw(){
 		success : function(data, status) {
 			if (status == "success") {
 				//$("#btnSWRefresh").trigger("click");
-				alert("软件信息增加成功");
+				alert("软件信息保存成功");
+				$("#tbl_sw").datagrid('reload');
+				$('#dlg_sw').dialog('close');
 			}
 		},
 		error : function(data, status, e) {
@@ -122,14 +124,14 @@ function tbl_sw_load(){
 	});
 	$('#tbl_sw').resize();
 }
-
-
-function btnAddSW(t){
+function doSearchSW(value,name){
+	//alert('You input: ' + value+'('+name+')');
+	var queryParams = $('#tbl_sw').datagrid('options').queryParams;  
+    queryParams.queryfiled = name;
+    queryParams.queryfiledVal = value;
+    $('#tbl_sw').datagrid('options').queryParams=queryParams;        
+    $("#tbl_sw").datagrid('reload');
 	
-}
-
-function btnDeleteSW(t){
-	deleteSW(getRowSW(t.parentElement.parentElement.rowIndex));
 }
 
 function ajaxFileUpload(param) {
@@ -171,65 +173,41 @@ function ajaxFileUpload(param) {
 	return false;
 }
 
-function getRowSW(rowIndex) {
-	var tbody = document.getElementById('swList_table');
-	/*
-	 * for(var i = 0;i<tbody.rows.length;i++){ for(var j= 0;j<tbody.rows[i].cells.length;j++)
-	 * alert(tbody.rows[i].cells[j].innerHTML) //每一行 每个单元格的内容 }
-	 */
-	var param = [{name:"esw.id.name",value:tbody.rows[rowIndex].cells[0].innerHTML},
-	             {name:"esw.id.zone" ,value:tbody.rows[rowIndex].cells[1].innerHTML},
-	             {name:"esw.createdate",value:""},
-	             {name:"esw.os" ,value: tbody.rows[rowIndex].cells[3].innerHTML},
-	             {name:"esw.operator" ,value: tbody.rows[rowIndex].cells[4].innerHTML},
-	             {name:"esw.comment" ,value: tbody.rows[rowIndex].cells[5].innerHTML}];
-	return param;
-}
 
-function addSW(param) {
-	if($("#circular").is(":hidden")){
-		$("#circular").show();
-	}
-	$.ajax({
-		url : 'sw_addRecord.action',
-		type : 'post',
-		data : param,
-		dataType : 'json',
-		success : function(data, status) {
-			if (status == "success") {
-				$("#btnSWRefresh").trigger("click");
-				alert("软件信息增加成功");
-			}
-		},
-		error : function(data, status, e) {
-			alert(e);
-		},complete: function(){
-			$("#circular").hide();
-		}
-	});
-}
 
-function deleteSW(param) {
-	if($("#circular").is(":hidden")){
-		$("#circular").show();
+function destroy_sw(param) {
+	var row = $('#tbl_sw').datagrid('getSelected');
+	var param = [];
+	if (row) {
+		param.push({name:"esw.id.name",value:row.fld_SWNAME});
+		param.push({name:"esw.id.zone",value:row.fld_SWZONE});
+	}else{
+		alert("请选择一条有效记录！");
+		return ;
 	}
-	$.ajax({
-		url : 'sw_deleteRecord.action',
-		type : 'post',
-		data : param,
-		dataType : 'json',
-		success : function(data, status) {
-			if (status == "success") {
-				$("#btnSWRefresh").trigger("click");
-				alert("软件信息删除成功");
-			}
-		},
-		error : function(data, status, e) {
-			alert(e);
-		},complete: function(){
-			$("#circular").hide();
+	$.messager.confirm('确认信息', '请确认是否此条记录?', function(r) {
+	if (r) {
+		if($("#circular").is(":hidden")){
+			$("#circular").show();
 		}
-	});
+		$.ajax({
+			url : 'sw_deleteRecord.action',
+			type : 'post',
+			data : param,
+			dataType : 'json',
+			success : function(data, status) {
+				if (status == "success") {
+					alert("软件信息删除成功");
+					$("#tbl_sw").datagrid('reload');
+				}
+			},
+			error : function(data, status, e) {
+				alert(e);
+			},complete: function(){
+				$("#circular").hide();
+			}
+		});
+	}});
 }
 
 $(function() {
@@ -283,3 +261,5 @@ $(function() {
 		 buttonAlign: 'left',
 		});
 });
+
+

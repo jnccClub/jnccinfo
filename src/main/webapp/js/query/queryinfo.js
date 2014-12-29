@@ -11,7 +11,7 @@
 		collapsible : false,// 是否可折叠的
 		fit : true,// 自动大小
 		url : 'res_queryCourseArr.action',
-		queryParams: {queryDate:"2014-12-27"},
+		//queryParams: {queryDate:"2014-12-27"},
 		//sortName : 'fld_CTIME',
 		//sortOrder : 'asc',
 		remoteSort : false,
@@ -51,14 +51,6 @@
 
 
 $(function(){
-	$('#queryDatepick').datetimepicker({
-		format : 'yyyy-MM-dd',
-		language : 'en',
-		pickDate : true,
-		pickTime : false,
-		inputMask : true
-	});
-	
 	$('input[name="query_floor"]').combobox({
 		//data : drows,
 		url:'res_getallfloor.action',
@@ -105,7 +97,7 @@ function menuHandler(item){
 }
 
 function doSearch(value,name){
-	alert('You input: ' + value+'('+name+')');
+	//alert('You input: ' + value+'('+name+')');
 	var queryParams = $('#tbl_query_data').datagrid('options').queryParams;  
     queryParams.queryfloor = $("input[name='query_floor']").val();
     queryParams.queryDate = $("input[name='queryDatepick']").val();

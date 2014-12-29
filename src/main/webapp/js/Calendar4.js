@@ -206,11 +206,11 @@ L_calendar.prototype={
 					month=(mm==1?12:mm+1);
 					day=this.L_WDay[i];
 				}
-				else if(i >= firstday+13){
+				/*else if(i >= firstday+13){
 					da.innerHTML="<b style=\"color:gray\">" + this.L_WDay[i] + "</b>";
 					month=(mm==1?12:mm+1);
 					day=this.L_WDay[i];
-				}
+				}*///hpf add this gray day.
 				else{					
 					da.innerHTML="<b style=\"color:#000\">" + this.L_WDay[i] + "</b>";
 					month=(mm==1?12:mm);

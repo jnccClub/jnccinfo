@@ -64,7 +64,17 @@
 			href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-edit" plain="true" onclick="edit_sw()">编辑软件</a> <a
 			href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-remove" plain="true" onclick="destroy_sw()">删除软件</a>
+			iconCls="icon-remove" plain="true" onclick="destroy_sw()">删除软件</a> 
+		<input
+			class="easyui-searchbox"
+			data-options="prompt:'Please Input Value',menu:'#sw_mm',searcher:doSearchSW"
+			style="width:500px"></input>
+		<div id="sw_mm">
+			<div data-options="name:'SNAME',iconCls:'icon-tip'">软件名称</div>
+			<div data-options="name:'SZONE',iconCls:'icon-ok'">区域</div>
+			<div data-options="name:'SMANAGER',iconCls:'icon-man'">负责人</div>
+			<div data-options="name:'SOS',iconCls:'icon-save'">操作系统</div>
+		</div>
 	</div>
 
 	<div id="dlg_sw" class="easyui-dialog"
@@ -72,29 +82,28 @@
 		buttons="#dlg_sw_buttons">
 		<form id="fm_sw" method="post" novalidate>
 			<div class="fitem">
-				<label>软件信息:</label> <input name="fld_SWNAME"
-					class="easyui-textbox" required="true">
+				<label>软件信息:</label> <input name="fld_SWNAME" class="easyui-textbox"
+					required="true">
 			</div>
 			<div class="fitem">
 				<label>区域:</label> <input name="fld_SWZONE" class="easyui-textbox"
 					required="true" id="input_zoneID">
 			</div>
-			<div >
+			<div>
 				<label sytle="float:left">安装日期:</label>
-					<div id="swInTime" class="input-append date" style="z-index:9999">
-			<input name="fld_INTIME"
-					class="easyui-textbox" value="2015-01-01" required="true"></input> <span class="add-on">
-				<i data-time-icon="icon-time"></i>
-			</span>
-		</div>
-					
-					
-				<label>操作系统:</label>
-				<input name="fld_INOS" class="easyui-textbox" required="true">
-				<label>维护人:</label>
-				<input name="fld_MANAGER" class="easyui-textbox" required="true">
+				<div id="swInTime" class="input-append date" style="z-index:9999">
+					<input name="fld_INTIME" class="easyui-textbox" value="2015-01-01"
+						required="true"></input> <span class="add-on"> <i
+						data-time-icon="icon-time"></i>
+					</span>
+				</div>
+
+
+				<label>操作系统:</label> <input name="fld_INOS" class="easyui-textbox"
+					required="true"> <label>维护人:</label> <input
+					name="fld_MANAGER" class="easyui-textbox" required="true">
 				<label>备注:</label>
-				<textarea class="input-xlarge"  rows="4" name="fld_SWCOMMENT">十六院申请的工程制图软件</textarea>
+				<textarea class="input-xlarge" rows="4" name="fld_SWCOMMENT">十六院申请的工程制图软件</textarea>
 			</div>
 		</form>
 	</div>

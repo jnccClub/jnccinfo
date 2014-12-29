@@ -48,7 +48,8 @@ public class SoftwareAction extends ActionSupport {
 	private ESoftware esw;
 	private JSONArray swJsonArray;
 	private JSONObject swResult;// 返回的json
-	
+	private String queryfiled;
+	private String queryfiledVal;
 	private ESoftware formerEsw;
 	
 	public ESoftware getFormerEsw() {
@@ -96,7 +97,7 @@ public class SoftwareAction extends ActionSupport {
 
 	public String loaddata()
 	{
-		swResult = JSONObject.fromObject(ESoftwareService.toMapObject());
+		swResult = JSONObject.fromObject(ESoftwareService.toMapObject(queryfiled,queryfiledVal));
 		return "LOAD_SW_SUCCESS";
 	}
 	
@@ -110,7 +111,11 @@ public class SoftwareAction extends ActionSupport {
 
 	public String addRecord() {
 		try {
-			dbSession.delete(esw);
+			if(formerEsw == null || formerEsw.getId().getName()==""){
+				dbSession.delete(esw);
+			}else{
+				dbSession.delete(formerEsw);
+			}
 			dbSession.close(false);
 			dbSession.insert(esw);
 			dbSession.close();
@@ -119,6 +124,9 @@ public class SoftwareAction extends ActionSupport {
 		}
 		resultCause = new resultCause();
 		resultCause.setCause("200", "恭喜您，添加成功！");
+		
+		//更新静态变量
+		ESoftwareService.updateEswList(ESoftwareService.getEswList());
 		return "ADD_SW_SUCCESS";
 	}
 
@@ -131,6 +139,9 @@ public class SoftwareAction extends ActionSupport {
 		}
 		resultCause = new resultCause();
 		resultCause.setCause("200", "恭喜您，删除成功！");
+		
+		//更新静态变量
+		ESoftwareService.updateEswList(ESoftwareService.getEswList());
 		return "DELETE_SW_SUCCESS";
 	}
 
@@ -162,5 +173,19 @@ public class SoftwareAction extends ActionSupport {
 	public void setSwResult(JSONObject swResult) {
 		this.swResult = swResult;
 	}
+	public String getQueryfiled() {
+		return queryfiled;
+	}
 
+	public void setQueryfiled(String queryfiled) {
+		this.queryfiled = queryfiled;
+	}
+
+	public String getQueryfiledVal() {
+		return queryfiledVal;
+	}
+
+	public void setQueryfiledVal(String queryfiledVal) {
+		this.queryfiledVal = queryfiledVal;
+	}
 }

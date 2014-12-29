@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jncc.base.application.EApplication;
+import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
 
 // default package
@@ -41,7 +42,7 @@ public class ZoneArrangement implements java.io.Serializable {
 			e.printStackTrace();
 		}
 		if (eaList != null && eaList.size() > 0) {
-			courseInfo = eaList.get(0).getCourseName() + "<br/>("
+			courseInfo = eaList.get(0).getCourseName() + "<br>("
 					+ eaList.get(0).getCreateUser() + ")";
 		}
 		return courseInfo;
@@ -119,7 +120,7 @@ public class ZoneArrangement implements java.io.Serializable {
 	}
 
 	public static boolean isFitQuery(String queryFld,String queryVal,String courseNo){
-		if(queryVal == null ||queryFld == null || queryVal.equals("") || queryFld.equals("")){
+		if(!UtilTool.IsValid(queryFld) || !UtilTool.IsValid(queryVal)){
 			return true;
 		}
 		List<EApplication> eaList = null;
@@ -131,7 +132,7 @@ public class ZoneArrangement implements java.io.Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (eaList != null && eaList.size() > 0) {
+		if (eaList != null && eaList.size() > 0 && queryFld!=null) {
 			switch(queryFld){
 			case "TNAME":
 				if(eaList.get(0).getCreateUser().equals(queryVal)){

@@ -27,7 +27,8 @@
 <script type="text/javascript" src="js/Calendar4.js"></script>
 <script type="text/javascript" src='js/common/jquery.js'></script>
 <script type="text/javascript" src='js/datepick/datepick.js'></script>
-<script type="text/javascript" src='js/common/bootstrap-datetimepicker.min.js'></script>
+<script type="text/javascript"
+	src='js/common/bootstrap-datetimepicker.min.js'></script>
 <script type="text/javascript" src='js/file/ajaxfileupload.js'></script>
 
 <script type="text/javascript" src='js/table/EdTable.js'></script>
@@ -40,49 +41,43 @@
 <script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
 
 <script type="text/javascript" src='js/common/jquery.easyui.min.js'></script>
-
-
 <title>JNCC booking</title>
-
 </head>
 <body>
+	<script>
+		// 软件列表
+		schoolBeginDate = new Date("2014-09-01");
+		schoolBeginMon = new Date();
+		var currentShowID = "#MF_Body";
+		$(function() {
+			$("#loginEntry").click(function() {
+				renewMainId("#mainFrame_Login");
+			});
 
+			$("#logOutEntry").click(function() {
+				alert("come to relogin");
+				username = "";
+				$("#loginEntry").html('<a href="javarscript:(0)" >登录/注册</a>');
+				$("#logOutEntry").hide();
+			});
 
-<script>
-	// 软件列表
-	schoolBeginDate = new Date("2014-09-01");
-	schoolBeginMon = new Date();
-	var currentShowID = "#MF_Body";
-	$(function() {
-		$("#loginEntry").click(function() {
-			renewMainId("#mainFrame_Login");
 		});
 
-		$("#logOutEntry").click(function() {
-			alert("come to relogin");
-			username = "";
-			$("#loginEntry").html('<a href="javarscript:(0)" >登录/注册</a>');
-			$("#logOutEntry").hide();
-		});
-		
-	});
-	
-	function renewMainId(newId) {
-		$(currentShowID).hide();
-		currentShowID = newId;
-		$(currentShowID).show();
-	}
-
-</script>
+		function renewMainId(newId) {
+			$(currentShowID).hide();
+			currentShowID = newId;
+			$(currentShowID).show();
+		}
+	</script>
 
 
 	<div class="container">
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
-		<jsp:include page="queryInfos.jsp"></jsp:include>
 		<jsp:include page="bodyContent/auditApp/auditApplication.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
 		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
+		<jsp:include page="queryInfos.jsp"></jsp:include>
 	</div>
 
 	<div id="circular">
