@@ -10,7 +10,7 @@
 		border : true,
 		collapsible : false,// 是否可折叠的
 		fit : true,// 自动大小
-		url : 'res_queryCourseArr.action',
+		url : 'comAction/comRes_queryCourseArr.action',
 		//queryParams: {queryDate:"2014-12-27"},
 		sortName : 'fld_ZONE',
 		sortOrder : 'asc',
@@ -53,7 +53,7 @@
 $(function(){
 	$('input[name="query_floor"]').combobox({
 		//data : drows,
-		url:'res_getallfloor.action',
+		url:'comAction/comRes_getallfloor.action',
 		valueField : 'id',
 		textField : 'text',
 		onLoadSuccess : function() { //加载完成后,设置选中第一项

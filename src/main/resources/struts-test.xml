@@ -11,7 +11,8 @@
 	<!--采用json数据格式，package的extends必须是extends="json-default" -->
 	<!--并且必须要用到struts2的json-lib，struts2-json-plugin包 -->
 	<!--采用异步提交方式，result的type="json"，并且result节点值为空 -->
-	<package name="default" namespace="/" extends="json-default">
+	
+	<package name="guest" namespace="/comAction" extends="json-default">
 		<!--客户端请求采用DMI（动态调用） -->
 		<action name="user_*" class="org.jncc.action.user.UserAction"
 			method="{1}">
@@ -37,6 +38,53 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 		</action>
+				<action name="comSw_*" class="org.jncc.action.software.SoftwareAction"
+			method="{1}">
+			<result name="GET_SWJSON_SUCCESS" type="json">
+				<param name="root">swJsonArray</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+		</action>
+		<action name="comRes_*" class="org.jncc.action.resource.resouceAction"
+			method="{1}">
+			<result name="RES_QUERYCOURSEARR_SUCCESS" type="json">
+				<param name="root">result</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="RES_GETFLOOR_SUCCESS" type="json">
+				<param name="root">resJsonArray</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="RES_GETZONE_SUCCESS" type="json">
+				<param name="root">resJsonArray</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="RES_GETCOURSE_SUCCESS" type="json">
+				<param name="root">result</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="default" namespace="/" extends="json-default">
+		<interceptors>
+			<!-- 定义权限检查拦截器 -->
+			<interceptor name="authority"
+				class="org.jncc.Interceptor.AuthorityInterceptor"/>
+			<!-- 定义一个包含权限检查的拦截器栈 -->
+			<interceptor-stack name="mydefault">
+				<!-- 定义拦截器栈包含default-stack拦截器栈 -->
+				
+				<!-- 定义拦截器栈包含authority拦截器 -->
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mydefault"/>
 
 		<action name="file_*" class="org.jncc.action.file.FileuploadAction"
 			method="{1}">
@@ -50,8 +98,6 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-			
-			
 		</action>
 
 		<action name="sw_*" class="org.jncc.action.software.SoftwareAction"
@@ -66,17 +112,12 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-			<result name="GET_SWJSON_SUCCESS" type="json">
-				<param name="root">swJsonArray</param>
-				<param name="excludeNullProperties">true</param>
-				<param name="excludeProperties">SUCCESS</param>
-			</result>
 			<result name="LOAD_SW_SUCCESS" type="json">
 				<param name="root">swResult</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-			
+
 		</action>
 
 
@@ -126,10 +167,7 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-
-
 		</action>
-
 		<action name="res_*" class="org.jncc.action.resource.resouceAction"
 			method="{1}">
 			<result name="RES_LIST_SUCCESS" type="json">
@@ -138,26 +176,6 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 			<result name="RES_QUEYRDATES_SUCCESS" type="json">
-				<param name="root">result</param>
-				<param name="excludeNullProperties">false</param>
-				<param name="excludeProperties">SUCCESS</param>
-			</result>
-			<result name="RES_QUERYCOURSEARR_SUCCESS" type="json">
-				<param name="root">result</param>
-				<param name="excludeNullProperties">false</param>
-				<param name="excludeProperties">SUCCESS</param>
-			</result>
-			<result name="RES_GETFLOOR_SUCCESS" type="json">
-				<param name="root">resJsonArray</param>
-				<param name="excludeNullProperties">false</param>
-				<param name="excludeProperties">SUCCESS</param>
-			</result>
-			<result name="RES_GETZONE_SUCCESS" type="json">
-				<param name="root">resJsonArray</param>
-				<param name="excludeNullProperties">false</param>
-				<param name="excludeProperties">SUCCESS</param>
-			</result>
-			<result name="RES_GETCOURSE_SUCCESS" type="json">
 				<param name="root">result</param>
 				<param name="excludeNullProperties">false</param>
 				<param name="excludeProperties">SUCCESS</param>

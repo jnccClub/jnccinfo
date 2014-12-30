@@ -14,7 +14,7 @@ function tbl_course_load(){
 		border : true,
 		collapsible : false,// 是否可折叠的
 		fit : true,// 自动大小
-		url : 'res_getallCourse.action',
+		url : 'comAction/comRes_getallCourse.action',
 		//queryParams: {queryDate:"2014-12-27"},
 		//sortName : 'fld_CTIME',
 		//sortOrder : 'asc',

@@ -10,7 +10,7 @@ function displaySW() {
 	tbl_sw_load();
 	$('#input_zoneID').combobox({
 		//data : drows,
-		url:'res_getallzone.action',
+		url:'comAction/comRes_getallzone.action',
 		valueField : 'id',
 		textField : 'text',
 		onLoadSuccess : function() { //加载完成后,设置选中第一项

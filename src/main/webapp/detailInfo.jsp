@@ -76,7 +76,7 @@
 				border : true,
 				collapsible : false,//是否可折叠的 
 				fit : true,//自动大小 
-				url : 'res_queryDates.action?appID='+appID+'&createTime='+createTime,
+				url : '/common/res_queryDates.action?appID='+appID+'&createTime='+createTime,
 				sortName : 'fld_COUREDATE',
 				sortOrder : 'asc',
 				remoteSort : false,

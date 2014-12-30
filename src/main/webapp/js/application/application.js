@@ -4,7 +4,7 @@
 		//value:'006', 
 		idField:'fld_C_SERIAL', 
 		textField:'fld_C_NAME', 
-		url:'res_getallCourse.action', 
+		url:'comAction/comRes_getallCourse.action', 
 		columns:[[ 
 			{field:'fld_C_NAME',width:120,title:'课程名称'},
 			{field:'fld_C_SERIAL',width:180,title:'课程序号'},

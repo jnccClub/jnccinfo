@@ -54,7 +54,7 @@
 	$(function() {
 		$('input[name="applicationInfo.SW"]').combobox({
 			//data : drows,
-			url:'sw_getSW.action',
+			url:'comAction/comSw_getSW.action',
 			valueField : 'id',
 			textField : 'text',
 			onLoadSuccess : function() { //加载完成后,设置选中第一项
