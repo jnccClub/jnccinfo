@@ -41,7 +41,7 @@
 				 -->
 				<ul class="nav pull-right">
 					<li><a href="profile.htm">70208888</a></li>
-					<li><a href="login.htm">退出</a></li>
+					<li><a href="javascript:(0)" id="loginEntry">退出</a></li>
 				</ul>
 			</div>
 		</div>

@@ -9,6 +9,8 @@
 @import url(jqueryUI/easyui.css);
 @import url(jqueryUI/icon.css);
 @import url(loadingAnimation/loading.css);
+@import url(mainFrame_Body.css);
+@import url(mainFrame_Login.css);
 
 @import url(common/jquery.seat-charts.css)
 

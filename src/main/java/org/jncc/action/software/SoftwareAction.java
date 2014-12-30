@@ -116,7 +116,7 @@ public class SoftwareAction extends ActionSupport {
 			}else{
 				dbSession.delete(formerEsw);
 			}
-			dbSession.close(false);
+			dbSession.close();
 			dbSession.insert(esw);
 			dbSession.close();
 		} catch (Exception e) {

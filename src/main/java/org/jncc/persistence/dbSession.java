@@ -76,7 +76,7 @@ public class dbSession {
 	// 插入
 	public static void insert(Object obj) {
 		init();
-		
+		session.save(obj);
 	}
 
 	public static void replaceInsert(Object obj){

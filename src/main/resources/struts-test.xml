@@ -79,7 +79,7 @@
 			<!-- 定义一个包含权限检查的拦截器栈 -->
 			<interceptor-stack name="mydefault">
 				<!-- 定义拦截器栈包含default-stack拦截器栈 -->
-				
+				<interceptor-ref name="defaultStack" />
 				<!-- 定义拦截器栈包含authority拦截器 -->
 				<interceptor-ref name="authority" />
 			</interceptor-stack>
