@@ -1,12 +1,8 @@
 package org.jncc.base.user;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jncc.action.Db;
 import org.jncc.persistence.dbSession;
 
 public class UserService {

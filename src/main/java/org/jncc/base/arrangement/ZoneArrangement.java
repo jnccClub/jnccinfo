@@ -8,6 +8,7 @@ import java.util.Map;
 import org.jncc.base.application.EApplication;
 import org.jncc.base.course.ECourse;
 import org.jncc.base.course.ECourseService;
+import org.jncc.base.curriculum.ECurriculumService;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
 
@@ -73,6 +74,9 @@ public class ZoneArrangement implements java.io.Serializable {
 
 	public static Map<String, ZoneArrangement> genZArrList(List<EArrangement> earrList,String queryFld,String queryVal) {
 		Map<String, ZoneArrangement> map = new HashMap<String, ZoneArrangement>();
+		if(earrList==null){
+			return map;
+		}
 		for (int i = 0; i < earrList.size(); i++) {
 			String zone = earrList.get(i).getId().getZone();
 			ZoneArrangement za = map.get(zone);
@@ -120,35 +124,40 @@ public class ZoneArrangement implements java.io.Serializable {
 		if(!UtilTool.IsValid(queryFld) || !UtilTool.IsValid(queryVal)){
 			return true;
 		}
-		List<EApplication> eaList = null;
-		try {
-			String sql = "from EApplication ea where ea.id.applicationId='"
-					+ courseNo + "'";
-			eaList = dbSession.select(sql);
-			dbSession.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		ECourse  ec = null;
+		for(int i=0;i<ECourseService.getEcList().size();i++){
+			if(ECourseService.getEcList().get(i).getSerial().equals(courseNo)){
+				ec = ECourseService.getEcList().get(i);
+				break;
+			}
 		}
-		if (eaList != null && eaList.size() > 0 && queryFld!=null) {
+		if (ec != null&& queryFld!=null) {
 			switch(queryFld){
 			case "TNAME":
-				if(eaList.get(0).getCreateUser().equals(queryVal)){
+				if(ec.getTeacher().indexOf(queryVal)>-1){
 					return true;
 				}
 				break;
 			case "CNAME":
-				if (eaList.get(0).getCourseName().equals(queryVal)) {
+				if (ec.getName().indexOf(queryVal)>-1) {
 					return true;
 				}
 				break;
 			case "CLASS":
-//				if (eaList.get(0).getCourseName().equals(queryVal)) {
-//					return true;
-//				}
+				if (ec.getClassNo().indexOf(queryVal)>-1) {
+					return true;
+				}
 				break;
 			case "SNO":
-//				if (eaList.get(0).getCourseName().equals(queryVal)) {
-//					return true;
+//				List<String> serialList = ECurriculumService.getSerials(queryVal);
+//				if(serialList == null || serialList.size()==0){
+//					return false;
+//				}else{
+//					for(int i=0;i<serialList.size();i++){
+//						if(serialList.get(i).equals(courseNo)){
+//							return true;
+//						}
+//					}
 //				}
 				break;
 			default:
