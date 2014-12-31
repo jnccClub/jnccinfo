@@ -26,14 +26,73 @@
 		}
 		return false;
 	}
+	function checkName(){
+		var params = $("#subUserForm").serializeArray();
+		var username = $("#singUpUsername").val();
+		if (invalidUsername(username)) {
+			$("#nameValidate").removeClass().addClass(
+					"signup_errTips");
+			return false;
+		}
+		$.ajax({
+			url : 'comAction/user_checkUsername.action',
+			type : 'post',
+			data : params,
+			dataType : 'json',
+			success : function(data) {
+				if (data.resultCode.toString() == "200") {
+					$("#nameValidate").removeClass().addClass(
+							"signup_correctTips");
+					$("#nameValidate").html("恭喜，用户名可用");
+					$("#addUser").removeAttr("disabled");
+					regNameValid = true;
+				} else {
+					$("#nameValidate").removeClass().addClass(
+							"signup_errTips");
+					$("#nameValidate").html("用户名已经注册");
+					$("#addUser").attr('disabled', "true");
+					regNameValid = false;
+				}
+			}
+		});
+		return true;
+	}
+	function checkComPasswd(){
+		var fPasswd = $("#firstRegPasswd").val();
+		var sPasswd = $("#comPasswd").val();
+		if(fPasswd == ""){
+			alert("Passwd can't be empty!");
+			return false;
+		}
+		if(fPasswd == sPasswd){
+			return true;
+		}else{
+			alert("Not same password at the two times!");
+			return false;
+		}
+	}
+	
+	function checkRegForm(){
+		if(!checkName() || !regNameValid){
+			return false;
+		}
+		if(!checkComPasswd()){
+			return false;
+		}
+		return true;
+	}
 </script>
 <script>
 	$(function() {
+		regNameValid = false;
 		$("#addUser").click(
 				function() {// 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
+					if(!checkRegForm()){
+						return ;
+					}
 					var params = $("#subUserForm").serializeArray();
 					$.ajax({
-						url : 'user/user_add.action',
+						url : 'comAction/user_add.action',
 						type : 'post',
 						data : params,
 						dataType : 'json',
@@ -51,37 +110,11 @@
 						}
 					});
 				});
-
-		$('#singUpUsername').blur(
-				function() { // 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
-					var params = $(this).serializeArray();
-					if (invalidUsername($(this).val().trim())) {
-						$("#nameValidate").removeClass().addClass(
-								"signup_errTips");
-						$("#nameValidate").show();
-						$("#addUser").attr('disabled', "true");
-						return false;
-					}
-					$.ajax({
-						url : 'comAction/user_checkUsername.action',
-						type : 'post',
-						data : params,
-						dataType : 'json',
-						success : function(data) {
-							if (data.resultCode.toString() == "200") {
-								$("#nameValidate").removeClass().addClass(
-										"signup_correctTips");
-								$("#nameValidate").html("恭喜，用户名可用");
-								$("#addUser").removeAttr("disabled");
-							} else {
-								$("#nameValidate").removeClass().addClass(
-										"signup_errTips");
-								$("#nameValidate").html("用户名已经注册");
-								$("#addUser").attr('disabled', "true");
-							}
-							$("#nameValidate").show();
-						}
-					});
+		$("input[name='userInfo.password']").blur(function(){
+			checkComPasswd();
+		});
+		$('#singUpUsername').blur(function() { // 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
+					checkName();
 				});
 		$("table tr").each(function() {
 			//$("td:eq(0)").addClass("signupLabel");
@@ -106,13 +139,13 @@
 				<td id="nameValidate">请输入本人学号/工号</td>
 			</tr>
 			<tr>
-				<td><input name="userInfo.password" placeholder="请输入密码"
-					class="UserPasswdInput" type="password" required="true" /></td>
+				<td><input  placeholder="请输入密码"
+					class="UserPasswdInput" type="password" required="true" id="firstRegPasswd"/></td>
 				<td>请输入3位以上个人密码</td>
 			</tr>
 			<tr>
 				<td><input placeholder="请再次输入密码" class="UserPasswdInput"
-					type="password" required /></td>
+					type="password" required name="userInfo.password" id="comPasswd"/></td>
 				<td>请再次输入密码</td>
 			</tr>
 			<tr>
