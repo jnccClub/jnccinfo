@@ -37,6 +37,7 @@
 <script type="text/javascript" src='js/application/application.js'></script>
 <script type="text/javascript" src='js/application/audit_app.js'></script>
 <script type="text/javascript" src='js/query/queryinfo.js'></script>
+<script type="text/javascript" src='js/bbs/bbs.js'></script>
 <script type="text/javascript" src='js/gloableDefine.js'></script>
 <script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
 <script type="text/javascript" src='js/cfg/course.js'></script>
@@ -49,21 +50,31 @@
 		// 软件列表
 		schoolBeginDate = new Date("2014-09-01");
 		schoolBeginMon = new Date();
-		var currentShowID = "#MF_Body";
+		var currentShowID = "#MF_Query";
 		$(function() {
 			$("#loginEntry").click(function() {
 				renewMainId("#mainFrame_Login");
 			});
-
 			$("#logOutEntry").click(function() {
-				alert("come to relogin");
+				alert("欢迎重新登录！");
 				username = "";
-				$("#loginEntry").html('<a href="javarscript:(0)" >登录/注册</a>');
+				$("#loginInfo").hide();
 				$("#logOutEntry").hide();
+				$("#loginEntry").show();
+				renewMainId("#mainFrame_Login");
 			});
-
+			guestItemHide();
+			queryMFDetailInof();
 		});
 
+		function guestItemHide(){
+			$("#personCenter").hide();
+			$("#maintainCenter").hide();
+		}
+		function userItemShow(){
+			$("#personCenter").show();
+			$("#maintainCenter").show();
+		}
 		function renewMainId(newId) {
 			$(currentShowID).hide();
 			currentShowID = newId;
@@ -71,11 +82,14 @@
 		}
 	</script>
 
-
+	<jsp:include page="chat/chat.jsp"></jsp:include>
 	<div class="container">
+	
+
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
 		<jsp:include page="bodyContent/auditApp/auditApplication.jsp"></jsp:include>
 		<jsp:include page="login/mainFrame_Login.jsp"></jsp:include>
+		<jsp:include page="bbs.jsp"></jsp:include>
 		<jsp:include page="login/mainFrame_SignUp.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
@@ -84,7 +98,6 @@
 		<div class="clearfix"></div>
 		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
 		<div class="clearfix"></div>
-		
 	</div>
 
 	<div id="circular">

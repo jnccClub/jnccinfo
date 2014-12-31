@@ -24,6 +24,8 @@
 		<mapping resource="EApplication.hbm.xml" />
 		<mapping resource="ECourse.hbm.xml" />
 		<mapping resource="ECurriculum.hbm.xml" />
+		<mapping resource="EBbs.hbm.xml" />
+		
     </session-factory>
 
 </hibernate-configuration>

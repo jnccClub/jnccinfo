@@ -54,6 +54,12 @@ public class dbSession {
 		return l;
 	}
 
+	public static List getAllbbs(String hql,int maxRow){
+		final Query query = session.createQuery(hql);
+	    query.setMaxResults(maxRow);
+	    return query.list();
+		
+	}
 
 	// 根据主键获取唯一数据
 	public static Object load(Class clazz, String keyword) {

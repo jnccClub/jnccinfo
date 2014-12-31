@@ -29,27 +29,32 @@
 </div>
 
 <script>
+function showWelBar(u_name){
+	$("#loginInfo").html(
+			"欢迎您，" + u_name + "&nbsp;&nbsp;");
+	$("#loginEntry").hide();
+	$("#logOutEntry").show();
+	$("#loginInfo").show();
+	renewMainId("#MF_Body");
+}
 	$(function() {
 		$("#loginJump2SignUp").click(function() {
 			renewMainId("#mainFrame_SignUp");
 		});
-
 		$("#loginSubmit").click(
 				function() {// 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
 					var params = $("#userLoginForm").serializeArray();
 					$.ajax({
-						url : 'user/user_loginIn.action',
+						url : 'comAction/user_loginIn.action',
 						type : 'post',
 						data : params,
 						dataType : 'json',
 						success : function(data) {
 							if (data.resultCode.toString() == "200") {
 								//alert("恭喜，登录成功！");
-								userName = $("#loginUserNameInput").val();
-								$("#loginEntry").html(
-										"欢迎您，" + userName + "！&nbsp;&nbsp;");
-								$("#logOutEntry").show();
-								renewMainId("#mainFrame_Body");
+								var u_name = $("#loginUserNameInput").val();
+								showWelBar(u_name);
+								userItemShow();
 							} else if (data.resultCode.toString() == "404") {
 								$("#loginErrTips").html("**您输入的用户名不存在**");
 								$("#loginErrTips").show();

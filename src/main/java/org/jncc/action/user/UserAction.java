@@ -2,9 +2,6 @@ package org.jncc.action.user;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
 import org.jncc.base.cause.resultCause;
 import org.jncc.base.user.UserInfo;
 import org.jncc.base.user.UserService;
@@ -72,15 +69,14 @@ public class UserAction extends ActionSupport {
 			resultCause.setCause("404","No such user registed!");
 		} else if (usInfo.getPassword().equals(userInfo.getPassword())) {
 			resultCause.setCause("200","User login info is correct.");
-			 Map session = ActionContext.getContext().getSession();
-			 Object obj = session.get("userInfo");
-			 session.put("userInfo", userInfo);
-			 int i = 3;
+			Map session = ActionContext.getContext().getSession();
+			Object obj = session.get("userInfo");
+			session.put("userInfo", userInfo);
+			int i = 3;
 		}else {
 			resultCause.setCause("403","User passwd is not correct!");
 		}
 		System.out.println("comehere!!!!! loginIn!");
 		return "LOGIN_IN";
 	}
-
 }

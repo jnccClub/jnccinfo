@@ -46,6 +46,20 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 		</action>
+		<action name="comBbs_*" class="org.jncc.action.bbs.bbsAction"
+			method="{1}">
+			<result name="GET_BBS_SUCCESS" type="json">
+				<param name="root">bbsList</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="ADD_BBS_SUCCESS" type="json">
+				<param name="root">result</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			
+		</action>
 		<action name="comRes_*" class="org.jncc.action.resource.resouceAction"
 			method="{1}">
 			<result name="RES_QUERYCOURSEARR_SUCCESS" type="json">

@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
-
 <div class="navbar" id="mainFrame_Nav">
 	<div class="navbar-inner">
 		<div class="container">
@@ -17,13 +16,14 @@
 			</a> <a class="brand" href="#">计算中心</a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class="active"><a href="#" onclick="renewMainId('#MF_Body')">首页</a></li>
-					<li><a href="#" onclick="queryMFDetailInof()">查看</a></li>
-					<li><a href="#">帮助</a></li>
-					<li class="dropdown"><a href="help.htm"
-						class="dropdown-toggle" data-toggle="dropdown">引导 <b
+					<li class="active"><a href="#"
+						onclick="queryMFDetailInof()">首页</a></li>
+					<li><a href="#" onclick="renewMainId('#MF_Body')" id="personCenter">个人中心</a></li>
+					<li><a href="#" onclick="bbsShow()">吐槽墙</a></li>
+					<li class="dropdown"><a href="#"
+						class="dropdown-toggle" data-toggle="dropdown" id="maintainCenter">维护中心 <b
 							class="caret"></b></a>
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu" >
 							<li><a href="help.htm">欢迎页面</a></li>
 							<li><a href="help.htm">预留页面</a></li>
 							<li><a href="help.htm">预留页面</a></li>
@@ -40,8 +40,9 @@
 				</form>
 				 -->
 				<ul class="nav pull-right">
-					<li><a href="profile.htm">70208888</a></li>
-					<li><a href="javascript:(0)" id="loginEntry">退出</a></li>
+					<li><a href="javascript:(0)" id="loginEntry">登录/注册</a></li>
+					<li><a href="javascript:(0)" id="loginInfo"></a></li>
+					<li><a href="javascript:(0)" id="logOutEntry">退出</a></li>
 				</ul>
 			</div>
 		</div>

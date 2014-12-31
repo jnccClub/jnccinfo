@@ -11,7 +11,7 @@
 
 
 
-<div class="row" id="MF_Body">
+<div class="row" id="MF_Body" style="display:none">
 	<jsp:include page="personalNav.jsp"></jsp:include>
 	<jsp:include page="welcomeContent.jsp"></jsp:include>
 	<jsp:include page="createApplication.jsp"></jsp:include>

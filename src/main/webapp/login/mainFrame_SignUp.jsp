@@ -98,19 +98,19 @@
 						dataType : 'json',
 						success : function(data) {
 							if (data.resultCode.toString() == "200") {
-								//alert("恭喜，登录成功！");
-								userName = $("#singUpUsername").val();
-								$("#loginEntry").html(
-										"欢迎您，" + userName + "！&nbsp;&nbsp;");
-								$("#logOutEntry").show();
-								renewMainId("#mainFrame_Body");
+								alert("恭喜，成功加入我们！请登录");
+								username = "";
+								$("#loginInfo").hide();
+								$("#logOutEntry").hide();
+								$("#loginEntry").show();
+								renewMainId("#mainFrame_Login");
 							} else {
 								alert("用户添加异常，请重新注册或联系管理员，谢谢！");
 							}
 						}
 					});
 				});
-		$("input[name='userInfo.password']").blur(function(){
+		$("#firstRegPasswd").blur(function(){
 			checkComPasswd();
 		});
 		$('#singUpUsername').blur(function() { // 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
