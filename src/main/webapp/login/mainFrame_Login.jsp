@@ -12,8 +12,8 @@
 	id="mainFrame_Login">
 	<form id="userLoginForm">
 		<p>
-			New to jnccClub? <br> <a href="javascript:(0)"
-				id="loginJump2SignUp">Signup to join us!</a>
+			尚无登录账号？ <br> <a href="javascript:(0)"
+				id="loginJump2SignUp">快快注册加入我们</a>
 		</p>
 
 		<input name="userInfo.username" placeholder="请输入学号/工号"
