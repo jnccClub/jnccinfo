@@ -35,7 +35,7 @@ public class ECourseMapService implements java.io.Serializable {
 
 	public static int getBeginCourse(String beginTime) {
 		for (int i = 0; i < ecml.size(); i++) {
-			if (ecml.get(i).getBeginTime().equals(beginTime)) {
+			if (ecml.get(i).getBeginTime().compareTo(beginTime)<=0 && ecml.get(i).getEndTime().compareTo(beginTime)>0) {
 				return ecml.get(i).getCourse();
 			}
 		}
@@ -44,7 +44,7 @@ public class ECourseMapService implements java.io.Serializable {
 
 	public static int getEndCourse(String endTime) {
 		for (int i = 0; i < ecml.size(); i++) {
-			if (ecml.get(i).getEndTime().equals(endTime)) {
+			if (ecml.get(i).getBeginTime().compareTo(endTime)<0 && ecml.get(i).getEndTime().compareTo(endTime)>=0) {
 				return ecml.get(i).getCourse();
 			}
 		}
