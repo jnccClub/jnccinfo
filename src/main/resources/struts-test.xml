@@ -6,7 +6,7 @@
 
 <!-- START SNIPPET: xworkSample -->
 <struts>
-	<constant name="struts.devMode" value="true" />
+	<constant name="struts.devMode" value="false" />
 	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
 	<!--采用json数据格式，package的extends必须是extends="json-default" -->
 	<!--并且必须要用到struts2的json-lib，struts2-json-plugin包 -->
