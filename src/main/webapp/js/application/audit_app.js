@@ -11,7 +11,7 @@
 		fit : true,// 自动大小
 		url : 'res_list.action',
 		sortName : 'fld_CTIME',
-		sortOrder : 'asc',
+		sortOrder : 'desc',
 		remoteSort : false,
 		// idField : 'fld_CNO',
 		singleSelect : false,// 是否单选
