@@ -12,7 +12,7 @@
 	id="mainFrame_Login">
 	<form id="userLoginForm">
 		<p>
-			尚无登录账号？ <br> <a href="javascript:(0)"
+			尚无登录账号？ <br> <a href="#"
 				id="loginJump2SignUp">快快注册加入我们</a>
 		</p>
 

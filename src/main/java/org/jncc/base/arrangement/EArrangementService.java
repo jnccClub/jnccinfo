@@ -41,12 +41,23 @@ public class EArrangementService implements java.io.Serializable {
 
 	public static List<EZone> queryFreezone(String date, int beginCourse,
 			int endCourse) {
-		Criteria crit = dbSession.getCriteria(EArrangement.class);
-		List<EArrangement> lEArr = crit
-				.add(Expression.between("id.course", beginCourse, endCourse))
-				.add(Expression.eq("id.date", date)).list();
-
+//		Criteria crit = dbSession.getCriteria(EArrangement.class);
+//		List<EArrangement> lEArr = crit
+//				.add(Expression.between("id.course", beginCourse, endCourse))
+//				.add(Expression.eq("id.date", date)).list();
+		List<EArrangement> lEArr = null;
+		try {
+			dbSession.init();
+			String sql="from EArrangement ear where ear.id.date='"+date+"' and ear.id.course between "+beginCourse+" and "+endCourse;
+			lEArr = dbSession.select(sql);
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		List<EZone> lEZone = EZoneService.getEZoneList();
+		if(lEArr == null){
+			return lEZone;
+		}
 		for (int i = 0; i < lEArr.size(); i++) {
 			for (int j = 0; j < lEZone.size(); j++) {
 				if (lEArr.get(i).getId().getZone()
@@ -98,6 +109,7 @@ public class EArrangementService implements java.io.Serializable {
 			String createTime) {
 		List<EArrangement> earrList;
 		try {
+			dbSession.init();
 			Timestamp ts = Timestamp.valueOf(createTime);
 			String sql = "from EArrangement earr where earr.appId='" + appId
 					+ "' and earr.createtime='" + ts + "'";
@@ -124,6 +136,7 @@ public class EArrangementService implements java.io.Serializable {
 		}
 		
 		try {
+			dbSession.init();
 			String sql = "from EArrangement earr where "+ conditionSql;
 			earrList = dbSession.select(sql);
 			dbSession.close();

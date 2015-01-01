@@ -35,6 +35,13 @@ public class EArrangement  implements java.io.Serializable {
     public EArrangement(EArrangementId id) {
         this.id = id;
     }
+    public EArrangement(EArrangement ear) {
+        this.id = ear.getId();
+        this.floor = ear.getFloor();
+        this.appId = ear.getAppId();
+        this.createtime = ear.getCreatetime();
+        this.comment = ear.getComment();
+    }
     
     /** full constructor */
     public EArrangement(EArrangementId id, String floor, String appId, Timestamp createtime,String comment) {

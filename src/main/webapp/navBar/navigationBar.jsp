@@ -40,9 +40,9 @@
 				</form>
 				 -->
 				<ul class="nav pull-right">
-					<li><a href="javascript:(0)" id="loginEntry">登录/注册</a></li>
-					<li><a href="javascript:(0)" id="loginInfo"></a></li>
-					<li><a href="javascript:(0)" id="logOutEntry">退出</a></li>
+					<li><a href="#" id="loginEntry" onclick="renewMainId('#mainFrame_Login')">登录/注册</a></li>
+					<li><a href="#" id="loginInfo"></a></li>
+					<li><a href="#" id="logOutEntry" onclick="logOut()">退出</a></li>
 				</ul>
 			</div>
 		</div>

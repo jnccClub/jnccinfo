@@ -47,9 +47,16 @@ public class ESoftwareService implements java.io.Serializable {
 	}
 
 	public static List getEswList() {
+		List<ESoftware> l = null;
+		try {
+			dbSession.init();
+			String sql = "from ESoftware";
+			l = dbSession.select(sql);
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		String sql = "from ESoftware";
-		List<ESoftware> l = dbSession.select(sql);
 		return l;
 
 	}

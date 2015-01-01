@@ -21,27 +21,27 @@ import org.jncc.base.xls.ExcelService;
 import org.jncc.base.zone.EZone;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
+
 // default package
-
-
 
 /**
  * ECourse entity. @author MyEclipse Persistence Tools
  */
 
-public class ECourseService  implements java.io.Serializable {
+public class ECourseService implements java.io.Serializable {
 
 	private static List<ECourse> ecList;
 
-	// Fields    
+	// Fields
 	public static boolean addCourseFromXLS(String filename) {
 		ECourse ec = new ECourse();
-		Vector<ECurriculum> ecurVec = ExcelService.readExcel2ECourse(filename,ec);
+		Vector<ECurriculum> ecurVec = ExcelService.readExcel2ECourse(filename,
+				ec);
 		try {
 			dbSession.init();
 			for (int i = 0; i < ecurVec.size(); i++) {
 				dbSession.replaceInsert(ecurVec.get(i));
-				if(i%30 == 29){
+				if (i % 30 == 29) {
 					dbSession.flush();
 				}
 			}
@@ -53,11 +53,11 @@ public class ECourseService  implements java.io.Serializable {
 		updateEcList();
 		return true;
 	}
-	
+
 	public static Map<String, Object> toMapObject() {
-		
-		List<Map<String,String>> mapList = new ArrayList();
-		if(ecList ==null){
+
+		List<Map<String, String>> mapList = new ArrayList();
+		if (ecList == null) {
 			updateEcList();
 		}
 		for (int i = 0; i < ecList.size(); i++) {
@@ -68,88 +68,110 @@ public class ECourseService  implements java.io.Serializable {
 		jsonMap.put("rows", mapList);
 		return jsonMap;
 	}
-	
-	public static Map<String, String> toMap(ECourse ec){
-		Map<String,String> courseMap = new HashMap<String,String>();
-		courseMap.put("fld_C_NAME",UtilTool.validStr(ec.getName()));
-		courseMap.put("fld_C_SERIAL",UtilTool.validStr(ec.getSerial()));
-		courseMap.put("fld_C_TEACHER",UtilTool.validStr(ec.getTeacher()));
-		courseMap.put("fld_C_TNO",UtilTool.validStr(ec.getTeacherNo()));
-		courseMap.put("fld_C_CNO",UtilTool.validStr(ec.getClassNo()));
-		courseMap.put("fld_C_CNUM",String.valueOf(ec.getSeats()));
-		courseMap.put("fld_C_COMMENT",UtilTool.validStr(ec.getComment()));
+
+	public static Map<String, String> toMap(ECourse ec) {
+		Map<String, String> courseMap = new HashMap<String, String>();
+		courseMap.put("fld_C_NAME", UtilTool.validStr(ec.getName()));
+		courseMap.put("fld_C_SERIAL", UtilTool.validStr(ec.getSerial()));
+		courseMap.put("fld_C_TEACHER", UtilTool.validStr(ec.getTeacher()));
+		courseMap.put("fld_C_TNO", UtilTool.validStr(ec.getTeacherNo()));
+		courseMap.put("fld_C_CNO", UtilTool.validStr(ec.getClassNo()));
+		courseMap.put("fld_C_CNUM", String.valueOf(ec.getSeats()));
+		courseMap.put("fld_C_COMMENT", UtilTool.validStr(ec.getComment()));
 		return courseMap;
 	}
-	
-	
-	
-	public static Vector<ECurriculum> genCourse(Sheet sheet,ECourse ec){
-		Vector<ECurriculum> ecVec = new Vector();
-		
-        int row = sheet.getRows();
-        int col = sheet.getColumns();
-        int seats = 0;
 
-        Cell[] cells;
-        //课程名称
-        cells = sheet.getRow(2);
-        String courseName = cells[2].getContents();
-        //课程编号
-        cells = sheet.getRow(4);
-        String courseSerial = cells[2].getContents();
-        //教师姓名
-        cells = sheet.getRow(8);
-        String teacher = cells[2].getContents();
-        cells = sheet.getRow(9);
-        String teacherNo = cells[2].getContents();
-        Set<String> classNOset = new HashSet<String>();
-        for(int i=12;i<row;i++)
-        {
-        	cells = sheet.getRow(i);
-    		if (cells.length >= 6) {
-    			String stuNo = cells[2].getContents();
-    			if(stuNo==null || stuNo.trim().equals("")){
-    				break;
-    			}
-    			ECurriculumId id = new ECurriculumId(courseSerial,stuNo);
-    			String classNo = cells[1].getContents();
-    			classNo = classNo.trim();
-    			if(UtilTool.IsValid(classNo)){
-    				classNOset.add(classNo);
-    			}
-    			ECurriculum ecur = new ECurriculum(id,cells[3].getContents(),classNo,"");
-    			ecVec.add(ecur);
-    			seats++;
-    		}
-        }
-        ec.setName(courseName);
-        ec.setSerial(courseSerial);
-        ec.setSeats(seats);
-        ec.setTeacher(teacher);
-        ec.setTeacherNo(teacherNo);
-        String classNosStr = "";
-        for (String classStr : classNOset) {
-        	classNosStr = classNosStr+classStr+"|";
-        }
-        ec.setClassNo(classNosStr);
-        return ecVec;
+	public static Vector<ECurriculum> genCourse(Sheet sheet, ECourse ec) {
+		Vector<ECurriculum> ecVec = new Vector();
+
+		int row = sheet.getRows();
+		int col = sheet.getColumns();
+		int seats = 0;
+
+		Cell[] cells;
+		// 课程名称
+		cells = sheet.getRow(2);
+		String courseName = cells[2].getContents();
+		// 课程编号
+		cells = sheet.getRow(4);
+		String courseSerial = cells[2].getContents();
+		// 教师姓名
+		cells = sheet.getRow(8);
+		String teacher = cells[2].getContents();
+		cells = sheet.getRow(9);
+		String teacherNo = cells[2].getContents();
+		Set<String> classNOset = new HashSet<String>();
+		for (int i = 12; i < row; i++) {
+			cells = sheet.getRow(i);
+			if (cells.length >= 6) {
+				String stuNo = cells[2].getContents();
+				if (stuNo == null || stuNo.trim().equals("")) {
+					break;
+				}
+				ECurriculumId id = new ECurriculumId(courseSerial, stuNo);
+				String classNo = cells[1].getContents();
+				classNo = classNo.trim();
+				if (UtilTool.IsValid(classNo)) {
+					classNOset.add(classNo);
+				}
+				ECurriculum ecur = new ECurriculum(id, cells[3].getContents(),
+						classNo, "");
+				ecVec.add(ecur);
+				seats++;
+			}
+		}
+		ec.setName(courseName);
+		ec.setSerial(courseSerial);
+		ec.setSeats(seats);
+		ec.setTeacher(teacher);
+		ec.setTeacherNo(teacherNo);
+		String classNosStr = "";
+		for (String classStr : classNOset) {
+			classNosStr = classNosStr + classStr + "|";
+		}
+		ec.setClassNo(classNosStr);
+		return ecVec;
 	}
-	
-    public static List<ECourse> getEcList() {
-    	if(ecList==null || ecList.size() == 0){
-    		String sql = "from ECourse";
-    		ecList = dbSession.select(sql);
-    	}
+
+	public static List<ECourse> getEcList() {
+		if (ecList == null || ecList.size() == 0) {
+			try {
+				dbSession.init();
+				String sql = "from ECourse";
+				ecList = dbSession.select(sql);
+				dbSession.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return ecList;
 	}
 
-    public static boolean updateEcList(){
-    	String sql = "from ECourse";
-		ecList = dbSession.select(sql);
-    	return true;
-    }
-    
+	public static boolean updateEcList() {
+		try {
+			dbSession.init();
+			String sql = "from ECourse";
+			ecList = dbSession.select(sql);
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+
 	public static void setEcList(List<ECourse> ecList) {
 		ECourseService.ecList = ecList;
+	}
+
+	public static ECourse getCourse(String serial) {
+		ECourse ec = null;
+		List<ECourse> ecList = getEcList();
+		for (int i = 0; i < ecList.size(); i++) {
+			if (ecList.get(i).getSerial().equals(serial)) {
+				return ecList.get(i);
+			}
+		}
+		return ec;
 	}
 }

@@ -22,7 +22,6 @@ public class dbSession {
 	}
 
 	public static Criteria getCriteria(Class clazz) {
-		init();
 		Criteria crit = session.createCriteria(clazz);
 		return crit;
 	}
@@ -47,10 +46,8 @@ public class dbSession {
 	}
 
 	public static List select(String sql) {
-		init();
 		Query q = session.createQuery(sql);
 		List l = q.list();
-		close();
 		return l;
 	}
 
@@ -100,7 +97,7 @@ public class dbSession {
 		// sessionFactory = new
 		// Configuration().configure().buildSessionFactory();
 		// session = sessionFactory.openSession();
-		if (serviceRegistry == null) {
+		if (serviceRegistry == null || configuration==null) {
 			configuration = new Configuration().configure();
 			serviceRegistry = new ServiceRegistryBuilder().applySettings(
 					configuration.getProperties()).buildServiceRegistry();

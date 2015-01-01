@@ -80,6 +80,7 @@ public class EApplicationService implements java.io.Serializable {
 	public static List<EApplication> queryAuditApp(){
 		List<EApplication> eaList = new ArrayList();
 		try {
+			dbSession.init();
 			String sql="from EApplication ea where ea.status='0'";
 			eaList = dbSession.select(sql);
 			dbSession.close();
@@ -168,6 +169,7 @@ public class EApplicationService implements java.io.Serializable {
 //		ea.setId(id);
 //		EApplicationService.addApplication(ea);
 		try {
+			dbSession.init();
 			String sql="from EArrangement ear where ear.appId='102030_70206097_1' and ear.createtime='2014-12-24 08:47:18'";
 			List<EArrangement> earL= dbSession.select(sql);
 			dbSession.close();

@@ -17,15 +17,21 @@ public class EZoneService {
 	}
 
 	public static List<EZone> getEZoneList() {
-		String sql = "from EZone";
-		List<EZone> l = dbSession.select(sql);
+		List<EZone> l = null;
+		try {
+			dbSession.init();
+			String sql = "from EZone";
+			l = dbSession.select(sql);
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return l;
 	}
-	
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-			
+
 	}
 
 }

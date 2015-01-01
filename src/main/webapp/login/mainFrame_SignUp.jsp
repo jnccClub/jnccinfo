@@ -165,8 +165,7 @@
 					class="transInput" required /></td><td>请填写您的QQ</td>
 			</tr>
 			<tr>
-				<td><select size="1" name="userInfo.role"
-					style="font-color:blue;" class="transInput">
+				<td><select size="1" name="userInfo.role" class="transInput">
 						<option value="teacher">教师</option>
 						<option selected value="student">学生</option>
 						<option value="other">其他</option>

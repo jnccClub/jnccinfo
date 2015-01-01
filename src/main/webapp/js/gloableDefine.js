@@ -1,37 +1,35 @@
-﻿
-$(function(){
-	schoolBeginMon = getFirstBeginMon();
+﻿$(function(){
+	var schoolBeginDate = new Date("2015-03-02");
+	updateFirstBeginMon(schoolBeginDate);
 });
-
-
-function getFirstBeginMon() {
+function updateFirstBeginMon(schoolBeginDate) {
 	var day = schoolBeginDate.getDay();
-	var beginMon = new Date();
-
+	schoolBeginMon = new Date();
 	switch (day) {
 	case 0:
-		beginMon.setDate(schoolBeginDate.getDate()+1);
+		schoolBeginMon.setDate(schoolBeginDate.getDate()+1);
 		break;
 	case 1:
-		beginMon = schoolBeginDate;
+		schoolBeginMon = schoolBeginDate;
 		break;
 	case 2:
-		beginMon.setDate(schoolBeginDate.getDate()-1);
+		schoolBeginMon.setDate(schoolBeginDate.getDate()-1);
 		break;
 	case 3:
-		beginMon.setDate(schoolBeginDate.getDate()-2);
+		schoolBeginMon.setDate(schoolBeginDate.getDate()-2);
 		break;
 	case 4:
-		beginMon.setDate(schoolBeginDate.getDate()-3);
+		schoolBeginMon.setDate(schoolBeginDate.getDate()-3);
 		break;
 	case 5:
-		beginMon.setDate(schoolBeginDate.getDate()-4);
+		schoolBeginMon.setDate(schoolBeginDate.getDate()-4);
 		break;
 	case 6:
-		beginMon.setDate(schoolBeginDate.getDate()-5);
+		schoolBeginMon.setDate(schoolBeginDate.getDate()-5);
+		break;
+	default:
 		break;
 	}
-	return beginMon;
 }
 
 function transWeekDay(weekday){

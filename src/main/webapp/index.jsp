@@ -48,21 +48,17 @@
 <body>
 	<script>
 		// 软件列表
-		schoolBeginDate = new Date("2014-09-01");
-		schoolBeginMon = new Date();
 		var currentShowID = "#MF_Query";
+		function logOut(){
+			alert("欢迎重新登录！");
+			username = "";
+			$("#loginInfo").hide();
+			$("#logOutEntry").hide();
+			$("#loginEntry").show();
+			renewMainId("#mainFrame_Login");
+		}
+		
 		$(function() {
-			$("#loginEntry").click(function() {
-				renewMainId("#mainFrame_Login");
-			});
-			$("#logOutEntry").click(function() {
-				alert("欢迎重新登录！");
-				username = "";
-				$("#loginInfo").hide();
-				$("#logOutEntry").hide();
-				$("#loginEntry").show();
-				renewMainId("#mainFrame_Login");
-			});
 			guestItemHide();
 			queryMFDetailInof();
 		});

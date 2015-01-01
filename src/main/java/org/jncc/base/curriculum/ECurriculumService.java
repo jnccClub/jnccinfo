@@ -18,6 +18,7 @@ public class ECurriculumService{
 	public static List<String> getSerials(String stuNo) {
 		List<String> serialList = null;
 		try {
+			dbSession.init();
 			String sql = "from ECurriculum ecur where ecur.stuNo='" + stuNo
 					+ "'";
 			serialList = dbSession.select(sql);

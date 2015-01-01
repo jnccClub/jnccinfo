@@ -2,7 +2,7 @@
 SQLyog Ultimate v9.10 
 MySQL - 5.6.15 : Database - test
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -58,7 +58,7 @@ CREATE TABLE `e_arrangement` (
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `comment` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`zone`,`date`,`course`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `e_arrangement` */
 

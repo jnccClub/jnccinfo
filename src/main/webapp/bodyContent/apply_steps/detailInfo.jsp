@@ -24,9 +24,9 @@
 	<div class="control-group">
 		<label class="control-label">必备软件：</label>
 		<div class="controls">
-			<input name="applicationInfo.SW"/>&
-			<input name="applicationInfo.SW"/>&
-			<input name="applicationInfo.SW"/>
+			<input name="applicationInfo.SW" id="input_sw1"/>&
+			<input name="applicationInfo.SW" id="input_sw2"/>&
+			<input name="applicationInfo.SW" id="input_sw3"/>
 		</div>
 	</div>
 
@@ -34,7 +34,7 @@
 		<label class="control-label" for="textarea">其他说明：</label>
 		<div class="controls">
 			<textarea class="input-xlarge" id="textarea" rows="4"
-				placeholder="计算中心的8楼E区键盘不好用！" name="applicationInfo.OtherComment"></textarea>
+				placeholder="计算中心的8楼E区键盘不好用！" name="applicationInfo.OtherComment" style="width:33em"></textarea>
 		</div>
 	</div>
 
@@ -48,23 +48,3 @@
 		<button class="btn btn-primary" onclick="appFirstNext()">下一步</button>
 	</div>
 </fieldset>
-
-<script>
-	//设置软件列表
-	$(function() {
-		$('input[name="applicationInfo.SW"]').combobox({
-			//data : drows,
-			url:'comAction/comSw_getSW.action',
-			valueField : 'id',
-			textField : 'text',
-			onLoadSuccess : function() { //加载完成后,设置选中第一项
-				/*var val = $(this).combobox("getData");
-				for ( var item in val[0]) {
-					if (item == "id") {
-						$(this).combobox("select", val[0][item]);
-					}
-				}*/
-			}
-		});
-	});
-</script>

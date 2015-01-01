@@ -3,6 +3,7 @@ package org.jncc.action.application;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.jncc.base.application.EApplication;
 import org.jncc.base.application.EApplicationID;
@@ -11,10 +12,14 @@ import org.jncc.base.arrangement.EArrangement;
 import org.jncc.base.arrangement.EArrangementId;
 import org.jncc.base.arrangement.EArrangementService;
 import org.jncc.base.cause.resultCause;
+import org.jncc.base.course.ECourse;
+import org.jncc.base.course.ECourseService;
 import org.jncc.base.coursemap.ECourseMapService;
+import org.jncc.base.user.UserInfo;
 import org.jncc.base.zone.EZone;
 import org.jncc.persistence.dbSession;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ApplicationAction extends ActionSupport {
@@ -93,9 +98,19 @@ public class ApplicationAction extends ActionSupport {
 		EApplicationID eaID = ea.getId();
 		eaID.setCreatedatetime(curTime);
 		ea.setId(eaID);
-		ea.setCreateUser("hpf");
-		ea.setSeats(55);
-
+		Map session = ActionContext.getContext().getSession();
+		UserInfo us = (UserInfo) session.get("USERINFO");
+		if (us == null) {
+			ea.setCreateUser("admin");
+		} else {
+			ea.setCreateUser(us.getUsername());
+		}
+		ECourse ec = ECourseService.getCourse(ea.getId().getApplicationId());
+		if (ec == null) {
+			ea.setSeats(55);
+		} else {
+			ea.setSeats(ec.getSeats());
+		}
 		String dInfo = ea.getDateInfo();
 		String[] dInfos = dInfo.split("\\s+");
 		String zInfo = ea.getZone();
@@ -109,7 +124,7 @@ public class ApplicationAction extends ActionSupport {
 		eArr.setCreatetime(ea.getId().getCreatedatetime());
 		try {
 			dbSession.init();
-			int txCount =0;
+			int txCount = 0;
 			for (String bookDate : dInfos) {
 				System.out.println(bookDate);
 				eArrId.setDate(bookDate);
@@ -120,9 +135,8 @@ public class ApplicationAction extends ActionSupport {
 						eArrId.setCourse(i);
 						eArr.setId(eArrId);
 						dbSession.replaceInsert(eArr);
-						if(txCount++ %30 == 29){
-							dbSession.flush();
-						}
+						txCount++;
+						dbSession.flush();
 					}
 				}
 			}
