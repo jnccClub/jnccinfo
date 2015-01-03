@@ -91,6 +91,9 @@ function approve_application() {
 	}, {
 		name : "eaIDs",
 		value : ids
+	},{
+		name : "createUsers",
+		value: createUsers
 	} ];
 	if ($("#circular").is(":hidden")) {
 		$("#circular").show();

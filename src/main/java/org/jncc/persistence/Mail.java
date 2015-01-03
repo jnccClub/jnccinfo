@@ -1,5 +1,7 @@
 package org.jncc.persistence;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -218,18 +220,18 @@ public class Mail {
 		}
 	}
 
-	public boolean setCopyTo(String[] copytoList) {
-		if(copytoList == null || copytoList.length ==0)
+	public boolean setCopyTo(String[] strArray) {
+		if(strArray == null || strArray.length ==0)
 			return false;
-		for (String copyto : copytoList) {
-			if (copyto == null)
-				continue;
-			try {
-				mimeMsg.setRecipients(Message.RecipientType.CC,
-						(Address[]) InternetAddress.parse(copyto));
-			} catch (Exception e) {
-				return false;
+		int len = strArray.length ;
+		Address copyTo[] = new InternetAddress[len] ;
+		try {
+			for(int i=0;i<len;i++){
+				copyTo[i] = new InternetAddress(strArray[i]) ;
 			}
+			mimeMsg.setRecipients(Message.RecipientType.CC,copyTo);
+		} catch (Exception e) {
+			return false;
 		}
 		return true;
 	}
