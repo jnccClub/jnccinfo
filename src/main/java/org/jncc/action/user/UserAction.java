@@ -14,7 +14,6 @@ public class UserAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	UserService us = new UserService();
 	private resultCause resultCause = new resultCause();
 	private UserInfo userInfo;
 
@@ -39,7 +38,7 @@ public class UserAction extends ActionSupport {
 	public String add() {
 		// 如果是异步提交json格式，必须先在js中对提交的表单form进行序列化
 		// var params = $("subUserForm").serialize();
-		if (us.addUser(userInfo)) {
+		if (UserService.addUser(userInfo)) {
 			System.out.println("add user succcessfully");
 			resultCause.setCause("200", "add successfully!");
 			UserService.updateUserList();
@@ -54,7 +53,7 @@ public class UserAction extends ActionSupport {
 	}
 
 	public String checkUsername() {
-		if (us.IsExistUser(UserInfo.class, userInfo.getUsername())) {
+		if (UserService.IsExistUser(UserInfo.class, userInfo.getUsername())) {
 			resultCause.setCause("302", "The new user is alread existed.");
 		} else {
 			resultCause.setCause("200", "The new user is available.");
@@ -64,15 +63,15 @@ public class UserAction extends ActionSupport {
 	}
 
 	public String loginIn() {
-		UserInfo usInfo = us
+		UserInfo usInfo = UserService
 				.getUserInfo(UserInfo.class, userInfo.getUsername());
 		if (usInfo == null) {
 			resultCause.setCause("404", "No such user registed!");
 		} else if (usInfo.getPassword().equals(userInfo.getPassword())) {
 			resultCause.setCause("200", "User login info is correct.");
 			Map session = ActionContext.getContext().getSession();
-			session.put("USERINFO", userInfo);
-			int i = 3;
+			session.put("USERINFO", usInfo);
+			userInfo = usInfo;
 		} else {
 			resultCause.setCause("403", "User passwd is not correct!");
 		}

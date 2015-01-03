@@ -28,7 +28,7 @@ public class UserService {
 	}
 
 
-	public boolean addUser(UserInfo userInfo) {
+	public static boolean addUser(UserInfo userInfo) {
 		try {
 			dbSession.insert(userInfo);
 			dbSession.close();
@@ -38,7 +38,7 @@ public class UserService {
 		return true;
 	}
 
-	public boolean IsExistUser(Class<UserInfo> clazz, String userName) {
+	public static boolean IsExistUser(Class<UserInfo> clazz, String userName) {
 		boolean IsExist = false;
 		if (dbSession.load(clazz, userName) != null)
 			IsExist = true;
@@ -46,7 +46,7 @@ public class UserService {
 		return IsExist;
 	}
 
-	public UserInfo getUserInfo(Class<UserInfo> clazz, String userName) {
+	public static UserInfo getUserInfo(Class<UserInfo> clazz, String userName) {
 		UserInfo usInfo;
 		usInfo = (UserInfo) dbSession.load(clazz, userName);
 		dbSession.close();

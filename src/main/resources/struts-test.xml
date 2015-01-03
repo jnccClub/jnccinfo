@@ -33,7 +33,8 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 			<result name="LOGIN_IN" type="json">
-				<param name="root">resultCause</param>
+				<!-- <param name="root">resultCause</param> -->
+				<param name="includeProperties">userInfo.*,resultCause.*</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>

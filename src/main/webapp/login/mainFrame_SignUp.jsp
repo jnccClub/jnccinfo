@@ -26,57 +26,45 @@
 		}
 		return false;
 	}
-	function checkName(){
+	function checkName() {
 		var params = $("#subUserForm").serializeArray();
 		var username = $("#singUpUsername").val();
 		if (invalidUsername(username)) {
-			$("#nameValidate").removeClass().addClass(
-					"signup_errTips");
+			$("#nameValidate").removeClass().addClass("signup_errTips");
 			return false;
 		}
-		$.ajax({
-			url : 'comAction/user_checkUsername.action',
-			type : 'post',
-			data : params,
-			dataType : 'json',
-			success : function(data) {
-				if (data.resultCode.toString() == "200") {
-					$("#nameValidate").removeClass().addClass(
-							"signup_correctTips");
-					$("#nameValidate").html("恭喜，用户名可用");
-					$("#addUser").removeAttr("disabled");
-					regNameValid = true;
-				} else {
-					$("#nameValidate").removeClass().addClass(
-							"signup_errTips");
-					$("#nameValidate").html("用户名已经注册");
-					$("#addUser").attr('disabled', "true");
-					regNameValid = false;
-				}
-			}
-		});
+		$
+				.ajax({
+					url : 'comAction/user_checkUsername.action',
+					type : 'post',
+					data : params,
+					dataType : 'json',
+					success : function(data) {
+						if (data.resultCode.toString() == "200") {
+							$("#nameValidate").removeClass().addClass(
+									"signup_correctTips");
+							$("#nameValidate").html("恭喜，用户名可用");
+							$("#addUser").removeAttr("disabled");
+							regNameValid = true;
+						} else {
+							$("#nameValidate").removeClass().addClass(
+									"signup_errTips");
+							$("#nameValidate").html("用户名已经注册");
+							$("#addUser").attr('disabled', "true");
+							regNameValid = false;
+						}
+					}
+				});
 		return true;
 	}
-	function checkComPasswd(){
-		var fPasswd = $("#firstRegPasswd").val();
-		var sPasswd = $("#comPasswd").val();
-		if(fPasswd == ""){
-			alert("Passwd can't be empty!");
-			return false;
-		}
-		if(fPasswd == sPasswd){
-			return true;
-		}else{
-			alert("Not same password at the two times!");
-			return false;
-		}
-	}
-	
-	function checkRegForm(){
-		if(!checkName() || !regNameValid){
-			return false;
-		}
-		if(!checkComPasswd()){
+
+	function checkRegForm() {
+		var isformValid = $("#subUserForm").form('validate');
+		if (isformValid) {
+			if (!checkName() || !regNameValid) {
+				return false;
+			}
+		} else {
 			return false;
 		}
 		return true;
@@ -85,37 +73,37 @@
 <script>
 	$(function() {
 		regNameValid = false;
-		$("#addUser").click(
-				function() {// 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
-					if(!checkRegForm()){
-						return ;
+		$("#addUser").click(function() {// 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
+
+			if (!checkRegForm()) {
+				return;
+			}
+			var params = $("#subUserForm").serializeArray();
+			$.ajax({
+				url : 'comAction/user_add.action',
+				type : 'post',
+				data : params,
+				dataType : 'json',
+				success : function(data) {
+					if (data.resultCode.toString() == "200") {
+						alert("恭喜，成功加入我们！请登录");
+						username = "";
+						$("#loginInfo").hide();
+						$("#logOutEntry").hide();
+						$("#loginEntry").show();
+						renewMainId("#mainFrame_Login");
+					} else {
+						alert("用户添加异常，请重新注册或联系管理员，谢谢！");
 					}
-					var params = $("#subUserForm").serializeArray();
-					$.ajax({
-						url : 'comAction/user_add.action',
-						type : 'post',
-						data : params,
-						dataType : 'json',
-						success : function(data) {
-							if (data.resultCode.toString() == "200") {
-								alert("恭喜，成功加入我们！请登录");
-								username = "";
-								$("#loginInfo").hide();
-								$("#logOutEntry").hide();
-								$("#loginEntry").show();
-								renewMainId("#mainFrame_Login");
-							} else {
-								alert("用户添加异常，请重新注册或联系管理员，谢谢！");
-							}
-						}
-					});
-				});
-		$("#firstRegPasswd").blur(function(){
+				}
+			});
+		});
+		$("#firstRegPasswd").blur(function() {
 			checkComPasswd();
 		});
 		$('#singUpUsername').blur(function() { // 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
-					checkName();
-				});
+			checkName();
+		});
 		$("table tr").each(function() {
 			//$("td:eq(0)").addClass("signupLabel");
 			//$("td:eq(1)").addClass("signupInput");
@@ -125,50 +113,133 @@
 		});
 
 		$("#signUpJump2LoginIn").click(function() {
+			guestItemHide();
 			renewMainId("#mainFrame_Login");
 		});
+		
+		
+		$.extend($.fn.validatebox.defaults.rules, {
+		    CHS: {
+		        validator: function (value, param) {
+		            return /^[\u0391-\uFFE5]+$/.test(value);
+		        },
+		        message: '请输入汉字'
+		    },
+		    ZIP: {
+		        validator: function (value, param) {
+		            return /^[1-9]\d{5}$/.test(value);
+		        },
+		        message: '邮政编码不存在'
+		    },
+		    QQ: {
+		        validator: function (value, param) {
+		            return /^[1-9]\d{4,10}$/.test(value);
+		        },
+		        message: 'QQ号码不正确'
+		    },
+		    cardNo: {
+		        validator: function (value, param) {
+		            return /^[1-9]\d{4,10}$/.test(value);
+		        },
+		        message: '学号或工号不正确'
+		    },
+		    mobile: {
+		        validator: function (value, param) {
+		            return /^((\(\d{2,3}\))|(\d{3}\-))?13\d{9}$/.test(value);
+		        },
+		        message: '手机号码不正确'
+		    },
+		    loginName: {
+		        validator: function (value, param) {
+		            return /^[\u0391-\uFFE5\w]+$/.test(value);
+		        },
+		        message: '登录名称只允许汉字、英文字母、数字及下划线。'
+		    },
+		    safepass: {
+		        validator: function (value, param) {
+		            return safePassword(value);
+		        },
+		        message: '密码由字母和数字组成，至少6位'
+		    },
+		    equalTo: {
+		        validator: function (value, param) {
+		            return value == $(param[0]).val();
+		        },
+		        message: '两次输入的字符不一致'
+		    },
+		    number: {
+		        validator: function (value, param) {
+		            return /^\d+$/.test(value);
+		        },
+		        message: '请输入数字'
+		    },
+		});
+		
+		/* 密码由字母和数字组成，至少6位 */
+		var safePassword = function (value) {
+		    return !(/^(([A-Z]*|[a-z]*|\d*|[-_\~!@#\$%\^&\*\.\(\)\[\]\{\}<>\?\\\/\'\"]*)|.{0,5})$|\s/.test(value));
+		};
+		
+
+/*	$('#subUserForm input').each(function() {
+			if ($(this).attr('required') || $(this).attr('validType'))
+				$(this).validatebox();
+		});*/
 	});
 </script>
 <div class="mainFrame_SignUp" style="text-align:center;"
 	id="mainFrame_SignUp">
 	<form class="mainFrame_Table" id="subUserForm">
-		<table >
+		<table>
 			<tr>
 				<td><input name="userInfo.username" placeholder="请输入学号/工号"
-					class="UsernameInput" required id="singUpUsername" /></td>
-				<td id="nameValidate">请输入本人学号/工号</td>
+					class="easyui-validatebox UsernameInput" id="singUpUsername"
+					required="true" missingMessage="学号/工号必须填写" validType="cardNo"/></td>
+				<td id="nameValidate"><font class="fontRed">*&nbsp;&nbsp;&nbsp;</font>请输入本人学号/工号</td>
 			</tr>
 			<tr>
-				<td><input  placeholder="请输入密码"
-					class="UserPasswdInput" type="password" required="true" id="firstRegPasswd"/></td>
-				<td>请输入3位以上个人密码</td>
+				<td><input placeholder="请输入密码"
+					class="easyui-validatebox UserPasswdInput" type="password"
+					id="firstRegPasswd" required="true" missingMessage="密码必须填写" validType="equalTo['#comPasswd']" /></td>
+				<td><font class="fontRed">*&nbsp;&nbsp;&nbsp;</font>请输入3位以上个人密码</td>
 			</tr>
 			<tr>
-				<td><input placeholder="请再次输入密码" class="UserPasswdInput"
-					type="password" required name="userInfo.password" id="comPasswd"/></td>
-				<td>请再次输入密码</td>
+				<td><input placeholder="请再次输入密码"
+					class="easyui-validatebox UserPasswdInput" type="password"
+					required="true" missingMessage="密码必须填写"  name="userInfo.password"
+					id="comPasswd" /></td>
+				<td><font class="fontRed">*&nbsp;&nbsp;&nbsp;</font>请再次输入密码</td>
 			</tr>
 			<tr>
 				<td><input name="userInfo.realname" placeholder="请输入真实姓名"
-					class="transInput" required /></td><td>请输入真实姓名</td>
+					class="easyui-validatebox transInput" required="true"
+					missingMessage="真实必须填写" validType="CHS"/></td>
+				<td><font class="fontRed">*&nbsp;&nbsp;&nbsp;</font>请输入真实姓名</td>
 			</tr>
 			<tr>
 				<td><input name="userInfo.phoneno" placeholder="请填写您的手机号码"
-					class="transInput" required /></td><td>请填写您的手机号码</td>
+					class="easyui-validatebox transInput" required="true"
+					missingMessage="手机号码必须填写" validType="mobile"/></td>
+				<td><font class="fontRed">*&nbsp;&nbsp;&nbsp;</font>请填写您的手机号码</td>
 			</tr>
 			<tr>
 				<td><input name="userInfo.email" placeholder="请填写您的E-mail"
-					class="transInput" required /></td><td>请填写您的E-mail</td>
+					class="easyui-validatebox transInput" required="true"
+					missingMessage="邮件必须填写" validType="email"
+					invalidMessage="请填写正确的邮件格式" /></td>
+				<td><font class="fontRed">*&nbsp;&nbsp;&nbsp;</font>请填写您的E-mail</td>
 			</tr>
 			<tr>
 				<td><input name="userInfo.qq" placeholder="请填写您的QQ"
-					class="transInput" required /></td><td>请填写您的QQ</td>
+					class="easyui-validatebox transInput" required="true"
+					missingMessage="必须填写数字" validType="QQ"/></td>
+				<td><font class="fontRed">*&nbsp;&nbsp;&nbsp;</font>请填写您的QQ</td>
 			</tr>
 			<tr>
 				<td><select size="1" name="userInfo.role" class="transInput">
 						<option value="teacher">教师</option>
 						<option selected value="student">学生</option>
-						<option value="other">其他</option>
+						<option value="admin">管理员</option>
 				</select></td>
 				<td>请选择您的身份</td>
 			</tr>
@@ -177,7 +248,7 @@
 					type="reset" value="Reset"></td>
 			</tr>
 		</table>
-		
+
 		<input type="button" class="loginBtn" type="submit" value="提交"
 			id="addUser" /> <input class="resetBtn" type="reset" value="重置" />
 	</form>

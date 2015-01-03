@@ -50,11 +50,14 @@ function showWelBar(u_name){
 						data : params,
 						dataType : 'json',
 						success : function(data) {
-							if (data.resultCode.toString() == "200") {
+							if (data.resultCause.resultCode.toString() == "200") {
 								//alert("恭喜，登录成功！");
-								var u_name = $("#loginUserNameInput").val();
+								var u_name = data.userInfo.realname.toString();
+								var role = data.userInfo.role.toString();
+								userItemShow(role);
 								showWelBar(u_name);
-								userItemShow();
+								
+								
 							} else if (data.resultCode.toString() == "404") {
 								$("#loginErrTips").html("**您输入的用户名不存在**");
 								$("#loginErrTips").show();
