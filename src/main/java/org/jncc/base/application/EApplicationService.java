@@ -121,8 +121,8 @@ public class EApplicationService implements java.io.Serializable {
 	}
 	
 	
-	public static boolean approveApplications(String ids,String comments){
-		List<EApplicationID> eaIdList = getEaIdList(ids);
+	public static boolean approveApplications(String ids,String comments,List<EApplicationID> eaIdList){
+		eaIdList = getEaIdList(ids);
 		try {
 			String hql="update EApplication ea set ea.status=?,ea.comment=? where ea.id.applicationId=? and ea.id.createdatetime=?";
 			for(int i=0;i<eaIdList.size();i++){
@@ -136,8 +136,8 @@ public class EApplicationService implements java.io.Serializable {
 		
 		return false;
 	}
-	public static boolean rejectApplications(String ids,String comments){
-		List<EApplicationID> eaIdList = getEaIdList(ids);
+	public static boolean rejectApplications(String ids,String comments,List<EApplicationID> eaIdList ){
+		eaIdList = getEaIdList(ids);
 		try {
 			String hql="update EApplication ea set ea.status=?,ea.comment=? where ea.id.applicationId=? and ea.id.createdatetime=?";
 			for(int i=0;i<eaIdList.size();i++){

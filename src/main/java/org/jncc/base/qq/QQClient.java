@@ -145,6 +145,7 @@ public class QQClient {
          * 发送消息
          */
         public static void sendMsg(String toQQ,String msg,String sid){
+        	if(toQQ == null || toQQ.equals(""))return;
             HashMap<String, String> params=new HashMap<String, String>();
             String postUrl = "http://q32.3g.qq.com/g/s?sid="+sid;
             params.put("msg",msg);

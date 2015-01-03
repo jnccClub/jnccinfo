@@ -15,8 +15,12 @@ import org.jncc.base.cause.resultCause;
 import org.jncc.base.course.ECourse;
 import org.jncc.base.course.ECourseService;
 import org.jncc.base.coursemap.ECourseMapService;
+import org.jncc.base.qq.QQSend;
 import org.jncc.base.user.UserInfo;
+import org.jncc.base.user.UserService;
 import org.jncc.base.zone.EZone;
+import org.jncc.persistence.Mail;
+import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -35,13 +39,46 @@ public class ApplicationAction extends ActionSupport {
 	private String isApproved;
 	private String approveComment;
 	private String eaIDs;
+	private String createUsers;
 
 	public String auditRecord() {
-
+		List<EApplicationID> eaIdList = null;
+		String mSubject = "";
+		String qqcontent = "";
+		String mContent = "";
 		if (isApproved.equals("1")) {
-			EApplicationService.approveApplications(eaIDs, approveComment);
+			EApplicationService.approveApplications(eaIDs, approveComment,
+					eaIdList);
+			mSubject = UtilTool.getProperty("SUBJECT_AUDIT_SUC");
+			mContent = UtilTool.getProperty("MAIL_CONTENT");
+			String oldStr = UtilTool.getProperty("MAIL_APPLY");
+			String newStr = UtilTool.getProperty("SUBJECT_AUDIT_SUC");
+			mContent = mContent.replace(oldStr, newStr);
+			qqcontent = "欢迎使用计算中心预约系统，您的申请已被驳回！";
 		} else {
-			EApplicationService.rejectApplications(eaIDs, approveComment);
+			EApplicationService.rejectApplications(eaIDs, approveComment,
+					eaIdList);
+			mSubject = UtilTool.getProperty("SUBJECT_AUDIT_FAIL");
+			mContent = UtilTool.getProperty("MAIL_CONTENT");
+			String oldStr = UtilTool.getProperty("MAIL_APPLY");
+			String newStr = UtilTool.getProperty("SUBJECT_AUDIT_FAIL");
+			mContent = mContent.replace(oldStr, newStr);
+			qqcontent = "欢迎使用计算中心预约系统，您的申请已审批通过！";
+		}
+		String[] userList = null;
+		if (createUsers != null && !createUsers.equals("")) {
+			userList = createUsers.split("\\|");
+		}
+		String mEmail = "";
+		if (userList != null && userList.length > 0) {
+			for (String userName : userList) {
+				UserInfo usInfo = UserService.getUserInfo(userName);
+				if (usInfo != null) {
+					QQSend.sendQQ(usInfo.getQq(),qqcontent);
+					mEmail = usInfo.getEmail();
+					Mail.sendMail(mEmail, mSubject, mContent);
+				}
+			}
 		}
 		return "AUDIT_APP_SUCCESS";
 	}
@@ -147,6 +184,16 @@ public class ApplicationAction extends ActionSupport {
 
 		if (EApplicationService.addApplication(ea)) {
 			resultCause.setCause("200", "恭喜，添加成功");
+			String content = "欢迎使用计算中心预约系统，您的申请已成功提交！";
+			String mEmail = UtilTool.getProperty("ADMIN_EMAIL");
+			if (us != null && UtilTool.IsValid(us.getEmail())) {
+				mEmail = us.getEmail();
+				QQSend.sendQQ(us.getQq(), content);
+			}
+			String mContent = UtilTool.getProperty("MAIL_CONTENT");
+			String mSubject = UtilTool.getProperty("SUBJECT_APPLY");
+			Mail.sendMail(mEmail, mSubject, mContent);
+
 		} else {
 			resultCause.setCause("503", "添加失败");
 		}
@@ -211,6 +258,14 @@ public class ApplicationAction extends ActionSupport {
 
 	public String getEaIDs() {
 		return eaIDs;
+	}
+
+	public String getCreateUsers() {
+		return createUsers;
+	}
+
+	public void setCreateUsers(String createUsers) {
+		this.createUsers = createUsers;
 	}
 
 }

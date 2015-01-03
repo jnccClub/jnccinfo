@@ -1,17 +1,32 @@
 package org.jncc.base.user;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import org.jncc.persistence.dbSession;
 
 public class UserService {
-
-	public List<UserInfo> getUser() {
-
-		List<UserInfo> users = new ArrayList<UserInfo>();
-		return users;
+	private static List<UserInfo> usList = updateUserList();
+	
+	public static List<UserInfo> getUsList() {
+		return usList;
 	}
+
+	public static void setUsList(List<UserInfo> usList) {
+		UserService.usList = usList;
+	}
+	
+	public static List<UserInfo> updateUserList(){
+		if(usList == null){
+			try{
+				dbSession.init();
+				String hql = "from UserInfo";
+				usList = dbSession.select(hql);
+				dbSession.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return usList;
+	}
+
 
 	public boolean addUser(UserInfo userInfo) {
 		try {
@@ -35,6 +50,20 @@ public class UserService {
 		UserInfo usInfo;
 		usInfo = (UserInfo) dbSession.load(clazz, userName);
 		dbSession.close();
+		return usInfo;
+	}
+	
+	public static UserInfo getUserInfo(String userName) {
+		UserInfo usInfo = null;
+		if(usList ==null || usList.size()==0){
+			updateUserList();
+		}
+		for(int i=0;i<usList.size();i++){
+			if(usList.get(i).getUsername().equals(userName)){
+				usInfo = usList.get(i);
+				break;
+			}
+		}
 		return usInfo;
 	}
 }

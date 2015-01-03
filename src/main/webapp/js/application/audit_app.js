@@ -77,8 +77,10 @@ function approve_application() {
 	var ids = "";
 	var rows = $('#list_data').datagrid('getSelections');
 	var recordsLen = rows.length;
+	var createUsers = "";
 	for (var i = 0; i < rows.length; i++) {
 		ids = ids + rows[i].fld_CNO + "|" + rows[i].fld_CTIME + ",";
+		createUsers = createUsers +rows[i].fld_CUSR+"|";
 	}
 	var param = [ {
 		name : "isApproved",
