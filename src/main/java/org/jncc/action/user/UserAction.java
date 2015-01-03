@@ -42,6 +42,7 @@ public class UserAction extends ActionSupport {
 		if (us.addUser(userInfo)) {
 			System.out.println("add user succcessfully");
 			resultCause.setCause("200", "add successfully!");
+			UserService.updateUserList();
 			// req = ServletActionContext.getRequest();
 			// req.getSession().setAttribute("user", userInfo);
 
