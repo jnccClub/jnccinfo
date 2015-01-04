@@ -37,9 +37,14 @@
 			<generator class="assigned"></generator>
 		</primary-key>
 	</table>
-<table name="e_bbs" catalog="test" class="EBbs">
+	<table name="e_bbs" catalog="test" class="EBbs">
+		<primary-key>
+			<generator class="increment"></generator>
+		</primary-key>
+	</table>
+<table name="e_seat" catalog="test" class="ESeat">
 	<primary-key>
-		<generator class="increment"></generator>
+		<generator class="assigned"></generator>
 	</primary-key>
 </table>
 </hibernate-reverse-engineering>

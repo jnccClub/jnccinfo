@@ -24,8 +24,6 @@
 
 @import url(mainFrame_Login.css);
 
-@import url(common/jquery.seat-charts.css);
-
 #float_Chat {
 	background-color: #096;
 	width: 60%;

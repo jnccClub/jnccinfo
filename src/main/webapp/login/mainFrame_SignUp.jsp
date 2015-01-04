@@ -172,7 +172,13 @@
 		            return /^\d+$/.test(value);
 		        },
 		        message: '请输入数字'
-		    },
+		    }, date: {// 验证姓名，可以是中文或英文
+                validator: function (value) {
+                    //格式yyyy-MM-dd或yyyy-M-d
+                    return /^(?:(?!0000)[0-9]{4}([-]?)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-]?)0?2\2(?:29))$/i.test(value);
+                },
+                message: '请输入合适的日期格式'
+            },
 		});
 		
 		/* 密码由字母和数字组成，至少6位 */
@@ -248,7 +254,7 @@
 					type="reset" value="Reset"></td>
 			</tr>
 		</table>
-
+		
 		<input type="button" class="loginBtn" type="submit" value="提交"
 			id="addUser" /> <input class="resetBtn" type="reset" value="重置" />
 	</form>

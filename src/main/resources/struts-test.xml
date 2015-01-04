@@ -84,6 +84,21 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 		</action>
+		<action name="seat_*" class="org.jncc.action.seat.SeatAction"
+			method="{1}">
+			<result name="SEAT_BOOKING_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="SEAT_GETSTATUS_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+		</action>
+		
+		
 	</package>
 	
 	<package name="default" namespace="/" extends="json-default">

@@ -56,8 +56,8 @@ function showWelBar(u_name){
 								var role = data.userInfo.role.toString();
 								userItemShow(role);
 								showWelBar(u_name);
-								
-								
+								var phoneNo = data.userInfo.phoneno.toString();
+								$("input[name='applicationInfo.contact']").val(phoneNo);
 							} else if (data.resultCode.toString() == "404") {
 								$("#loginErrTips").html("**您输入的用户名不存在**");
 								$("#loginErrTips").show();

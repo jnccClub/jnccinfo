@@ -38,11 +38,12 @@
 <script type="text/javascript" src='js/application/audit_app.js'></script>
 <script type="text/javascript" src='js/query/queryinfo.js'></script>
 <script type="text/javascript" src='js/bbs/bbs.js'></script>
+<script type="text/javascript" src='js/stuBooking/stuBooking.js'></script>
 <script type="text/javascript" src='js/gloableDefine.js'></script>
 <script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
 <script type="text/javascript" src='js/cfg/course.js'></script>
-
 <script type="text/javascript" src='js/common/jquery.easyui.min.js'></script>
+<script type="text/javascript" src="js/common/jquery.seat-charts.min.js"></script>
 <title>JNCC booking</title>
 </head>
 <body>
@@ -66,10 +67,27 @@
 		function guestItemHide(){
 			$("#personCenter").hide();
 			$("#maintainCenter").hide();
+			$("#stuBookingEntry").hide();
 		}
-		function userItemShow(){
-			$("#personCenter").show();
-			$("#maintainCenter").show();
+		function userItemShow(role){
+			if(role == "teacher"){
+				$("#maintainCenter").hide();
+				$("#audit_Application").hide();
+				$("#personCenter").show();
+				$("#stuBookingEntry").show();
+			}else if(role=="admin"){
+				$("#personCenter").show();
+				$("#maintainCenter").show();
+				$("#audit_Application").show();
+				$("#stuBookingEntry").show();
+			}else{
+				$("#maintainCenter").hide();
+				$("#audit_Application").hide();
+				$("#personCenter").hide();
+				$("#stuBookingEntry").show();
+				renewMainId("#MF_STUBOOKING");
+			}
+
 		}
 		function renewMainId(newId) {
 			$(currentShowID).hide();
@@ -91,8 +109,9 @@
 		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_COURSE_CFG.jsp"></jsp:include>
 		<jsp:include page="queryInfos.jsp"></jsp:include>
-		<div class="clearfix"></div>
 		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
+		<jsp:include page="stuBooking.jsp"></jsp:include>
+		
 		<div class="clearfix"></div>
 	</div>
 

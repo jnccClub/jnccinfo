@@ -113,7 +113,7 @@
 
 textarea {
 	background: rgba(255, 255, 255, 0.4)
-		url(http://luismruiz.com/img/gemicon_message.png) no-repeat scroll
+		 no-repeat scroll
 		16px 16px;
 	width: 276px;
 	height: 110px;
@@ -162,28 +162,28 @@ input[type=button],input[type=reset] {
 
 input.UsernameInput {
 	background: rgba(255, 255, 255, 0.4)
-		url(http://luismruiz.com/img/gemicon_name.png) no-repeat scroll 16px
+		no-repeat scroll 16px
 		16px;
 	padding-left: 45px;
 }
 
 input.UserPasswdInput {
 	background: rgba(255, 255, 255, 0.4)
-		url(http://luismruiz.com/img/gemicon_message.png) no-repeat scroll
+		 no-repeat scroll
 		16px 20px;
 	padding-left: 45px;
 }
 
 input.transInput {
 	background: rgba(255, 255, 255, 0.4)
-		url(http://luismruiz.com/img/gemicon_email.png) no-repeat scroll 16px
+		no-repeat scroll 16px
 		16px;
 	padding-left: 45px;
 }
 
 select.transInput {
 	background: rgba(255, 255, 255, 0.4)
-		url(http://luismruiz.com/img/gemicon_email.png) no-repeat scroll 16px
+		 no-repeat scroll 16px
 		16px;
 	padding-left: 45px;
 }

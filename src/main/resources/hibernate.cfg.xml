@@ -25,6 +25,8 @@
 		<mapping resource="ECourse.hbm.xml" />
 		<mapping resource="ECurriculum.hbm.xml" />
 		<mapping resource="EBbs.hbm.xml" />
+		<mapping resource="ESeat.hbm.xml" />
+		
 		
     </session-factory>
 

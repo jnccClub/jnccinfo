@@ -20,7 +20,7 @@
 						onclick="queryMFDetailInof()">首页</a></li>
 					<li><a href="#" onclick="renewMainId('#MF_Body')" id="personCenter">个人中心</a></li>
 					<li><a href="#" onclick="bbsShow()">吐槽墙</a></li>
-					<li><a href="#" onclick="stuBookingShow()">学生预定</a></li>
+					<li><a href="#" onclick="stuBookingShow()" id="stuBookingEntry">学生预定</a></li>
 					<li class="dropdown"><a href="#"
 						class="dropdown-toggle" data-toggle="dropdown" id="maintainCenter">维护中心 <b
 							class="caret"></b></a>
