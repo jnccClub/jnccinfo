@@ -8,73 +8,84 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<div id="MF_STUBOOKING">
+<div id="MF_STUBOOKING" style="display:none">
 	<div style="text-align: center">
 		<h2>欢迎预定！</h2>
 		<p>每人仅允许预定一个座位！预定时间的5分钟以内必须刷卡上机，否则记违约一次！</p>
+		<p>
+			<a id="stu_bookingInfo" href="#"></a>
+		</p>
 	</div>
-	<div class="div_all_inline" style="text-align: center">
-		预定日期：<span style="width:200px;text-align:left"><input
-			type="text" style="width:160px;height:29.5px;"
-			onclick="MyCalendar.SetDate(this)" name="stuBooking.date"
-			required="true" missingMessage="日期必须选择" validType="date" id="bookingDate"></input></span>
-		楼层区域：<span><select style="width:160px;height:29.5px;"
-			name="stuBooking.zone">
-		</select></span>
-	</div>
-	<div class="div_all_inline" style="text-align: center">
-		开始时间：<span style="width:200px;text-align:left"><select
-			style="width:160px;height:29.5px;" name="stuBooking.beginTime"></select></span>
-		结束时间：<span><select style="width:160px;height:29.5px;"
-			name="stuBooking.endTime">
-		</select></span>
+	<form id="FM_BOOKELEM" style="width:580px;margin-left:29em;">
+		<div class="div_all_inline" style="text-align: center;">
+			预定日期：<span style="width:200px;text-align:left"><input
+				type="text" style="width:160px;height:29.5px;"
+				onclick="MyCalendar.SetDate(this)" name="stuBooking.date"
+				required="true" missingMessage="日期必须选择" validType="date"
+				id="bookingDate"></input></span> 楼层区域：<span><select
+				style="width:160px;height:29.5px;" name="stuBooking.zone">
+			</select></span>
+		</div>
+		<div class="div_all_inline" style="text-align: center">
+			开始时间：<span style="width:200px;text-align:left"><select
+				style="width:160px;height:29.5px;" name="stuBooking.beginTime"></select></span>
+			结束时间：<span><select style="width:160px;height:29.5px;"
+				name="stuBooking.endTime">
+			</select></span> <br> <input type="button" class="loginBtn" value="约"
+				id="btnBookNext" onclick="bookNext()" />
+			<br><br><br><br/>
+		</div>
+	</form>
+	<div class="stu_demo" id="DIV_SEATDETAIL" style="display:none">
+		<div id="seat-map">
+			<div class="front">教师机或讲台</div>
+			<div id="seat-info"></div>
+		</div>
+		<div class="booking-details">
+
+			<h3>机房机位信息：</h3>
+			<p>座位：</p>
+			<ul id="selected-seats">
+				<li id="cart-item-02_F"><br>待选机位<br> <br></li>
+			</ul>
+			<br> <br> <br> <input type="button" class="loginBtn"
+				type="submit" value="那就这样吧" id="btnCheckout" onclick="stuSbumit()" />
+			<input type="button" class="loginBtn" value="重约时间" id="btnNewDate"
+				onclick="renewDateTime()" />
+			<div id="legend"></div>
+		</div>
+		<br><br><br><br/><br><br><br><br/>
 	</div>
 </div>
 
-<div class="stu_demo">
-	<div id="seat-map">
-		<div class="front">教师机或讲台</div>
-		<div id="seat-info"></div>
-	</div>
-	<div class="booking-details">
 
-		<h3>机房机位信息：</h3>
-		<p>座位：</p>
-		<ul id="selected-seats">
-			<li id="cart-item-02_F"><br>待选机位<br><br></li>
-		</ul>
-		<br>
-		<br>
-		<br>
-		<input type="button" class="loginBtn" type="submit" value="那就这样吧"
-				id="btnCheckout" onclick="stuSbumit()"/> 
-		<div id="legend"></div>
-	</div>
-</div>
-<br />
+
+
+
 <script type="text/javascript">
 	var firstSeatLabel = 1;
 	$(function() {
-		var $cart = $('#selected-seats'), bookZone=$("select[name='stuBooking.zone']"),sc = $('#seat-map').seatCharts(
+		var $cart = $('#selected-seats'), bookZone = $("select[name='stuBooking.zone']");
+		sc = $('#seat-map').seatCharts(
 				{
 					map : [ //座位图
-					'ff__ff', 'ff__ff', '______', 'eee_ee', 'eee_ee', 'eee_ee',
-							'eee_ee', 'eee_ee', 'eee_ee' ],
+					'fff_ff', 'fff_ff', '______', 'eee_ee', 'eee_ee', 'eee_ee',
+							'eee_ee', 'eee_ee', 'eee_ee', 'eee_ee', 'eee_ee',
+							'eee_ee' ],
 					seats : { //定义座位属性
 						f : {
 							classes : 'first-class',
-							category : '一等座'
+							category : '教师机'
 						},
 						e : {
 							classes : 'economy-class',
-							category : '二等座'
+							category : '学生机'
 						}
 					},
 					naming : { //定义行列等信息
 						top : true,
 						columns : [ 1, 2, 3, '', 4, 5 ],
-						rows : [ 1, 2, '', 3, 4, 5, 6, 7,
-								8, 9 ],
+						rows : [ 1, 2, '', 3, 4, 5, 6, 7, 8, 9, 10, 11 ],
 						getLabel : function(character, row, column) {
 							return firstSeatLabel++;
 						}
@@ -88,10 +99,11 @@
 					click : function() {
 						if (this.status() == 'available') {//可选座
 							$cart.html($(
-									'<li><br/>' +bookZone.val()+"区-"+ this.settings.label + '机位<br/><br/>'
-											+ '</li>').attr('id',
-									'cart-item-' + this.settings.id).data(
-									'seatId', this.settings.id));
+									'<li><br/>' + bookZone.val() + "区-"
+											+ this.settings.label
+											+ '机位<br/><br/>' + '</li>').attr(
+									'id', 'cart-item-' + this.settings.id)
+									.data('seatId', this.settings.id));
 							var curID = this.settings.id;
 							//删除已选择
 							resetOtherSelected(sc, curID);
@@ -108,24 +120,25 @@
 							return this.style();
 						}
 					}/*,
-					focus : function() {
-						if (this.status() == 'available') {
-							$("#seat-info").show().html(this.settings.label);
-							var cd = getMousePoint(event);
-							$("#seat-info").css({
-								"left" : (cd.x + 10) + 'px',
-								"top" : (cd.y - 30) + "px"
-							});
-							return 'focused';
-						} else {
-							return this.style();
-						}
-					}*/
+															focus : function() {
+																if (this.status() == 'available') {
+																	$("#seat-info").show().html(this.settings.label);
+																	var cd = getMousePoint(event);
+																	$("#seat-info").css({
+																		"left" : (cd.x + 10) + 'px',
+																		"top" : (cd.y - 30) + "px"
+																	});
+																	return 'focused';
+																} else {
+																	return this.style();
+																}
+															}*/
 				});
 
 		//已售出不可选座
-		sc.get([ '1_1', '4_1', '7_2', '7_5' ]).status('unavailable');
+		//sc.get([ '1_1', '4_1', '7_2', '7_5' ]).status('unavailable');
 	});
+
 	function resetOtherSelected(sc, curID) {
 		sc.find('selected').each(function() {
 			if (this.settings.id != curID) {
@@ -357,6 +370,6 @@ span.seatCharts-legendDescription {
 .div_all_inline * {
 	display: inline-block;
 	*display: inline;
-	*zoom: 18
+	*zoom: 18;
 }
 </style>

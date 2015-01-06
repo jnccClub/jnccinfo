@@ -9,13 +9,20 @@ package org.jncc.base.seat;
 
 public class ESeat  implements java.io.Serializable {
 
-
     // Fields    
 
      private ESeatId id;
      private Integer seat;
      private String commnet;
-     public String getBegintime() {
+     private String user;
+     public String getUser() {
+		return user;
+	}
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getBegintime() {
 		return begintime;
 	}
 
@@ -79,13 +86,4 @@ public class ESeat  implements java.io.Serializable {
     public void setCommnet(String commnet) {
         this.commnet = commnet;
     }
-   
-
-
-
-
-
-
-
-
 }

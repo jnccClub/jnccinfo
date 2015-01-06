@@ -398,7 +398,7 @@ function findConfDate() {
 			alert(e);
 		},
 		complete : function() {
-			$("#circular").hide();
+			//$("#circular").hide();
 		}
 	});
 	return false;

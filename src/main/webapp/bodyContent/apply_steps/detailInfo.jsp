@@ -45,6 +45,7 @@
 		</div>
 	</div>
 	<div class="form-actions">
-		<button class="btn btn-primary" onclick="appFirstNext()">下一步</button>
+		<input class="loginBtn" type="button" value="下一步"
+			onclick="appFirstNext()"/>
 	</div>
 </fieldset>

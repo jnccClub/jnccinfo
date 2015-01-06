@@ -58,6 +58,30 @@ public class dbSession {
 		
 	}
 
+	public static List getQuery(String hql,Object... params){
+		List l =null;
+		try {
+			Query query = session.createQuery(hql);
+
+			if (params != null && params.length > 0) {
+				for (int i = 0; i < params.length; i++) {
+					query.setParameter(i, params[i]);
+					// System.out.println("query influenced: "+params[i]);
+				}
+			}
+			System.out.println("query influenced: " + query.getQueryString());
+			l = query.list();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+		return l;
+	}
 	// 根据主键获取唯一数据
 	public static Object load(Class clazz, String keyword) {
 		init();

@@ -93,6 +93,11 @@
 			$(currentShowID).hide();
 			currentShowID = newId;
 			$(currentShowID).show();
+			if(typeof(statusInterval) == "undefined"){
+				return;
+			}else{
+				clearInterval(statusInterval);
+			}
 		}
 	</script>
 

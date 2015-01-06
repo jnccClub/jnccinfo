@@ -278,6 +278,7 @@ select.transInput {
 #loginErrTips {
 	width: 80%;
 	height: 25px;
-	font-size: 11px;
+	font-size: 20px;
+	font-weight:bold;
 	color: #ed1941;
 }

@@ -10,6 +10,7 @@
 
 <div class="span9" id="Body_CreateApp" style="display:none">
 	<div class="span9" id="APP_FIRSTSTEP">
+	<!-- 
 		<div class="hero-unit">
 			<h3>Welcome</h3>
 			<p>如果不清楚如何创建申请，请选择帮助</p>
@@ -20,6 +21,7 @@
 			</ul>
 			<a class="btn btn-large">帮助</a>
 		</div>
+	  -->
 		<h1 id="create_application_title">创建申请</h1>
 		<form id="elementry_form" class="form-inline">
 			<jsp:include page="apply_steps/elementryInfo.jsp"></jsp:include>

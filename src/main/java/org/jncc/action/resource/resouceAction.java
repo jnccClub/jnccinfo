@@ -2,6 +2,7 @@ package org.jncc.action.resource;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import net.sf.json.JSONArray;
@@ -11,9 +12,11 @@ import org.jncc.base.application.EApplicationService;
 import org.jncc.base.arrangement.EArrangementService;
 import org.jncc.base.arrangement.ZoneArrangement;
 import org.jncc.base.course.ECourseService;
+import org.jncc.base.user.UserInfo;
 import org.jncc.base.zone.EZone;
 import org.jncc.base.zone.EZoneService;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class resouceAction extends ActionSupport {
@@ -107,7 +110,9 @@ public class resouceAction extends ActionSupport {
 	}
 
 	public String queryCourseArr() {
+
 		result = JSONObject.fromObject(ZoneArrangement.toMapObject(queryDate,queryfloor,queryfiled,queryfiledVal));
+
 		return "RES_QUERYCOURSEARR_SUCCESS";
 	}
 

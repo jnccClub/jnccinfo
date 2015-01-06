@@ -24,21 +24,19 @@
 
 @import url(mainFrame_Login.css);
 
-#float_Chat {
+.floatChat {
 	background-color: #096;
-	width: 60%;
+	width: 100px;
 	z-index: 999;
 	position: fixed;
 	bottom: 30;
-	left: 0;
-	width: 100%;
 	_position: absolute;
 	_top: expression_r(documentElement.scrollTop +  	
 		documentElement.clientHeight-this.offsetHeight);
 	overflow: visible;
-	filter: alpha(opacity = 70); /*IE滤镜，透明度50%*/
-	-moz-opacity: 0.7; /*Firefox私有，透明度50%*/
-	opacity: 0.7
+	filter: alpha(opacity = 90); /*IE滤镜，透明度50%*/
+	-moz-opacity: 0.9; /*Firefox私有，透明度50%*/
+	opacity: 0.9
 }
 
 }

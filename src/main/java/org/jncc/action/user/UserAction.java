@@ -19,6 +19,18 @@ public class UserAction extends ActionSupport {
 
 	// private HttpServletRequest req;
 
+	public String isLogin(){
+		Map session = ActionContext.getContext().getSession();
+		UserInfo us = (UserInfo) session.get("USERINFO");
+		if(us==null || us.getUsername().equals("")){
+			resultCause.setCause("404", "Not login in");
+		}else{
+			userInfo = us;
+			resultCause.setCause("200", "User is already login in.");
+		}
+		return "LOGIN_IN";
+	}
+	
 	public resultCause getResultCause() {
 		return resultCause;
 	}

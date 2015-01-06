@@ -56,8 +56,11 @@
 
 
 	<div class="form-actions">
-		<button class="btn btn-primary" id="btnConfirmAppInfo" onclick="return confirmApplication()">确 认</button>
-		<button class="btn" onclick="appSecondBack()">上一步</button>
+	<input class="loginBtn" type="submit" value="确 认"
+			id="btnConfirmAppInfo" onclick="return confirmApplication()"/>
+		<input class="loginBtn" type="button" value="上一步"
+			onclick="appSecondBack()"/>
+		<!-- <button class="btn" onclick="appSecondBack()">上一步</button> -->
 	</div>
 </fieldset>
 

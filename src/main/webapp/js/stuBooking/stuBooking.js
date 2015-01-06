@@ -1,7 +1,36 @@
 function stuBookingShow() {
 	renewMainId('#MF_STUBOOKING');
-
+	$("#DIV_SEATDETAIL").hide();
+	$("#stu_bookingInfo").hide();
+	$("#FM_BOOKELEM").show();
+	
 }
+
+function bookNext(){
+	if($("#FM_BOOKELEM").form('validate')){
+		$("#FM_BOOKELEM").hide();
+		$("#stu_bookingInfo").show();
+		$("#DIV_SEATDETAIL").show();
+		var bookInfoHtml = "您预定的日期是："+$("input[name='stuBooking.date']").val();
+		bookInfoHtml = bookInfoHtml +"<br>您预定的区域是："+$("select[name='stuBooking.zone']").val();
+		bookInfoHtml = bookInfoHtml +"<br>您预定的时间是：从"+$("select[name='stuBooking.beginTime']").val();
+		bookInfoHtml = bookInfoHtml +"点 到"+$("select[name='stuBooking.endTime']").val()+"点";
+		$("#stu_bookingInfo").html(bookInfoHtml);
+		getSeatstatus();
+		statusInterval = setInterval(getSeatstatus,5000);
+	}else{
+		return;
+	}
+}
+
+function renewDateTime(){
+	$("#DIV_SEATDETAIL").hide();
+	$("#stu_bookingInfo").hide();
+	$("#FM_BOOKELEM").show();
+	clearInterval(statusInterval);
+	
+}
+
 
 function stuSbumit() {
 	var seatInfo = $("#selected-seats li").text();
@@ -36,6 +65,7 @@ function bookingSeat(param) {
 		success : function(data) {
 			if(data.resultCode=="200"){
 				alert("预定成功，请准时赴约！");
+				renewMainId('#MF_Query');
 			}else{
 				alert("预定失败，可能是后台有人在搞鬼，请向管理员举报！");
 			}
@@ -56,16 +86,35 @@ function getSeatstatus(){
 		dataType : 'json',
 		success : function(data) {
 			if(data.resultCode=="200"){
-				alert("所有机器均可预约");
+				//alert("所有机器均可预约");
+				updateSeatStatus("");
 			}else if(data.resultCode=="400"){
-				alert("部分不可以预约！");
-				
+				var seatsUnavalible = data.resultDesc.split("|");
+				updateSeatStatus(seatsUnavalible);
+				//alert("部分不可以预约！");
 			}
 			
 		}
 	});
-	
 }
+
+function updateSeatStatus(seatsUnavalible){
+	var sChart = $('#seat-map').seatCharts();
+	var allIDs = [];
+	$(sChart.seatIds).each(function(key,id){
+		allIDs.push(id);
+	});
+	sc.get(allIDs).status('available'); 
+	if(seatsUnavalible==""){
+		return;
+	}
+	$(seatsUnavalible).each(function(key,seatID){
+		if(seatID !=""){
+			sChart.status(seatID, 'unavailable');
+		}
+	});
+}
+
 
 function genTimeOption() {
 	var timeOptions = "";
@@ -129,5 +178,6 @@ $(function() {
 	genTimeOption();
 	genFloorOption();
 	$("input[name='stuBooking.date']").validatebox();
-
+	
 });
+
