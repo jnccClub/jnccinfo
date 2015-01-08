@@ -37,36 +37,74 @@ public class ECourseService implements java.io.Serializable {
 		ECourse ec = new ECourse();
 		Vector<ECurriculum> ecurVec = ExcelService.readExcel2ECourse(filename,
 				ec);
-		try {
-			dbSession.init();
-			for (int i = 0; i < ecurVec.size(); i++) {
-				dbSession.replaceInsert(ecurVec.get(i));
-				if (i % 30 == 29) {
-					dbSession.flush();
-				}
-			}
-			dbSession.replaceInsert(ec);
-			dbSession.close(true);
-		} catch (Exception e) {
+		if(ecurVec==null ||ecurVec.size() == 0){
 			return false;
 		}
-		updateEcList();
-		return true;
+		else{
+			try {
+				dbSession.init();
+				for (int i = 0; i < ecurVec.size(); i++) {
+					dbSession.replaceInsert(ecurVec.get(i));
+					if (i % 30 == 29) {
+						dbSession.flush();
+					}
+				}
+				dbSession.replaceInsert(ec);
+				dbSession.close(true);
+			} catch (Exception e) {
+				return false;
+			}
+			updateEcList();
+			return true;
+		}
 	}
 
-	public static Map<String, Object> toMapObject() {
+	public static Map<String, Object> toMapObject(String queryfiled,
+			String queryfiledVal) {
 
 		List<Map<String, String>> mapList = new ArrayList();
 		if (ecList == null) {
 			updateEcList();
 		}
+
 		for (int i = 0; i < ecList.size(); i++) {
-			mapList.add(toMap(ecList.get(i)));
+			ECourse ec = ecList.get(i);
+			if (ifFitCourse(ec, queryfiled, queryfiledVal)) {
+				mapList.add(toMap(ecList.get(i)));
+			}
 		}
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		jsonMap.put("total", mapList.size());
 		jsonMap.put("rows", mapList);
 		return jsonMap;
+	}
+
+	public static boolean ifFitCourse(ECourse ec, String queryFld,
+			String queryfiledVal) {
+		if (ec != null && queryFld != null && queryfiledVal != null
+				&& !queryfiledVal.equals("")) {
+			switch (queryFld) {
+			case "TEACHERNAME":
+				if (ec.getTeacher().indexOf(queryfiledVal) > -1) {
+					return true;
+				}
+				break;
+			case "COURSENAME":
+				if (ec.getName().indexOf(queryfiledVal) > -1) {
+					return true;
+				}
+				break;
+			case "CLASSNO":
+				if (ec.getClassNo().indexOf(queryfiledVal) > -1) {
+					return true;
+				}
+				break;
+			default:
+				break;
+			}
+			return false;
+		}
+		return true;
 	}
 
 	public static Map<String, String> toMap(ECourse ec) {
@@ -156,7 +194,7 @@ public class ECourseService implements java.io.Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return true;
 	}
 

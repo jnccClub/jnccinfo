@@ -63,7 +63,7 @@ public class resouceAction extends ActionSupport {
 	}
 	public String getallCourse() {
 		
-		result = JSONObject.fromObject(ECourseService.toMapObject());
+		result = JSONObject.fromObject(ECourseService.toMapObject(queryfiled,queryfiledVal));
 		return "RES_GETCOURSE_SUCCESS";
 	}
 	

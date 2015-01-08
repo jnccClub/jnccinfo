@@ -61,7 +61,7 @@
 		
 		$(function() {
 			guestItemHide();
-			queryMFDetailInof();
+			renewMainId('#MF_HOME');
 		});
 
 		function guestItemHide(){
@@ -109,6 +109,7 @@
 		<jsp:include page="bodyContent/auditApp/auditApplication.jsp"></jsp:include>
 		<jsp:include page="login/mainFrame_Login.jsp"></jsp:include>
 		<jsp:include page="bbs.jsp"></jsp:include>
+		<jsp:include page="home.jsp"></jsp:include>
 		<jsp:include page="login/mainFrame_SignUp.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>

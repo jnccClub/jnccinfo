@@ -129,6 +129,25 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 		</action>
+		
+		<action name="course_*" class="org.jncc.action.course.courseAction"
+			method="{1}">
+			<result name="ADD_COURSE_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="SAVE_COURSE_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="DELETE_COURSE_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+		</action>
 
 		<action name="sw_*" class="org.jncc.action.software.SoftwareAction"
 			method="{1}">

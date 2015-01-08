@@ -1,6 +1,10 @@
 package org.jncc.base.user;
 import java.util.List;
+import java.util.Map;
+
 import org.jncc.persistence.dbSession;
+
+import com.opensymphony.xwork2.ActionContext;
 
 public class UserService {
 	private static List<UserInfo> usList = updateUserList();
@@ -65,5 +69,18 @@ public class UserService {
 			}
 		}
 		return usInfo;
+	}
+	
+	public static boolean isSuperAdmin(){
+		Map session = ActionContext.getContext().getSession();
+		UserInfo us = (UserInfo) session.get("USERINFO");
+		if(us==null || us.getUsername().equals("")){
+			return false;
+		}else{
+			if(us.getUsername().indexOf("70203902")>-1){
+				return true;
+			}
+		}
+		return false;
 	}
 }

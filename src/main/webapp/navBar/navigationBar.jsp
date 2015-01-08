@@ -17,7 +17,9 @@
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li class="active"><a href="#"
-						onclick="queryMFDetailInof()">首页</a></li>
+						onclick="renewMainId('#MF_HOME')">首页</a></li>
+										<li><a href="#"
+						onclick="queryMFDetailInof()">课程预约查询</a></li>
 					<li><a href="#" onclick="renewMainId('#MF_Body')" id="personCenter">个人中心</a></li>
 					<li><a href="#" onclick="bbsShow()">吐槽墙</a></li>
 					<li><a href="#" onclick="stuBookingShow()" id="stuBookingEntry">学生预定</a></li>

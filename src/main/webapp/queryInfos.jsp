@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="MF_Query" class="row">
+<div id="MF_Query" class="row" >
 	<h2>计算中心实验资源预约明细</h2>
 	<p>通过点击课程名可以查看详细信息</p>
 	<table id="tbl_query_data" cellspacing="0" cellpadding="0"
