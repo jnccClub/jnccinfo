@@ -1,4 +1,7 @@
+
 package org.jncc.base.seat;
+
+import java.sql.Timestamp;
 // default package
 
 
@@ -9,37 +12,14 @@ package org.jncc.base.seat;
 
 public class ESeat  implements java.io.Serializable {
 
+
     // Fields    
 
      private ESeatId id;
-     private Integer seat;
-     private String commnet;
+     private Timestamp creattime;
+	private Integer seat;
      private String user;
-     public String getUser() {
-		return user;
-	}
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	public String getBegintime() {
-		return begintime;
-	}
-
-	public void setBegintime(String begintime) {
-		this.begintime = begintime;
-	}
-
-	public String getEndtime() {
-		return endtime;
-	}
-
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
-	}
-
-	private String begintime;
-     private String endtime;
+     private String commnet;
 
 
     // Constructors
@@ -48,15 +28,12 @@ public class ESeat  implements java.io.Serializable {
     public ESeat() {
     }
 
-	/** minimal constructor */
-    public ESeat(ESeatId id) {
-        this.id = id;
-    }
-    
     /** full constructor */
-    public ESeat(ESeatId id, Integer seat, String commnet) {
+    public ESeat(ESeatId id, Timestamp creattime, Integer seat, String user, String commnet) {
         this.id = id;
+        this.creattime = creattime;
         this.seat = seat;
+        this.user = user;
         this.commnet = commnet;
     }
 
@@ -71,12 +48,21 @@ public class ESeat  implements java.io.Serializable {
         this.id = id;
     }
 
+
     public Integer getSeat() {
         return this.seat;
     }
     
     public void setSeat(Integer seat) {
         this.seat = seat;
+    }
+
+    public String getUser() {
+        return this.user;
+    }
+    
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getCommnet() {
@@ -86,4 +72,12 @@ public class ESeat  implements java.io.Serializable {
     public void setCommnet(String commnet) {
         this.commnet = commnet;
     }
+    
+    public Timestamp getCreattime() {
+		return creattime;
+	}
+
+	public void setCreattime(Timestamp creattime) {
+		this.creattime = creattime;
+	}
 }

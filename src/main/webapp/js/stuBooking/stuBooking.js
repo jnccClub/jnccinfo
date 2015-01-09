@@ -48,8 +48,8 @@ function stuSbumit() {
 		return;
 	} else {
 		var param=[{name:"eseat.id.zone",value:$("select[name='stuBooking.zone']").val()},{
-					name:"eseat.begintime",value:$("select[name='stuBooking.beginTime']").val()},{
-					name:"eseat.endtime",value:$("select[name='stuBooking.endTime']").val()},{
+					name:"eseat.id.begintime",value:$("select[name='stuBooking.beginTime']").val()},{
+					name:"eseat.id.endtime",value:$("select[name='stuBooking.endTime']").val()},{
 					name:"eseat.id.date",value:$("input[name='stuBooking.date']").val()},{
 					name:"eseat.seat",value:seat},{
 					name:"eseat.id.seatid",value:seatid}];
@@ -65,7 +65,7 @@ function bookingSeat(param) {
 		success : function(data) {
 			if(data.resultCode=="200"){
 				alert("预定成功，请准时赴约！");
-				renewMainId('#MF_Query');
+				renewMainId('#MF_HOME');
 			}else{
 				alert("预定失败，可能是后台有人在搞鬼，请向管理员举报！");
 			}
@@ -76,8 +76,8 @@ function bookingSeat(param) {
 
 function getSeatstatus(){
 	var param=[{name:"eseat.id.zone",value:$("select[name='stuBooking.zone']").val()},{
-		name:"eseat.begintime",value:$("select[name='stuBooking.beginTime']").val()},{
-		name:"eseat.endtime",value:$("select[name='stuBooking.endTime']").val()},{
+		name:"eseat.id.begintime",value:$("select[name='stuBooking.beginTime']").val()},{
+		name:"eseat.id.endtime",value:$("select[name='stuBooking.endTime']").val()},{
 		name:"eseat.id.date",value:$("input[name='stuBooking.date']").val()}];
 	$.ajax({
 		type : 'post',

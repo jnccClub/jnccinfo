@@ -1,4 +1,5 @@
 package org.jncc.base.seat;
+
 // default package
 
 
@@ -14,7 +15,8 @@ public class ESeatId  implements java.io.Serializable {
 
      private String zone;
      private String date;
-     private Integer hour;
+     private Integer begintime;
+     private Integer endtime;
      private String seatid;
 
 
@@ -26,10 +28,11 @@ public class ESeatId  implements java.io.Serializable {
 
     
     /** full constructor */
-    public ESeatId(String zone, String date, Integer hour, String seatid) {
+    public ESeatId(String zone, String date, Integer begintime, Integer endtime, String seatid) {
         this.zone = zone;
         this.date = date;
-        this.hour = hour;
+        this.begintime = begintime;
+        this.endtime = endtime;
         this.seatid = seatid;
     }
 
@@ -52,12 +55,20 @@ public class ESeatId  implements java.io.Serializable {
         this.date = date;
     }
 
-    public Integer getHour() {
-        return this.hour;
+    public Integer getBegintime() {
+        return this.begintime;
     }
     
-    public void setHour(Integer hour) {
-        this.hour = hour;
+    public void setBegintime(Integer begintime) {
+        this.begintime = begintime;
+    }
+
+    public Integer getEndtime() {
+        return this.endtime;
+    }
+    
+    public void setEndtime(Integer endtime) {
+        this.endtime = endtime;
     }
 
     public String getSeatid() {
@@ -79,7 +90,8 @@ public class ESeatId  implements java.io.Serializable {
          
 		 return ( (this.getZone()==castOther.getZone()) || ( this.getZone()!=null && castOther.getZone()!=null && this.getZone().equals(castOther.getZone()) ) )
  && ( (this.getDate()==castOther.getDate()) || ( this.getDate()!=null && castOther.getDate()!=null && this.getDate().equals(castOther.getDate()) ) )
- && ( (this.getHour()==castOther.getHour()) || ( this.getHour()!=null && castOther.getHour()!=null && this.getHour().equals(castOther.getHour()) ) )
+ && ( (this.getBegintime()==castOther.getBegintime()) || ( this.getBegintime()!=null && castOther.getBegintime()!=null && this.getBegintime().equals(castOther.getBegintime()) ) )
+ && ( (this.getEndtime()==castOther.getEndtime()) || ( this.getEndtime()!=null && castOther.getEndtime()!=null && this.getEndtime().equals(castOther.getEndtime()) ) )
  && ( (this.getSeatid()==castOther.getSeatid()) || ( this.getSeatid()!=null && castOther.getSeatid()!=null && this.getSeatid().equals(castOther.getSeatid()) ) );
    }
    
@@ -88,7 +100,8 @@ public class ESeatId  implements java.io.Serializable {
          
          result = 37 * result + ( getZone() == null ? 0 : this.getZone().hashCode() );
          result = 37 * result + ( getDate() == null ? 0 : this.getDate().hashCode() );
-         result = 37 * result + ( getHour() == null ? 0 : this.getHour().hashCode() );
+         result = 37 * result + ( getBegintime() == null ? 0 : this.getBegintime().hashCode() );
+         result = 37 * result + ( getEndtime() == null ? 0 : this.getEndtime().hashCode() );
          result = 37 * result + ( getSeatid() == null ? 0 : this.getSeatid().hashCode() );
          return result;
    }   

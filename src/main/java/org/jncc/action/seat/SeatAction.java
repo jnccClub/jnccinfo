@@ -1,5 +1,6 @@
 package org.jncc.action.seat;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,8 +37,8 @@ public class SeatAction extends ActionSupport {
 	public String getSeatStatus() {
 		try {
 			dbSession.init();
-			String hql = "from ESeat es where es.id.zone=? and es.id.date=? and es.id.hour>=? and es.id.hour<=?";
-			Object[] params = new Object[] {eseat.getId().getZone(), eseat.getId().getDate(),Integer.parseInt(eseat.getBegintime()),Integer.parseInt(eseat.getEndtime())};
+			String hql = "from ESeat es where es.id.zone=? and es.id.date=? and es.id.begintime<? and es.id.endtime>?";
+			Object[] params = new Object[] {eseat.getId().getZone(), eseat.getId().getDate(),eseat.getId().getEndtime(),eseat.getId().getBegintime()};
 			esList = dbSession.getQuery(hql, params);
 			dbSession.close();
 		} catch (Exception e) {
@@ -56,34 +57,48 @@ public class SeatAction extends ActionSupport {
 	}
 
 	public String bookSeat() {
-		int beginHour = Integer.parseInt(eseat.getBegintime());
-		int endHour = Integer.parseInt(eseat.getEndtime());
-		ESeat es = new ESeat();
-		ESeatId esID = new ESeatId();
-		String bookDate = eseat.getId().getDate();
-		Date dt = new Date();
-		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-		if (bookDate == null || bookDate.equals("")) {
-			bookDate = fmt.format(dt);
-		}
-		esID.setDate(bookDate);
-		esID.setZone(eseat.getId().getZone());
-		esID.setSeatid(eseat.getId().getSeatid());
-		es.setSeat(eseat.getSeat());
-		try {
-			dbSession.init();
-			for (int i = beginHour; i < endHour; i++) {
-				esID.setHour(i);
-				es.setId(esID);
-				dbSession.replaceInsert(es);
-				dbSession.flush();
-			}
-			dbSession.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		Map session = ActionContext.getContext().getSession();
+		UserInfo us = (UserInfo) session.get("USERINFO");
+		if(us == null || us.getUsername().equals("")){
 			resultCause.setCause("503", "存在异常");
+		}else{
+			int beginHour = eseat.getId().getBegintime();
+			int endHour = eseat.getId().getEndtime();
+			ESeat es = new ESeat();
+			ESeatId esID = new ESeatId();
+			String bookDate = eseat.getId().getDate();
+			Date dt = new Date();
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+			if (bookDate == null || bookDate.equals("")) {
+				bookDate = fmt.format(dt);
+			}
+			//获取当前时间作为创建时间
+			Timestamp d = new Timestamp(System.currentTimeMillis());
+			es.setCreattime(d);
+			esID.setDate(bookDate);
+			esID.setZone(eseat.getId().getZone());
+			esID.setSeatid(eseat.getId().getSeatid());
+			es.setSeat(eseat.getSeat());
+			es.setUser(us.getUsername());
+			try {
+				dbSession.init();
+				if(beginHour<endHour){
+					esID.setBegintime(beginHour);
+					esID.setEndtime(endHour);
+					es.setId(esID);
+					dbSession.replaceInsert(es);
+					dbSession.flush();
+					dbSession.close();
+				}else{
+					resultCause.setCause("503", "存在异常");
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				resultCause.setCause("503", "存在异常");
+			}
+			resultCause.setCause("200", "恭喜，预定成功");
 		}
-		resultCause.setCause("200", "恭喜，预定成功");
 		return "SEAT_BOOKING_SUCCESS";
 	}
 

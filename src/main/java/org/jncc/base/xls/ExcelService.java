@@ -65,14 +65,14 @@ public class ExcelService {
 			Cell[] cells;
 			cells = sheet.getRow(0);
 			String CName = cells[0].getContents();
-			if (CName == null || CName != "课程名称") {
+			if (CName == null || !CName.equals("课程名称")) {
 				ecurVec = ECourseService.genCourse(sheet, ec);
 			} else {
 				int row = sheet.getRows();
 				try {
 					dbSession.init();
+					ECourse ec_t = new ECourse();
 					for (int i = 1; i < row; i++) {
-						ECourse ec_t = new ECourse();
 						cells = sheet.getRow(i);
 						String t = cells[0].getContents();
 						if (cells.length >= 7 && t!=null && !t.equals("")) {
@@ -84,16 +84,18 @@ public class ExcelService {
 							ec_t.setSeats(Integer.valueOf(cells[5]
 									.getContents()));
 							ec_t.setComment(cells[6].getContents());
-							dbSession.insert(ec_t);
+							dbSession.replaceInsert(ec_t);
+							dbSession.flush();
 						}
 					}
 					dbSession.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
+				ECourseService.updateEcList();
 			}
 			workbook.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

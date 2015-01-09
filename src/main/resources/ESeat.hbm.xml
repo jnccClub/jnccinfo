@@ -14,15 +14,26 @@
    <key-property name="date" type="java.lang.String">
     <column length="14" name="date"/>
    </key-property>
-   <key-property name="hour" type="java.lang.Integer">
-    <column name="hour"/>
+   <key-property name="begintime" type="java.lang.Integer">
+    <column name="begintime"/>
+   </key-property>
+   <key-property name="endtime" type="java.lang.Integer">
+    <column name="endtime"/>
    </key-property>
    <key-property name="seatid" type="java.lang.String">
     <column length="10" name="seatid"/>
    </key-property>
   </composite-id>
+  <property generated="never" lazy="false" name="creattime" type="java.sql.Timestamp">
+   <column name="creattime" not-null="true"/>
+  </property>
+  
+  
   <property generated="never" lazy="false" name="seat" type="java.lang.Integer">
    <column name="seat"/>
+  </property>
+  <property generated="never" lazy="false" name="user" type="java.lang.String">
+   <column length="64" name="user"/>
   </property>
   <property generated="never" lazy="false" name="commnet" type="java.lang.String">
    <column length="128" name="commnet"/>
