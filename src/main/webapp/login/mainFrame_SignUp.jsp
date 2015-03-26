@@ -255,7 +255,7 @@
 			</tr>
 		</table>
 		
-		<input type="button" class="loginBtn" type="submit" value="提交"
+		<input type="button" class="loginBtn" type="button" value="提交"
 			id="addUser" /> <input class="resetBtn" type="reset" value="重置" />
 	</form>
 </div>

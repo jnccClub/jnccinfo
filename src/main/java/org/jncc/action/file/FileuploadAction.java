@@ -47,11 +47,10 @@ public class FileuploadAction extends ActionSupport {
 	private String filePath; // 文件路径
 	private String sw_option;
 	private File coursefileUp;
-	
+
 	public File getCoursefileUp() {
 		return coursefileUp;
 	}
-
 
 	public void setCoursefileUp(File coursefileUp) {
 		this.coursefileUp = coursefileUp;
@@ -63,30 +62,25 @@ public class FileuploadAction extends ActionSupport {
 		return eswList;
 	}
 
-
 	public void setEswList(List<ESoftware> eswList) {
 		this.eswList = eswList;
 	}
 
-
 	public String getSw_option() {
 		return sw_option;
 	}
-
 
 	public void setSw_option(String sw_option) {
 		this.sw_option = sw_option;
 	}
 
 	private resultCause resultCause;
-	
-
 
 	public String uploadSWList() {
-		File saveFile = Fileupload.file_Upload("/uploadSWList",this.getFileupload(),this.getFileFileName());
-		if(saveFile !=null){
-			if(sw_option.startsWith("9"))
-			{
+		File saveFile = Fileupload.file_Upload("/uploadSWList",
+				this.getFileupload(), this.getFileFileName());
+		if (saveFile != null) {
+			if (sw_option.startsWith("9")) {
 				ESoftwareService.addSWFromXLS(saveFile.getAbsolutePath());
 				this.setEswList(ESoftware.getEswList());
 			}
@@ -95,24 +89,21 @@ public class FileuploadAction extends ActionSupport {
 		resultCause.setCause("200", "upload successfully!");
 		return "UPLOAD_SW_SUCCESS";
 	}
-	
-	
-	public String uploadCourse(){
-		File saveFile = Fileupload.file_Upload("/uploadCourse",this.getCoursefileUp(),this.getFileFileName());
-		if(saveFile !=null){
+
+	public String uploadCourse() {
+		File saveFile = Fileupload.file_Upload("/uploadCourse",
+				this.getCoursefileUp(), this.getFileFileName());
+		if (saveFile != null) {
 			ECourseService.addCourseFromXLS(saveFile.getAbsolutePath());
-				this.setEswList(ESoftware.getEswList());
 		}
-		
 		resultCause = new resultCause();
 		resultCause.setCause("200", "upload successfully!");
 		return "UPLOAD_COURSE_SUCCESS";
-		
+
 	}
-	
-	
+
 	public static boolean refreshSWList() {
-		
+
 		return true;
 	}
 

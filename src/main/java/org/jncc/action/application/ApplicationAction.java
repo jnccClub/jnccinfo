@@ -105,9 +105,7 @@ public class ApplicationAction extends ActionSupport {
 		} else {
 			resultCause.setCause("200", "恭喜，有可用区域");
 		}
-
 		return "FINDCONFDATE_APP_SUCCESS";
-
 	}
 
 	public String findzone() {
@@ -120,7 +118,8 @@ public class ApplicationAction extends ActionSupport {
 			List<EZone> freeZoneList = EArrangementService.queryFreezone(
 					bookDate, beginCourse, endCourse);
 			if (zList.size() > 0) {
-				freeZoneList.retainAll(zList);
+				boolean t = zList.retainAll(freeZoneList);
+				int c = 3;
 			} else {
 				zList = freeZoneList;
 			}

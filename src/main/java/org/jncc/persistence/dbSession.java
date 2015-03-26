@@ -3,6 +3,10 @@ package org.jncc.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+
+import org.apache.struts2.util.ServletContextAware;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -11,6 +15,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.nuaa.mapp.servlet.ApplicationCtxListener;
 
 @SuppressWarnings("deprecation")
 public class dbSession {
@@ -51,15 +56,15 @@ public class dbSession {
 		return l;
 	}
 
-	public static List getAllbbs(String hql,int maxRow){
+	public static List getAllbbs(String hql, int maxRow) {
 		final Query query = session.createQuery(hql);
-	    query.setMaxResults(maxRow);
-	    return query.list();
-		
+		query.setMaxResults(maxRow);
+		return query.list();
+
 	}
 
-	public static List getQuery(String hql,Object... params){
-		List l =null;
+	public static List getQuery(String hql, Object... params) {
+		List l = null;
 		try {
 			Query query = session.createQuery(hql);
 
@@ -82,6 +87,7 @@ public class dbSession {
 		}
 		return l;
 	}
+
 	// 根据主键获取唯一数据
 	public static Object load(Class clazz, String keyword) {
 		init();
@@ -106,12 +112,12 @@ public class dbSession {
 		session.save(obj);
 	}
 
-	public static void replaceInsert(Object obj){
+	public static void replaceInsert(Object obj) {
 		session.delete(obj);
 		session.save(obj);
 	}
-	
-	static SessionFactory sessionFactory;
+
+	static SessionFactory sessionFactory = ApplicationCtxListener.getFactory();
 	static Session session;
 	static Transaction tx;
 	static ServiceRegistry serviceRegistry = null;
@@ -121,19 +127,33 @@ public class dbSession {
 		// sessionFactory = new
 		// Configuration().configure().buildSessionFactory();
 		// session = sessionFactory.openSession();
-		if (serviceRegistry == null || configuration==null) {
-			configuration = new Configuration().configure();
-			serviceRegistry = new ServiceRegistryBuilder().applySettings(
-					configuration.getProperties()).buildServiceRegistry();
+		// if (serviceRegistry == null || configuration==null) {
+		// configuration = new Configuration().configure();
+		// serviceRegistry = new ServiceRegistryBuilder().applySettings(
+		// configuration.getProperties()).buildServiceRegistry();
+		// }
+		// session = configuration.buildSessionFactory(serviceRegistry)
+		// .openSession();
+		if (sessionFactory == null) {
+			sessionFactory = ApplicationCtxListener.getFactory();
+			if (sessionFactory == null) {
+				if (serviceRegistry == null || configuration == null) {
+					configuration = new Configuration().configure();
+					serviceRegistry = new ServiceRegistryBuilder()
+							.applySettings(configuration.getProperties())
+							.buildServiceRegistry();
+				}
+				sessionFactory = configuration
+						.buildSessionFactory(serviceRegistry);
+			}
 		}
-		session = configuration.buildSessionFactory(serviceRegistry)
-				.openSession();
+		session = sessionFactory.openSession();
 		tx = session.beginTransaction();
 	}
-	
-	public static void flush(){
-			session.flush();
-			session.clear();
+
+	public static void flush() {
+		session.flush();
+		session.clear();
 	}
 
 	public static void close(boolean isCloseSession) {
@@ -162,8 +182,6 @@ public class dbSession {
 			}
 		}
 	}
-	
-	
 
 	@SuppressWarnings("unchecked")
 	public static ArrayList executeQuery(String hql, String... params) {
@@ -222,4 +240,5 @@ public class dbSession {
 		// update();
 		close();
 	}
+
 }

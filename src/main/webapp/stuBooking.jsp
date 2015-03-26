@@ -49,7 +49,7 @@
 				<li id="cart-item-02_F"><br>待选机位<br> <br></li>
 			</ul>
 			<br> <br> <br> <input type="button" class="loginBtn"
-				type="submit" value="那就这样吧" id="btnCheckout" onclick="stuSbumit()" />
+				type="button" value="那就这样吧" id="btnCheckout" onclick="stuSbumit()" />
 			<input type="button" class="loginBtn" value="重约时间" id="btnNewDate"
 				onclick="renewDateTime()" />
 			<div id="legend"></div>

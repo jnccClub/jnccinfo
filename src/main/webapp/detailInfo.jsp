@@ -5,7 +5,7 @@
   Time: 下午3:46  
   To change this template use File | Settings | File Templates.  
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
@@ -55,7 +55,6 @@
 			</thead>
 		</table>
 		<script type="text/javascript">
-
 			function GetQueryString(name) {
 				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 				var r = window.location.search.substr(1).match(reg);
@@ -63,35 +62,42 @@
 					return (r[2]);
 				return null;
 			}
-			
+
 			var appID = GetQueryString("appID");
 			var createTime = GetQueryString("createTime");
-			$('#tbl_app_dateL').datagrid({
-				title : '课程申请具体日历表',
-				iconCls : 'icon-edit',//图标 
-				width : 700,
-				height : '1000',
-				nowrap : false,
-				striped : true,
-				border : true,
-				collapsible : false,//是否可折叠的 
-				fit : true,//自动大小 
-				url : 'res_queryDates.action?appID='+appID+'&createTime='+createTime,
-				sortName : 'fld_COUREDATE',
-				sortOrder : 'asc',
-				remoteSort : false,
-				idField : 'fld_CNO',
-				singleSelect : false,//是否单选 
-				pagination : true,//分页控件 
-				rownumbers : true,//行号 
-				frozenColumns : [ [ {
-					field : '',
-					checkbox : true
-				} ] ],
-				onLoadSuccess : function(data) {
-					//$('#tbl_app_dateL').datagrid('selectAll');
-				}
-			});
+			var courseName = encodeURI(GetQueryString("courseName"));
+			//courseName = encodeURI(courseName);
+			var teacherName = encodeURI(GetQueryString("teacherName"));
+			//teacherName = encodeURI(teacherName);
+			$('#tbl_app_dateL').datagrid(
+					{
+						title : '课程申请具体日历表',
+						iconCls : 'icon-edit',//图标 
+						width : 700,
+						height : '1000',
+						nowrap : false,
+						striped : true,
+						border : true,
+						collapsible : false,//是否可折叠的 
+						fit : true,//自动大小 
+						url : 'res_queryDates.action?appID=' + appID
+								+ '&createTime=' + createTime + '&courseName='
+								+ courseName + '&teacherName=' + teacherName,
+						sortName : 'fld_COUREDATE',
+						sortOrder : 'asc',
+						remoteSort : false,
+						idField : 'fld_CNO',
+						singleSelect : false,//是否单选 
+						pagination : true,//分页控件 
+						rownumbers : true,//行号 
+						frozenColumns : [ [ {
+							field : '',
+							checkbox : true
+						} ] ],
+						onLoadSuccess : function(data) {
+							//$('#tbl_app_dateL').datagrid('selectAll');
+						}
+					});
 			//设置分页控件 
 			var p = $('#tbl_app_dateL').datagrid('getPager');
 			$(p).pagination({

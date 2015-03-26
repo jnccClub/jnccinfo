@@ -125,6 +125,7 @@
 			</result>
 			<result name="UPLOAD_COURSE_SUCCESS" type="json">
 				<param name="root">resultCause</param>
+				<param name="contentType">text/html</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>

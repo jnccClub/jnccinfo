@@ -97,5 +97,26 @@ public class EZone  implements java.io.Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	
+	//注意这里重写了equals方法  
+    @Override  
+    public boolean equals(Object obj){  
+        if(obj == null){  
+            return false;  
+        }else {           
+                if(this.getClass() == obj.getClass()){  
+                    EZone u = (EZone) obj;  
+                    if(this.getZone().equals(u.getZone())){  
+                        return true;  
+                    }else{  
+                        return false;  
+                    }  
+                  
+            }else{  
+                return false;  
+            }  
+        }             
+    }  
 
 }

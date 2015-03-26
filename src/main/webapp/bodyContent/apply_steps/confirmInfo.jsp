@@ -56,7 +56,7 @@
 
 
 	<div class="form-actions">
-	<input class="loginBtn" type="submit" value="确 认"
+	<input class="loginBtn" type="button" value="确 认"
 			id="btnConfirmAppInfo" onclick="return confirmApplication()"/>
 		<input class="loginBtn" type="button" value="上一步"
 			onclick="appSecondBack()"/>

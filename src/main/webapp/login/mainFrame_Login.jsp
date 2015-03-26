@@ -22,7 +22,7 @@
 		<!-- <textarea rows="4" cols="50" name="subject"
 			placeholder="Please enter your message" class="message" required></textarea> -->
 		<p id="loginErrTips"></p>
-		<input class="loginBtn" type="submit" value="提交"
+		<input class="loginBtn" type="button" value="提交"
 			id="loginSubmit" /> <input class="resetBtn" type="reset" value="重置" />
 	</form>
 </div>

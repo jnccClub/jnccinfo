@@ -82,15 +82,24 @@ function query_info() {
 
 
 function detailCInfo(val, row) {
-	return '<a href="#" onclick="queryDetailDate(\'' + row.fld_C3 + '\',\''
-			+ row.fld_C1 + '\')">' + val + '</a>';
+	var cInfos = val.split("(");
+	var courseName = "";
+	var teacherName = "";
+	if(cInfos.length >=2){
+		courseName = cInfos[0];
+		teacherName = cInfos[1];
+		if(teacherName.length >=2){
+			teacherName = teacherName.substr(0,teacherName.length -1);
+		}
+	}
+	return '<a href="#" onclick="queryDetailCInfo(\'' + courseName + '\',\''
+			+ teacherName + '\')">' + val + '</a>';
 }
 
-function queryDetailDate(createTime, appId) {
+function queryDetailCInfo(courseName, teacherName) {
 	// alert("appId is:" + appId + ";createTime is:" + createTime);
-	window.open('detailInfo.jsp?appID="' + appId + '"&createTime="'
-			+ createTime + '"');
-
+	window.open('detailInfo.jsp?courseName="' + courseName + '"&teacherName="'
+			+ teacherName + '"');
 }
 function menuHandler(item){
 	alert('<p>Click Item: '+item.name+'</p>');

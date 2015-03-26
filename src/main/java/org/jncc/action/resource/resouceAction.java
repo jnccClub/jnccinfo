@@ -1,5 +1,6 @@
 package org.jncc.action.resource;
 
+import java.net.URLDecoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +30,39 @@ public class resouceAction extends ActionSupport {
 	private String page;// 当前第几页
 	private String appID; // 课程编号
 	private String createTime; // 创建时间
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		try {
+			this.courseName = trimQuotation(URLDecoder.decode(courseName, "utf-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getTeacherName() {
+		return teacherName;
+	}
+
+	public void setTeacherName(String teacherName) {
+		try {
+			this.teacherName = trimQuotation(URLDecoder.decode(teacherName, "utf-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String courseName;
+	private String teacherName;
+
 	private String queryDate;
 	private String queryfloor;
 	private String queryfiled;
 	private String queryfiledVal;
 	private JSONArray resJsonArray;
-
 
 	public JSONArray getResJsonArray() {
 		return resJsonArray;
@@ -49,7 +77,7 @@ public class resouceAction extends ActionSupport {
 	 * 
 	 * @return
 	 */
-	public String getallzone(){
+	public String getallzone() {
 		List<EZone> ezList = EZoneService.getEZoneList();
 		resJsonArray = new JSONArray();
 		for (int i = 0; i < ezList.size(); i++) {
@@ -61,13 +89,14 @@ public class resouceAction extends ActionSupport {
 		}
 		return "RES_GETZONE_SUCCESS";
 	}
+
 	public String getallCourse() {
-		
-		result = JSONObject.fromObject(ECourseService.toMapObject(queryfiled,queryfiledVal));
+
+		result = JSONObject.fromObject(ECourseService.toMapObject(queryfiled,
+				queryfiledVal));
 		return "RES_GETCOURSE_SUCCESS";
 	}
-	
-	
+
 	public String getallfloor() {
 
 		List<EZone> ezList = EZoneService.getEZoneList();
@@ -105,13 +134,14 @@ public class resouceAction extends ActionSupport {
 
 	public String queryDates() {
 		result = JSONObject.fromObject(EArrangementService.toMapObject(appID,
-				createTime));
+				createTime, courseName, teacherName));
 		return "RES_QUEYRDATES_SUCCESS";
 	}
 
 	public String queryCourseArr() {
 
-		result = JSONObject.fromObject(ZoneArrangement.toMapObject(queryDate,queryfloor,queryfiled,queryfiledVal));
+		result = JSONObject.fromObject(ZoneArrangement.toMapObject(queryDate,
+				queryfloor, queryfiled, queryfiledVal));
 
 		return "RES_QUERYCOURSEARR_SUCCESS";
 	}
@@ -165,7 +195,9 @@ public class resouceAction extends ActionSupport {
 			tmpStr = tmpStr.substring(0, tmpStr.length() - 1);
 		}
 		return tmpStr;
-	}	public String getQueryDate() {
+	}
+
+	public String getQueryDate() {
 		return queryDate;
 	}
 
@@ -189,8 +221,6 @@ public class resouceAction extends ActionSupport {
 		this.queryfiledVal = queryfiledVal;
 	}
 
-	
-	
 	public String getQueryfloor() {
 		return queryfloor;
 	}

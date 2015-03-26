@@ -212,4 +212,20 @@ public class ECourseService implements java.io.Serializable {
 		}
 		return ec;
 	}
+	
+	public static ECourse getCourse(String courseName,String teacherName) {
+		ECourse ec = null;
+		List<ECourse> ecList = getEcList();
+		for (int i = 0; i < ecList.size(); i++) {
+//			if (ecList.get(i).getName().equals("EDA技术")){
+//				ECourse eccc= ecList.get(i);
+//				System.out.println("come");
+//			}
+			if (ecList.get(i).getName().equals(courseName) && ecList.get(i).getTeacher().equals(teacherName)) {
+				
+				return ecList.get(i);
+			}
+		}
+		return ec;
+	}
 }

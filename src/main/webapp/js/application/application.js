@@ -484,8 +484,8 @@ function appFirstNext() {
 	$("#generatedCommnet").html(
 			"<br>"+$("textarea[name='applicationInfo.OtherComment']").val());
 
-	var beginWeek = $("select[name='applicationInfo.beginDate']").val();
-	var endWeek = $("select[name='applicationInfo.endDate']").val();
+	var beginWeek = parseInt($("select[name='applicationInfo.beginDate']").val());
+	var endWeek = parseInt($("select[name='applicationInfo.endDate']").val());
 	var beginCourseTime = $("select[name='applicationInfo.beginTime']").val();
 	var endCourseTime = $("select[name='applicationInfo.endTime']").val();
 

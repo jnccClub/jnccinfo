@@ -9,6 +9,7 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Expression;
 import org.jncc.base.application.EApplication;
+import org.jncc.base.course.ECourseService;
 import org.jncc.base.coursemap.ECourseMapService;
 import org.jncc.base.zone.EZone;
 import org.jncc.base.zone.EZoneService;
@@ -89,7 +90,15 @@ public class EArrangementService implements java.io.Serializable {
 
 
 	public static Map<String, Object> toMapObject(String appId,
-			String createTime) {
+			String createTime,String courseName,String teacherName) {
+		if(appId.equals("")||appId.equals(null) || appId.equals("null")){
+			if(ECourseService.getCourse(courseName, teacherName).equals(null)){
+				return null;
+			}else{
+				appId = ECourseService.getCourse(courseName, teacherName).getSerial();
+				createTime = "";
+			}
+		}
 		List<EArrangement> earrList = queryAppDates(appId, createTime);
 		List<Map<String, String>> mapList = new ArrayList();
 		if (earrList != null) {
@@ -105,14 +114,26 @@ public class EArrangementService implements java.io.Serializable {
 		}
 	}
 
+	
+	
 	public static List<EArrangement> queryAppDates(String appId,
 			String createTime) {
 		List<EArrangement> earrList;
 		try {
 			dbSession.init();
-			Timestamp ts = Timestamp.valueOf(createTime);
-			String sql = "from EArrangement earr where earr.appId='" + appId
-					+ "' and earr.createtime='" + ts + "'";
+			String sql = "";
+			if(createTime.equals("")){
+				sql = "from EArrangement earr where earr.appId='" + appId + "'";
+			}else{
+				try{
+					Timestamp ts = Timestamp.valueOf(createTime);
+					sql = "from EArrangement earr where earr.appId='" + appId
+							+ "' and earr.createtime='" + ts + "'";
+				}catch(IllegalArgumentException e){
+					e.printStackTrace();
+					sql = "from EArrangement earr where earr.appId='" + appId + "'";
+				}
+			}
 			earrList = dbSession.select(sql);
 			dbSession.close();
 			return earrList;

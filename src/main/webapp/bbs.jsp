@@ -20,7 +20,7 @@
 				style="width:100%;border:2;border-style:solid;border-color:blue;"
 				name="ebs.remark"></textarea>
 
-			<input type="button" class="loginBtn" type="submit" value="不吐不快"
+			<input type="button" class="loginBtn" type="button" value="不吐不快"
 				id="bbsSubmit" /> <input class="resetBtn" type="reset"
 				value="容我重新三思" />
 		</form>
