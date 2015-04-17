@@ -18,7 +18,8 @@ var TableEditable = function() {
 			function editRow(oTable, nRow) {
 				var aData = oTable.fnGetData(nRow);
 				var jqTds = $('>td', nRow);
-				jqTds[0].innerHTML = aData[0];
+				jqTds[0].innerHTML = '<input type="text" class="m-wrap small" value="'
+						+ aData[0] + '">';
 				jqTds[1].innerHTML = '<input type="text" class="m-wrap small" value="'
 						+ aData[1] + '">';
 				jqTds[2].innerHTML = '<input type="text" class="m-wrap small" value="'
@@ -35,7 +36,8 @@ var TableEditable = function() {
 
 			function saveRow(oTable, nRow) {
 				var jqInputs = $('input', nRow);
-				oTable.fnUpdate(jqInputs[0].value, nRow, 1, false);
+				oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
+				oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
 				oTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
 				oTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
 				oTable.fnUpdate(jqInputs[3].value, nRow, 4, false);
@@ -63,9 +65,9 @@ var TableEditable = function() {
 							{
 								"aLengthMenu" : [ [ 5, 10, 15, 20, -1 ],
 										[ 5, 10, 15, 20, "All" ] // change
-																	// per page
-																	// values
-																	// here
+								// per page
+								// values
+								// here
 								],
 								// set the initial value
 								"iDisplayLength" : 10,
@@ -114,8 +116,8 @@ var TableEditable = function() {
 				}
 
 				var nRow = $(this).parents('tr')[0];
+				tableRowOperation("DELETE", nRow, oTable);
 				oTable.fnDeleteRow(nRow);
-				tableRowOperation("DELETE", nRow,oTable);
 			});
 
 			$('#' + tblId + ' a.cancel').live('click', function(e) {
@@ -145,8 +147,8 @@ var TableEditable = function() {
 					nEditing = nRow;
 				} else if (nEditing == nRow && this.innerHTML == "保存") {
 					/* Editing this row and want to save it */
-					saveRow(oTable, nEditing);
 					tableRowOperation("SAVE", nRow, oTable)
+					saveRow(oTable, nEditing);
 					nEditing = null;
 				} else {
 					/* No edit in progress - let's start one */
@@ -159,13 +161,28 @@ var TableEditable = function() {
 
 	function tableRowOperation(cmdType, nRow, oTable) {
 		var aData = oTable.fnGetData(nRow);
-		var params = [ {name : "userInfo.username" , value : aData[0]
-		}, {name : "userInfo.realname" , value : aData[1]
-		}, {name : "userInfo.password" , value : aData[2]
-		}, {name : "userInfo.phoneno" , value : aData[3]
-		}, {name : "userInfo.email" , value : aData[4]
-		}, {name : "userInfo.selfIntroduce" , value : aData[5]
-		}, {name : "userInfo.preference",value :cmdType}];
+		var params = [ {
+			name : "userInfo.username",
+			value : aData[0]
+		}, {
+			name : "userInfo.realname",
+			value : aData[1]
+		}, {
+			name : "userInfo.password",
+			value : aData[2]
+		}, {
+			name : "userInfo.phoneno",
+			value : aData[3]
+		}, {
+			name : "userInfo.email",
+			value : aData[4]
+		}, {
+			name : "userInfo.selfIntroduce",
+			value : aData[5]
+		}, {
+			name : "userInfo.preference",
+			value : cmdType
+		} ];
 		$.ajax({
 			url : 'comAction/user_modUserInfo.action',
 			type : 'post',
@@ -183,8 +200,6 @@ var TableEditable = function() {
 			}
 		});
 
-		
-		
 	}
 
 }();

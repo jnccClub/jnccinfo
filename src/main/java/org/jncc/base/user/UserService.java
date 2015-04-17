@@ -23,6 +23,7 @@ public class UserService {
 	public static List<UserInfo> updateUserList() {
 		return updateUserList(false);
 	}
+
 	public static List<UserInfo> updateUserList(boolean isForced) {
 		if (usList == null || isForced) {
 			try {
@@ -119,15 +120,34 @@ public class UserService {
 	public static boolean modUser(UserInfo user) {
 		try {
 			String hql = "update UserInfo us set us.realname=?,us.password=?,us.phoneno=?,us.email=?,us.selfIntroduce=? where us.username=?";
-			Object[] params = new Object[] { user.getRealname(), user.getPassword(),
-					user.getPhoneno(),
-					user.getEmail(),user.getSelfIntroduce(),user.getUsername()};
+			Object[] params = new Object[] { user.getRealname(),user.getPassword(),
+					user.getPhoneno(), user.getEmail(),
+					user.getSelfIntroduce(), user.getUsername() };
+			if (user.getPassword() == null || user.getPassword().equals("")) {
+				hql = "update UserInfo us set us.realname=?,us.phoneno=?,us.email=?,us.selfIntroduce=?,us.qq=? where us.username=?";
+				params = new Object[] { user.getRealname(),
+						user.getPhoneno(), user.getEmail(),
+						user.getSelfIntroduce(), user.getQq(),user.getUsername() };
+			}
+			
 			dbSession.executeUpdate(hql, params);
 			updateUserList(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		return true;
+	}
+
+	public static boolean modPasswd(UserInfo user) {
+		try {
+			String hql = "update UserInfo us set us.password=? where us.username=?";
+			Object[] params = new Object[] { user.getPassword(),
+					user.getUsername() };
+			dbSession.executeUpdate(hql, params);
+			updateUserList(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 

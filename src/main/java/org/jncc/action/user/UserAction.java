@@ -17,6 +17,15 @@ public class UserAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private ResultCause resultCause = new ResultCause();
 	private UserInfo userInfo;
+	private String fomerPasswd;
+
+	public String getFomerPasswd() {
+		return fomerPasswd;
+	}
+
+	public void setFomerPasswd(String fomerPasswd) {
+		this.fomerPasswd = fomerPasswd;
+	}
 
 	List<Object[]> userInfoList = null;
 
@@ -120,7 +129,24 @@ public class UserAction extends ActionSupport {
 
 	public String modUserInfo() {
 		if (userInfo.getUsername() == null || userInfo.getUsername().equals("")) {
-			resultCause.setCause("403", "User passwd is not correct!");
+			Map session = ActionContext.getContext().getSession();
+			UserInfo us = (UserInfo) session.get("USERINFO");
+			if(us !=null &&(us.getUsername() !=null || !us.getUsername().equals(""))){
+				userInfo.setUsername(us.getUsername());
+				if(userInfo.getPreference()!=null &&userInfo.getPreference().equals("MODPASSWD")){
+					if(userInfo.getPassword().equals(us.getPassword())){
+						UserService.modPasswd(userInfo);
+						resultCause.setCause("200", "User info process successfully.");
+					}else{
+						resultCause.setCause("403", "Former passwd is not correct!.");
+					}
+					
+				}else{
+					UserService.modUser(userInfo);
+					resultCause.setCause("200", "User info process successfully.");
+				}
+				
+			}
 			System.out.println();
 		} else {
 			if (userInfo.getPreference().equals("DELETE")) {
@@ -130,8 +156,8 @@ public class UserAction extends ActionSupport {
 				UserService.modUser(userInfo);
 				System.out.println("修改成功");
 			}
+			resultCause.setCause("200", "User info process successfully.");
 		}
-		resultCause.setCause("200", "User info process successfully.");
 		return "MOD_USER_INFO";
 	}
 }

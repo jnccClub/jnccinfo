@@ -23,7 +23,7 @@
 			<li><a href="profile.jsp"><i class="icon-list-alt"></i>
 					教师信息维护</a></li>
 			<li class="nav-header">我的账户</li>
-			<li><a href="profile.htm"><i class="icon-user"></i> 个人信息</a></li>
+			<li><a href="personnel.jsp"><i class="icon-user"></i> 个人信息</a></li>
 			<li><a href="settings.htm"><i class="icon-cog"></i> 设置</a></li>
 			<li class="divider"></li>
 			<li><a href="help.htm"><i class="icon-info-sign"></i> 帮助</a></li>
