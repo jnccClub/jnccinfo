@@ -1,6 +1,6 @@
 package org.jncc.action.course;
 
-import org.jncc.base.cause.resultCause;
+import org.jncc.base.cause.ResultCause;
 import org.jncc.base.course.ECourse;
 import org.jncc.base.course.ECourseService;
 import org.jncc.base.user.UserService;
@@ -14,7 +14,7 @@ public class courseAction extends ActionSupport {
 	 */
 
 	public String save() {
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		if (UserService.isSuperAdmin()) {
 			try {
 				if (formerEc == null || formerEc.getSerial() == "") {
@@ -39,7 +39,7 @@ public class courseAction extends ActionSupport {
 	}
 
 	public String delete() {
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		if (UserService.isSuperAdmin()) {
 			try {
 				dbSession.delete(ec);
@@ -56,13 +56,13 @@ public class courseAction extends ActionSupport {
 		return "DELETE_COURSE_SUCCESS";
 	}
 
-	private resultCause resultCause;
+	private ResultCause resultCause;
 
-	public resultCause getResultCause() {
+	public ResultCause getResultCause() {
 		return resultCause;
 	}
 
-	public void setResultCause(resultCause resultCause) {
+	public void setResultCause(ResultCause resultCause) {
 		this.resultCause = resultCause;
 	}
 

@@ -5,7 +5,8 @@
   Time: 下午3:46  
   To change this template use File | Settings | File Templates.  
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
@@ -40,17 +41,17 @@
 <title>预定课程详细信息</title>
 </head>
 <body>
-	<div class="container" style="height:900">
+	<div class="container" style="height: 900">
 		<table id="tbl_app_dateL" cellspacing="0" cellpadding="0"
 			class="easyui-datagrid">
 			<thead>
 				<tr>
 					<th data-options="field:'fld_CNO',width:180">课程编号</th>
-					<th field="fld_CTIME" width="180">创建时间</th>
-					<th field="fld_ZONE" width="55">区域</th>
-					<th field="fld_FLOOR" width="55">楼层</th>
 					<th field="fld_COUREDATE" width="100">上课日期</th>
+					<th field="fld_FLOOR" width="55">楼层</th>
 					<th field="fld_COURSE" width="100">课程</th>
+					<th field="fld_ZONE" width="100">区域</th>
+					<th field="fld_CTIME" width="180">创建时间</th>
 				</tr>
 			</thead>
 		</table>

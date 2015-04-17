@@ -49,8 +49,10 @@ public class EApplicationService implements java.io.Serializable {
 		String tmpStatus = "";
 		if(ea.getStatus().equals("0")){
 			tmpStatus = "待审批";
-		}else{
+		}else if(ea.getStatus().equals("1")){
 			tmpStatus = "已审批";
+		}else {
+			tmpStatus = "已驳回";
 		}
 		
 		appMap.put("fld_STATUS",tmpStatus);
@@ -58,10 +60,8 @@ public class EApplicationService implements java.io.Serializable {
 	}
 	
 	
-	
-	
-	public static Map<String, Object> toMapObject() {
-		List<EApplication> eaList = queryAuditApp();
+	public static Map<String, Object> toMapObject(int auditedType) {
+		List<EApplication> eaList = queryAuditApp(auditedType);
 		List<Map<String,String>> mapList = new ArrayList();
 		if(eaList!=null){
 			for (int i = 0; i < eaList.size(); i++) {
@@ -77,11 +77,19 @@ public class EApplicationService implements java.io.Serializable {
 	}
 	
 	
-	public static List<EApplication> queryAuditApp(){
+	public static List<EApplication> queryAuditApp(int auditedType){
 		List<EApplication> eaList = new ArrayList();
+		
+		String sql="from EApplication ea";
+		if(auditedType == 1){
+			sql = sql+" where ea.status='1'";
+		}else if(auditedType == 99){
+			sql = sql+" where ea.status='99'";
+		}else{
+			sql = sql+" where ea.status='0'";
+		}
 		try {
 			dbSession.init();
-			String sql="from EApplication ea where ea.status='0'";
 			eaList = dbSession.select(sql);
 			dbSession.close();
 			return eaList;

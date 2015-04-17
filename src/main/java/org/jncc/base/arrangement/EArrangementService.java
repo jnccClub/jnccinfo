@@ -3,6 +3,7 @@ package org.jncc.base.arrangement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -80,14 +81,19 @@ public class EArrangementService implements java.io.Serializable {
 		}
 		appMap.put("fld_CTIME", tmpTime);
 		appMap.put("fld_ZONE", earr.getId().getZone());
-		appMap.put("fld_FLOOR", earr.getFloor());
+		appMap.put("fld_FLOOR", earr.getFloor()+"楼");
 		appMap.put("fld_COUREDATE", earr.getId().getDate());
-		appMap.put("fld_COURSE", "第" + String.valueOf(earr.getId().getCourse())
-				+ "节");
+		appMap.put("fld_COURSE", ECourseMapService.getPeriod(earr.getId().getCourse()));
+		
 		return appMap;
 	}
 
-
+	public static String getEArrKey(EArrangement ear){
+		if(ear.equals(null)){
+			return "";
+		}
+		return String.valueOf(ear.getId().getCourse())+";"+ear.getId().getDate();
+	}
 
 	public static Map<String, Object> toMapObject(String appId,
 			String createTime,String courseName,String teacherName) {
@@ -101,15 +107,32 @@ public class EArrangementService implements java.io.Serializable {
 		}
 		List<EArrangement> earrList = queryAppDates(appId, createTime);
 		List<Map<String, String>> mapList = new ArrayList();
+		Map<String,EArrangement> eaMap = new HashMap<String,EArrangement>();
+		
 		if (earrList != null) {
 			for (int i = 0; i < earrList.size(); i++) {
-				mapList.add(toMap(earrList.get(i)));
+				EArrangement tmpEar = earrList.get(i);
+				String earKey = getEArrKey(earrList.get(i));
+				if(eaMap.containsKey(earKey)){
+					EArrangement orgEar = eaMap.get(earKey);
+					String multiZone = orgEar.getId().getZone() +"、"+ tmpEar.getId().getZone();
+					orgEar.getId().setZone(multiZone);
+					eaMap.put(earKey, orgEar);
+				}else{
+					eaMap.put(earKey, tmpEar);
+				}
 			}
+			Iterator<Map.Entry<String, EArrangement>> it = eaMap.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<String, EArrangement> entry = it.next();
+					mapList.add(toMap(entry.getValue()));
+				}
 			Map<String, Object> jsonMap = new HashMap<String, Object>();
 			jsonMap.put("total", mapList.size());
 			jsonMap.put("rows", mapList);
 			return jsonMap;
 		} else {
+			
 			return null;
 		}
 	}
@@ -143,6 +166,10 @@ public class EArrangementService implements java.io.Serializable {
 		return null;
 	}
 
+	public static List<EArrangement> queryDailyCourse(String date){
+		return queryCurCourse(date,"");
+	}
+	
 	public static List<EArrangement> queryCurCourse(String date,String floor) {
 		List<EArrangement> earrList;
 		String conditionSql = "";
@@ -168,6 +195,28 @@ public class EArrangementService implements java.io.Serializable {
 		return null;
 	}
 
+	public static String getCurSerial(String date,String hour,String zone){
+		List<EArrangement> earrList = null;
+		String serial = "";
+		String conditionSql = "1=1";
+		conditionSql = conditionSql + "and earr.id.date='"+date	+ "'";
+		conditionSql = conditionSql + "and earr.id.zone='"+zone	+ "'";
+		int course = ECourseMapService.getCourse(hour);
+		conditionSql = conditionSql + "and earr.id.course="+course;
+		try {
+			dbSession.init();
+			String sql = "from EArrangement earr where "+ conditionSql;
+			earrList = dbSession.select(sql);
+			dbSession.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(earrList!=null &&earrList.size()>0){
+			serial = earrList.get(0).getAppId();
+		}
+		return serial;
+	}
+	
 	// Fields
 	public static void main(String[] args) {
 		// Map<String, Object> jsonMap =

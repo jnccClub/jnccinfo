@@ -6,6 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,13 +55,14 @@ public class UtilTool {
 
 	public static Properties getProperties() {
 		if (p == null) {
-			String path = ServletActionContext.getServletContext().getRealPath("/WEB-INF/classes/cfg/");
-			path = path+"\\mail.properties";
+			String path = ServletActionContext.getServletContext().getRealPath(
+					"/WEB-INF/classes/cfg/");
+			path = path + "/mail.properties";
 			InputStream is;
 			p = new Properties();
 			try {
-				is = new BufferedInputStream(new FileInputStream(new File(
-						path)));
+				is = new BufferedInputStream(
+						new FileInputStream(new File(path)));
 				p.load(is);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -73,17 +78,53 @@ public class UtilTool {
 	public static String getProperty(String key) {
 		String val = "";
 		Object obj = getProperties().get(key);
-		if(obj !=null){
+		if (obj != null) {
 			val = obj.toString();
 		}
 		return val;
 	}
 
+	public static String getNextDay(String date) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date myDate = formatter.parse(date);
+			Calendar c = Calendar.getInstance();
+			c.setTime(myDate);
+			c.add(Calendar.DATE, 1);
+			myDate = c.getTime();
+			System.out.println(formatter.format(myDate));
+			return formatter.format(myDate);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		return null;
+	}
+
+	public static String getNowDate() {
+		String temp_str = "";
+		Date dt = new Date();
+		// 最后的aa表示“上午”或“下午” HH表示24小时制 如果换成hh表示12小时制
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		temp_str = sdf.format(dt);
+		return temp_str;
+	}
+	
+	public static String getNowHour() {
+		String temp_str = "";
+		Date dt = new Date();
+		// 最后的aa表示“上午”或“下午” HH表示24小时制 如果换成hh表示12小时制
+		SimpleDateFormat sdf = new SimpleDateFormat("HH");
+		temp_str = sdf.format(dt);
+		return temp_str;
+	}
+
 	public static void main(String[] args) {
-		Properties p = UtilTool.getProperties();
-		String qq = UtilTool.getProperty("QQ_SEND");
-		
-		String qqpwd = UtilTool.getProperty("QQPWD_SEND");
+		// Properties p = UtilTool.getProperties();
+		// String qq = UtilTool.getProperty("QQ_SEND");
+		//
+		// String qqpwd = UtilTool.getProperty("QQPWD_SEND");
+		getNextDay("2015-03-31");
+
 	}
 
 }

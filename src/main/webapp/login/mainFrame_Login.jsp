@@ -8,22 +8,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<div class="mainFrame_Login" style="text-align:center;"
+<div class="mainFrame_Login" style="text-align: center;"
 	id="mainFrame_Login">
 	<form id="userLoginForm">
 		<p>
 			尚无登录账号？ <br> <a href="#" id="loginJump2SignUp">快快注册加入我们</a>
 		</p>
-
-		<input name="userInfo.username" placeholder="请输入学号/工号"
-			class="easyui-validatebox UsernameInput" id="loginUserNameInput" required="true" missingMessage="学号/工号必须填写" validType="cardNo"/> <input
-			name="userInfo.password" placeholder="请输入密码" class="UserPasswdInput easyui-validatebox"
-			type="password" required="true" missingMessage="密码必须填写"  />
+			<input style="display:inline" name="userInfo.username"
+				placeholder="请输入学号/工号" class="easyui-validatebox UsernameInput"
+				id="loginUserNameInput" required="true" missingMessage="学号/工号必须填写"
+				validType="cardNo" /><i class="icon-user" style="display:inline">&nbsp;&nbsp;&nbsp;</i>
+		<div>
+			<input style="display:inline" name="userInfo.password" placeholder="请输入密码"
+				class="UserPasswdInput easyui-validatebox" type="password"
+				required="true" missingMessage="密码必须填写" /><i class="icon-lock" style="display:inline">&nbsp;&nbsp;&nbsp;</i>
+		</div>
 		<!-- <textarea rows="4" cols="50" name="subject"
 			placeholder="Please enter your message" class="message" required></textarea> -->
 		<p id="loginErrTips"></p>
-		<input class="loginBtn" type="button" value="提交"
-			id="loginSubmit" /> <input class="resetBtn" type="reset" value="重置" />
+		<input class="loginBtn" type="button" value="提交" id="loginSubmit" />
+		<input class="resetBtn" type="reset" value="重置" />
 	</form>
 </div>
 
@@ -65,11 +69,10 @@
 		$("#loginSubmit")
 				.click(
 						function() {// 必须先对提交表单数据数据进行序列化，采用jQuery的serialize()方法
-							if(!$("#userLoginForm").form('validate')){
+							if (!$("#userLoginForm").form('validate')) {
 								return;
 							}
-							
-							
+
 							var params = $("#userLoginForm").serializeArray();
 							$
 									.ajax({

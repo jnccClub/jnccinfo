@@ -10,14 +10,14 @@
 			<tr>
 				<th data-options="field:'fld_CNO',width:180,formatter:detailFormat">课程编号</th>
 				<th field="fld_CUSR" width="55">创建人</th>
-				<th field="fld_COURSENAME" width="55">课程名称</th>
-				<th field="fld_CLASSNAME" width="55">班级名称</th>
+				<th field="fld_COURSENAME" width="180">课程名称</th>
+				<th field="fld_CLASSNAME" width="40">班级名称</th>
 				<th field="fld_BTYPE" width="55">预定类型</th>
 				<th field="fld_SEATS" width="55">座位</th>
-				<th field="fld_CTIME" width="180">创建时间</th>
-				<th field="fld_OSYSTEM" width="100">操作系统</th>
-				<th field="fld_SWARE" width="100">软件信息</th>
-				<th field="fld_PHONE" width="55">联系电话</th>
+				<th field="fld_CTIME" width="80">创建时间</th>
+				<th field="fld_OSYSTEM" width="50">操作系统</th>
+				<th field="fld_SWARE" width="50">软件信息</th>
+				<th field="fld_PHONE" width="100">联系电话</th>
 				<th field="fld_EMAIL" width="55">电子邮箱</th>
 				<th field="fld_STATUS" width="55">当前状态</th>
 				<th data-options="field:'fld_DETAIL',width:55">具体信息</th>
@@ -26,7 +26,14 @@
 	</table>
 	<div id="toolbar">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-edit" plain="true" onclick="audit_App()">审批申请</a>
+			iconCls="nuaa-icon-edit" plain="false" onclick="audit_App()">申请处理</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="nuaa-icon-add" plain="false" onclick="audit_List(0)">查看未审批申请</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="nuaa-icon-save" plain="false" onclick="audit_List(1)">查看已审批申请</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="nuaa-icon-remove" plain="false" onclick="audit_List(99)">查看已驳回申请</a>
 	</div>
 	<div id="dlg" class="easyui-dialog"
 		style="width:350px;height:380px;padding:10px 20px" closed="true"
@@ -47,9 +54,9 @@
 	</div>
 	<div id="dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton c6"
-			iconCls="icon-ok" onclick="approve_application()" style="width:90px">确认</a> <a
+			iconCls="nuaa-icon-ok" onclick="approve_application()" style="width:90px">确认</a> <a
 			href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')"
+			iconCls="nuaa-icon-cancel" onclick="javascript:$('#dlg').dialog('close')"
 			style="width:90px">取消</a>
 	</div>
 

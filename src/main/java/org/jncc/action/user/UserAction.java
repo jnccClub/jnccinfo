@@ -1,8 +1,9 @@
 package org.jncc.action.user;
 
+import java.util.List;
 import java.util.Map;
 
-import org.jncc.base.cause.resultCause;
+import org.jncc.base.cause.ResultCause;
 import org.jncc.base.user.UserInfo;
 import org.jncc.base.user.UserService;
 
@@ -14,28 +15,38 @@ public class UserAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private resultCause resultCause = new resultCause();
+	private ResultCause resultCause = new ResultCause();
 	private UserInfo userInfo;
+
+	List<Object[]> userInfoList = null;
 
 	// private HttpServletRequest req;
 
-	public String isLogin(){
+	public List<Object[]> getUserInfoList() {
+		return userInfoList;
+	}
+
+	public void setUserInfoList(List<Object[]> userInfoList) {
+		this.userInfoList = userInfoList;
+	}
+
+	public String isLogin() {
 		Map session = ActionContext.getContext().getSession();
 		UserInfo us = (UserInfo) session.get("USERINFO");
-		if(us==null || us.getUsername().equals("")){
+		if (us == null || us.getUsername().equals("")) {
 			resultCause.setCause("404", "Not login in");
-		}else{
+		} else {
 			userInfo = us;
 			resultCause.setCause("200", "User is already login in.");
 		}
 		return "LOGIN_IN";
 	}
-	
-	public resultCause getResultCause() {
+
+	public ResultCause getResultCause() {
 		return resultCause;
 	}
 
-	public void setResultCause(resultCause resultCause) {
+	public void setResultCause(ResultCause resultCause) {
 		this.resultCause = resultCause;
 	}
 
@@ -75,8 +86,8 @@ public class UserAction extends ActionSupport {
 	}
 
 	public String loginIn() {
-		UserInfo usInfo = UserService
-				.getUserInfo(UserInfo.class, userInfo.getUsername());
+		UserInfo usInfo = UserService.getUserInfo(UserInfo.class,
+				userInfo.getUsername());
 		if (usInfo == null) {
 			resultCause.setCause("404", "No such user registed!");
 		} else if (usInfo.getPassword().equals(userInfo.getPassword())) {
@@ -89,5 +100,38 @@ public class UserAction extends ActionSupport {
 		}
 		System.out.println("comehere!!!!! loginIn!");
 		return "LOGIN_IN";
+	}
+
+	public String listUserInfo() {
+		Map session = ActionContext.getContext().getSession();
+		UserInfo us = (UserInfo) session.get("USERINFO");
+		if (us == null || us.getUsername().equals("")) {
+			resultCause.setCause("404", "Not login in");
+		} else {
+			if (!us.getRole().equals("admin")) {
+				resultCause.setCause("403", "User info process successfully.");
+			} else {
+				userInfoList = UserService.getUMInfoList(UserService
+						.getUsList());
+			}
+		}
+		return "LIST_USER_INFO";
+	}
+
+	public String modUserInfo() {
+		if (userInfo.getUsername() == null || userInfo.getUsername().equals("")) {
+			resultCause.setCause("403", "User passwd is not correct!");
+			System.out.println();
+		} else {
+			if (userInfo.getPreference().equals("DELETE")) {
+				UserService.deleteUser(userInfo);
+				System.out.println("删除成功");
+			} else {
+				UserService.modUser(userInfo);
+				System.out.println("修改成功");
+			}
+		}
+		resultCause.setCause("200", "User info process successfully.");
+		return "MOD_USER_INFO";
 	}
 }

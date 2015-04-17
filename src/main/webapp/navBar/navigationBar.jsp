@@ -18,8 +18,16 @@
 				<ul class="nav">
 					<li class="active"><a href="#"
 						onclick="renewMainId('#MF_HOME')">首页</a></li>
-										<li><a href="#"
-						onclick="queryMFDetailInof()">预约查询</a></li>
+
+					<li class="dropdown"><a href="#"
+						class="dropdown-toggle" data-toggle="dropdown" id="maintainCenter">查询 <b
+							class="caret"></b></a>
+						<ul class="dropdown-menu" >
+							<li><a href="#" onclick="queryMFWeekInfo()">每周课表</a></li>
+							<li><a href="#" onclick="queryMFDetailInfo()">预约查询</a></li>	
+						</ul>
+					</li>
+						
 					<li><a href="#" onclick="renewMainId('#MF_Body')" id="personCenter">个人中心</a></li>
 					<li><a href="#" onclick="bbsShow()">吐槽墙</a></li>
 					<li><a href="#" onclick="stuBookingShow()" id="stuBookingEntry">学生预定</a></li>

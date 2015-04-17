@@ -22,7 +22,7 @@ package org.jncc.action.zone;
 
 import java.util.List;
 
-import org.jncc.base.cause.resultCause;
+import org.jncc.base.cause.ResultCause;
 import org.jncc.base.software.ESoftware;
 import org.jncc.base.software.ESoftwareService;
 import org.jncc.base.zone.EZone;
@@ -40,14 +40,14 @@ public class ZoneAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private resultCause resultCause;
+	private ResultCause resultCause;
 	private List<EZone> zoneList;
 	private EZone zoneCfg;
 
 
 	public String refresh() {
 		this.setZoneList(EZoneService.getEZoneList());
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		resultCause.setCause("200", "upload successfully!");
 		return "REFRESH_ZONE_SUCCESS";
 	}
@@ -61,7 +61,7 @@ public class ZoneAction extends ActionSupport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		resultCause.setCause("200", "恭喜您，添加成功！");
 		return "ADD_ZONE_SUCCESS";
 	}
@@ -74,7 +74,7 @@ public class ZoneAction extends ActionSupport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		resultCause.setCause("200", "恭喜您，删除成功！");
 		return "DELETE_ZONE_SUCCESS";
 	}
@@ -86,11 +86,11 @@ public class ZoneAction extends ActionSupport {
 		return null;
 	}
 
-	public resultCause getResultCause() {
+	public ResultCause getResultCause() {
 		return resultCause;
 	}
 
-	public void setResultCause(resultCause resultCause) {
+	public void setResultCause(ResultCause resultCause) {
 		this.resultCause = resultCause;
 	}
 

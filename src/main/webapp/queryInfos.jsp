@@ -36,31 +36,4 @@
 		</div>
 	</div>
 
-
-	<div id="query_dlg" class="easyui-dialog"
-		style="width:350px;height:380px;padding:10px 20px" closed="true"
-		buttons="#dlg_query_buttons">
-		<form id="fm_audit">
-			<div class="fitem">
-				<label>审批意见:</label><select name="testApprove"><option
-						value="0">驳回</option>
-					<option value="1" selected="selected">批准</option>
-				</select>
-			</div>
-			<div class="fitem">
-				<label>详细描述:</label>
-				<textarea class="input-xlarge" rows="4"
-					placeholder="符合使用规则，各项必备条件充分！" name="approveComment">符合使用规则，各项必备条件充分！</textarea>
-			</div>
-		</form>
-	</div>
-	<div id="dlg_query_buttons">
-		<a href="javascript:void(0)" class="easyui-linkbutton c6"
-			iconCls="icon-ok" onclick="confirm_query()" style="width:90px">确认</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-cancel"
-			onclick="javascript:$('#query_dlg').dialog('close')"
-			style="width:90px">取消</a>
-	</div>
-	<br> <br> <br>
 </div>

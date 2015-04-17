@@ -1,6 +1,6 @@
 package org.jncc.base.cause;
 
-public class resultCause {
+public class ResultCause {
 	public String getResultCode() {
 		return resultCode;
 	}

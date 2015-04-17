@@ -11,7 +11,7 @@ import org.jncc.base.application.EApplicationService;
 import org.jncc.base.arrangement.EArrangement;
 import org.jncc.base.arrangement.EArrangementId;
 import org.jncc.base.arrangement.EArrangementService;
-import org.jncc.base.cause.resultCause;
+import org.jncc.base.cause.ResultCause;
 import org.jncc.base.course.ECourse;
 import org.jncc.base.course.ECourseService;
 import org.jncc.base.coursemap.ECourseMapService;
@@ -32,7 +32,7 @@ public class ApplicationAction extends ActionSupport {
 	 */
 
 	private static final long serialVersionUID = 1L;
-	private resultCause resultCause = new resultCause();
+	private ResultCause resultCause = new ResultCause();
 	private EApplication ea;
 	private List<EZone> zList;
 
@@ -54,7 +54,7 @@ public class ApplicationAction extends ActionSupport {
 			String oldStr = UtilTool.getProperty("MAIL_APPLY");
 			String newStr = UtilTool.getProperty("SUBJECT_AUDIT_SUC");
 			mContent = mContent.replace(oldStr, newStr);
-			qqcontent = "欢迎使用计算中心预约系统，您的申请已被驳回！";
+			qqcontent = "欢迎使用计算中心预约系统，您的申请已审批通过！";
 		} else {
 			EApplicationService.rejectApplications(eaIDs, approveComment,
 					eaIdList);
@@ -63,7 +63,7 @@ public class ApplicationAction extends ActionSupport {
 			String oldStr = UtilTool.getProperty("MAIL_APPLY");
 			String newStr = UtilTool.getProperty("SUBJECT_AUDIT_FAIL");
 			mContent = mContent.replace(oldStr, newStr);
-			qqcontent = "欢迎使用计算中心预约系统，您的申请已审批通过！";
+			qqcontent = "欢迎使用计算中心预约系统，您的申请已被驳回！";
 		}
 		String[] userList = null;
 		if (createUsers != null && !createUsers.equals("")) {
@@ -86,7 +86,7 @@ public class ApplicationAction extends ActionSupport {
 	public String findConfDate() {
 		String dInfo = ea.getDateInfo();
 		String[] dInfos = dInfo.split("\\s+");
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		int beginCourse = ECourseMapService.getBeginCourse(ea.getBeginTime());
 		int endCourse = ECourseMapService.getEndCourse(ea.getEndTime());
 		String conflictedDate = "";
@@ -139,7 +139,7 @@ public class ApplicationAction extends ActionSupport {
 		if (us == null) {
 			ea.setCreateUser("admin");
 		} else {
-			ea.setCreateUser(us.getUsername());
+			ea.setCreateUser(us.getRealname());
 		}
 		ECourse ec = ECourseService.getCourse(ea.getId().getApplicationId());
 		if (ec == null) {
@@ -151,7 +151,7 @@ public class ApplicationAction extends ActionSupport {
 		String[] dInfos = dInfo.split("\\s+");
 		String zInfo = ea.getZone();
 		String[] zInfos = zInfo.split("\\s+");
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		int beginCourse = ECourseMapService.getBeginCourse(ea.getBeginTime());
 		int endCourse = ECourseMapService.getEndCourse(ea.getEndTime());
 		EArrangement eArr = new EArrangement();
@@ -206,16 +206,16 @@ public class ApplicationAction extends ActionSupport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		resultCause.setCause("200", "恭喜您，删除成功！");
 		return "DELETE_APP_SUCCESS";
 	}
 
-	public resultCause getResultCause() {
+	public ResultCause getResultCause() {
 		return resultCause;
 	}
 
-	public void setResultCause(resultCause resultCause) {
+	public void setResultCause(ResultCause resultCause) {
 		this.resultCause = resultCause;
 	}
 

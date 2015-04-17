@@ -133,4 +133,3 @@
 	changeWidth(dragConfirm5);
 	changeWidth(dragConfirm6);
 </script>
-</div>

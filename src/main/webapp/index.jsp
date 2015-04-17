@@ -104,7 +104,7 @@
 	<jsp:include page="chat/chat.jsp"></jsp:include>
 	<div class="container">
 	
-
+		
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
 		<jsp:include page="bodyContent/auditApp/auditApplication.jsp"></jsp:include>
 		<jsp:include page="login/mainFrame_Login.jsp"></jsp:include>
@@ -115,6 +115,7 @@
 		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
 		<jsp:include page="configInfo/MF_COURSE_CFG.jsp"></jsp:include>
 		<jsp:include page="queryInfos.jsp"></jsp:include>
+		<jsp:include page="weekInfos.jsp"></jsp:include>
 		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
 		<jsp:include page="stuBooking.jsp"></jsp:include>
 		

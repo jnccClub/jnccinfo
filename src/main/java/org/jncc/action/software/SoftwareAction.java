@@ -27,7 +27,7 @@ import java.util.Set;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.jncc.base.cause.resultCause;
+import org.jncc.base.cause.ResultCause;
 import org.jncc.base.software.ESoftware;
 import org.jncc.base.software.ESoftwareService;
 import org.jncc.persistence.dbSession;
@@ -43,7 +43,7 @@ public class SoftwareAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private resultCause resultCause;
+	private ResultCause resultCause;
 	private List<ESoftware> eswList;
 	private ESoftware esw;
 	private JSONArray swJsonArray;
@@ -122,7 +122,7 @@ public class SoftwareAction extends ActionSupport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		resultCause.setCause("200", "恭喜您，添加成功！");
 		
 		//更新静态变量
@@ -137,7 +137,7 @@ public class SoftwareAction extends ActionSupport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		resultCause.setCause("200", "恭喜您，删除成功！");
 		
 		//更新静态变量
@@ -151,11 +151,11 @@ public class SoftwareAction extends ActionSupport {
 		return null;
 	}
 
-	public resultCause getResultCause() {
+	public ResultCause getResultCause() {
 		return resultCause;
 	}
 
-	public void setResultCause(resultCause resultCause) {
+	public void setResultCause(ResultCause resultCause) {
 		this.resultCause = resultCause;
 	}
 

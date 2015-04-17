@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
-import org.jncc.base.cause.resultCause;
+import org.jncc.base.cause.ResultCause;
 import org.jncc.base.course.ECourseService;
 import org.jncc.base.file.Fileupload;
 import org.jncc.base.software.ESoftware;
@@ -74,7 +74,7 @@ public class FileuploadAction extends ActionSupport {
 		this.sw_option = sw_option;
 	}
 
-	private resultCause resultCause;
+	private ResultCause resultCause;
 
 	public String uploadSWList() {
 		File saveFile = Fileupload.file_Upload("/uploadSWList",
@@ -85,7 +85,7 @@ public class FileuploadAction extends ActionSupport {
 				this.setEswList(ESoftware.getEswList());
 			}
 		}
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		resultCause.setCause("200", "upload successfully!");
 		return "UPLOAD_SW_SUCCESS";
 	}
@@ -96,7 +96,7 @@ public class FileuploadAction extends ActionSupport {
 		if (saveFile != null) {
 			ECourseService.addCourseFromXLS(saveFile.getAbsolutePath());
 		}
-		resultCause = new resultCause();
+		resultCause = new ResultCause();
 		resultCause.setCause("200", "upload successfully!");
 		return "UPLOAD_COURSE_SUCCESS";
 
@@ -113,11 +113,11 @@ public class FileuploadAction extends ActionSupport {
 		return null;
 	}
 
-	public resultCause getResultCause() {
+	public ResultCause getResultCause() {
 		return resultCause;
 	}
 
-	public void setResultCause(resultCause resultCause) {
+	public void setResultCause(ResultCause resultCause) {
 		this.resultCause = resultCause;
 	}
 

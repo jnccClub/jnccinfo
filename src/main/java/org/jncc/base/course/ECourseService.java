@@ -81,6 +81,8 @@ public class ECourseService implements java.io.Serializable {
 
 	public static boolean ifFitCourse(ECourse ec, String queryFld,
 			String queryfiledVal) {
+		ec.getSerial();
+		
 		if (ec != null && queryFld != null && queryfiledVal != null
 				&& !queryfiledVal.equals("")) {
 			switch (queryFld) {

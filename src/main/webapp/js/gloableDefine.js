@@ -1,7 +1,21 @@
 ﻿$(function(){
-	var schoolBeginDate = new Date("2015-03-02");
+	schoolBeginDate = new Date("2015-03-02");
 	updateFirstBeginMon(schoolBeginDate);
 });
+
+function getCurWeek(schoolBeginDate,today){
+	var iDays = parseInt(Math.abs(today -  schoolBeginDate) / 1000 / 60 / 60 /24);
+	var weekCount = parseInt(iDays/7);
+	return weekCount;
+}
+
+function getCurDate(semester,curWeek){
+	var weekMonDate = new Date(semester.replace(/-/g,   "/"));
+	var daysGap =  7 * (curWeek - 1);
+	weekMonDate.setDate(weekMonDate.getDate() + daysGap);
+	return weekMonDate;
+}
+
 function updateFirstBeginMon(schoolBeginDate) {
 	var day = schoolBeginDate.getDay();
 	schoolBeginMon = new Date();

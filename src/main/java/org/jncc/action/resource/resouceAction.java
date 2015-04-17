@@ -12,12 +12,15 @@ import net.sf.json.JSONObject;
 import org.jncc.base.application.EApplicationService;
 import org.jncc.base.arrangement.EArrangementService;
 import org.jncc.base.arrangement.ZoneArrangement;
+import org.jncc.base.cause.ResultCause;
+import org.jncc.base.course.ECourse;
 import org.jncc.base.course.ECourseService;
-import org.jncc.base.user.UserInfo;
+import org.jncc.base.curriculum.WeekCurriculum;
 import org.jncc.base.zone.EZone;
 import org.jncc.base.zone.EZoneService;
+import org.jncc.persistence.UtilTool;
+import org.jncc.persistence.SocketClient;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class resouceAction extends ActionSupport {
@@ -30,6 +33,54 @@ public class resouceAction extends ActionSupport {
 	private String page;// 当前第几页
 	private String appID; // 课程编号
 	private String createTime; // 创建时间
+	private List<Map<String, String>> resArrArray;
+	private ResultCause resultCause;
+
+	public ResultCause getResultCause() {
+		return resultCause;
+	}
+
+	public void setResultCause(ResultCause resultCause) {
+		this.resultCause = resultCause;
+	}
+
+	private String cpuName;
+
+	public String getCpuName() {
+		return cpuName;
+	}
+
+	public void setCpuName(String cpuName) {
+		this.cpuName = cpuName;
+	}
+
+	public List<Map<String, String>> getResArrArray() {
+		return resArrArray;
+	}
+
+	public void setResArrArray(List<Map<String, String>> resArrArray) {
+		this.resArrArray = resArrArray;
+	}
+
+	public String getBeginWeekDate() {
+		return beginWeekDate;
+	}
+
+	public void setBeginWeekDate(String beginWeekDate) {
+		this.beginWeekDate = beginWeekDate;
+	}
+
+	private String beginWeekDate;
+
+	private int auditedType;
+
+	public int getAuditedType() {
+		return auditedType;
+	}
+
+	public void setAuditedType(int auditedType) {
+		this.auditedType = auditedType;
+	}
 
 	public String getCourseName() {
 		return courseName;
@@ -37,7 +88,8 @@ public class resouceAction extends ActionSupport {
 
 	public void setCourseName(String courseName) {
 		try {
-			this.courseName = trimQuotation(URLDecoder.decode(courseName, "utf-8"));
+			this.courseName = trimQuotation(URLDecoder.decode(courseName,
+					"utf-8"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -49,7 +101,8 @@ public class resouceAction extends ActionSupport {
 
 	public void setTeacherName(String teacherName) {
 		try {
-			this.teacherName = trimQuotation(URLDecoder.decode(teacherName, "utf-8"));
+			this.teacherName = trimQuotation(URLDecoder.decode(teacherName,
+					"utf-8"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,7 +181,8 @@ public class resouceAction extends ActionSupport {
 				: rows);
 		// 每页的开始记录 第一页为1 第二页为number +1
 		int start = (intPage - 1) * number;
-		result = JSONObject.fromObject(EApplicationService.toMapObject());
+		result = JSONObject.fromObject(EApplicationService
+				.toMapObject(auditedType));
 		return "RES_LIST_SUCCESS";
 	}
 
@@ -144,6 +198,55 @@ public class resouceAction extends ActionSupport {
 				queryfloor, queryfiled, queryfiledVal));
 
 		return "RES_QUERYCOURSEARR_SUCCESS";
+	}
+
+	public String queryWeekArr() {
+		// String day = "2014-03-20";
+		resArrArray = WeekCurriculum.getWeekCourseInfos(beginWeekDate);
+		return "RES_QUERYWEEKARR_SUCCESS";
+	}
+	
+	public String bookSeatSelf() {
+		cpuName = cpuName.replaceAll("-", "");
+		if(cpuName.startsWith("10")){
+			cpuName = cpuName.replaceFirst("10", "A");
+		}
+		cpuName = "T" + cpuName;
+		String socketStr = "";
+		socketStr = socketStr + "COMMAND:" + "SELF_EXAM";
+		socketStr = socketStr + "CPUNAME:" + cpuName;
+		String responseCode = SocketClient.sendSocket(socketStr);
+		resultCause = new ResultCause();
+		resultCause.setCause("200", responseCode);
+		return "RES_BOOKSEATSELF_SUCCESS";
+	}
+
+	public String queryZoneInfo() {
+//		cpuName = trimQuotation(cpuName);
+		int zPos = cpuName.indexOf("-");
+		String zone = "";
+		if (zPos > 0) {
+			zone = cpuName.substring(0, zPos);
+		} else {
+			return "RES_QUERYZONEINFO_SUCCESS";
+		}
+		String nowDate = UtilTool.getNowDate();
+		String nowHour = UtilTool.getNowHour();
+		String serial = EArrangementService
+				.getCurSerial(nowDate, nowHour, zone);
+		ECourse ec = ECourseService.getCourse(serial);
+		resultCause = new ResultCause();
+		String resultDesc = "本区已被如下课程预定<br>";
+		if (ec == null) {
+			resultDesc = resultDesc + "暂无";
+		} else {
+			resultDesc = resultDesc + "教师姓名：" + ec.getTeacher() + "<br>";
+			resultDesc = resultDesc + "课程名称：" + ec.getName() + "<br>";
+			resultDesc = resultDesc + "课程人数：" + ec.getSeats() + "<br>";
+			resultDesc = resultDesc + "课程描述：" + ec.getComment();
+		}
+		resultCause.setCause("200", resultDesc);
+		return "RES_QUERYZONEINFO_SUCCESS";
 	}
 
 	public JSONObject getResult() {

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.jncc.base.cause.resultCause;
+import org.jncc.base.cause.ResultCause;
 import org.jncc.base.seat.ESeat;
 import org.jncc.base.seat.ESeatId;
 import org.jncc.base.user.UserInfo;
@@ -21,7 +21,7 @@ public class SeatAction extends ActionSupport {
 	 */
 
 	private static final long serialVersionUID = 1L;
-	private resultCause resultCause = new resultCause();
+	private ResultCause resultCause = new ResultCause();
 
 	private ESeat eseat;
 	private List<ESeat> esList;
@@ -110,11 +110,11 @@ public class SeatAction extends ActionSupport {
 		this.esList = esList;
 	}
 
-	public resultCause getResultCause() {
+	public ResultCause getResultCause() {
 		return resultCause;
 	}
 
-	public void setResultCause(resultCause resultCause) {
+	public void setResultCause(ResultCause resultCause) {
 		this.resultCause = resultCause;
 	}
 

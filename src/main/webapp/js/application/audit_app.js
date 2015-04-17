@@ -72,6 +72,13 @@ function audit_App() {
 
 }
 
+function audit_List(auditedType) {
+	var queryParams = $('#list_data').datagrid('options').queryParams;  
+    queryParams.auditedType = auditedType;
+    $('#list_data').datagrid('options').queryParams=queryParams;        
+    $("#list_data").datagrid('reload');
+}
+
 function approve_application() {
 	$('#dlg').dialog('close');
 	var ids = "";

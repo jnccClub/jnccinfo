@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 import org.jncc.base.bbs.EBbs;
-import org.jncc.base.cause.resultCause;
+import org.jncc.base.cause.ResultCause;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
 
@@ -18,7 +18,7 @@ public class bbsAction extends ActionSupport {
 	 * 
 	 */
 	private EBbs ebs;
-	private resultCause result;
+	private ResultCause result;
 	private List<EBbs> bbsList;
 
 	public String getAllbbs() {
@@ -58,11 +58,11 @@ public class bbsAction extends ActionSupport {
 		this.ebs = ebs;
 	}
 
-	public resultCause getResult() {
+	public ResultCause getResult() {
 		return result;
 	}
 
-	public void setResult(resultCause result) {
+	public void setResult(ResultCause result) {
 		this.result = result;
 	}
 
