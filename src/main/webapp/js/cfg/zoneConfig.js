@@ -161,5 +161,5 @@ $(function() {
 	});
 
 	// 初始化表单内容！
-	$("#btnZoneRefresh").trigger("click");
+	//$("#btnZoneRefresh").trigger("click");
 });

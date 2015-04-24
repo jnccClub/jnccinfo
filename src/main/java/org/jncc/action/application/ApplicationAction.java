@@ -20,6 +20,7 @@ import org.jncc.base.user.UserInfo;
 import org.jncc.base.user.UserService;
 import org.jncc.base.zone.EZone;
 import org.jncc.persistence.Mail;
+import org.jncc.persistence.MsgSendThread;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
 
@@ -183,22 +184,15 @@ public class ApplicationAction extends ActionSupport {
 
 		if (EApplicationService.addApplication(ea)) {
 			resultCause.setCause("200", "恭喜，添加成功");
-			String content = "欢迎使用计算中心预约系统，您的申请已成功提交！";
-			String mEmail = UtilTool.getProperty("ADMIN_EMAIL");
-			if (us != null && UtilTool.IsValid(us.getEmail())) {
-				mEmail = us.getEmail();
-				QQSend.sendQQ(us.getQq(), content);
-			}
-			String mContent = UtilTool.getProperty("MAIL_CONTENT");
-			String mSubject = UtilTool.getProperty("SUBJECT_APPLY");
-			Mail.sendMail(mEmail, mSubject, mContent);
-
+			new MsgSendThread(ea,us); //发送邮件与QQ消息;异步发送，减少延迟。
 		} else {
 			resultCause.setCause("503", "添加失败");
 		}
 		return "ADD_APP_SUCCESS";
 	}
 
+
+	
 	public String deleteRecord() {
 		try {
 			dbSession.delete(ea);

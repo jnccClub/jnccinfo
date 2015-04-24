@@ -4,6 +4,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.jncc.base.course.ECourseService;
+import org.jncc.base.coursemap.ECourseMapService;
+import org.jncc.base.software.ESoftwareService;
+import org.jncc.base.zone.EZoneService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +48,13 @@ public class ApplicationCtxListener implements ServletContextListener {
 		// 创建 TLV socket 服务
 		logger.debug("Initialize socket server...");
 		logger.info("初始化 Servlet 完成");
+		
+		//静态变量初始化
+		ECourseMapService.setECourseMapList();
+		ECourseService.updateEcList();
+		EZoneService.getEZoneList();
+		ESoftwareService.updateEswList(ESoftwareService.getEswList());
+		
 	}
 
 	public void contextDestroyed(ServletContextEvent event) {

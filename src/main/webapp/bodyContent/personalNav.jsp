@@ -26,7 +26,7 @@
 			<li><a href="personnel.jsp"><i class="icon-user"></i> 个人信息</a></li>
 			<li><a href="settings.htm"><i class="icon-cog"></i> 设置</a></li>
 			<li class="divider"></li>
-			<li><a href="help.htm"><i class="icon-info-sign"></i> 帮助</a></li>
+			<li><a href="tBook.jsp"><i class="icon-info-sign"></i> 自助区域使用</a></li>
 			<li class="nav-header">如何预约</li>
 			<li><a href="gallery.htm"><i class="icon-picture"></i>
 					查看进度</a></li>

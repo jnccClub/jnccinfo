@@ -223,11 +223,22 @@ public class ECourseService implements java.io.Serializable {
 //				ECourse eccc= ecList.get(i);
 //				System.out.println("come");
 //			}
+			if(courseName==null || courseName.equals("")){
+				if(ecList.get(i).getTeacher().equals(teacherName) ||ecList.get(i).getTeacherNo().equals(teacherName)){
+					return ecList.get(i);
+				}
+			}
+			if(teacherName==null || teacherName.equals("")){
+				if(ecList.get(i).getName().equals(courseName)){
+					return ecList.get(i);
+				}
+			}
 			if (ecList.get(i).getName().equals(courseName) && ecList.get(i).getTeacher().equals(teacherName)) {
-				
 				return ecList.get(i);
 			}
 		}
 		return ec;
 	}
+	
+	
 }

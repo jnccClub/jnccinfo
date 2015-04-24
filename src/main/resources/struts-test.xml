@@ -13,6 +13,7 @@
 	<!--采用异步提交方式，result的type="json"，并且result节点值为空 -->
 
 	<package name="guest" namespace="/comAction" extends="json-default">
+
 		<!--客户端请求采用DMI（动态调用） -->
 		<action name="user_*" class="org.jncc.action.user.UserAction"
 			method="{1}">
@@ -48,8 +49,7 @@
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-
-
+			<result name="PREPAGE">${prePage}</result>
 		</action>
 		<action name="comSw_*" class="org.jncc.action.software.SoftwareAction"
 			method="{1}">
@@ -110,7 +110,6 @@
 				<param name="excludeNullProperties">false</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
-
 		</action>
 		<action name="seat_*" class="org.jncc.action.seat.SeatAction"
 			method="{1}">
@@ -125,7 +124,6 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 		</action>
-
 
 	</package>
 
@@ -143,6 +141,15 @@
 			</interceptor-stack>
 		</interceptors>
 		<default-interceptor-ref name="mydefault" />
+
+		<!-- 定义全局result -->
+		<global-results>
+			<result name="login" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+		</global-results>
 
 		<action name="file_*" class="org.jncc.action.file.FileuploadAction"
 			method="{1}">
@@ -255,6 +262,16 @@
 			</result>
 			<result name="RES_QUEYRDATES_SUCCESS" type="json">
 				<param name="root">result</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="RES_BOOKTEACHERZONE_SUCCESS" type="json">
+				<param name="root">resultCause</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="RES_QUERYTEACHERZONE_SUCCESS" type="json">
+				<param name="root">resultCause</param>
 				<param name="excludeNullProperties">false</param>
 				<param name="excludeProperties">SUCCESS</param>
 			</result>

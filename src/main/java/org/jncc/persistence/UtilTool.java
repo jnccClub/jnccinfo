@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,10 +75,19 @@ public class UtilTool {
 		}
 		return p;
 	}
-
+	
 	public static String getProperty(String key) {
 		String val = "";
 		Object obj = getProperties().get(key);
+		if (obj != null) {
+			val = obj.toString();
+		}
+		return val;
+	}
+	
+	public static String getProperty(String key,Properties p) {
+		String val = "";
+		Object obj = p.get(key);
 		if (obj != null) {
 			val = obj.toString();
 		}
@@ -115,6 +125,15 @@ public class UtilTool {
 		// 最后的aa表示“上午”或“下午” HH表示24小时制 如果换成hh表示12小时制
 		SimpleDateFormat sdf = new SimpleDateFormat("HH");
 		temp_str = sdf.format(dt);
+		return temp_str;
+	}
+	
+	public static String list2Str(List<String> strList) {
+		String temp_str = "";
+		for(int i=0;i<strList.size();i++){
+			temp_str = temp_str+strList.get(i);
+			temp_str = temp_str+"|";
+		}
 		return temp_str;
 	}
 

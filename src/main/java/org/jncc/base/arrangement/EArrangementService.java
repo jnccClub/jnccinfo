@@ -194,13 +194,19 @@ public class EArrangementService implements java.io.Serializable {
 		}
 		return null;
 	}
+	
+	public static String getCurSerial(String date,String hour){
+		return getCurSerial(date,hour,"");
+	}
 
 	public static String getCurSerial(String date,String hour,String zone){
 		List<EArrangement> earrList = null;
 		String serial = "";
 		String conditionSql = "1=1";
 		conditionSql = conditionSql + "and earr.id.date='"+date	+ "'";
-		conditionSql = conditionSql + "and earr.id.zone='"+zone	+ "'";
+		if(!zone.equals("")){
+			conditionSql = conditionSql + "and earr.id.zone='"+zone	+ "'";
+		}
 		int course = ECourseMapService.getCourse(hour);
 		conditionSql = conditionSql + "and earr.id.course="+course;
 		try {

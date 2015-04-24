@@ -40,12 +40,12 @@ public class comCourseUpload {
 					String courseNo = cInfos[0];
 					String teacherName = cInfos[1];
 					String teacherNo = cInfos[2];
-					classNo = cInfos[3];
+//					classNo = cInfos[3];
 					ec.setName(courseName);
 					ec.setSerial(courseNo);
 					ec.setTeacher(teacherName);
 					ec.setTeacherNo(teacherNo);
-					ec.setClassNo(classNo);
+//					ec.setClassNo(classNo);
 				}
 			}
 			// 一次读入一行，直到读入null为文件结束
@@ -56,7 +56,12 @@ public class comCourseUpload {
 				line++;
 				ecurVec.add(getStuInfo(tempString, ec.getSerial(), classNOset));
 			}
+			for(String clsNo:classNOset){
+				classNo = classNo+clsNo;
+				classNo = classNo+"|";
+			}
 			ec.setSeats(line);
+			ec.setClassNo(classNo);
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -82,7 +87,7 @@ public class comCourseUpload {
 			ECurriculumId id = new ECurriculumId(serial, stuNo);
 			String classNo = "";
 			if (stuNo.length() >= 7) {
-				classNo = stuNo.substring(0, 7);
+				classNo = stuNo.substring(0, 4);
 				classNo = classNo.trim();
 				if (UtilTool.IsValid(classNo)) {
 					classNOset.add(classNo);

@@ -100,6 +100,9 @@
 												$("#loginErrTips").html(
 														"**您输入的用户名不存在**");
 												$("#loginErrTips").show();
+											} else if (data.resultCause.resultCode
+													.toString() == "302") {
+												window.location.replace(data.resultCause.resultDesc);
 											} else {
 												$("#loginErrTips").html(
 														"**您输入的密码错误**");

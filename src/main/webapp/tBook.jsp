@@ -52,23 +52,21 @@
 </head>
 <body>
 
-	<div id="MF_SELFBOOK" style="margin: 2em 3em 0 3em">
+	<div id="MF_TBOOK" style="margin: 2em 3em 0 3em">
 		<div class="portlet box red">
 			<div class="portlet-title">
 				<div class="caption">
-					<b >计算中心学生自助预定</b>
+					<b>计算中心教师自助预定</b>
 				</div>
 			</div>
 			<div class="portlet-body">
 				<form class="form-inline">
 					<div class="radio">
-						<label class="control-label">区域：</label> <input value="Heaven"
-							disabled="disabled" id="CPU_ZONE"></input> <label
-							class="control-label">座位号：</label> <input value="No seat"
-							disabled="disabled" id="CPU_SEAT"></input>
+						<label class="control-label">当前可使用实验室：</label> <input
+							value="Heaven" disabled="disabled" id="T_CPU_ZONE"></input>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 							href="javascript:void(0)" class="btn btn-primary btn-large"
-							onclick="bookSeatSelf()">我来预定</a>
+							onclick="bookSeatTeacher()">使用此区域</a>
 					</div>
 				</form>
 				<div id="COURSEINFO_SELF">教师姓名： 课程名称： 班级信息： 预定区域：</div>
@@ -77,39 +75,25 @@
 		</div>
 	</div>
 	<script>
-		function GetQueryStr(name) {
-			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-			var r = window.location.search.substr(1).match(reg);
-			if (r != null)
-				return (r[2]);
-			return null;
-		}
-
 		$(function() {
-			var cpuName = GetQueryStr("cpuName");
-			var param = [ {
-				name : "cpuName",
-				value : cpuName
-			} ];
-			var cInfos = cpuName.split("-");
-			cpuName = cpuName.replace("-", "");
-			var zone = cInfos[0];
-			$("#CPU_ZONE").val(zone);
-			$("#CPU_SEAT").val(cpuName);
-			$.ajax({
-				url : 'comAction/comRes_queryZoneInfo.action',
+			var xhr = $.ajax({
+				url : 'res_queryTeacherzone.action?redirectURL=tBook.jsp',
 				type : 'post',
-				data : param,
+				data : null,
 				dataType : 'json',
 				success : function(data, status) {
 					if (status == "success") {
-						if (data.resultCode == "200") {
-							$("#COURSEINFO_SELF").html(data.resultDesc);
+						var refused = xhr.getResponseHeader("refused"); //通过XMLHttpRequest取得响应头，refused，  
+						if (refused == "true") {
+							alert("尚未登录，请您登录后预定！");
+							//如果超时就处理 ，指定要跳转的页面  
+							window.location.replace("login.jsp");
 						} else {
-
+							$("#COURSEINFO_SELF").html(data.resultDesc);
+							$("#T_CPU_ZONE").val(data.resultCode);
 						}
-						
 					}
+
 				},
 				error : function(data, status, e) {
 					alert(e);
@@ -120,23 +104,25 @@
 			});
 
 		});
-		function bookSeatSelf() {
-			var cpuName = GetQueryStr("cpuName");
+		function bookSeatTeacher() {
+			var cpuName = $("#T_CPU_ZONE").val();
 			var param = [ {
 				name : "cpuName",
 				value : cpuName
 			} ];
 			$.ajax({
-				url : 'comAction/comRes_bookSeatSelf.action',
+				url : 'res_bookTeacherzone.action',
 				type : 'post',
 				data : param,
 				dataType : 'json',
 				success : function(data, status) {
 					if (status == "success") {
 						if (data.resultCode == "200") {
-							alert("恭喜你，预定成功！\r\n"+"来自服务器的消息是: "+data.resultDesc);
+							alert("恭喜你，预定成功！\r\n" + "来自服务器的消息是: "
+									+ data.resultDesc);
 						} else {
-							alert("恭喜你，预定成功！\r\n"+"来自服务器的消息是: "+data.resultDesc);
+							alert("恭喜你，预定成功！\r\n" + "来自服务器的消息是: "
+									+ data.resultDesc);
 						}
 					}
 				},

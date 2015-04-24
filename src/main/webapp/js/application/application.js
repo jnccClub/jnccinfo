@@ -87,7 +87,7 @@ $(function() {
 	// var today = new Date().FormatHPF("yyyy-MM-dd");
 	// $("#beginDatepick input").val(today);
 	// $("#endDatepick input").val(today);
-	
+
 	initWeeksSelect();
 	// 根据起始时间决定结束时间范围
 	$("select[name='applicationInfo.beginTime'] option:disabled").css('color',
@@ -124,7 +124,7 @@ $(function() {
 			}
 		});
 	});
-	$("#termSelect").change(function(){
+	$("#termSelect").change(function() {
 		var curSelTerm = $("#termSelect").val();
 		var schoolBeginDate = new Date(curSelTerm);
 		updateFirstBeginMon(schoolBeginDate);
@@ -133,13 +133,15 @@ $(function() {
 		// alert($(this).children('option:selected').val()); // 弹出select的值
 		showSpecifyZone($(this).children('option:selected').val());
 	});
-	
+
 });
-function initWeeksSelect(){
+function initWeeksSelect() {
 	var optionHtml = "";
-	optionHtml = optionHtml+"<option  selected='selected' value='"+1+"'>第"+1+"周</option>";
-	for (var i=2;i<=20;i++)	{
-		optionHtml = optionHtml+"<option value='"+i+"'>第"+i+"周</option>";
+	optionHtml = optionHtml + "<option  selected='selected' value='" + 1
+			+ "'>第" + 1 + "周</option>";
+	for (var i = 2; i <= 20; i++) {
+		optionHtml = optionHtml + "<option value='" + i + "'>第" + i
+				+ "周</option>";
 	}
 	$("select[name='applicationInfo.beginDate']").html(optionHtml);
 	$("select[name='applicationInfo.endDate']").html(optionHtml);
@@ -351,10 +353,12 @@ function findConfDate() {
 	if ($("#circular").is(":hidden")) {
 		$("#circular").show();
 	}
+	var haveConflictDates = false;
 	$.ajax({
 		url : 'app_findConfDate.action',
 		type : 'post',
 		data : param,
+		async : false,
 		dataType : 'json',
 		success : function(data, status) {
 			if (status == "success") {
@@ -380,33 +384,32 @@ function findConfDate() {
 														.remove();
 											}
 										});
-										findzone();
-									} else {
-										return false;
-									}
+									} 
 								});
+						haveConflictDates = true;
 					} else {
-						findzone();
+						haveConflictDates = false;
 					}
 				} else {
-					findzone();
+					haveConflictDates = false;
 				}
-				return true;
 			}
 		},
 		error : function(data, status, e) {
 			alert(e);
 		},
 		complete : function() {
-			//$("#circular").hide();
+			 $("#circular").hide();
 		}
 	});
-	return false;
+	return haveConflictDates;
 }
 
 function confirmApplication(exceptionRows) {
 	if (findConfDate()) {
 		return false;
+	}else{
+		findzone();
 	}
 	return false;
 }
@@ -438,12 +441,43 @@ function appZoneBack() {
 
 function IsValidCourse(courseName, CourseID) {
 	if (courseName == "" || CourseID == "") {
-		return false;
+		var userRole = getUserRole();
+		if (userRole == "admin") {
+			var curTime = new Date().FormatHPF("yyyyMMddhhmmssS");
+			$("input[name='applicationInfo.applicationId']").val(curTime);
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return true;
 	}
-	return true;
 }
 
-function uploadNewCourse(){
+function getUserRole() {
+	var role = "";
+	$.ajax({
+		url : 'comAction/user_isLogin.action',
+		async : false,
+		type : 'post',
+		dataType : 'json',
+		success : function(data) {
+			if (data.resultCause.resultCode.toString() == "200") {
+				role = data.userInfo.role.toString();
+			} else if (data.resultCause.resultCode.toString() == "404") {
+				role = "Not found";
+			} else {
+				role = "inValid";
+			}
+		},
+		final : function() {
+		}
+	});
+	return role;
+
+}
+
+function uploadNewCourse() {
 	$.messager.confirm('新课程与班级信息', '是否新上传课程信息！', function(r) {
 		if (r) {
 			disCourse();
@@ -462,6 +496,7 @@ function appFirstNext() {
 		});
 		return;
 	}
+	CourseID = $("input[name='applicationInfo.applicationId']").val();
 	// var curTime = new Date().FormatHPF("yyyyMMddhhmmssS");
 	$("#generatedAppID").html(CourseID);
 	$("#generatedCourse").html(courseName);
@@ -482,9 +517,10 @@ function appFirstNext() {
 	$("#generatedSW").html(swList);
 	$("#generatedClass").html($("input[name='applicationInfo.class']").val());
 	$("#generatedCommnet").html(
-			"<br>"+$("textarea[name='applicationInfo.OtherComment']").val());
+			"<br>" + $("textarea[name='applicationInfo.OtherComment']").val());
 
-	var beginWeek = parseInt($("select[name='applicationInfo.beginDate']").val());
+	var beginWeek = parseInt($("select[name='applicationInfo.beginDate']")
+			.val());
 	var endWeek = parseInt($("select[name='applicationInfo.endDate']").val());
 	var beginCourseTime = $("select[name='applicationInfo.beginTime']").val();
 	var endCourseTime = $("select[name='applicationInfo.endTime']").val();
@@ -493,8 +529,8 @@ function appFirstNext() {
 			"input[name='applicationInfo.weekChoosen'][type='radio']:checked")
 			.val();
 
-//	var beginWeek = getSchoolWeek(new Date(beginCourseDate));
-//	var endWeek = getSchoolWeek(new Date(endCourseDate));
+	// var beginWeek = getSchoolWeek(new Date(beginCourseDate));
+	// var endWeek = getSchoolWeek(new Date(endCourseDate));
 	var tbodyContent = "";
 	for (var i = beginWeek; i <= endWeek; i++) {
 		var weekDate = new Date(schoolBeginMon);
@@ -523,19 +559,35 @@ function appFirstNext() {
 }
 
 function btnDeleteApp(t) {
-	t.parentElement.parentElement.remove();
+	// t.parentElement.parentElement.remove();
+	// t.closest("tr").remove();
+	if (isIEExplorer()) {
+		t.parentNode.parentNode.removeNode(true);
+	} else {
+		t.parentNode.parentNode.remove();
+	}
 }
 
-//function getperiod(beginDate, endDate) {
-//	var daysGap = (endDate - beginDate) / 86400000;
-//	var weeksGap = Math.floor(daysGap / 7) + 1;
-//	return weeksGap;
-//}
+function isIEExplorer() {
+	var explorer = window.navigator.userAgent;
+	// ie
+	if ((explorer.indexOf("MSIE") >= 0) || (explorer.indexOf(".NET") >= 0)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// function getperiod(beginDate, endDate) {
+// var daysGap = (endDate - beginDate) / 86400000;
+// var weeksGap = Math.floor(daysGap / 7) + 1;
+// return weeksGap;
+// }
 //
-//function getSchoolWeek(curDate) {
+// function getSchoolWeek(curDate) {
 //
-//	return getperiod(schoolBeginDate, curDate);
-//}
+// return getperiod(schoolBeginDate, curDate);
+// }
 
 function daysBetween(DateOne, DateTwo) {
 	var OneMonth = DateOne.substring(5, DateOne.lastIndexOf('-'));
@@ -666,21 +718,18 @@ function submitFinalForm() {
 	});
 }
 
-
-function loadSWData(){
+function loadSWData() {
 	var swComboxData;
 	$('#input_sw1').combobox({
-		//data : drows,
-		url:'comAction/comSw_getSW.action',
+		// data : drows,
+		url : 'comAction/comSw_getSW.action',
 		valueField : 'id',
 		textField : 'text',
-		onLoadSuccess : function() { //加载完成后,设置选中第一项
-			/*var val = $(this).combobox("getData");
-			for ( var item in val[0]) {
-				if (item == "id") {
-					$(this).combobox("select", val[0][item]);
-				}
-			}*/
+		onLoadSuccess : function() { // 加载完成后,设置选中第一项
+			/*
+			 * var val = $(this).combobox("getData"); for ( var item in val[0]) {
+			 * if (item == "id") { $(this).combobox("select", val[0][item]); } }
+			 */
 			swComboxData = $(this).combobox("getData");
 			$('#input_sw2').combobox({
 				data : swComboxData,

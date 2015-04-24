@@ -24,7 +24,7 @@
 						<option value='2015-08-31'>2015~2016秋学期</option>
 					</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
 						class="control-label">请选择学期周</label> <select
-						name="applicationInfo.beginDate" id="courseInfo_week"></select> <a
+						id="courseInfo_week"></select> <a
 						href="javascript:void(0)" class="btn btn-primary btn-large"
 						onclick="reloadTable4Week()">查看课表</a>
 				</div>

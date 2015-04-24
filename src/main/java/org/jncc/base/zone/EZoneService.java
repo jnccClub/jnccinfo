@@ -5,7 +5,8 @@ import java.util.List;
 import org.jncc.persistence.dbSession;
 
 public class EZoneService {
-
+	static List<EZone> zoneList = null ;
+	
 	public static boolean addZone(Object zoneCfg) {
 		try {
 			dbSession.insert(zoneCfg);
@@ -17,18 +18,19 @@ public class EZoneService {
 	}
 
 	public static List<EZone> getEZoneList() {
-		List<EZone> l = null;
-		try {
-			dbSession.init();
-			String sql = "from EZone";
-			l = dbSession.select(sql);
-			dbSession.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(zoneList == null || zoneList.size()==0){
+			try {
+				dbSession.init();
+				String sql = "from EZone";
+				zoneList= dbSession.select(sql);
+				dbSession.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		return l;
+		return zoneList;
 	}
-
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

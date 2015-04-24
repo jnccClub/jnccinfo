@@ -142,6 +142,7 @@ public class dbSession {
 					serviceRegistry = new ServiceRegistryBuilder()
 							.applySettings(configuration.getProperties())
 							.buildServiceRegistry();
+					System.out.print("init hibernate here!");
 				}
 				sessionFactory = configuration
 						.buildSessionFactory(serviceRegistry);

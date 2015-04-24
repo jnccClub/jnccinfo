@@ -18,7 +18,10 @@ public class UserAction extends ActionSupport {
 	private ResultCause resultCause = new ResultCause();
 	private UserInfo userInfo;
 	private String fomerPasswd;
+	   //登录前页面
+    private String prePage;
 
+	
 	public String getFomerPasswd() {
 		return fomerPasswd;
 	}
@@ -97,20 +100,34 @@ public class UserAction extends ActionSupport {
 	public String loginIn() {
 		UserInfo usInfo = UserService.getUserInfo(UserInfo.class,
 				userInfo.getUsername());
+		Map session = ActionContext.getContext().getSession();
 		if (usInfo == null) {
 			resultCause.setCause("404", "No such user registed!");
 		} else if (usInfo.getPassword().equals(userInfo.getPassword())) {
-			resultCause.setCause("200", "User login info is correct.");
-			Map session = ActionContext.getContext().getSession();
+			
+	        prePage = (String) session.get("prePage");
+	        //清除session中的数据
+	        session.remove("prePage");
+	        if (prePage == null) {
+	        	//不是拦截器跳转到登陆页面的，直接访问的登陆页面
+	        	resultCause.setCause("200", "User login info is correct.");
+	        }else{
+	        	resultCause.setCause("302", prePage);
+	        } 
 			session.put("USERINFO", usInfo);
 			userInfo = usInfo;
+			//获取跳转到登陆界面之前的页面地址，由拦截器提供
+
+
 		} else {
 			resultCause.setCause("403", "User passwd is not correct!");
 		}
 		System.out.println("comehere!!!!! loginIn!");
-		return "LOGIN_IN";
+		
+        return "LOGIN_IN";
 	}
 
+	
 	public String listUserInfo() {
 		Map session = ActionContext.getContext().getSession();
 		UserInfo us = (UserInfo) session.get("USERINFO");

@@ -6,6 +6,14 @@
 	var shoolBeginDate = new Date(semester.replace(/-/g,   "/"));
 	
 	var curWeekCount = getCurWeek(shoolBeginDate,today);
+	
+	var optionHtml = "";
+	optionHtml = optionHtml+"<option  selected='selected' value='"+1+"'>第"+1+"周</option>";
+	for (var i=2;i<=20;i++)	{
+		optionHtml = optionHtml+"<option value='"+i+"'>第"+i+"周</option>";
+	}
+	$("#courseInfo_week").html(optionHtml);
+	
 	$("#courseInfo_week option").each(function(i) {
 		if (i == curWeekCount) {
 			$(this).attr("selected", true);

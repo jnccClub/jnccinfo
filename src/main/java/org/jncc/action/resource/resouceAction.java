@@ -1,6 +1,7 @@
 package org.jncc.action.resource;
 
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,17 +11,21 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.jncc.base.application.EApplicationService;
+import org.jncc.base.arrangement.EArrangement;
 import org.jncc.base.arrangement.EArrangementService;
 import org.jncc.base.arrangement.ZoneArrangement;
 import org.jncc.base.cause.ResultCause;
 import org.jncc.base.course.ECourse;
 import org.jncc.base.course.ECourseService;
+import org.jncc.base.coursemap.ECourseMapService;
 import org.jncc.base.curriculum.WeekCurriculum;
+import org.jncc.base.user.UserInfo;
 import org.jncc.base.zone.EZone;
 import org.jncc.base.zone.EZoneService;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.SocketClient;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class resouceAction extends ActionSupport {
@@ -205,10 +210,10 @@ public class resouceAction extends ActionSupport {
 		resArrArray = WeekCurriculum.getWeekCourseInfos(beginWeekDate);
 		return "RES_QUERYWEEKARR_SUCCESS";
 	}
-	
+
 	public String bookSeatSelf() {
 		cpuName = cpuName.replaceAll("-", "");
-		if(cpuName.startsWith("10")){
+		if (cpuName.startsWith("10")) {
 			cpuName = cpuName.replaceFirst("10", "A");
 		}
 		cpuName = "T" + cpuName;
@@ -221,8 +226,61 @@ public class resouceAction extends ActionSupport {
 		return "RES_BOOKSEATSELF_SUCCESS";
 	}
 
+	public String bookTeacherzone() {
+		String[] zoneArray = cpuName.split("\\|");
+		for (String zone : zoneArray) {
+			if (zone.startsWith("10")) {
+				zone = zone.replaceFirst("10", "A");
+			}
+			String socketStr = "";
+			socketStr = socketStr + "COMMAND:" + "T_EXAM";
+			socketStr = socketStr + "CPUNAME:" + zone;
+			String responseCode = SocketClient.sendSocket(socketStr);
+		}
+		resultCause = new ResultCause();
+		resultCause.setCause("200", "恭喜，预定成功！");
+		return "RES_BOOKTEACHERZONE_SUCCESS";
+	}
+
+	public String queryTeacherzone() {
+		Map session = ActionContext.getContext().getSession();
+		UserInfo us = (UserInfo) session.get("USERINFO");
+		List<String> zoneCurList = new ArrayList();
+		List<String> zoneDailyList = new ArrayList();
+		if (us == null || us.getUsername().equals("")) {
+			resultCause.setCause("404", "您没有预定区域");
+		} else {
+			String nowDate = UtilTool.getNowDate();
+			String nowHour = UtilTool.getNowHour();
+			int course = ECourseMapService.getCourse(nowHour);
+			ECourse ec = ECourseService.getCourse("", us.getUsername());
+			String courseName = ec == null ? "" : ec.getName();
+			List<EArrangement> eaList = EArrangementService
+					.queryDailyCourse(nowDate);
+			if (eaList != null && eaList.size() > 0) {
+				for (int i = 0; i < eaList.size(); i++) {
+					String teachNo = ECourseService.getCourse(
+							eaList.get(i).getAppId()).getTeacherNo();
+					if (teachNo.equals(us.getUsername())) {
+						zoneDailyList.add(eaList.get(i).getId().getZone());
+						if (eaList.get(i).getId().getCourse().equals(course)) {
+							zoneCurList.add(eaList.get(i).getId().getZone());
+						}
+					}
+				}
+			}
+			String resDesc = "尊敬的  " + us.getRealname() + " 老师，您好！<br>";
+			resDesc = resDesc + "您预定的课程是：" + courseName + "<br>";
+			resDesc = resDesc + "您今天(" + nowDate + ")预定的区域是："
+					+ UtilTool.list2Str(zoneDailyList) + "<br>";
+			resultCause = new ResultCause();
+			resultCause.setCause(UtilTool.list2Str(zoneCurList), resDesc);
+		}
+		return "RES_QUERYTEACHERZONE_SUCCESS";
+	}
+
 	public String queryZoneInfo() {
-//		cpuName = trimQuotation(cpuName);
+		// cpuName = trimQuotation(cpuName);
 		int zPos = cpuName.indexOf("-");
 		String zone = "";
 		if (zPos > 0) {
@@ -330,6 +388,12 @@ public class resouceAction extends ActionSupport {
 
 	public void setQueryfloor(String queryfloor) {
 		this.queryfloor = queryfloor;
+	}
+
+	public static void main(String[] args) {
+		resouceAction ra = new resouceAction();
+		ra.setCpuName("10E|10F|");
+		ra.bookTeacherzone();
 	}
 
 }
