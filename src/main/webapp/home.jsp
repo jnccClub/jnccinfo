@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="MF_HOME" class="row">
+<div id="MF_HOME" class="row" style="display:none">
 	<h1>计算中心俱乐部</h1>
 	<div class="hero-unit">
 		<h2>Welcome!</h2>

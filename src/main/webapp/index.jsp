@@ -61,7 +61,7 @@
 		
 		$(function() {
 			guestItemHide();
-			renewMainId('#MF_HOME');
+			renewMainId('#mainFrame_Login');
 		});
 
 		function guestItemHide(){

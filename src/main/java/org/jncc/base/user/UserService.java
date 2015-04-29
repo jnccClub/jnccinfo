@@ -69,7 +69,7 @@ public class UserService {
 			updateUserList();
 		}
 		for (int i = 0; i < usList.size(); i++) {
-			if (usList.get(i).getUsername().equals(userName)) {
+			if (usList.get(i).getUsername().equals(userName) || usList.get(i).getRealname().equals(userName)) {
 				usInfo = usList.get(i);
 				break;
 			}

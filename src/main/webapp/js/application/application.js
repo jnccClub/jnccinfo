@@ -4,6 +4,7 @@
 			{
 				panelWidth : 490,
 				// value:'006',
+				height : '30',
 				idField : 'fld_C_SERIAL',
 				textField : 'fld_C_NAME',
 				url : 'comAction/comRes_getallCourse.action',
@@ -384,7 +385,7 @@ function findConfDate() {
 														.remove();
 											}
 										});
-									} 
+									}
 								});
 						haveConflictDates = true;
 					} else {
@@ -399,7 +400,7 @@ function findConfDate() {
 			alert(e);
 		},
 		complete : function() {
-			 $("#circular").hide();
+			$("#circular").hide();
 		}
 	});
 	return haveConflictDates;
@@ -408,7 +409,7 @@ function findConfDate() {
 function confirmApplication(exceptionRows) {
 	if (findConfDate()) {
 		return false;
-	}else{
+	} else {
 		findzone();
 	}
 	return false;

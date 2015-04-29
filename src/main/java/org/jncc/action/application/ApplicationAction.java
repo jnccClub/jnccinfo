@@ -75,9 +75,11 @@ public class ApplicationAction extends ActionSupport {
 			for (String userName : userList) {
 				UserInfo usInfo = UserService.getUserInfo(userName);
 				if (usInfo != null) {
-					QQSend.sendQQ(usInfo.getQq(),qqcontent);
-					mEmail = usInfo.getEmail();
-					Mail.sendMail(mEmail, mSubject, mContent);
+					// QQSend.sendQQ(usInfo.getQq(),qqcontent);
+					// mEmail = usInfo.getEmail();
+					// Mail.sendMail(mEmail, mSubject, mContent);
+					new MsgSendThread(usInfo.getQq(), qqcontent,
+							usInfo.getEmail(), mSubject, mContent); // 发送邮件与QQ消息;异步发送，减少延迟。
 				}
 			}
 		}
@@ -184,15 +186,13 @@ public class ApplicationAction extends ActionSupport {
 
 		if (EApplicationService.addApplication(ea)) {
 			resultCause.setCause("200", "恭喜，添加成功");
-			new MsgSendThread(ea,us); //发送邮件与QQ消息;异步发送，减少延迟。
+			new MsgSendThread(ea, us); // 发送邮件与QQ消息;异步发送，减少延迟。
 		} else {
 			resultCause.setCause("503", "添加失败");
 		}
 		return "ADD_APP_SUCCESS";
 	}
 
-
-	
 	public String deleteRecord() {
 		try {
 			dbSession.delete(ea);
