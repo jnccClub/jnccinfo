@@ -9,7 +9,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <div class="span9" id="Body_Welcome">
-	<h1>计算中心俱乐部</h1>
+	<h1>计算中心</h1>
 	<div class="hero-unit">
 		<h2>Welcome!</h2>
 		<p>

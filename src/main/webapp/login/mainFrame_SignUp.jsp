@@ -139,13 +139,13 @@
 		    },
 		    cardNo: {
 		        validator: function (value, param) {
-		            return /^[1-9]\d{4,10}$/.test(value);
+		            return /^[0-9]\d{4,10}$/.test(value);
 		        },
 		        message: '学号或工号不正确'
 		    },
 		    mobile: {
 		        validator: function (value, param) {
-		            return /^((\(\d{2,3}\))|(\d{3}\-))?13\d{9}$/.test(value);
+		            return /^((\(\d{2,3}\))|(\d{3}\-))?1\d{10}$/.test(value);
 		        },
 		        message: '手机号码不正确'
 		    },
@@ -193,9 +193,10 @@
 		});*/
 	});
 </script>
-<div class="mainFrame_SignUp" style="text-align:center;"
+<div class="mainFrame_SignUp container" style="text-align:center;"
 	id="mainFrame_SignUp">
-	<form class="mainFrame_Table" id="subUserForm">
+	
+	<form class="mainFrame_Table span12" id="subUserForm">
 		<table>
 			<tr>
 				<td><input name="userInfo.username" placeholder="请输入学号/工号"
@@ -245,7 +246,6 @@
 				<td><select size="1" name="userInfo.role" class="transInput">
 						<option value="teacher">教师</option>
 						<option selected value="student">学生</option>
-						<option value="admin">管理员</option>
 				</select></td>
 				<td>请选择您的身份</td>
 			</tr>

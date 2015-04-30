@@ -53,3 +53,8 @@
 	*display: inline;
 	*zoom: 18
 }
+
+#maintainCenter,#personCenter,#stuBookingEntry{
+/*	display:block;
+	display:none;*/
+}

@@ -8,28 +8,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<div class="mainFrame_Login" style="text-align: center;"
-	id="mainFrame_Login">
+<div class="mainFrame_Login" id="mainFrame_Login">
 	<form id="userLoginForm">
 		<p>
 			尚无登录账号？ <br> <a href="#" id="loginJump2SignUp">快快注册加入我们</a>
 		</p>
-			<input style="display:inline" name="userInfo.username"
-				placeholder="请输入学号/工号" class="easyui-validatebox UsernameInput"
+
+		<div class="span12">
+			<input style="display: inline" name="userInfo.username"
+				placeholder="请输入学号/工号" class="UserPasswdInput easyui-validatebox "
 				id="loginUserNameInput" required="true" missingMessage="学号/工号必须填写"
-				validType="cardNo" /><i class="icon-user" style="display:inline">&nbsp;&nbsp;&nbsp;</i>
-		<div>
-			<input style="display:inline" name="userInfo.password" placeholder="请输入密码"
-				class="UserPasswdInput easyui-validatebox" type="password"
-				required="true" missingMessage="密码必须填写" /><i class="icon-lock" style="display:inline">&nbsp;&nbsp;&nbsp;</i>
+				validType="cardNo" /><i class="icon-user" style="display: inline">&nbsp;&nbsp;&nbsp;</i>
 		</div>
+		<div style="clear: both"></div>
+		<div class="span12">
+			<input style="display: inline" name="userInfo.password"
+				placeholder="请输入密码" class="UserPasswdInput easyui-validatebox "
+				type="password" required="true" missingMessage="密码必须填写" /><i
+				class="icon-lock" style="display: inline">&nbsp;&nbsp;&nbsp;</i>
+		</div>
+
 		<!-- <textarea rows="4" cols="50" name="subject"
 			placeholder="Please enter your message" class="message" required></textarea> -->
 		<p id="loginErrTips"></p>
-		<input class="loginBtn" type="button" value="提交" id="loginSubmit" />
-		<input class="resetBtn" type="reset" value="重置" />
+		<input class="loginBtn span2" type="button" value="提交"
+			id="loginSubmit" /> <input class="resetBtn span2" type="reset"
+			value="重置" />
 	</form>
+	<div style="clear: both"></div>
 </div>
+
 
 <script>
 	function showWelBar(u_name) {
@@ -37,7 +45,7 @@
 		$("#loginEntry").hide();
 		$("#logOutEntry").show();
 		$("#loginInfo").show();
-		renewMainId("#MF_Body");
+		
 	}
 
 	function isLogin() {
@@ -102,7 +110,8 @@
 												$("#loginErrTips").show();
 											} else if (data.resultCause.resultCode
 													.toString() == "302") {
-												window.location.replace(data.resultCause.resultDesc);
+												window.location
+														.replace(data.resultCause.resultDesc);
 											} else {
 												$("#loginErrTips").html(
 														"**您输入的密码错误**");

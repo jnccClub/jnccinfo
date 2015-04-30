@@ -6,6 +6,7 @@ import java.util.Map;
 import org.jncc.base.cause.ResultCause;
 import org.jncc.base.user.UserInfo;
 import org.jncc.base.user.UserService;
+import org.jncc.persistence.SocketClient;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -97,12 +98,26 @@ public class UserAction extends ActionSupport {
 		return "CHECK_NAME";
 	}
 
+	public String getMemFromSocket(String stuName,String stuPasswd){
+		String result= SocketClient.sendSocket("STULOGIN:"+stuName+"|"+stuPasswd);
+		return result;
+
+	}
+	
 	public String loginIn() {
 		UserInfo usInfo = UserService.getUserInfo(UserInfo.class,
 				userInfo.getUsername());
 		Map session = ActionContext.getContext().getSession();
 		if (usInfo == null) {
-			resultCause.setCause("404", "No such user registed!");
+			String result = getMemFromSocket(userInfo.getUsername(),userInfo.getPassword());
+			if(result!=null && result.equals("200")){
+				userInfo.setRole("student");
+				userInfo.setRealname(userInfo.getUsername());
+				resultCause.setCause(result, "User login info is correct.");
+			}
+			else{
+				resultCause.setCause(result, "No such user registed!");
+			}
 		} else if (usInfo.getPassword().equals(userInfo.getPassword())) {
 			
 	        prePage = (String) session.get("prePage");

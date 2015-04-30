@@ -20,7 +20,7 @@
 						onclick="renewMainId('#MF_HOME')">首页</a></li>
 
 					<li class="dropdown"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown" id="maintainCenter">查询 <b
+						class="dropdown-toggle" data-toggle="dropdown" id="queryCenter">查询 <b
 							class="caret"></b></a>
 						<ul class="dropdown-menu" >
 							<li><a href="#" onclick="queryMFWeekInfo()">每周课表</a></li>

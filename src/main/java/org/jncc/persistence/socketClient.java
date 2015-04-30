@@ -115,7 +115,7 @@ public class SocketClient {
 			BufferedInputStream ins = new BufferedInputStream(in);
 			byte[] buff = new byte[1024];
 			int len = ins.read(buff);
-			recvMsg = new String(buff);
+			recvMsg = new String(buff).substring(0,len);
 			System.out.println("客户收到" + recvMsg);
 			// Thread.sleep(500);
 			// }
