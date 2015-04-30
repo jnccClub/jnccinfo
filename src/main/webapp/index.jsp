@@ -74,12 +74,13 @@
 				$("#maintainCenter").hide();
 				$("#audit_Application").hide();
 				$("#personCenter").show();
-				$("#stuBookingEntry").show();
+				renewMainId("#MF_Body");
 			}else if(role=="admin"){
 				$("#personCenter").show();
 				$("#maintainCenter").show();
 				$("#audit_Application").show();
 				$("#stuBookingEntry").show();
+				renewMainId("#MF_Body");
 			}else{
 				$("#maintainCenter").hide();
 				$("#audit_Application").hide();
