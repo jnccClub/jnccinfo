@@ -87,7 +87,7 @@ public class ECourseService implements java.io.Serializable {
 				&& !queryfiledVal.equals("")) {
 			switch (queryFld) {
 			case "TEACHERNAME":
-				if (ec.getTeacher().indexOf(queryfiledVal) > -1) {
+				if( (ec.getTeacher().indexOf(queryfiledVal) > -1) || (ec.getTeacherNo().indexOf(queryfiledVal) > -1)){
 					return true;
 				}
 				break;

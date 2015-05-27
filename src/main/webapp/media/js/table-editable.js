@@ -1,7 +1,5 @@
 var TableEditable = function() {
-
 	return {
-
 		// main function to initiate the module
 		init : function(tblId, data, columns) {
 			function restoreRow(oTable, nRow) {
@@ -38,10 +36,10 @@ var TableEditable = function() {
 				var jqInputs = $('input', nRow);
 				oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
 				oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-				oTable.fnUpdate(jqInputs[1].value, nRow, 2, false);
-				oTable.fnUpdate(jqInputs[2].value, nRow, 3, false);
-				oTable.fnUpdate(jqInputs[3].value, nRow, 4, false);
-				oTable.fnUpdate(jqInputs[4].value, nRow, 5, false);
+				oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
+				oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
+				oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+				oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
 				oTable.fnUpdate('<a class="edit" href="">编辑</a>', nRow, 6,
 						false);
 				oTable.fnUpdate('<a class="delete" href="">删除</a>', nRow, 7,
@@ -147,8 +145,8 @@ var TableEditable = function() {
 					nEditing = nRow;
 				} else if (nEditing == nRow && this.innerHTML == "保存") {
 					/* Editing this row and want to save it */
-					tableRowOperation("SAVE", nRow, oTable)
 					saveRow(oTable, nEditing);
+					tableRowOperation("SAVE", nRow, oTable); //需要先保存否则无法获取修改后信息
 					nEditing = null;
 				} else {
 					/* No edit in progress - let's start one */

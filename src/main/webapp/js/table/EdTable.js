@@ -8,9 +8,7 @@ var EdTable = function(){
 		addGridDbClickEvent();
 		// 添加键盘事件
 		addGridKeyPressEvent();
-		
 		addGridContextMenu();
-		
 		//给单元格添加按钮事件
 		//addGridButtonClick();
 	}

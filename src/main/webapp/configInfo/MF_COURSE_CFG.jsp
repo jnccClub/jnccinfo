@@ -17,7 +17,7 @@
 
 
 <div class="row" id="MF_COURSE_CFG" style="display:none">
-	<div
+	<!-- <div
 		style="border-radius: 50px;TEXT-ALIGN: center;MARGIN-RIGHT: auto; MARGIN-LEFT: auto; background-color:#EEE;">
 		<h1>-----------课程信息-----------</h1>
 		<div>
@@ -26,7 +26,6 @@
 				id="courseFile" type="text" size="45" name="coursefileUp">
 				<button class="btn btn-success" id="btnCourseUpload">上 传</button>
 			</label>
-
 		</div>
 
 		<div class="option-inline-radio">
@@ -40,7 +39,7 @@
 		</div>
 	</div>
 	<br> <br>
-
+ -->
 
 	<table id="tbl_course" cellspacing="0" cellpadding="0"
 		class="easyui-datagrid" toolbar="#tbl_c_toolbar">

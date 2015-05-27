@@ -114,11 +114,10 @@
 									}
 								},
 								naming : { //定义行列等信息
-									top : true,
-									columns : [ 1, 2, 3, '', 4, 5 ],
-									rows : [ 1, 2, '', 3, 4, 5, 6, 7, 8, 9, 10,
-											11 ],
-									getLabel : function(character, row, column) {
+									top : false,
+									//columns : [ 1, 2, 3, '', 4, 5 ],
+									//rows : [ 1, 2, '', 3, 4, 5, 6, 7, 8, 9, 10],
+									getLabel : function(character) {
 										return firstSeatLabel++;
 									}
 								},

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-8 20:38:58 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.jncc.base.statistic.EStatistic" table="e_statistic" catalog="test">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="accessTime" type="timestamp">
+            <column name="accessTime" length="19" not-null="true" />
+        </property>
+        <property name="accessIp" type="string">
+            <column name="accessIp" length="250" />
+        </property>
+        <property name="comment" type="string">
+            <column name="comment" length="250" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -35,6 +35,7 @@
 <script type="text/javascript" src='js/common/jquery.contextmenu.r2.js'></script>
 <script type="text/javascript" src='js/table/softwareOperate.js'></script>
 <script type="text/javascript" src='js/application/application.js'></script>
+<script type="text/javascript" src='js/application/tSelfBook.js'></script>
 <script type="text/javascript" src='js/application/audit_app.js'></script>
 <script type="text/javascript" src='js/query/queryinfo.js'></script>
 <script type="text/javascript" src='js/bbs/bbs.js'></script>
@@ -107,6 +108,7 @@
 	
 		
 		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_STATISTIC.jsp"></jsp:include>
 		<jsp:include page="bodyContent/auditApp/auditApplication.jsp"></jsp:include>
 		<jsp:include page="login/mainFrame_Login.jsp"></jsp:include>
 		<jsp:include page="bbs.jsp"></jsp:include>

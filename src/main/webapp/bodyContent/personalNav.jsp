@@ -12,25 +12,26 @@
 	<div class="well" style="padding: 8px 0;">
 		<ul class="nav nav-list">
 			<li class="nav-header">计算中心</li>
-			<li class="active" id="welcome_body"><a href="#" ><i
+			<li class="active" id="welcome_body"><a href="#"><i
 					class="icon-white icon-home"></i> 首页</a></li>
-			<li id="create_Application"><a href="#" ><i class="icon-folder-open"></i>
-					创建申请</a></li>
-			<li id="audit_Application"><a href="#"><i class="icon-check"></i> 审批申请</a></li>
-			<li><a href="messages.htm"><i class="icon-envelope"></i>
-					消息</a></li>
-			<li><a href="files.htm"><i class="icon-file"></i> 已审批申请</a></li>
-			<li><a href="profile.jsp"><i class="icon-list-alt"></i>
+			<li id="create_Application"><a href="#"><i
+					class="icon-folder-open"></i> 创建申请</a></li>
+			<li id="audit_Application"><a href="#"><i class="icon-check"></i>
+					审批申请</a></li>
+			<li><a href="javascript:void(0)"><i class="icon-envelope"></i> 消息</a></li>
+			<li><a href="javascript:void(0)"><i class="icon-file"></i> 已审批申请</a></li>
+			<li id="all_info_li"><a href="javascript:void(0)" ><i class="icon-list-alt"></i>
 					教师信息维护</a></li>
 			<li class="nav-header">我的账户</li>
-			<li><a href="personnel.jsp"><i class="icon-user"></i> 个人信息</a></li>
-			<li><a href="settings.htm"><i class="icon-cog"></i> 设置</a></li>
+			<li id="person_info_li"><a href="javascript:void(0)"
+				onclick="profileInit()"><i class="icon-user"></i> 个人信息</a></li>
+			<li><a href="javascript:void(0)"><i class="icon-cog"></i> 设置</a></li>
 			<li class="divider"></li>
-			<li><a href="tBook.jsp"><i class="icon-info-sign"></i> 自助区域使用</a></li>
+			<li id="tSelf_Book_li"><a href="javascript:void(0)"
+				onclick="tSelfBook()"><i class="icon-info-sign"></i> 自助区域使用</a></li>
 			<li class="nav-header">如何预约</li>
-			<li><a href="gallery.htm"><i class="icon-picture"></i>
-					查看进度</a></li>
-			<li><a href="blank.htm"><i class="icon-stop"></i> 邮件提醒</a></li>
+			<li><a href="javascript:void(0)"><i class="icon-picture"></i> 查看进度</a></li>
+			<li><a href="javascript:void(0)"><i class="icon-stop"></i> 邮件提醒</a></li>
 		</ul>
 	</div>
 </div>

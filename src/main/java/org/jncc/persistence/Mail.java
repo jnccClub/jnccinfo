@@ -7,9 +7,11 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.Address;
+import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -23,7 +25,7 @@ public class Mail {
 	private MimeMessage mimeMsg; // MIME邮件对象
 	private Session session; // 邮件会话对象
 	private Properties props; // 系统属性
-	private boolean needAuth = false; // smtp是否需要认证
+	private boolean needAuth = true; // smtp是否需要认证
 	// smtp认证用户名和密码
 	private String username;
 	private String password;
@@ -93,6 +95,7 @@ public class Mail {
 		} else {
 			props.put("mail.smtp.auth", "false");
 		}
+		
 	}
 
 	/**
@@ -221,15 +224,15 @@ public class Mail {
 	}
 
 	public boolean setCopyTo(String[] strArray) {
-		if(strArray == null || strArray.length ==0)
+		if (strArray == null || strArray.length == 0)
 			return false;
-		int len = strArray.length ;
-		Address copyTo[] = new InternetAddress[len] ;
+		int len = strArray.length;
+		Address copyTo[] = new InternetAddress[len];
 		try {
-			for(int i=0;i<len;i++){
-				copyTo[i] = new InternetAddress(strArray[i]) ;
+			for (int i = 0; i < len; i++) {
+				copyTo[i] = new InternetAddress(strArray[i]);
 			}
-			mimeMsg.setRecipients(Message.RecipientType.CC,copyTo);
+			mimeMsg.setRecipients(Message.RecipientType.CC, copyTo);
 		} catch (Exception e) {
 			return false;
 		}
@@ -245,7 +248,9 @@ public class Mail {
 			mimeMsg.saveChanges();
 			System.out.println("正在发送邮件....");
 
-			Session mailSession = Session.getInstance(props, null);
+			
+			Authenticator auth = new SMTPAuthenticator(this.username,this.password);
+			Session mailSession = Session.getInstance(props, auth);
 			Transport transport = mailSession.getTransport("smtp");
 			transport.connect((String) props.get("mail.smtp.host"), username,
 					password);
@@ -280,6 +285,7 @@ public class Mail {
 	public static boolean send(String smtp, String from, String to,
 			String subject, String content, String username, String password) {
 		Mail theMail = new Mail(smtp);
+		theMail.setNamePass(username, password);
 		theMail.setNeedAuth(true); // 需要验证
 
 		if (!theMail.setSubject(subject))
@@ -290,7 +296,6 @@ public class Mail {
 			return false;
 		if (!theMail.setFrom(from))
 			return false;
-		theMail.setNamePass(username, password);
 
 		if (!theMail.sendOut())
 			return false;
@@ -422,7 +427,7 @@ public class Mail {
 
 	public static void main(String[] args) {
 		String smtp = "mail.nuaa.edu.cn";
-		String from = "hpffph@nuaa.edu.cn";
+		String from = "南航计算中心<hpffph@nuaa.edu.cn>";
 		String to = "34638768@qq.com";
 		String copyto = "hpffph@nuaa.edu.cn|249465011@qq.com|";
 		String subject = "测试工作！";
@@ -432,9 +437,21 @@ public class Mail {
 		content = content
 				+ " text-indent: 28px; white-space: normal; font-size: 28px; font-weight: bold; color: rgb(102, 102, 102);'>UMeditor</span><span style='font-family: Simsun; font-size: 14px; line-height: 22px; text-indent: 28px; white-space: normal;'>,简称UM,是为满足广大门户网站对于简单发帖框，或者回复框需求所定制的在线富文本编辑器。 UM的主要特点就是容量和加载速度上的改变<em><span style='text-decoration:line-through;'><span style='color:#ff0000'>，主文件的代码量为139k，而且放弃了使用传统的iframe模式，采用了div的加载方式， 以达到更快的加载速度和零加载失败率。现在UM的第一个使用者是百度贴吧，贴吧每天几亿的pv是对UM各种指标的最好测试平台。 当然随着代码的减少，UM的功能对于UE来说还是有所减少，但我们经过调研和大家对</span></span></em></span></p>";
 		String username = "hpffph";
-		String password = "fj628816";
+		String password = "Hey,man1";
 		String filename = "E:\\中国人.txt";
 		Mail.sendAndCc(smtp, from, to, copyto, subject, content, username,
 				password);
+	}
+
+	private class SMTPAuthenticator extends javax.mail.Authenticator {
+		public PasswordAuthentication getPasswordAuthentication() {
+			return new PasswordAuthentication(userName, passwd);
+		}
+		private String userName;
+		private String passwd;
+		public SMTPAuthenticator(String userName, String passwd) {
+			this.userName = userName;
+			this.passwd = passwd;
+		}
 	}
 }

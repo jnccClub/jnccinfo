@@ -1,5 +1,4 @@
 ﻿$(function() {
-
 	var columns = [ {
 		"sTitle" : "工号"	}, {"sTitle" : "姓名"
 	}, {"sTitle" : "密码"	}, {"sTitle" : "联系电话"
@@ -27,6 +26,4 @@
 		complete : function() {
 		}
 	});
-
-	
 });

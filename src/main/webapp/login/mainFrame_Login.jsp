@@ -31,7 +31,10 @@
 		<!-- <textarea rows="4" cols="50" name="subject"
 			placeholder="Please enter your message" class="message" required></textarea> -->
 		<p id="loginErrTips"></p>
-		<input class="loginBtn span2" type="button" value="提交"
+		<br>
+		<br>
+		<br>
+		<input class="loginBtn span2" type="button" value="登录"
 			id="loginSubmit" /> <input class="resetBtn span2" type="reset"
 			value="重置" />
 	</form>

@@ -149,7 +149,14 @@ public class resouceAction extends ActionSupport {
 	}
 
 	public String getallCourse() {
-
+		if(queryfiled == null || !queryfiled.equals("ALL")){
+			queryfiled = "TEACHERNAME";
+			Map session = ActionContext.getContext().getSession();
+			UserInfo us = (UserInfo) session.get("USERINFO");
+			queryfiledVal = us.getUsername();
+		}else{
+			queryfiledVal = "";
+		}
 		result = JSONObject.fromObject(ECourseService.toMapObject(queryfiled,
 				queryfiledVal));
 		return "RES_GETCOURSE_SUCCESS";

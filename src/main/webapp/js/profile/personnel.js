@@ -1,7 +1,5 @@
-﻿$(function() {
-	App.init();
-	profileInit();
-});
+﻿
+
 
 function saveProfile() {
 	var params = $("#user_profile_mod").serialize();
@@ -63,6 +61,7 @@ function modProfilePasswd() {
 }
 
 function profileInit() {
+	renewBodyId('#BODY_PERSONELINFO', '#person_info_li');
 	$.ajax({
 		url : 'comAction/user_isLogin.action',
 		type : 'post',

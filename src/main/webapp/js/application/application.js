@@ -2,23 +2,25 @@
 	loadSWData();
 	$('#CApp_CName').combogrid(
 			{
-				panelWidth : 490,
+				panelWidth : '530',
 				// value:'006',
 				height : '30',
 				idField : 'fld_C_SERIAL',
+				toolbar : '#toolbar4Course',
+				striped : true,
 				textField : 'fld_C_NAME',
 				url : 'comAction/comRes_getallCourse.action',
 				columns : [ [ {
 					field : 'fld_C_NAME',
-					width : 120,
+					width : 140,
 					title : '课程名称'
 				}, {
 					field : 'fld_C_SERIAL',
-					width : 180,
+					width : 80,
 					title : '课程序号'
 				}, {
 					field : 'fld_C_TEACHER',
-					width : 60,
+					width : 100,
 					title : '教师姓名'
 				}, {
 					field : 'fld_C_TNO',
@@ -30,7 +32,7 @@
 					title : '学生人数'
 				}, {
 					field : 'fld_C_CNO',
-					width : 60,
+					width : 120,
 					title : '班级'
 				}, ] ],
 				/*
@@ -718,7 +720,20 @@ function submitFinalForm() {
 		}
 	});
 }
-
+function showCourse() {
+	var queryParams = $('#CApp_CName').combogrid("grid").datagrid('options').queryParams;
+	var fld = queryParams.queryfiled;
+	if(fld == "ALL"){
+		queryParams.queryfiled = "TEACHERNAME";
+		$("#CourseSelDis span[class='l-btn-text']").html("全部课程");
+	}else{
+		queryParams.queryfiled = "ALL";
+		$("#CourseSelDis span[class='l-btn-text']").html("本人课程");
+	}	
+	$('#CApp_CName').combogrid("grid").datagrid('options').queryParams = queryParams; // 重新加载
+	$('#CApp_CName').combogrid("grid").datagrid("reload");
+	
+}
 function loadSWData() {
 	var swComboxData;
 	$('#input_sw1').combobox({

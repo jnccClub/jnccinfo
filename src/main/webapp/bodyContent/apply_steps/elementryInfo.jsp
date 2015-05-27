@@ -9,10 +9,19 @@
 
 
 <fieldset id="elementry_field">
-	<legend>请认真填写申请基本事项！</legend>
+	<legend>请上传预约课程学生名单（从教务处网站下载）</legend>
+
+	<label class="control-label">课程学生名单(<a
+		href="configInfo/templateCurriculum.xls">课程学生名单样例.xls</a>)：&nbsp;<input
+		id="courseFile" type="text" size="45" name="coursefileUp">
+		<button class="btn btn-success" id="btnCourseUpload">上 传</button>
+	</label>
+	<br>
+	<br>
+	<legend>请填写申请基本事项（选择已上传学生名单的课程）</legend>
 	<div class="control-group">
 		<label class="control-label">课程名称：</label> <input id="CApp_CName"
-			name="applicationInfo.course" value="计算机网络基础">&nbsp;&nbsp;&nbsp;&nbsp;<label><a href="#" onclick="uploadNewCourse()">课程信息不存在?点此上传</a></label>
+			name="applicationInfo.course" value="计算机网络基础">&nbsp;&nbsp;&nbsp;&nbsp;<label>
 	</div>
 
 	<div class="control-group">
@@ -50,36 +59,18 @@
 				type="text" name="applicationInfo.contact" placeholder="02552112897" />
 		</div>
 	</div>
-	<div class="control-group" style="position:relative">
+	<div class="control-group" style="position: relative">
 		<label class="control-label">起始学周：</label> <select
 			name="applicationInfo.beginDate">
 		</select> <label class="control-label">&nbsp;&nbsp;&nbsp;结束学周：</label> <select
 			name="applicationInfo.endDate">
 		</select>
-
-
-
-		<!-- 		<div id="endDatepick" class="input-append date">
-			<input type="text" style="width:180px;height:29.5px;"
-				name="applicationInfo.endDate"></input> <span class="add-on">
-				<i data-time-icon="icon-time"></i>
-			</span>
-		</div>
- -->
-		<script type="text/javascript">
-			/*			$('#endDatepick').datetimepicker({
-			 format : 'yyyy-MM-dd',
-			 language : 'en',
-			 pickDate : true,
-			 pickTime : false,
-			 inputMask : true
-			 });*/
-		</script>
 	</div>
 
 	<div class="control-group">
 		<label class="control-label">开始时间：</label> <select class="span1"
-			style="width:206px;height:29.5px;" name="applicationInfo.beginTime">
+			style="width: 206px; height: 29.5px;"
+			name="applicationInfo.beginTime">
 			<option selected='selected' value='08:00'>08:00</option>
 			<option value='10:00'>10:00</option>
 			<option value='12:00'>12:00</option>
@@ -109,7 +100,7 @@
 		</script>
 		 -->
 		<label class="control-label">&nbsp;&nbsp;&nbsp;结束时间：</label> <select
-			class="span1" style="width:206px;height:29.5px;"
+			class="span1" style="width: 206px; height: 29.5px;"
 			name="applicationInfo.endTime">
 			<option selected='selected' value='10:00'>10:00</option>
 			<option value='12:00'>12:00</option>
@@ -153,4 +144,11 @@
 		</label>
 	</div>
 	<div class="form-actions"></div>
+
+	<div id="toolbar4Course">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-book" plain="false" onclick="showCourse()" id="CourseSelDis">全部课程</a>
+	</div>
+
+
 </fieldset>

@@ -15,6 +15,8 @@
 	<jsp:include page="personalNav.jsp"></jsp:include>
 	<jsp:include page="welcomeContent.jsp"></jsp:include>
 	<jsp:include page="createApplication.jsp"></jsp:include>
+	<jsp:include page="selfBook/tBook.jsp"></jsp:include>
+	<jsp:include page="personnelInfo.jsp"></jsp:include>
 </div>
 
 

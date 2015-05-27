@@ -1,12 +1,20 @@
 package org.jncc.action.user;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.jncc.base.cause.ResultCause;
+import org.jncc.base.statistic.EStatistic;
+import org.jncc.base.statistic.EUserstatistic;
 import org.jncc.base.user.UserInfo;
 import org.jncc.base.user.UserService;
 import org.jncc.persistence.SocketClient;
+import org.jncc.persistence.UtilTool;
+import org.jncc.persistence.dbSession;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -108,6 +116,7 @@ public class UserAction extends ActionSupport {
 		UserInfo usInfo = UserService.getUserInfo(UserInfo.class,
 				userInfo.getUsername());
 		Map session = ActionContext.getContext().getSession();
+
 		if (usInfo == null) {
 			String result = getMemFromSocket(userInfo.getUsername(),userInfo.getPassword());
 			if(result!=null && result.equals("200")){
@@ -139,6 +148,16 @@ public class UserAction extends ActionSupport {
 		}
 		System.out.println("comehere!!!!! loginIn!");
 		
+		//用户信息统计
+		EUserstatistic eUS = new EUserstatistic();
+		Date  curDate = new Date();
+		eUS.setTime(curDate);
+		eUS.setIp(UtilTool.getIpAddr(ServletActionContext.getRequest()));
+		eUS.setUsername(userInfo.getUsername());
+		eUS.setStatus(resultCause.getResultCode());
+		dbSession.insert(eUS);
+		dbSession.close();
+		
         return "LOGIN_IN";
 	}
 
@@ -166,7 +185,7 @@ public class UserAction extends ActionSupport {
 			if(us !=null &&(us.getUsername() !=null || !us.getUsername().equals(""))){
 				userInfo.setUsername(us.getUsername());
 				if(userInfo.getPreference()!=null &&userInfo.getPreference().equals("MODPASSWD")){
-					if(userInfo.getPassword().equals(us.getPassword())){
+					if(fomerPasswd.equals(us.getPassword())){
 						UserService.modPasswd(userInfo);
 						resultCause.setCause("200", "User info process successfully.");
 					}else{
@@ -175,6 +194,9 @@ public class UserAction extends ActionSupport {
 					
 				}else{
 					UserService.modUser(userInfo);
+					String passwd = us.getPassword();
+					userInfo.setPassword(passwd);
+					session.put("USERINFO",userInfo);
 					resultCause.setCause("200", "User info process successfully.");
 				}
 				

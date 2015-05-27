@@ -2,49 +2,6 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-	<table name="e_software" catalog="test" class="ESoftware">
-		<primary-key>
-			<generator class="assigned"></generator>
-		</primary-key>
-	</table>
-	<table name="e_zonecfg" catalog="test" class="EZone">
-		<primary-key>
-			<generator class="assigned"></generator>
-		</primary-key>
-	</table>
-	<table name="e_coursemap" catalog="test" class="ECourseMap">
-		<primary-key>
-			<generator class="assigned"></generator>
-		</primary-key>
-	</table>
-	<table name="e_application" catalog="test" class="EApplication">
-		<primary-key>
-			<generator class="assigned"></generator>
-		</primary-key>
-	</table>
-	<table name="e_arrangement" catalog="test" class="EArrangement">
-		<primary-key>
-			<generator class="assigned"></generator>
-		</primary-key>
-	</table>
-	<table name="e_course" catalog="test" class="ECourse">
-		<primary-key>
-			<generator class="assigned"></generator>
-		</primary-key>
-	</table>
-	<table name="e_curriculum" catalog="test" class="ECurriculum">
-		<primary-key>
-			<generator class="assigned"></generator>
-		</primary-key>
-	</table>
-	<table name="e_bbs" catalog="test" class="EBbs">
-		<primary-key>
-			<generator class="increment"></generator>
-		</primary-key>
-	</table>
-<table name="e_seat" catalog="test" class="ESeat">
-	<primary-key>
-		<generator class="assigned"></generator>
-	</primary-key>
-</table>
+  <table-filter match-catalog="test" match-name="e_userstatistic"/>
+  <table-filter match-catalog="test" match-name="e_statistic"/>
 </hibernate-reverse-engineering>

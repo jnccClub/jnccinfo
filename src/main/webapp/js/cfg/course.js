@@ -74,6 +74,7 @@ function courseUpload(param) {
 			if (status == "success") {
 				alert("课程信息上传成功！");
 				$("#tbl_course").datagrid('reload');
+				$('#CApp_CName').combogrid("grid").datagrid("reload");
 			}
 		},
 		error : function(data, status, e) {
