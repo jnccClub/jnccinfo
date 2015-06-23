@@ -56,7 +56,7 @@ public class EArrangementService implements java.io.Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List<EZone> lEZone = EZoneService.getEZoneList();
+		List<EZone> lEZone = EZoneService.getEZoneListCopy();
 		if(lEArr == null){
 			return lEZone;
 		}

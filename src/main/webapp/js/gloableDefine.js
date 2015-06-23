@@ -1,5 +1,5 @@
 ﻿$(function(){
-	schoolBeginDate = new Date("2015-03-02");
+	schoolBeginDate = new Date("2015-08-31");
 	updateFirstBeginMon(schoolBeginDate);
 });
 

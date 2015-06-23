@@ -21,6 +21,101 @@
 	href="<s:url value='/css/main.css' encode='false' includeParams='none'/>"
 	rel="stylesheet" type="text/css" media="all" />
 
+<title>JNCC booking</title>
+</head>
+<body>
+
+
+	<jsp:include page="chat/chat.jsp"></jsp:include>
+	<div class="container">
+
+
+		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_STATISTIC.jsp"></jsp:include>
+		<jsp:include page="bodyContent/auditApp/auditApplication.jsp"></jsp:include>
+		<jsp:include page="login/mainFrame_Login.jsp"></jsp:include>
+		<jsp:include page="bbs.jsp"></jsp:include>
+		<jsp:include page="home.jsp"></jsp:include>
+		<jsp:include page="login/mainFrame_SignUp.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
+		<jsp:include page="configInfo/MF_COURSE_CFG.jsp"></jsp:include>
+		<jsp:include page="queryInfos.jsp"></jsp:include>
+		<jsp:include page="weekInfos.jsp"></jsp:include>
+		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
+		<jsp:include page="stuBooking.jsp"></jsp:include>
+
+		<div class="clearfix"></div>
+	</div>
+
+	<div id="circular">
+		<div id="circular_1" class="circular"></div>
+		<div id="circular_2" class="circular"></div>
+		<div id="circular_3" class="circular"></div>
+		<div id="circular_4" class="circular"></div>
+		<div id="circular_5" class="circular"></div>
+		<div id="circular_6" class="circular"></div>
+		<div id="circular_7" class="circular"></div>
+		<div id="circular_8" class="circular"></div>
+		<div class="clearfix"></div>
+	</div>
+	<script>
+		// 软件列表
+		var currentShowID = "#MF_Query";
+		function logOut() {
+			alert("欢迎重新登录！");
+			username = "";
+			$("#loginInfo").hide();
+			$("#logOutEntry").hide();
+			$("#loginEntry").show();
+			renewMainId("#mainFrame_Login");
+		}
+
+		$(function() {
+			guestItemHide();
+			renewMainId('#mainFrame_Login');
+		});
+
+		function guestItemHide() {
+			$("#personCenter").hide();
+			$("#maintainCenter").hide();
+			$("#stuBookingEntry").hide();
+		}
+		function userItemShow(role) {
+			if (role == "teacher") {
+				$("#maintainCenter").hide();
+				$("#audit_Application").hide();
+				$("#personCenter").show();
+				renewMainId("#MF_Body");
+			} else if (role == "admin") {
+				$("#personCenter").show();
+				$("#maintainCenter").show();
+				$("#audit_Application").show();
+				$("#stuBookingEntry").show();
+				renewMainId("#MF_Body");
+			} else {
+				$("#maintainCenter").hide();
+				$("#audit_Application").hide();
+				$("#personCenter").hide();
+				$("#stuBookingEntry").show();
+				renewMainId("#MF_STUBOOKING");
+			}
+
+		}
+		function renewMainId(newId) {
+			$(currentShowID).hide();
+			currentShowID = newId;
+			$(currentShowID).show();
+			if (typeof (statusInterval) == "undefined") {
+				return;
+			} else {
+				clearInterval(statusInterval);
+			}
+		}
+	</script>
+</body>
+<script type="text/javascript" src='js/gloableDefine.js'></script>
+
 <script src="js/common/jquery.min.js"></script>
 <script src="js/common/bootstrap.min.js"></script>
 <script src="js/common/site.js"></script>
@@ -40,101 +135,10 @@
 <script type="text/javascript" src='js/query/queryinfo.js'></script>
 <script type="text/javascript" src='js/bbs/bbs.js'></script>
 <script type="text/javascript" src='js/stuBooking/stuBooking.js'></script>
-<script type="text/javascript" src='js/gloableDefine.js'></script>
+
 <script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
 <script type="text/javascript" src='js/cfg/course.js'></script>
 <script type="text/javascript" src='js/common/jquery.easyui.min.js'></script>
 <script type="text/javascript" src="js/common/jquery.seat-charts.min.js"></script>
-<title>JNCC booking</title>
-</head>
-<body>
-	<script>
-		// 软件列表
-		var currentShowID = "#MF_Query";
-		function logOut(){
-			alert("欢迎重新登录！");
-			username = "";
-			$("#loginInfo").hide();
-			$("#logOutEntry").hide();
-			$("#loginEntry").show();
-			renewMainId("#mainFrame_Login");
-		}
-		
-		$(function() {
-			guestItemHide();
-			renewMainId('#mainFrame_Login');
-		});
 
-		function guestItemHide(){
-			$("#personCenter").hide();
-			$("#maintainCenter").hide();
-			$("#stuBookingEntry").hide();
-		}
-		function userItemShow(role){
-			if(role == "teacher"){
-				$("#maintainCenter").hide();
-				$("#audit_Application").hide();
-				$("#personCenter").show();
-				renewMainId("#MF_Body");
-			}else if(role=="admin"){
-				$("#personCenter").show();
-				$("#maintainCenter").show();
-				$("#audit_Application").show();
-				$("#stuBookingEntry").show();
-				renewMainId("#MF_Body");
-			}else{
-				$("#maintainCenter").hide();
-				$("#audit_Application").hide();
-				$("#personCenter").hide();
-				$("#stuBookingEntry").show();
-				renewMainId("#MF_STUBOOKING");
-			}
-
-		}
-		function renewMainId(newId) {
-			$(currentShowID).hide();
-			currentShowID = newId;
-			$(currentShowID).show();
-			if(typeof(statusInterval) == "undefined"){
-				return;
-			}else{
-				clearInterval(statusInterval);
-			}
-		}
-	</script>
-
-	<jsp:include page="chat/chat.jsp"></jsp:include>
-	<div class="container">
-	
-		
-		<jsp:include page="navBar/navigationBar.jsp"></jsp:include>
-		<jsp:include page="configInfo/MF_STATISTIC.jsp"></jsp:include>
-		<jsp:include page="bodyContent/auditApp/auditApplication.jsp"></jsp:include>
-		<jsp:include page="login/mainFrame_Login.jsp"></jsp:include>
-		<jsp:include page="bbs.jsp"></jsp:include>
-		<jsp:include page="home.jsp"></jsp:include>
-		<jsp:include page="login/mainFrame_SignUp.jsp"></jsp:include>
-		<jsp:include page="configInfo/MF_SW_CFG.jsp"></jsp:include>
-		<jsp:include page="configInfo/MF_ZONE_CFG.jsp"></jsp:include>
-		<jsp:include page="configInfo/MF_COURSE_CFG.jsp"></jsp:include>
-		<jsp:include page="queryInfos.jsp"></jsp:include>
-		<jsp:include page="weekInfos.jsp"></jsp:include>
-		<jsp:include page="bodyContent/MF_Body.jsp"></jsp:include>
-		<jsp:include page="stuBooking.jsp"></jsp:include>
-		
-		<div class="clearfix"></div>
-	</div>
-
-	<div id="circular">
-		<div id="circular_1" class="circular"></div>
-		<div id="circular_2" class="circular"></div>
-		<div id="circular_3" class="circular"></div>
-		<div id="circular_4" class="circular"></div>
-		<div id="circular_5" class="circular"></div>
-		<div id="circular_6" class="circular"></div>
-		<div id="circular_7" class="circular"></div>
-		<div id="circular_8" class="circular"></div>
-		<div class="clearfix"></div>
-	</div>
-</body>
 </html>
