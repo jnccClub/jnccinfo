@@ -166,7 +166,10 @@ L_calendar.prototype={
     	this.L_TheMonth = new Date().getMonth()+1;
     	today=new Date().getDate();
     	if(this.InputObject){
-		this.InputObject.value=this.L_TheYear + "-" + this.L_TheMonth + "-" + today;
+    		if (this.L_TheMonth < 10){this.L_TheMonth = "0" + this.L_TheMonth;}
+      		if (this.ClickObject)
+        	if ( today < 10){today = "0" + today;}
+        	this.InputObject.value=this.L_TheYear + "-" + this.L_TheMonth + "-" + today;
     	}
     	this.CloseLayer();
   	},

@@ -24,6 +24,7 @@ import org.jncc.base.zone.EZone;
 import org.jncc.base.zone.EZoneService;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.SocketClient;
+import org.jncc.persistence.dbSession;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -40,6 +41,24 @@ public class resouceAction extends ActionSupport {
 	private String createTime; // 创建时间
 	private List<Map<String, String>> resArrArray;
 	private ResultCause resultCause;
+	private ECourse ec;
+	private EArrangement ea;
+
+	public EArrangement getEa() {
+		return ea;
+	}
+
+	public void setEa(EArrangement ea) {
+		this.ea = ea;
+	}
+
+	public ECourse getEc() {
+		return ec;
+	}
+
+	public void setEc(ECourse ec) {
+		this.ec = ec;
+	}
 
 	public ResultCause getResultCause() {
 		return resultCause;
@@ -77,7 +96,7 @@ public class resouceAction extends ActionSupport {
 
 	private String beginWeekDate;
 
-	private int auditedType;
+	private int auditedType; //1001代表用户个人申请清单（含未审批和审批通过）
 
 	public int getAuditedType() {
 		return auditedType;
@@ -299,7 +318,7 @@ public class resouceAction extends ActionSupport {
 		String nowHour = UtilTool.getNowHour();
 		String serial = EArrangementService
 				.getCurSerial(nowDate, nowHour, zone);
-		ECourse ec = ECourseService.getCourse(serial);
+		ec = ECourseService.getCourse(serial);
 		resultCause = new ResultCause();
 		String resultDesc = "本区已被如下课程预定<br>";
 		if (ec == null) {
@@ -314,6 +333,45 @@ public class resouceAction extends ActionSupport {
 		return "RES_QUERYZONEINFO_SUCCESS";
 	}
 
+	public String querySpecifiedZone() {
+		// cpuName = trimQuotation(cpuName);
+		String bgnHour = queryfiledVal;
+		String serial = EArrangementService
+				.getCurSerial(queryDate, queryfiledVal, queryfloor);
+		ec = ECourseService.getCourse(serial);
+		resultCause = new ResultCause();
+		String resultDesc = "本区已被如下课程预定<br>";
+		if (ec == null) {
+			resultDesc = resultDesc + "暂无";
+		} else {
+			resultDesc = resultDesc + "教师姓名：" + ec.getTeacher() + "<br>";
+			resultDesc = resultDesc + "课程名称：" + ec.getName() + "<br>";
+			resultDesc = resultDesc + "课程人数：" + ec.getSeats() + "<br>";
+			resultDesc = resultDesc + "课程描述：" + ec.getComment();
+		}
+		resultCause.setCause("200", resultDesc);
+		return "RES_QUERYSPICIFIEDZONE_SUCCESS";
+	}
+	
+	
+	
+	public String adjustZoneArrange() {
+		resultCause = new ResultCause();
+		String resultDesc = "课程调整成功！";
+		int beginCourse = ECourseMapService.getBeginCourse(queryfiled); //开始时间
+		int endCourse = ECourseMapService.getEndCourse(queryfiledVal); //结束时间
+		for(int i=beginCourse;i<=endCourse;i++){
+			ea.getId().setCourse(i);
+			if(ea.getAppId()==null || ea.getAppId().equals("")){
+				EArrangementService.removeArrangement(ea);
+			}else{
+				ea.setComment("Admin adjustment");
+				EArrangementService.replaceArrangement(ea);
+			}
+		}
+		resultCause.setCause("200", resultDesc);
+		return "RES_ADJUSTZONEARRANGE_SUCCESS";
+	}
 	public JSONObject getResult() {
 		return result;
 	}

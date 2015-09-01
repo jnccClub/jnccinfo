@@ -17,10 +17,13 @@ import org.jncc.base.curriculum.ECurriculum;
 import org.jncc.base.curriculum.ECurriculumId;
 import org.jncc.base.software.ESoftware;
 import org.jncc.base.software.ESoftwareId;
+import org.jncc.base.user.UserInfo;
 import org.jncc.base.xls.ExcelService;
 import org.jncc.base.zone.EZone;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
+
+import com.opensymphony.xwork2.ActionContext;
 
 // default package
 
@@ -167,7 +170,9 @@ public class ECourseService implements java.io.Serializable {
 		ec.setTeacherNo(teacherNo);
 		String classNosStr = "";
 		for (String classStr : classNOset) {
-			classNosStr = classNosStr + classStr + "|";
+			if(classNosStr.length()<=200){ //数据库字段为256
+				classNosStr = classNosStr + classStr + "|";
+			}
 		}
 		ec.setClassNo(classNosStr);
 		return ecVec;
@@ -213,6 +218,23 @@ public class ECourseService implements java.io.Serializable {
 			}
 		}
 		return ec;
+	}
+	
+	
+	public static List<ECourse> getPertainCourses() {
+		Map session = ActionContext.getContext().getSession();
+		UserInfo us = (UserInfo) session.get("USERINFO");
+		List<ECourse> pertainCourseList = new ArrayList();
+		if (us == null) {
+			return null;
+		} else {
+			for (int i = 0; i < ecList.size(); i++) {
+				if (ecList.get(i).getTeacherNo().equals(us.getUsername())) {
+					pertainCourseList.add(ecList.get(i));
+				}
+			}
+		}
+		return pertainCourseList;
 	}
 	
 	public static ECourse getCourse(String courseName,String teacherName) {

@@ -33,8 +33,7 @@
 			$("#nameValidate").removeClass().addClass("signup_errTips");
 			return false;
 		}
-		$
-				.ajax({
+		$.ajax({
 					url : 'comAction/user_checkUsername.action',
 					type : 'post',
 					data : params,
@@ -139,7 +138,9 @@
 		    },
 		    cardNo: {
 		        validator: function (value, param) {
-		            return /^[0-9]\d{4,10}$/.test(value);
+		            //return /^[0-9]\d{4,10}$/.test(value);
+		            return /^[0-9tqTQ]{4,10}$/.test(value);
+		           
 		        },
 		        message: '学号或工号不正确'
 		    },

@@ -64,10 +64,13 @@ public class ExcelService {
 			Sheet sheet = workbook.getSheet(0);
 			Cell[] cells;
 			cells = sheet.getRow(0);
-			String CName = cells[0].getContents();
-			if (CName == null || !CName.equals("课程名称")) {
+			if (cells == null || cells.length<=0) {
 				ecurVec = ECourseService.genCourse(sheet, ec);
 			} else {
+				String CName = cells[0].getContents();
+				if (CName == null || !CName.equals("课程名称")) {
+					ecurVec = ECourseService.genCourse(sheet, ec);
+				}
 				int row = sheet.getRows();
 				try {
 					dbSession.init();
@@ -75,7 +78,7 @@ public class ExcelService {
 					for (int i = 1; i < row; i++) {
 						cells = sheet.getRow(i);
 						String t = cells[0].getContents();
-						if (cells.length >= 7 && t!=null && !t.equals("")) {
+						if (cells.length >= 7 && t != null && !t.equals("")) {
 							ec_t.setName(cells[0].getContents());
 							ec_t.setSerial(cells[1].getContents());
 							ec_t.setTeacher(cells[2].getContents());
@@ -95,7 +98,7 @@ public class ExcelService {
 				ECourseService.updateEcList();
 			}
 			workbook.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

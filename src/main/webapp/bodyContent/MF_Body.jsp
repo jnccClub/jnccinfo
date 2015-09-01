@@ -13,9 +13,12 @@
 
 <div class="row" id="MF_Body" style="display:none">
 	<jsp:include page="personalNav.jsp"></jsp:include>
+	<jsp:include page="auditApp/auditApplication.jsp"></jsp:include>
 	<jsp:include page="welcomeContent.jsp"></jsp:include>
 	<jsp:include page="createApplication.jsp"></jsp:include>
 	<jsp:include page="selfBook/tBook.jsp"></jsp:include>
+	<jsp:include page="arrangment/adjustArrangement.jsp"></jsp:include>
+	<jsp:include page="progress/appPorgress.jsp"></jsp:include>
 	<jsp:include page="personnelInfo.jsp"></jsp:include>
 </div>
 
@@ -35,11 +38,13 @@
 		});
 		
 		$("#audit_Application").click(function(){
+			renewBodyId("#MF_AUDIT",$(this));
 			genAppInfos();
-			renewMainId("#DIV_BODY_AUDIT");
 		});
-		//renewBodyId("#Body_CreateApp","#create_Application");
-
+		$("#APPPROGRESS_LI").click(function(){
+			renewBodyId("#MF_PROGRESS",$(this));
+			showAppProgress();
+		});
 	});
 	function renewBodyId(newBodyId, newActiveId) {
 		$(currentBodyNavActive).removeClass("active");

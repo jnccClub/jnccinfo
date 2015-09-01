@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Expression;
-import org.jncc.base.application.EApplication;
 import org.jncc.base.course.ECourseService;
 import org.jncc.base.coursemap.ECourseMapService;
 import org.jncc.base.zone.EZone;
@@ -223,6 +222,21 @@ public class EArrangementService implements java.io.Serializable {
 		return serial;
 	}
 	
+	public static boolean replaceArrangement(EArrangement ea){
+		dbSession.init();
+		dbSession.replaceInsert(ea);
+		dbSession.close();
+		
+		return true;
+	}
+	
+	public static boolean removeArrangement(EArrangement ea){
+		dbSession.init();
+		dbSession.delete(ea);
+		dbSession.close();
+		
+		return true;
+	}
 	// Fields
 	public static void main(String[] args) {
 		// Map<String, Object> jsonMap =

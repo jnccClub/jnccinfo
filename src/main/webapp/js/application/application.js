@@ -110,10 +110,6 @@ $(function() {
 			}
 		});
 	});
-	$("select[name='applicationInfo.beginDate'] option:disabled").css('color',
-			'#CCC');
-	$("select[name='applicationInfo.endDate'] option:disabled").css('color',
-			'#CCC');
 	$("select[name='applicationInfo.beginDate']").change(function() {
 		var selectIndex = this.selectedIndex;
 		$("select[name='applicationInfo.endDate'] option").each(function(i) {

@@ -20,6 +20,7 @@
 					审批申请</a></li>
 			<li><a href="javascript:void(0)"><i class="icon-envelope"></i> 消息</a></li>
 			<li><a href="javascript:void(0)"><i class="icon-file"></i> 已审批申请</a></li>
+			<li id="ADJUST_ARRANGEMENT_li"><a href="javascript:void(0)" onclick="adjustArrangement()"><i class="icon-file"></i> 课程微调</a></li>
 			<li id="all_info_li"><a href="javascript:void(0)" ><i class="icon-list-alt"></i>
 					教师信息维护</a></li>
 			<li class="nav-header">我的账户</li>
@@ -30,7 +31,7 @@
 			<li id="tSelf_Book_li"><a href="javascript:void(0)"
 				onclick="tSelfBook()"><i class="icon-info-sign"></i> 自助区域使用</a></li>
 			<li class="nav-header">如何预约</li>
-			<li><a href="javascript:void(0)"><i class="icon-picture"></i> 查看进度</a></li>
+			<li id="APPPROGRESS_LI"><a href="javascript:void(0)"><i class="icon-picture"></i> 查看进度</a></li>
 			<li><a href="javascript:void(0)"><i class="icon-stop"></i> 邮件提醒</a></li>
 		</ul>
 	</div>

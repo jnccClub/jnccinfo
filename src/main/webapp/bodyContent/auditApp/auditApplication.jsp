@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="DIV_BODY_AUDIT" style="display:none">
+<div id="MF_AUDIT" style="display: none" class="span9">
 	<h2>待审批申请</h2>
 	<p>请认真查看申请，点击课程编号可查看具体日期、机房及课程</p>
-
 	<table id="list_data" cellspacing="0" cellpadding="0"
 		class="easyui-datagrid" toolbar="#toolbar">
 		<thead>
@@ -36,28 +35,27 @@
 			iconCls="nuaa-icon-remove" plain="false" onclick="audit_List(99)">查看已驳回申请</a>
 	</div>
 	<div id="dlg" class="easyui-dialog"
-		style="width:350px;height:380px;padding:10px 20px" closed="true"
+		style="width: 350px; height: 380px; padding: 10px 20px" closed="true"
 		buttons="#dlg-buttons">
 		<form id="fm_audit">
 			<div class="fitem">
 				<label>审批意见:</label><select name="isApproved"><option
-					value="0">驳回</option>
-				<option value="1" selected="selected">批准</option>
-			</select>
+						value="0">驳回</option>
+					<option value="1" selected="selected">批准</option>
+				</select>
 			</div>
 			<div class="fitem">
 				<label>详细描述:</label>
-			<textarea class="input-xlarge"  rows="4"
-				placeholder="符合使用规则，各项必备条件充分！" name="approveComment">符合使用规则，各项必备条件充分！</textarea>
+				<textarea class="input-xlarge" rows="4"
+					placeholder="符合使用规则，各项必备条件充分！" name="approveComment">符合使用规则，各项必备条件充分！</textarea>
 			</div>
 		</form>
 	</div>
 	<div id="dlg-buttons">
 		<a href="javascript:void(0)" class="easyui-linkbutton c6"
-			iconCls="nuaa-icon-ok" onclick="approve_application()" style="width:90px">确认</a> <a
-			href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="nuaa-icon-cancel" onclick="javascript:$('#dlg').dialog('close')"
-			style="width:90px">取消</a>
+			iconCls="nuaa-icon-ok" onclick="approve_application()"
+			style="width: 90px">确认</a> <a href="javascript:void(0)"
+			class="easyui-linkbutton" iconCls="nuaa-icon-cancel"
+			onclick="javascript:$('#dlg').dialog('close')" style="width: 90px">取消</a>
 	</div>
-
 </div>

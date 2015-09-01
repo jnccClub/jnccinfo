@@ -2,7 +2,7 @@
 	$('#list_data').datagrid({
 		title : '课程申请信息',
 		iconCls : 'icon-edit',// 图标
-		width : '1000',
+		width : '800',
 		height : 'auto',
 		nowrap : false,
 		striped : true,

@@ -2,21 +2,21 @@
 	renewBodyId('#MF_TBOOK', '#tSelf_Book_li');
 	
 	var xhr = $.ajax({
-		url : 'res_queryTeacherzone.action?redirectURL=tBook.jsp',
+		url : 'res_queryTeacherzone.action',
 		type : 'post',
 		data : null,
 		dataType : 'json',
 		success : function(data, status) {
 			if (status == "success") {
-				var refused = xhr.getResponseHeader("refused"); // 通过XMLHttpRequest取得响应头，refused，
-				if (refused == "true") {
-					alert("尚未登录，请您登录后预定！");
-					// 如果超时就处理 ，指定要跳转的页面
-					window.location.replace("login.jsp");
-				} else {
+//				var refused = xhr.getResponseHeader("refused"); // 通过XMLHttpRequest取得响应头，refused，
+//				if (refused == "true") {
+//					alert("尚未登录，请您登录后预定！");
+//					// 如果超时就处理 ，指定要跳转的页面
+//					window.location.replace("login.jsp");
+//				} else {
 					$("#COURSEINFO_SELF").html(data.resultDesc);
 					$("#T_CPU_ZONE").val(data.resultCode);
-				}
+//				}
 			}
 
 		},

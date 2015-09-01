@@ -101,6 +101,16 @@
 				<param name="excludeProperties">SUCCESS</param>
 			</result>
 			<result name="RES_QUERYZONEINFO_SUCCESS" type="json">
+				<param name="root">result</param>
+				<param name="excludeNullProperties">false</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="RES_QUERYSPICIFIEDZONE_SUCCESS" type="json">
+				<param name="includeProperties">ec.*,resultCause.*</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">SUCCESS</param>
+			</result>
+			<result name="RES_ADJUSTZONEARRANGE_SUCCESS" type="json">
 				<param name="root">resultCause</param>
 				<param name="excludeNullProperties">false</param>
 				<param name="excludeProperties">SUCCESS</param>

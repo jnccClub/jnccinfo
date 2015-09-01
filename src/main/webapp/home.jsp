@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="MF_HOME" class="row" style="display:none">
+<div id="MF_HOME" class="row" style="display: none">
 	<h1>计算中心</h1>
 	<div class="hero-unit">
 		<h2>Welcome!</h2>
@@ -12,6 +12,9 @@
 				class="btn btn-large">点个赞</a>
 		</p>
 	</div>
+
+	  <input id="input-2ba" type="number" class="rating" min="0" max="5" step="0.5" data-stars=5
+    data-symbol="&#xe005;" data-default-caption="{rating} hearts" data-star-captions="{}">
 
 	<ul class="pager">
 		<li class="next">更多信息 <a href="http://jncc.nuaa.edu.cn/"

@@ -52,9 +52,9 @@
 	<div class="control-group">
 		<div class="radio">
 			<label class="control-label">校历学期：</label> <select id="termSelect">
-				<option value='2014-09-01'>2014~2015秋学期</option>
-				<option selected='selected' value='2015-03-02'>2014~2015春学期</option>
-				<option value='2015-08-31'>2015~2016秋学期</option>
+				<option value='2015-03-02'>2014~2015春学期</option>
+				<option selected='selected' value='2015-08-31'>2015~2016秋学期</option>
+				<option value='2016-02-22'>2015~2016春学期</option>
 			</select> <label class="control-label">&nbsp;&nbsp;&nbsp;联系电话：</label> <input
 				type="text" name="applicationInfo.contact" placeholder="02552112897" />
 		</div>
