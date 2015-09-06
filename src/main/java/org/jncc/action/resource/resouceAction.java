@@ -22,9 +22,8 @@ import org.jncc.base.curriculum.WeekCurriculum;
 import org.jncc.base.user.UserInfo;
 import org.jncc.base.zone.EZone;
 import org.jncc.base.zone.EZoneService;
-import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.SocketClient;
-import org.jncc.persistence.dbSession;
+import org.jncc.persistence.UtilTool;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -43,6 +42,7 @@ public class resouceAction extends ActionSupport {
 	private ResultCause resultCause;
 	private ECourse ec;
 	private EArrangement ea;
+	
 
 	public EArrangement getEa() {
 		return ea;
@@ -96,7 +96,7 @@ public class resouceAction extends ActionSupport {
 
 	private String beginWeekDate;
 
-	private int auditedType; //1001代表用户个人申请清单（含未审批和审批通过）
+	private int auditedType; // 1001代表用户个人申请清单（含未审批和审批通过）
 
 	public int getAuditedType() {
 		return auditedType;
@@ -168,12 +168,12 @@ public class resouceAction extends ActionSupport {
 	}
 
 	public String getallCourse() {
-		if(queryfiled == null || !queryfiled.equals("ALL")){
+		if (queryfiled == null || !queryfiled.equals("ALL")) {
 			queryfiled = "TEACHERNAME";
 			Map session = ActionContext.getContext().getSession();
 			UserInfo us = (UserInfo) session.get("USERINFO");
 			queryfiledVal = us.getUsername();
-		}else{
+		} else {
 			queryfiledVal = "";
 		}
 		result = JSONObject.fromObject(ECourseService.toMapObject(queryfiled,
@@ -181,6 +181,12 @@ public class resouceAction extends ActionSupport {
 		return "RES_GETCOURSE_SUCCESS";
 	}
 
+	public String getCourseModPnl() {
+		result = JSONObject.fromObject(ECourseService.toMapObject(queryfiled,
+				queryfiledVal));
+		return "RES_GETCOURSE_SUCCESS";
+	}
+	
 	public String getallfloor() {
 
 		List<EZone> ezList = EZoneService.getEZoneList();
@@ -213,7 +219,7 @@ public class resouceAction extends ActionSupport {
 		// 每页的开始记录 第一页为1 第二页为number +1
 		int start = (intPage - 1) * number;
 		result = JSONObject.fromObject(EApplicationService
-				.toMapObject(auditedType));
+				.toMapObject(auditedType,start,number,queryfiled,queryfiledVal));
 		return "RES_LIST_SUCCESS";
 	}
 
@@ -336,8 +342,8 @@ public class resouceAction extends ActionSupport {
 	public String querySpecifiedZone() {
 		// cpuName = trimQuotation(cpuName);
 		String bgnHour = queryfiledVal;
-		String serial = EArrangementService
-				.getCurSerial(queryDate, queryfiledVal, queryfloor);
+		String serial = EArrangementService.getCurSerial(queryDate,
+				queryfiledVal, queryfloor);
 		ec = ECourseService.getCourse(serial);
 		resultCause = new ResultCause();
 		String resultDesc = "本区已被如下课程预定<br>";
@@ -352,19 +358,17 @@ public class resouceAction extends ActionSupport {
 		resultCause.setCause("200", resultDesc);
 		return "RES_QUERYSPICIFIEDZONE_SUCCESS";
 	}
-	
-	
-	
+
 	public String adjustZoneArrange() {
 		resultCause = new ResultCause();
 		String resultDesc = "课程调整成功！";
-		int beginCourse = ECourseMapService.getBeginCourse(queryfiled); //开始时间
-		int endCourse = ECourseMapService.getEndCourse(queryfiledVal); //结束时间
-		for(int i=beginCourse;i<=endCourse;i++){
+		int beginCourse = ECourseMapService.getBeginCourse(queryfiled); // 开始时间
+		int endCourse = ECourseMapService.getEndCourse(queryfiledVal); // 结束时间
+		for (int i = beginCourse; i <= endCourse; i++) {
 			ea.getId().setCourse(i);
-			if(ea.getAppId()==null || ea.getAppId().equals("")){
+			if (ea.getAppId() == null || ea.getAppId().equals("")) {
 				EArrangementService.removeArrangement(ea);
-			}else{
+			} else {
 				ea.setComment("Admin adjustment");
 				EArrangementService.replaceArrangement(ea);
 			}
@@ -372,6 +376,7 @@ public class resouceAction extends ActionSupport {
 		resultCause.setCause("200", resultDesc);
 		return "RES_ADJUSTZONEARRANGE_SUCCESS";
 	}
+
 	public JSONObject getResult() {
 		return result;
 	}

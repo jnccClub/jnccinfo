@@ -8,14 +8,14 @@ function tbl_course_load() {
 		title : '计算中心课程信息',
 		iconCls : 'icon-man',// 图标
 		width : '1000',
-		height : 'auto',
+		height : '800',
 		nowrap : false,
 		striped : true,
 		border : true,
 		collapsible : false,// 是否可折叠的
-		fit : true,// 自动大小
-		url : 'comAction/comRes_getallCourse.action',
-		// queryParams: {queryDate:"2014-12-27"},
+		//fit : true,// 自动大小
+		url : 'comAction/comRes_getCourseModPnl.action',
+		queryParams: {queryfiled:"ALL"},
 		// sortName : 'fld_CTIME',
 		// sortOrder : 'asc',
 		remoteSort : false,
@@ -47,7 +47,7 @@ function tbl_course_load() {
 	$('#tbl_course').resize();
 }
 
-function doSearchC(value, name) {
+function doSearchCourse(value, name) {
 	// alert('You input: ' + value+'('+name+')');
 	var queryParams = $('#tbl_course').datagrid('options').queryParams;
 	queryParams.queryfiled = name;
@@ -111,10 +111,10 @@ function save_course() {
 	$("#circular").show();
 	var param = [ {
 		name : "ec.serial",
-		value : $("input[name='fld_C_NAME']").val()
+		value : $("input[name='fld_C_SERIAL']").val()
 	}, {
 		name : "ec.name",
-		value : $("input[name='fld_C_SERIAL']").val()
+		value : $("input[name='fld_C_NAME']").val()
 	}, {
 		name : "ec.teacher",
 		value : $("input[name='fld_C_TEACHER']").val()

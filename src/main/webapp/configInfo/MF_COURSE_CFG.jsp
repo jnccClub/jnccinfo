@@ -58,18 +58,18 @@
 
 	<div id="tbl_c_toolbar">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="icon-add" plain="true" onclick="add_course()">添加课程</a> <a
+			iconCls="icon-signal" plain="true" onclick="add_course()">添加课程</a> <a
 			href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-edit" plain="true" onclick="edit_course()">编辑课程</a> <a
 			href="javascript:void(0)" class="easyui-linkbutton"
 			iconCls="icon-remove" plain="true" onclick="destroy_course()">删除课程</a> 		
 		<input class="easyui-searchbox"
-			data-options="prompt:'Please Input Value',menu:'#course_mm',searcher:doSearchC"
+			data-options="prompt:'请输入',menu:'#course_mm',searcher:doSearchCourse"
 			style="width:500px"></input>
 		<div id="course_mm">
-			<div data-options="name:'TEACHERNAME',iconCls:'icon-tip'">教师姓名</div>
-			<div data-options="name:'COURSENAME',iconCls:'icon-ok'">课程名称</div>
-			<div data-options="name:'CLASSNO',iconCls:'icon-man'">班级学号</div>
+			<div data-options="name:'TEACHERNAME',iconCls:'icon-star'">教师姓名</div>
+			<div data-options="name:'COURSENAME',iconCls:'icon-repeat'">课程名称</div>
+			<div data-options="name:'CLASSNO',iconCls:'icon-tint'">班级学号</div>
 		</div>
 	</div>
 

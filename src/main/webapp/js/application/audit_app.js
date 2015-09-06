@@ -1,7 +1,7 @@
 ﻿function genAppInfos() {
 	$('#list_data').datagrid({
 		title : '课程申请信息',
-		iconCls : 'icon-edit',// 图标
+		iconCls : 'icon-envelope',// 图标
 		width : '800',
 		height : 'auto',
 		nowrap : false,
@@ -39,10 +39,11 @@
 		beforePageText : '第',// 页数文本框前显示的汉字
 		afterPageText : '页    共 {pages} 页',
 		displayMsg : '当前显示 {from} - {to} 条记录   共 {total} 条记录',
-	/*
-	 * onBeforeRefresh:function(){ $(this).pagination('loading'); alert('before
-	 * refresh'); $(this).pagination('loaded'); }
-	 */
+		onBeforeRefresh : function() {
+			$(this).pagination('loading');
+			$(this).pagination('loaded');
+		}
+
 	});
 
 	$('#list_data').resize();
@@ -73,10 +74,10 @@ function audit_App() {
 }
 
 function audit_List(auditedType) {
-	var queryParams = $('#list_data').datagrid('options').queryParams;  
-    queryParams.auditedType = auditedType;
-    $('#list_data').datagrid('options').queryParams=queryParams;        
-    $("#list_data").datagrid('reload');
+	var queryParams = $('#list_data').datagrid('options').queryParams;
+	queryParams.auditedType = auditedType;
+	$('#list_data').datagrid('options').queryParams = queryParams;
+	$("#list_data").datagrid('reload');
 }
 
 function approve_application() {
@@ -87,7 +88,7 @@ function approve_application() {
 	var createUsers = "";
 	for (var i = 0; i < rows.length; i++) {
 		ids = ids + rows[i].fld_CNO + "|" + rows[i].fld_CTIME + ",";
-		createUsers = createUsers +rows[i].fld_CUSR+"|";
+		createUsers = createUsers + rows[i].fld_CUSR + "|";
 	}
 	var param = [ {
 		name : "isApproved",
@@ -98,9 +99,9 @@ function approve_application() {
 	}, {
 		name : "eaIDs",
 		value : ids
-	},{
+	}, {
 		name : "createUsers",
-		value: createUsers
+		value : createUsers
 	} ];
 	if ($("#circular").is(":hidden")) {
 		$("#circular").show();
@@ -181,5 +182,16 @@ function queryDetailDate(createTime, appId) {
 	// alert("appId is:" + appId + ";createTime is:" + createTime);
 	window.open('detailInfo.jsp?appID="' + appId + '"&createTime="'
 			+ createTime + '"');
+
+}
+
+
+function doApplicationSearch(value, name) {
+	// alert('You input: ' + value+'('+name+')');
+	var queryParams = $('#list_data').datagrid('options').queryParams;
+	queryParams.queryfiled = name;
+	queryParams.queryfiledVal = value;
+	$('#list_data').datagrid('options').queryParams = queryParams;
+	$("#list_data").datagrid('reload');
 
 }

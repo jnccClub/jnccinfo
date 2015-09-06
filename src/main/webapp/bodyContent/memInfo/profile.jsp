@@ -1,42 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-
-<link href="media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
-<link href="media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-<link href="media/css/style-metro.css" rel="stylesheet" type="text/css"/>
-<link href="media/css/style.css" rel="stylesheet" type="text/css"/>
-<link href="media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-<link href="media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-<link href="media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-<!-- END GLOBAL MANDATORY STYLES -->
-
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="media/css/select2_metro.css" />
-<link rel="stylesheet" href="media/css/DT_bootstrap.css" />
-<!-- END PAGE LEVEL STYLES -->
-
-
-<script src="js/common/jquery.min.js"></script>
-<script src="js/common/bootstrap.min.js"></script>
-<script src="js/common/site.js"></script>
-<script src="media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-<script src="media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>  
-	<!-- BEGIN PAGE LEVEL PLUGINS -->	
-<script type="text/javascript" src="media/js/select2.min.js"></script>
-<script type="text/javascript" src="media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="media/js/DT_bootstrap.js"></script>
-	<!-- END PAGE LEVEL PLUGINS -->
-<script src="media/js/table-editable.js"></script> 
-<script src="media/js/app.js"></script>
-<script src="js/profile/profile.js"></script>
-<title>JNCC booking</title>
-</head>
-<body>
-<div id="MF_PROFILE" class="container">
+<div id="MF_PROFILE" class="span9">
 	<h2>基本信息维护</h2>
 	<!-- BEGIN PAGE CONTENT-->
-
 	<div class="row-fluid">
 		<div class="span12">
 			<!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -105,6 +71,4 @@
 	<!-- END PAGE CONTENT -->
 
 </div>
-</body>
-</html>
 <!-- END PAGE CONTAINER-->

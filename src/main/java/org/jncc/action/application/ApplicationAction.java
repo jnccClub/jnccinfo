@@ -132,6 +132,10 @@ public class ApplicationAction extends ActionSupport {
 
 	public String addRecord() {
 		// 设置为未审核状态
+		if(ea ==null){
+			resultCause.setCause("503", "添加失败");
+			return "ADD_APP_SUCCESS";
+		}
 		ea.setStatus("0");
 		Timestamp curTime = new Timestamp(System.currentTimeMillis());
 		EApplicationID eaID = ea.getId();

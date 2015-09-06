@@ -79,6 +79,8 @@
 <script type="text/javascript" src='js/query/queryinfo.js'></script>
 <script type="text/javascript" src='js/bbs/bbs.js'></script>
 <script type="text/javascript" src='js/stuBooking/stuBooking.js'></script>
+<script type="text/javascript" src='js/profile/profile.js'></script>
+
 
 <script type="text/javascript" src='js/cfg/zoneConfig.js'></script>
 <script type="text/javascript" src='js/cfg/course.js'></script>

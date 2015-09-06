@@ -15,6 +15,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.jncc.base.application.EApplication;
 import org.nuaa.mapp.servlet.ApplicationCtxListener;
 
 @SuppressWarnings("deprecation")
@@ -56,6 +57,16 @@ public class dbSession {
 		return l;
 	}
 
+	public static List select(String sql, int start, int number) {
+		// TODO Auto-generated method stub
+		Query q = session.createQuery(sql);
+		q.setFirstResult(start);//设置起始行
+		q.setMaxResults(number);//每页条数
+		List l = q.list();
+		return l;
+	}
+
+	
 	public static List getAllbbs(String hql, int maxRow) {
 		final Query query = session.createQuery(hql);
 		query.setMaxResults(maxRow);
@@ -182,6 +193,25 @@ public class dbSession {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	public static int getCount(String hql){
+		init();
+		String result  = "";
+		try {
+			Query query = session.createQuery(hql);
+			result = query.uniqueResult().toString(); 
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			throw new RuntimeException(e.getMessage());
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.close();
+			}
+		}
+		return Integer.parseInt(result);
 	}
 
 	@SuppressWarnings("unchecked")

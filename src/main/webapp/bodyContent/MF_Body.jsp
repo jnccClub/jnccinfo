@@ -11,7 +11,7 @@
 
 
 
-<div class="row" id="MF_Body" style="display:none">
+<div class="row" id="MF_Body" style="display: none">
 	<jsp:include page="personalNav.jsp"></jsp:include>
 	<jsp:include page="auditApp/auditApplication.jsp"></jsp:include>
 	<jsp:include page="welcomeContent.jsp"></jsp:include>
@@ -19,6 +19,7 @@
 	<jsp:include page="selfBook/tBook.jsp"></jsp:include>
 	<jsp:include page="arrangment/adjustArrangement.jsp"></jsp:include>
 	<jsp:include page="progress/appPorgress.jsp"></jsp:include>
+	<jsp:include page="memInfo/profile.jsp"></jsp:include>
 	<jsp:include page="personnelInfo.jsp"></jsp:include>
 </div>
 
@@ -36,14 +37,19 @@
 			renewBodyId("#Body_CreateApp", $(this));
 			createApplication();
 		});
-		
-		$("#audit_Application").click(function(){
-			renewBodyId("#MF_AUDIT",$(this));
+
+		$("#audit_Application").click(function() {
+			renewBodyId("#MF_AUDIT", $(this));
 			genAppInfos();
 		});
-		$("#APPPROGRESS_LI").click(function(){
-			renewBodyId("#MF_PROGRESS",$(this));
+		$("#APPPROGRESS_LI").click(function() {
+			renewBodyId("#MF_PROGRESS", $(this));
 			showAppProgress();
+		});
+		
+		$("#all_info_li").click(function() {
+			renewBodyId("#MF_PROFILE", $(this));
+			showAllProfile();
 		});
 	});
 	function renewBodyId(newBodyId, newActiveId) {

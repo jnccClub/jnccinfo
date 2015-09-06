@@ -1,9 +1,21 @@
-﻿$(function() {
+﻿function showAllProfile() {
 	var columns = [ {
-		"sTitle" : "工号"	}, {"sTitle" : "姓名"
-	}, {"sTitle" : "密码"	}, {"sTitle" : "联系电话"
-	}, {"sTitle" : "邮箱"}, {"sTitle" : "备注"
-	}, {"sTitle" : "编辑"}, {	"sTitle" : "删除"	} ];
+		"sTitle" : "工号"
+	}, {
+		"sTitle" : "姓名"
+	}, {
+		"sTitle" : "密码"
+	}, {
+		"sTitle" : "联系电话"
+	}, {
+		"sTitle" : "邮箱"
+	}, {
+		"sTitle" : "备注"
+	}, {
+		"sTitle" : "编辑"
+	}, {
+		"sTitle" : "删除"
+	} ];
 
 	$.ajax({
 		url : 'comAction/user_listUserInfo.action',
@@ -12,10 +24,10 @@
 		dataType : 'json',
 		success : function(data, status) {
 			if (status == "success") {
-				if(data==null || data.length ==0){
+				if (data == null || data.length == 0) {
 					TableEditable.init("sample_editable_1", data, columns);
 					alert("Sorry,你的权限太low啦或者还没有登录？！");
-				}else{
+				} else {
 					TableEditable.init("sample_editable_1", data, columns);
 				}
 			}
@@ -26,4 +38,4 @@
 		complete : function() {
 		}
 	});
-});
+}

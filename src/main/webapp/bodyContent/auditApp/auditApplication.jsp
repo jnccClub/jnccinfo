@@ -28,11 +28,21 @@
 			iconCls="nuaa-icon-edit" plain="false" onclick="audit_App()">申请处理</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="nuaa-icon-add" plain="false" onclick="audit_List(0)">查看未审批申请</a>
+			iconCls="nuaa-icon-add" plain="false" onclick="audit_List(0)">未审批申请</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="nuaa-icon-save" plain="false" onclick="audit_List(1)">查看已审批申请</a>
+			iconCls="nuaa-icon-save" plain="false" onclick="audit_List(1)">已审批申请</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton"
-			iconCls="nuaa-icon-remove" plain="false" onclick="audit_List(99)">查看已驳回申请</a>
+			iconCls="nuaa-icon-remove" plain="false" onclick="audit_List(99)">已驳回申请</a>
+		<input class="easyui-searchbox"
+			data-options="prompt:'请输入',menu:'#mm_application',searcher:doApplicationSearch"
+			style="width:300px"></input>
+		<div id="mm_application">
+			<div data-options="name:'TEACHERNAME',iconCls:'icon-book'">教师姓名</div>
+			<div data-options="name:'COURSENAME',iconCls:'icon-signal'">课程名称</div>
+			<div data-options="name:'CREATETIME',iconCls:'icon-star'">创建时间</div>
+		</div>	
+			
+			
 	</div>
 	<div id="dlg" class="easyui-dialog"
 		style="width: 350px; height: 380px; padding: 10px 20px" closed="true"

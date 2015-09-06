@@ -83,7 +83,7 @@ public class UserService {
 		if (us == null || us.getUsername().equals("")) {
 			return false;
 		} else {
-			if (us.getUsername().indexOf("70203902") > -1) {
+			if (us.getRole().equals("admin")) {
 				return true;
 			}
 		}

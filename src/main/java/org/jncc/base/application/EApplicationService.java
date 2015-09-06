@@ -64,8 +64,10 @@ public class EApplicationService implements java.io.Serializable {
 		return appMap;
 	}
 
-	public static Map<String, Object> toMapObject(int auditedType) {
-		List<EApplication> eaList = queryAuditApp(auditedType);
+	public static Map<String, Object> toMapObject(int auditedType, int start,
+			int number, String queryfiled, String queryfiledVal) {
+		List<EApplication> eaList = queryAuditApp(auditedType, start, number,
+				queryfiled, queryfiledVal);
 		List<Map<String, String>> mapList = new ArrayList();
 		if (eaList != null) {
 			for (int i = 0; i < eaList.size(); i++) {
@@ -77,17 +79,46 @@ public class EApplicationService implements java.io.Serializable {
 				mapList.add(toMap(eaList.get(i)));
 			}
 			Map<String, Object> jsonMap = new HashMap<String, Object>();
-			jsonMap.put("total", mapList.size());
+			jsonMap.put("total", getAppCount(auditedType, queryfiled, queryfiledVal));
 			jsonMap.put("rows", mapList);
 			return jsonMap;
 		} else {
 			return null;
 		}
 	}
+	
+	public static int getAppCount(int auditedType, String queryfiled,
+			String queryfiledVal) {
+		int count = 10;
+		String sql = getQuerySql(true,auditedType,queryfiled,queryfiledVal);
+		count = dbSession.getCount(sql);
+		return count;
+	}
+	
 
-	public static List<EApplication> queryAuditApp(int auditedType) {
+	public static List<EApplication> queryAuditApp(int auditedType, int start,
+			int number, String queryfiled, String queryfiledVal) {
 		List<EApplication> eaList = new ArrayList();
-		String sql = "from EApplication ea";
+		String sql = getQuerySql(false,auditedType,queryfiled,queryfiledVal);
+		try {
+			dbSession.init();
+			eaList = dbSession.select(sql, start, number);
+			dbSession.close();
+			return eaList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static String getQuerySql(boolean isCount,int auditedType, String queryfiled,
+			String queryfiledVal) {
+		String sql = "";
+		if(isCount){
+			sql = "select count(*) from EApplication ea";
+		}else{
+			sql = "from EApplication ea";
+		}
 		if (auditedType == 1) {
 			sql = sql + " where ea.status='1'";
 		} else if (auditedType == 99) {
@@ -107,15 +138,27 @@ public class EApplicationService implements java.io.Serializable {
 		} else {
 			sql = sql + " where ea.status='0'";
 		}
-		try {
-			dbSession.init();
-			eaList = dbSession.select(sql);
-			dbSession.close();
-			return eaList;
-		} catch (Exception e) {
-			e.printStackTrace();
+
+		if (queryfiled != null && queryfiledVal != null
+				&& !queryfiledVal.equals("")) {
+			switch (queryfiled) {
+			case "TEACHERNAME":
+				sql = sql + " and ea.createUser like '" + "%" + queryfiledVal
+						+ "%'";
+				break;
+			case "COURSENAME":
+				sql = sql + " and ea.courseName like '" + "%" + queryfiledVal
+						+ "%'";
+				break;
+			case "CREATETIME":
+				sql = sql + " and ea.createdatetime like '" + "%"
+						+ queryfiledVal + "%'";
+				break;
+			default:
+				break;
+			}
 		}
-		return null;
+		return sql;
 	}
 
 	public static boolean addApplication(EApplication ea) {
@@ -127,7 +170,6 @@ public class EApplicationService implements java.io.Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 
