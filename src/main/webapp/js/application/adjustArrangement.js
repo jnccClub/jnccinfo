@@ -10,18 +10,14 @@ function initTimeField() {
 	// 根据起始时间决定结束时间范围
 	$("select[name='adjust.beginTime'] option:disabled").css('color', '#CCC');
 	$("select[name='adjust.endTime'] option:disabled").css('color', '#CCC');
+	$("select[name='adjust.endTime'] option").attr("disabled", true);
 	$("select[name='adjust.beginTime']").change(function() {
 		var selectIndex = this.selectedIndex;
-		$("select[name='adjust.endTime'] option").each(function(i) {
-			if (i == selectIndex) {
-				$(this).attr("selected", true);
-			}
-			if (i < selectIndex) {
-				$(this).attr("disabled", true);
-			} else {
-				$(this).attr("disabled", false);
-			}
-		});
+		if(selectIndex+1 == $("select[name='adjust.beginTime'] option").length){
+			$("select[name='adjust.endTime'] option:last").attr("selected", true);
+		}else{
+			$("select[name='adjust.endTime'] option").eq(selectIndex).attr("selected", true);
+		}
 	});
 }
 

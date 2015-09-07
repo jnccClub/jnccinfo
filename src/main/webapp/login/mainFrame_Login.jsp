@@ -31,12 +31,9 @@
 		<!-- <textarea rows="4" cols="50" name="subject"
 			placeholder="Please enter your message" class="message" required></textarea> -->
 		<p id="loginErrTips"></p>
-		<br>
-		<br>
-		<br>
-		<input class="loginBtn span2" type="button" value="登录"
-			id="loginSubmit" /> <input class="resetBtn span2" type="reset"
-			value="重置" />
+		<br> <br> <br> <input class="loginBtn span2"
+			type="button" value="登录" id="loginSubmit" /> <input
+			class="resetBtn span2" type="reset" value="重置" />
 	</form>
 	<div style="clear: both"></div>
 </div>
@@ -48,7 +45,7 @@
 		$("#loginEntry").hide();
 		$("#logOutEntry").show();
 		$("#loginInfo").show();
-		
+
 	}
 
 	function isLogin() {
@@ -95,17 +92,18 @@
 											if (data.resultCause.resultCode
 													.toString() == "200") {
 												//alert("恭喜，登录成功！");
-												var u_name = data.userInfo.realname
-														.toString();
-												var role = data.userInfo.role
-														.toString();
-												userItemShow(role);
-												showWelBar(u_name);
-												var phoneNo = data.userInfo.phoneno
-														.toString();
-												$(
-														"input[name='applicationInfo.contact']")
-														.val(phoneNo);
+												if (data.userInfo) {
+													var u_name = data.userInfo.realname
+															.toString();
+													var role = data.userInfo.role
+															.toString();
+													userItemShow(role);
+													showWelBar(u_name);
+													var phoneNo = data.userInfo.phoneno
+															.toString();
+													$("input[name='applicationInfo.contact']")
+															.val(phoneNo);
+												}
 											} else if (data.resultCause.resultCode
 													.toString() == "404") {
 												$("#loginErrTips").html(

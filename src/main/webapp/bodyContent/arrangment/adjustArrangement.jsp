@@ -101,7 +101,7 @@
 			<div class="control-group form-inline">
 				<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="control-label">新课程信息：</label>
 				<input id="adjust_appid" name="applicationInfo.course"
-					value="计算机网络基础">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+					>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 					href="javascript:void(0)" class="btn btn-large"
 					onclick="adjustZoneArrange()">確認修改</a>
 			</div>

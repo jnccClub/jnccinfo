@@ -226,7 +226,6 @@ public class EArrangementService implements java.io.Serializable {
 		dbSession.init();
 		dbSession.replaceInsert(ea);
 		dbSession.close();
-		
 		return true;
 	}
 	

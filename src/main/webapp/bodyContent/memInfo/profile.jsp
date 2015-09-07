@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<div id="MF_PROFILE" class="span9">
+<div id="MF_PROFILE" class="span9" style="display:none">
 	<h2>基本信息维护</h2>
 	<!-- BEGIN PAGE CONTENT-->
 	<div class="row-fluid">

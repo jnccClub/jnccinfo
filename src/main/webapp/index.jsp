@@ -24,7 +24,7 @@
 <script src="js/common/bootstrap.min.js"></script>
 <script src="js/common/site.js"></script>
 <script type="text/javascript" src="js/Calendar4.js"></script>
-<script type="text/javascript" src='js/common/jquery.js'></script>
+<script type="text/javascript" src='js/common/jquery.blockUI.js'></script>
 <script type="text/javascript" src='js/datepick/datepick.js'></script>
 <script type="text/javascript"
 	src='js/common/bootstrap-datetimepicker.min.js'></script>

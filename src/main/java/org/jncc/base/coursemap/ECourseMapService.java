@@ -1,9 +1,7 @@
 package org.jncc.base.coursemap;
 
 import java.util.List;
-import java.util.Vector;
 
-import org.jncc.base.xls.ExcelService;
 // default package
 import org.jncc.persistence.dbSession;
 
@@ -25,7 +23,6 @@ public class ECourseMapService implements java.io.Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return ecml;
 	}
 
