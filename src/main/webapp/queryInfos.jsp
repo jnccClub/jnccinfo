@@ -29,10 +29,10 @@
 			data-options="prompt:'Please Input Value',menu:'#mm',searcher:doSearch"
 			style="width:500px"></input>
 		<div id="mm">
-			<div data-options="name:'TNAME',iconCls:'icon-tip'">教师姓名</div>
-			<div data-options="name:'CNAME',iconCls:'icon-ok'">课程名称</div>
-			<div data-options="name:'CLASS',iconCls:'icon-reload'">班 级</div>
-			<div data-options="name:'SNO',iconCls:'icon-save'">学 号</div>
+			<div data-options="name:'TNAME',iconCls:'icon-signal'">教师姓名</div>
+			<div data-options="name:'CNAME',iconCls:'icon-star'">课程名称</div>
+			<div data-options="name:'CLASS',iconCls:'icon-eye-open'">班 级</div>
+			<div data-options="name:'SNO',iconCls:'icon-film'">学 号</div>
 		</div>
 	</div>
 

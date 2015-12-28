@@ -123,14 +123,15 @@ $(function() {
 			}
 		});
 	});
-	$("#termSelect").change(function() {
-		var curSelTerm = $("#termSelect").val();
-		var schoolBeginDate = new Date(curSelTerm);
-		updateFirstBeginMon(schoolBeginDate);
-	});
+
 	$("select[name='ea.floor']").change(function() {
 		// alert($(this).children('option:selected').val()); // 弹出select的值
 		showSpecifyZone($(this).children('option:selected').val());
+	});
+	$("#termSelect_app").change(function() {
+		var curSelTerm = $("#termSelect_app").val();
+		var schoolBeginDate = new Date(curSelTerm);
+		updateFirstBeginMon(schoolBeginDate);
 	});
 
 });

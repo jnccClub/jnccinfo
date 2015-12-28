@@ -136,6 +136,7 @@ public class ApplicationAction extends ActionSupport {
 			resultCause.setCause("503", "添加失败");
 			return "ADD_APP_SUCCESS";
 		}
+		resultCause.setCause("503", "添加失败");
 		ea.setStatus("0");
 		Timestamp curTime = new Timestamp(System.currentTimeMillis());
 		EApplicationID eaID = ea.getId();
@@ -167,7 +168,6 @@ public class ApplicationAction extends ActionSupport {
 		eArr.setCreatetime(ea.getId().getCreatedatetime());
 		try {
 			dbSession.init();
-			int txCount = 0;
 			for (String bookDate : dInfos) {
 				System.out.println(bookDate);
 				eArrId.setDate(bookDate);
@@ -178,7 +178,6 @@ public class ApplicationAction extends ActionSupport {
 						eArrId.setCourse(i);
 						eArr.setId(eArrId);
 						dbSession.replaceInsert(eArr);
-						txCount++;
 						dbSession.flush();
 					}
 				}
@@ -191,9 +190,7 @@ public class ApplicationAction extends ActionSupport {
 		if (EApplicationService.addApplication(ea)) {
 			resultCause.setCause("200", "恭喜，添加成功");
 			new MsgSendThread(ea, us); // 发送邮件与QQ消息;异步发送，减少延迟。
-		} else {
-			resultCause.setCause("503", "添加失败");
-		}
+		} 
 		return "ADD_APP_SUCCESS";
 	}
 

@@ -109,6 +109,7 @@ function edit_course() {
 
 function save_course() {
 	$("#circular").show();
+	$('#dlg_course').dialog('close');
 	var param = [ {
 		name : "ec.serial",
 		value : $("input[name='fld_C_SERIAL']").val()
@@ -129,7 +130,7 @@ function save_course() {
 		value : $("input[name='fld_C_CNUM']").val()
 	}, {
 		name : "ec.comment",
-		value : $("input[name='fld_C_COMMENT']").val()
+		value : $("textarea[name='fld_C_COMMENT']").val()
 	} ];
 	if (!isAddcourse) {
 		var row = $('#tbl_course').datagrid('getSelected');
@@ -151,7 +152,6 @@ function save_course() {
 				if (data.resultCode == "200") {
 					alert("课程信息保存成功");
 					$("#tbl_course").datagrid('reload');
-					$('#dlg_course').dialog('close');
 				} else {
 					alert("对不起，您没有权限！");
 				}

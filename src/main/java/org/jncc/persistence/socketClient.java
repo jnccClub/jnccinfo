@@ -41,7 +41,7 @@ public class SocketClient {
 	// is.close();
 	// os.close();
 	// socket.close();
-	// System.out.println("Socket已关闭");
+	// System.out.println("Socket已关�?");
 	// } catch (Exception e) {
 	// System.out.println("关闭异常");
 	// e.printStackTrace();
@@ -74,7 +74,7 @@ public class SocketClient {
 	// try {
 	// socket = new Socket(SERVERIP, SERVERPORT);
 	// } catch (UnknownHostException e) {
-	// System.out.println("主机未找到");
+	// System.out.println("主机未找�?");
 	// e.printStackTrace();
 	// } catch (IOException e) {
 	// System.out.println("建立连接异常");
@@ -106,7 +106,7 @@ public class SocketClient {
 					.valueOf(UtilTool.getProperty("SERVERPORT"));
 			socket = new Socket(SERVERIP, SERVERPORT);
 			System.out.println("Socket=" + socket);
-			// 同服务器原理一样
+			// 同服务器原理�?�?
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
 			// for (int k = 1; k < 100; k = k + 2) {

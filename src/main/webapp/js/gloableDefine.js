@@ -1,5 +1,5 @@
 ﻿$(function() {
-	schoolBeginDate = new Date("2015-08-31");
+	schoolBeginDate = new Date("2016-02-22");
 	updateFirstBeginMon(schoolBeginDate);
 	$(document).ajaxStart(function() {
 		blockUI($(".container").eq(0));

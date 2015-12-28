@@ -2,9 +2,8 @@
 
 	renewMainId('#MF_WEEKINFO');
 	var today = new Date();
-	var semester = $("#termSelect").val();
+	var semester = $("#termSelect_query").val();
 	var shoolBeginDate = new Date(semester.replace(/-/g,   "/"));
-	
 	var curWeekCount = getCurWeek(shoolBeginDate,today);
 	
 	var optionHtml = "";
@@ -23,7 +22,7 @@
 }
 
 function getCourseSelectedDate() {
-	var semester = $("#termSelect").val();
+	var semester = $("#termSelect_query").val();
 	var curWeek = $('#courseInfo_week').val();
 	var beginWeekDate = getCurDate(semester, curWeek);
 	return beginWeekDate.FormatHPF("yyyy-MM-dd");

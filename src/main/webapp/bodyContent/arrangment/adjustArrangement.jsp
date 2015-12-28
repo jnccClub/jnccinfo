@@ -63,30 +63,30 @@
 			<div class="control-group">
 				<div class="radio form-inline">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label class="control-label">课程名称：&nbsp;</label>
-					<input type="text" name="adjust.courseName" disabled="disabled" />
+					<input type="text" name="adjust.courseName"  />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
 						class="control-label">课程编号：</label> <input type="text"
-						name="adjust.courseSerial" disabled="disabled" />
+						name="adjust.courseSerial"  />
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="radio form-inline">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
 						class="control-label">教师姓名：&nbsp;</label> <input type="text"
-						name="adjust.teacherName" disabled="disabled" />
+						name="adjust.teacherName"  />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
 						class="control-label">教师工号：</label> <input type="text"
-						name="adjust.teacherNo" disabled="disabled" />
+						name="adjust.teacherNo"  />
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="radio form-inline">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
 						class="control-label">学生人数：&nbsp;</label> <input type="text"
-						name="adjust.stuNum" disabled="disabled" />
+						name="adjust.stuNum"  />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
 						class="control-label">班机信息：</label> <input type="text"
-						name="adjust.classNo" disabled="disabled" />
+						name="adjust.classNo"  />
 				</div>
 			</div>
 			<div>
