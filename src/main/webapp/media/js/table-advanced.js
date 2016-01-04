@@ -12,13 +12,13 @@ var TableAdvanced = function() {
 			[ 5, 10, 15, 20, "All" ] // change per page values here
 			],
 			// set the initial value
-			"iDisplayLength" : 10,
+			"iDisplayLength" : 30,
 			/* Reduced data set */
 			"aaData" : data,
-			"aoColumns" :columns,
+			"aoColumns" :columns
 		});
 
-		jQuery('#sample_2_wrapper .dataTables_filter input').addClass(
+		jQuery('#sample_2_wrapper .dataTables_filter input').ad	dClass(
 				"m-wrap small"); // modify table search input
 		jQuery('#sample_2_wrapper .dataTables_length select').addClass(
 				"m-wrap small"); // modify table per page dropdown

@@ -70,7 +70,7 @@ var TableEditable = function() {
 								// set the initial value
 								"iDisplayLength" : 10,
 								"sDom" : "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-								"sPaginationType" : "bootstrap",
+								"sPaginationType" : "full_numbers",
 								"oLanguage" : {
 									"sLengthMenu" : "每页 _MENU_ 条",
 									"oPaginate" : {

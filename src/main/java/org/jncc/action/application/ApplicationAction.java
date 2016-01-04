@@ -23,6 +23,9 @@ import org.jncc.persistence.Mail;
 import org.jncc.persistence.MsgSendThread;
 import org.jncc.persistence.UtilTool;
 import org.jncc.persistence.dbSession;
+import org.nuaa.mapp.servlet.ApplicationCtxListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -32,6 +35,8 @@ public class ApplicationAction extends ActionSupport {
 	 * 
 	 */
 
+	private static Logger logger = LoggerFactory
+			.getLogger(ApplicationAction.class);
 	private static final long serialVersionUID = 1L;
 	private ResultCause resultCause = new ResultCause();
 	private EApplication ea;
@@ -188,8 +193,11 @@ public class ApplicationAction extends ActionSupport {
 		}
 
 		if (EApplicationService.addApplication(ea)) {
+			logger.info("添加application成功！AppInfo is："+ea.getId().getApplicationId()+"|"+ea.getCreateUser()+"|"+ea.getCourseName()+"|");
 			resultCause.setCause("200", "恭喜，添加成功");
 			new MsgSendThread(ea, us); // 发送邮件与QQ消息;异步发送，减少延迟。
+		}else{
+			logger.info("添加application失败！AppInfo is："+ea.getId().getApplicationId()+"|"+ea.getCreateUser()+"|"+ea.getCourseName()+"|");
 		} 
 		return "ADD_APP_SUCCESS";
 	}

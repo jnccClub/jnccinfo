@@ -86,7 +86,8 @@
 <script type="text/javascript" src='js/cfg/course.js'></script>
 <script type="text/javascript" src='js/common/jquery.easyui.min.js'></script>
 <script type="text/javascript" src="js/common/jquery.seat-charts.min.js"></script>
-
+<script type="text/javascript" src="media/js/table-editable.js"></script>
+<script type="text/javascript" src="media/js/jquery.dataTables.js"></script>
 
 
 </html>

@@ -1,5 +1,8 @@
 package org.nuaa.mapp.servlet;
 
+import java.util.Properties;
+
+import org.apache.log4j.PropertyConfigurator;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -36,9 +39,17 @@ public class ApplicationCtxListener implements ServletContextListener {
 	}
 	
 	public void contextInitialized(ServletContextEvent event) {
+//		String localPath = this.getClass().getResource("").getPath();
+//		localPath = event.getServletContext().getRealPath("/");
+//		String logPPath = localPath + "/resources/log4j.properties";
+//		PropertyConfigurator.configure(logPPath);
+		
+		
 		// 初始化 Hibernate 配置
-		logger.debug("Initialize hibernate...");
+
 		Configuration config = new Configuration().configure();
+		logger.debug("Initialize hibernate...");
+		
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 				.applySettings(config.getProperties()).build();
 		SessionFactory factory = config.buildSessionFactory(serviceRegistry);
@@ -48,7 +59,6 @@ public class ApplicationCtxListener implements ServletContextListener {
 		// 创建 TLV socket 服务
 		logger.debug("Initialize socket server...");
 		logger.info("初始化 Servlet 完成");
-		
 		//静态变量初始化
 		ECourseMapService.setECourseMapList();
 		ECourseService.updateEcList();

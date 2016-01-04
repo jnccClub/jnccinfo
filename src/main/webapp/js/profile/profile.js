@@ -25,10 +25,10 @@
 		success : function(data, status) {
 			if (status == "success") {
 				if (data == null || data.length == 0) {
-					TableEditable.init("sample_editable_1", data, columns);
+					TableEditable.init("sample_editable_profile", data, columns);
 					alert("Sorry,你的权限太low啦或者还没有登录？！");
 				} else {
-					TableEditable.init("sample_editable_1", data, columns);
+					TableEditable.init("sample_editable_profile", data, columns);
 				}
 			}
 		},

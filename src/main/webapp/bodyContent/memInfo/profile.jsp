@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
 <div id="MF_PROFILE" class="span9" style="display:none">
 	<h2>基本信息维护</h2>
 	<!-- BEGIN PAGE CONTENT-->
@@ -55,7 +56,7 @@
 					</div>
 
 					<table class="table table-striped table-hover table-bordered"
-						id="sample_editable_1">
+						id="sample_editable_profile">
 					</table>
 
 				</div>
