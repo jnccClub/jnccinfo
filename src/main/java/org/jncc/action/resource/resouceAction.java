@@ -172,7 +172,11 @@ public class resouceAction extends ActionSupport {
 			queryfiled = "TEACHERNAME";
 			Map session = ActionContext.getContext().getSession();
 			UserInfo us = (UserInfo) session.get("USERINFO");
-			queryfiledVal = us.getUsername();
+			if(us==null){
+				queryfiledVal = us.getUsername();
+			}else{
+				queryfiledVal = us.getUsername();
+			}
 		} else {
 			queryfiledVal = "";
 		}
